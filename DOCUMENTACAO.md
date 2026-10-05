@@ -509,9 +509,21 @@ Para conferir dinamismo vivo ao design sem comprometer o contraste e a legibilid
 - Duas curvas senoidais em SVG posicionadas na base do Hero (`.animate-bg-wave-1` e `.animate-bg-wave-2`), deslizando continuamente em direções opostas em ciclos de 20s e 28s.
 - Opacidade atenuada (35%) para transição fluida para a faixa de selos de confiança.
 
+---
 
+## 17. Atualização do Logotipo Oficial Vertical no Card do Hero
 
+Para harmonizar com a proporção vertical do card interativo da Home, foi implementada a versão vertical da identidade visual:
 
+### 17.1. Características da Logo Vertical
+- **Emblema Superior**: Gota de pureza e pressão hidrodinâmica com onda líquida inferior e curva de calor em dourado/âmbar.
+- **Tipograma Principal**: "Pressurize" em azul royal e "Prime" em dourado nobre.
+- **Subtítulo de Atuação**: "AQUECEDORES E PRESSURIZADORES" em cinza ardósia espaçado.
+- **Localização dos Ativos**:
+  - `frontend/public/logo-vertical.png`
+  - `frontend/src/assets/logo-vertical.png`
+  - `asserts/logo-vertical.png`
 
-
-
+### 17.2. Integração e Responsividade
+- Card redimensionado com paddings ajustados (`p-6 sm:p-8`), permitindo que a logo ocupe até `w-60 sm:w-68` com nitidez cristalina.
+- Parâmetro `logo_vertical_url` adicionado ao schema de configurações `SiteSettings`, permitindo substituição via API/CMS administrativo.

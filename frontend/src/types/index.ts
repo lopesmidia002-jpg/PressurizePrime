@@ -1,6 +1,7 @@
 export interface SiteSettings {
   site_name: string;
   logo_url: string;
+  logo_vertical_url?: string;
   primary_color: string;
   secondary_color: string;
   whatsapp_number: string;

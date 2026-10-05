@@ -3,6 +3,7 @@ import type { SiteSettings, PageData, ServiceItem, FaqItem } from '../types';
 export const defaultSettings: SiteSettings = {
   site_name: 'Pressurize Prime — Aquecedores e Pressurizadores',
   logo_url: '/logo.jpeg',
+  logo_vertical_url: '/logo-vertical.png',
   primary_color: '#004b93',
   secondary_color: '#cfa349',
   whatsapp_number: '(11) 99390-2319',

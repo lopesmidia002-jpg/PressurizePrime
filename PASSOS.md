@@ -211,7 +211,14 @@ Cada etapa possui critérios de aceitação claros e checkboxes que são atualiz
     - [x] Criação de ondas líquidas suaves na base do Hero via curvas senoidais SVG sobrepostas (`.animate-bg-wave-1` e `.animate-bg-wave-2`), ancorando a temática de fluidos sem ofuscar o texto ou os botões de ação.
     - [x] Suporte a acessibilidade com `@media (prefers-reduced-motion: reduce)` cobrindo todas as novas animações de fundo.
     - [x] Build de produção compilado com sucesso (`tsc -b && vite build`) em 3.05s com 0 erros.
+---
 
-
-
-
+- [x] **Passo 17: Substituição do Logotipo Horizontal pela Versão Vertical Oficial no Card do Hero**
+  - **Prioridade**: Alta (Brand Alignment & Visual Balance)
+  - **Status**: Concluído
+  - **Entregáveis**:
+    - [x] Extração e tratamento de imagem da logo vertical oficial com gota tridimensional estilizada, onda azul e chama dourada, além dos tipogramas "Pressurize Prime" e "AQUECEDORES E PRESSURIZADORES".
+    - [x] Armazenamento do ativo em alta fidelidade em `frontend/public/logo-vertical.png`, `frontend/src/assets/logo-vertical.png` e `asserts/logo-vertical.png`.
+    - [x] Suporte a `logo_vertical_url` nas interfaces TypeScript (`types/index.ts`) e dados padrão (`initialData.ts`).
+    - [x] Atualização de `HeroSection.tsx` substituindo o logotipo horizontal que ficava acanhado no card pelo novo formato vertical, perfeitamente centralizado e proporcional com a referência visual do usuário.
+    - [x] Build limpo do Vite/TypeScript compilado com sucesso em 1.35s com 0 erros.

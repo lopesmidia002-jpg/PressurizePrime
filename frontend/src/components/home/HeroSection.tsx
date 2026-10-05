@@ -228,7 +228,7 @@ export const HeroSection: React.FC = () => {
           <div className="lg:col-span-5 flex justify-center w-full">
             <div
               onClick={handleCardClick}
-              className="relative w-full max-w-md bg-white rounded-3xl border border-slate-200/90 shadow-2xl shadow-blue-900/10 p-8 sm:p-10 flex flex-col items-center justify-center text-center overflow-hidden cursor-pointer select-none transition-all duration-300 hover:shadow-3xl hover:border-blue-200 active:scale-[0.985] group"
+              className="relative w-full max-w-md bg-white rounded-3xl border border-slate-200/90 shadow-2xl shadow-blue-900/10 p-6 sm:p-8 flex flex-col items-center justify-center text-center overflow-hidden cursor-pointer select-none transition-all duration-300 hover:shadow-3xl hover:border-blue-200 active:scale-[0.985] group"
             >
               {/* Barra de Acento Dourada no Topo Direito */}
               <div className="absolute top-0 right-8 w-24 h-1.5 bg-gradient-to-r from-amber-400 to-amber-500 rounded-b-full pointer-events-none"></div>
@@ -263,18 +263,18 @@ export const HeroSection: React.FC = () => {
                 </div>
               ))}
 
-              {/* Emblema Oficial da Marca */}
-              <div className="relative z-10 flex flex-col items-center py-4">
+              {/* Emblema Oficial da Marca em Formato Vertical */}
+              <div className="relative z-10 flex flex-col items-center pt-2 pb-1">
                 <img
-                  src={settings.logo_url || '/logo.jpeg'}
+                  src={settings.logo_vertical_url || '/logo-vertical.png'}
                   alt="Pressurize Prime"
-                  className="h-44 sm:h-52 w-auto object-contain pointer-events-none drop-shadow-xs transition-transform duration-300 group-hover:scale-[1.03]"
+                  className="w-60 sm:w-68 max-w-full h-auto object-contain pointer-events-none drop-shadow-xs transition-transform duration-300 group-hover:scale-[1.03]"
                 />
               </div>
 
               {/* Pílula Interativa de Clique no Rodapé do Card */}
               <div
-                className={`relative z-10 mt-6 inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 shadow-2xs ${
+                className={`relative z-10 mt-5 inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 shadow-2xs ${
                   justClicked
                     ? 'bg-amber-100 text-amber-900 border border-amber-300 scale-105'
                     : 'bg-blue-50/90 hover:bg-blue-100 text-blue-700 border border-blue-200/70'
