@@ -1,0 +1,10 @@
+export { LPHero } from './LPHero';
+export { LPTrustBadges } from './LPTrustBadges';
+export { LPSymptoms } from './LPSymptoms';
+export { LPWhatWeDo } from './LPWhatWeDo';
+export { LPWhyUs } from './LPWhyUs';
+export { LPSteps } from './LPSteps';
+export { LPObjections } from './LPObjections';
+export { LPFaq } from './LPFaq';
+export { LPLeadSection } from './LPLeadSection';
+export { LPFinalCta } from './LPFinalCta';

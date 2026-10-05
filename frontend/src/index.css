@@ -1,0 +1,400 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-primary: #004b93;       /* Azul Royal Pressurize Prime */
+    --color-primary-dark: #003366;  /* Azul Marinho Profundo */
+    --color-primary-light: #0d6efd; /* Azul Brilhante */
+    --color-secondary: #cfa349;     /* Dourado / Ouro Prime */
+    --color-secondary-dark: #b38b34;/* Dourado Escuro */
+    --color-secondary-light: #dfb967;/* Dourado Claro */
+    --color-accent: #f59e0b;        /* Laranja Quente (Aquecimento) */
+    --color-bg-light: #f8fafc;      /* Fundo Claro */
+    --color-surface: #ffffff;       /* Superfície Branca */
+    --color-text-main: #0f172a;     /* Texto Principal */
+    --color-text-muted: #475569;    /* Texto Secundário */
+    --color-border: #e2e8f0;        /* Bordas Suaves */
+  }
+
+  body {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-main);
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: #dfb967;
+    color: #0f172a;
+  }
+}
+
+
+/* Utilitários Dinâmicos de Cores do Tema */
+.bg-primary {
+  background-color: var(--color-primary);
+}
+.bg-primary-dark {
+  background-color: var(--color-primary-dark);
+}
+.text-primary {
+  color: var(--color-primary);
+}
+.border-primary {
+  border-color: var(--color-primary);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+.bg-secondary-dark {
+  background-color: var(--color-secondary-dark);
+}
+.text-secondary {
+  color: var(--color-secondary);
+}
+.border-secondary {
+  border-color: var(--color-secondary);
+}
+
+.hover\:bg-primary-dark:hover {
+  background-color: var(--color-primary-dark);
+}
+.hover\:bg-secondary-dark:hover {
+  background-color: var(--color-secondary-dark);
+}
+
+/* Animações e Efeitos de Movimento de Alto Padrão (Hydrodynamic Motion) */
+@keyframes fluid-orb-float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 10px 25px -5px rgba(0, 75, 147, 0.25), 0 8px 10px -6px rgba(0, 75, 147, 0.2);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 35px -5px rgba(0, 75, 147, 0.35), 0 12px 16px -6px rgba(0, 75, 147, 0.25);
+  }
+}
+
+@keyframes water-ripple-refined {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.65;
+  }
+  50% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@keyframes fluid-wave-horizontal {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes fluid-wave-horizontal-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes ambient-caustic-drift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(20px, -15px) scale(1.08);
+  }
+  66% {
+    transform: translate(-15px, 12px) scale(0.95);
+  }
+}
+
+@keyframes shimmer-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes fade-in-up-refined {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fluid-orb {
+  animation: fluid-orb-float 6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  will-change: transform, box-shadow;
+}
+
+.animate-water-ripple-1 {
+  animation: water-ripple-refined 4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  will-change: transform, opacity;
+}
+
+.animate-water-ripple-2 {
+  animation: water-ripple-refined 4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  animation-delay: 1.33s;
+  will-change: transform, opacity;
+}
+
+.animate-water-ripple-3 {
+  animation: water-ripple-refined 4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  animation-delay: 2.66s;
+  will-change: transform, opacity;
+}
+
+.animate-wave-fast {
+  animation: fluid-wave-horizontal 8s linear infinite;
+  will-change: transform;
+}
+
+.animate-wave-slow {
+  animation: fluid-wave-horizontal-reverse 12s linear infinite;
+  will-change: transform;
+}
+
+.animate-caustic-1 {
+  animation: ambient-caustic-drift 16s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-caustic-2 {
+  animation: ambient-caustic-drift 22s ease-in-out infinite reverse;
+  will-change: transform;
+}
+
+.animate-shimmer {
+  animation: shimmer-sweep 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-fade-up-1 {
+  animation: fade-in-up-refined 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fade-up-2 {
+  animation: fade-in-up-refined 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+.animate-fade-up-3 {
+  animation: fade-in-up-refined 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+.animate-fade-up-4 {
+  animation: fade-in-up-refined 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+}
+
+@keyframes aurora-mesh-drift {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  33% {
+    transform: translate(35px, -25px) rotate(4deg) scale(1.08);
+  }
+  66% {
+    transform: translate(-30px, 25px) rotate(-3deg) scale(0.95);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes particle-drift-up {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.85);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-130px) translateX(25px) scale(1.15);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-drift-up-alt {
+  0% {
+    transform: translateY(0) translateX(0) scale(1.1);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.65;
+  }
+  75% {
+    opacity: 0.65;
+  }
+  100% {
+    transform: translateY(-150px) translateX(-22px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes bg-liquid-wave {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes bg-liquid-wave-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-aurora-mesh {
+  animation: aurora-mesh-drift 24s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-aurora-mesh-slow {
+  animation: aurora-mesh-drift 32s ease-in-out infinite reverse;
+  will-change: transform;
+}
+
+.animate-particle-1 {
+  animation: particle-drift-up 9s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-particle-2 {
+  animation: particle-drift-up-alt 12s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-particle-3 {
+  animation: particle-drift-up 15s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-bg-wave-1 {
+  animation: bg-liquid-wave 20s linear infinite;
+  will-change: transform;
+}
+
+.animate-bg-wave-2 {
+  animation: bg-liquid-wave-reverse 28s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fluid-orb,
+  .animate-water-ripple-1,
+  .animate-water-ripple-2,
+  .animate-water-ripple-3,
+  .animate-wave-fast,
+  .animate-wave-slow,
+  .animate-caustic-1,
+  .animate-caustic-2,
+  .animate-shimmer,
+  .animate-fade-up-1,
+  .animate-fade-up-2,
+  .animate-fade-up-3,
+  .animate-fade-up-4,
+  .animate-aurora-mesh,
+  .animate-aurora-mesh-slow,
+  .animate-particle-1,
+  .animate-particle-2,
+  .animate-particle-3,
+  .animate-bg-wave-1,
+  .animate-bg-wave-2 {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* Transições Fluidas de Accordion para FAQ (Garante 0fr para 1fr em todos os browsers) */
+.faq-accordion-grid {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms cubic-bezier(0.16, 1, 0.3, 1), opacity 250ms ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.faq-accordion-grid.open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.faq-accordion-content {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Card Splash e Efeito de Impacto Hidráulico */
+@keyframes splash-droplet {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.9;
+  }
+  60% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy)) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes card-ripple-expand {
+  0% {
+    transform: translate(-50%, -50%) scale(0.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.8);
+    opacity: 0;
+  }
+}
+
+.animate-splash-droplet {
+  animation: splash-droplet 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.animate-card-ripple {
+  animation: card-ripple-expand 0.75s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+
+

@@ -1,0 +1,79 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: pressurize_prime_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: pressurize_prime
+      MYSQL_ROOT_PASSWORD: root_secret
+      MYSQL_USER: prime_user
+      MYSQL_PASSWORD: prime_secret
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - pressurize_net
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -proot_secret || exit 1"]
+      interval: 4s
+      timeout: 5s
+      retries: 15
+      start_period: 10s
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: pressurize_prime_backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    environment:
+      APP_NAME: "Pressurize Prime API"
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_KEY: "base64:3uJb7aY7vP1vGZf1aXy2mK7bY8cT4sA5eW6qR0pL2n4="
+      APP_URL: "http://localhost:8000"
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: pressurize_prime
+      DB_USERNAME: prime_user
+      DB_PASSWORD: prime_secret
+      SANCTUM_STATEFUL_DOMAINS: "localhost:5173,127.0.0.1:5173,localhost:8000,frontend:5173"
+    volumes:
+      - ./backend:/var/www/html
+      - backend_vendor:/var/www/html/vendor
+    networks:
+      - pressurize_net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: pressurize_prime_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_BACKEND_URL=http://backend:8000
+    volumes:
+      - ./frontend:/app
+      - frontend_node_modules:/app/node_modules
+    networks:
+      - pressurize_net
+
+volumes:
+  mysql_data:
+  backend_vendor:
+  frontend_node_modules:
+
+networks:
+  pressurize_net:
+    driver: bridge
