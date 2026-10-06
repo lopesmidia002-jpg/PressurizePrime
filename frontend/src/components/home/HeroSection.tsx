@@ -29,22 +29,27 @@ export const HeroSection: React.FC = () => {
     return () => clearInterval(interval);
   }, [displayServices.length, isHovered]);
 
+  const fallbackImages = [
+    'https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=1920&q=80',
+    'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1920&q=80',
+    'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80',
+    'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80'
+  ];
+
   const currentService = displayServices[activeTab];
 
   return (
     <section 
       className="relative overflow-hidden pt-24 pb-24 md:pt-36 md:pb-36 border-b border-slate-200 min-h-[85vh] flex flex-col justify-center transition-all duration-700"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       {/* Imagem de Fundo com Transição Suave */}
       {displayServices.map((srv, idx) => (
         <div 
           key={idx}
-          className={`absolute inset-0 overflow-hidden pointer-events-none transition-opacity duration-1000 ${activeTab === idx ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute inset-0 overflow-hidden pointer-events-none transition-opacity duration-1000 ${activeTab === idx ? 'opacity-100' : 'opacity-0 z-0'}`}
         >
           <img
-            src={srv.image_url || 'https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=1920&q=80'}
+            src={srv.image_url || fallbackImages[idx % fallbackImages.length]}
             alt=""
             aria-hidden="true"
             className={`w-full h-full object-cover ${activeTab === idx ? 'animate-hero-bg-pan' : ''}`}
@@ -58,7 +63,13 @@ export const HeroSection: React.FC = () => {
         
         {/* Abas (Tabs) */}
         {displayServices.length > 1 && (
-          <div className="w-full max-w-full overflow-x-auto hide-scrollbar snap-x snap-mandatory mb-8 sm:mb-10 rounded-2xl">
+          <div 
+            className="w-full max-w-full overflow-x-auto hide-scrollbar snap-x snap-mandatory mb-8 sm:mb-10 rounded-2xl"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            onTouchStart={() => setIsHovered(true)}
+            onTouchEnd={() => setIsHovered(false)}
+          >
             <div className="flex sm:flex-wrap sm:justify-center gap-2 bg-white/10 p-1.5 rounded-2xl backdrop-blur-md border border-white/20 w-max sm:w-auto mx-auto min-w-full">
               {displayServices.map((srv, idx) => {
                 const isActive = activeTab === idx;
