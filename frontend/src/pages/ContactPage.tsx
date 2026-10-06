@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { TopBar, Header, Footer } from '../components/common';
-import { MapPin, Phone, Mail, Clock, Send, MessageSquare } from 'lucide-react';
+import { Phone, Mail, Clock, Send, MessageSquare } from 'lucide-react';
 import { useSiteData } from '../context/SiteDataContext';
 
 export const ContactPage: React.FC = () => {
@@ -54,8 +54,8 @@ export const ContactPage: React.FC = () => {
               </div>
               <h3 className="font-bold text-slate-900 text-lg mb-1">E-mail</h3>
               <p className="text-slate-600 text-sm mb-4">Dúvidas corporativas e parcerias.</p>
-              <a href={`mailto:${settings.email}`} className="text-slate-900 font-bold hover:text-primary transition-colors">
-                {settings.email}
+              <a href="mailto:contato@pressurizeprime.com.br" className="text-slate-900 font-bold hover:text-primary transition-colors">
+                contato@pressurizeprime.com.br
               </a>
             </div>
             

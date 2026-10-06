@@ -97,3 +97,8 @@ O projeto é estruturado em duas camadas principais:
 
 
 
+
+### Atualização (Páginas Institucionais)
+- Adicionadas rotas /diferenciais, /como-funciona e /duvidas.
+- Atualizada a rota /sobre com seções de História, Missão/Visão, Números e CTAs.
+- Atualizado Header e Footer.

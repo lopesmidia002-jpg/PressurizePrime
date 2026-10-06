@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSiteData } from '../context/SiteDataContext';
-import { TopBar, Header, Footer, WhatsAppButton, LeadModal } from '../components/common';
+import { TopBar, Header, Footer } from '../components/common';
 import {
   HeroSection,
   TrustBadges,
@@ -49,8 +49,6 @@ export const HomePage: React.FC = () => {
       </main>
 
       <Footer />
-      <WhatsAppButton />
-      <LeadModal />
     </div>
   );
 };

@@ -4,6 +4,9 @@ import { AuthProvider } from './context/AuthContext';
 import { HomePage } from './pages/HomePage';
 import { ServiceLPPage } from './pages/ServiceLPPage';
 import { AboutPage } from './pages/AboutPage';
+import { DiferenciaisPage } from './pages/DiferenciaisPage';
+import { HowItWorksPage } from './pages/HowItWorksPage';
+import { FaqPage } from './pages/FaqPage';
 import { ContactPage } from './pages/ContactPage';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { TermsOfUsePage } from './pages/TermsOfUsePage';
@@ -17,6 +20,7 @@ import {
   SeoManagerPage,
   LeadsPage
 } from './pages/admin';
+import { WhatsAppButton, LeadModal } from './components/common';
 
 export default function App() {
   return (
@@ -27,6 +31,9 @@ export default function App() {
             {/* Rotas Públicas do Site Institucional */}
             <Route path="/" element={<HomePage />} />
             <Route path="/sobre" element={<AboutPage />} />
+            <Route path="/diferenciais" element={<DiferenciaisPage />} />
+            <Route path="/como-funciona" element={<HowItWorksPage />} />
+            <Route path="/duvidas" element={<FaqPage />} />
             <Route path="/contato" element={<ContactPage />} />
             <Route path="/privacidade" element={<PrivacyPolicyPage />} />
             <Route path="/termos" element={<TermsOfUsePage />} />
@@ -55,6 +62,8 @@ export default function App() {
             {/* Fallback de rotas de serviços */}
             <Route path="/:slug" element={<ServiceLPPage />} />
           </Routes>
+          <WhatsAppButton />
+          <LeadModal />
         </AuthProvider>
       </SiteDataProvider>
     </BrowserRouter>

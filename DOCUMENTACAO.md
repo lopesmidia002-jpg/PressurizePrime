@@ -527,3 +527,8 @@ Para harmonizar com a proporção vertical do card interativo da Home, foi imple
 ### 17.2. Integração e Responsividade
 - Card redimensionado com paddings ajustados (`p-6 sm:p-8`), permitindo que a logo ocupe até `w-60 sm:w-68` com nitidez cristalina.
 - Parâmetro `logo_vertical_url` adicionado ao schema de configurações `SiteSettings`, permitindo substituição via API/CMS administrativo.
+
+### Atualização (Páginas Institucionais)
+- Adicionadas rotas /diferenciais, /como-funciona e /duvidas.
+- Atualizada a rota /sobre com seções de História, Missão/Visão, Números e CTAs.
+- Atualizado Header e Footer.

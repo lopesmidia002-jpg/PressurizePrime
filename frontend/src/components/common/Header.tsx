@@ -27,7 +27,7 @@ export const Header: React.FC = () => {
   return (
     <header className="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-20 gap-4 lg:gap-8">
           {/* Logo Oficial */}
           <Link to="/" className="flex items-center gap-2 shrink-0 group">
             <img
@@ -89,18 +89,18 @@ export const Header: React.FC = () => {
               )}
             </div>
 
-            <a href="/#quem-somos" className="text-sm font-semibold text-slate-700 hover:text-primary transition-colors whitespace-nowrap">
+            <Link to="/sobre" className={`text-sm font-semibold transition-colors whitespace-nowrap ${location.pathname === '/sobre' ? 'text-primary' : 'text-slate-700 hover:text-primary'}`}>
               Sobre
-            </a>
-            <a href="/#diferenciais" className="text-sm font-semibold text-slate-700 hover:text-primary transition-colors whitespace-nowrap">
+            </Link>
+            <Link to="/diferenciais" className={`text-sm font-semibold transition-colors whitespace-nowrap ${location.pathname === '/diferenciais' ? 'text-primary' : 'text-slate-700 hover:text-primary'}`}>
               Diferenciais
-            </a>
-            <a href="/#como-funciona" className="text-sm font-semibold text-slate-700 hover:text-primary transition-colors whitespace-nowrap">
+            </Link>
+            <Link to="/como-funciona" className={`text-sm font-semibold transition-colors whitespace-nowrap ${location.pathname === '/como-funciona' ? 'text-primary' : 'text-slate-700 hover:text-primary'}`}>
               Como funciona
-            </a>
-            <a href="/#faq" className="text-sm font-semibold text-slate-700 hover:text-primary transition-colors whitespace-nowrap">
+            </Link>
+            <Link to="/duvidas" className={`text-sm font-semibold transition-colors whitespace-nowrap ${location.pathname === '/duvidas' ? 'text-primary' : 'text-slate-700 hover:text-primary'}`}>
               Dúvidas
-            </a>
+            </Link>
           </nav>
 
           <div className="flex-1 min-w-0"></div>
@@ -190,27 +190,34 @@ export const Header: React.FC = () => {
           </div>
 
           <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
-            <a
-              href="/#quem-somos"
+            <Link
+              to="/sobre"
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-50"
+              className={`block px-3 py-2 rounded-md text-sm font-medium ${location.pathname === '/sobre' ? 'bg-blue-50 text-primary' : 'text-slate-700 hover:bg-slate-50'}`}
             >
-              Quem Somos
-            </a>
-            <a
-              href="/#como-funciona"
+              Sobre
+            </Link>
+            <Link
+              to="/diferenciais"
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-50"
+              className={`block px-3 py-2 rounded-md text-sm font-medium ${location.pathname === '/diferenciais' ? 'bg-blue-50 text-primary' : 'text-slate-700 hover:bg-slate-50'}`}
+            >
+              Diferenciais
+            </Link>
+            <Link
+              to="/como-funciona"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`block px-3 py-2 rounded-md text-sm font-medium ${location.pathname === '/como-funciona' ? 'bg-blue-50 text-primary' : 'text-slate-700 hover:bg-slate-50'}`}
             >
               Como Funciona
-            </a>
-            <a
-              href="/#faq"
+            </Link>
+            <Link
+              to="/duvidas"
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-50"
+              className={`block px-3 py-2 rounded-md text-sm font-medium ${location.pathname === '/duvidas' ? 'bg-blue-50 text-primary' : 'text-slate-700 hover:bg-slate-50'}`}
             >
-              Perguntas Frequentes
-            </a>
+              Dúvidas
+            </Link>
 
             <button
               type="button"

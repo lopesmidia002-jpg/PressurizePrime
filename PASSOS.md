@@ -255,3 +255,13 @@ Cada etapa possui critérios de aceitação claros e checkboxes que são atualiz
     - [x] Transforma��o do HeroSection em um banner interativo com Abas (Tabs) sincronizado com os servi�os.
     - [x] Adapta��o do Carrossel de Abas para scroll horizontal no Mobile, ocultando a barra de rolagem (hide-scrollbar).
     - [x] Inclus�o de bot�es de Upload Base64 nas telas de Admin (Servi�os, Configura��es e SEO).
+
+- [x] **Passo 22: Criação de Novas Páginas Institucionais**
+  - **Prioridade**: Alta (Expansão do Site)
+  - **Status**: Concluído
+  - **Entregáveis**:
+    - [x] Criação da página Diferenciais (/diferenciais).
+    - [x] Criação da página Como Funciona (/como-funciona).
+    - [x] Criação da página Dúvidas/FAQ (/duvidas).
+    - [x] Atualização completa da página Sobre (/sobre).
+    - [x] Atualização do Header e Footer para incluir os novos links mantendo a identidade visual premium.

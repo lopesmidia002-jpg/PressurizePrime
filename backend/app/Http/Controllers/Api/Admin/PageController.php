@@ -43,7 +43,16 @@ class PageController extends Controller
      */
     public function update(Request $request, string $slug): JsonResponse
     {
-        $page = Page::where('slug', $slug)->firstOrFail();
+        $page = Page::firstOrCreate(
+            ['slug' => $slug],
+            [
+                'title' => $slug,
+                'hero_title' => '',
+                'hero_subtitle' => '',
+                'hero_cta_primary' => 'Chamar no WhatsApp',
+                'hero_cta_secondary' => 'Ligar agora'
+            ]
+        );
 
         $validated = $request->validate([
             'title' => 'sometimes|required|string|max:255',

@@ -14,6 +14,10 @@ export const PagesManagerPage: React.FC = () => {
 
   const pageKeys = [
     { key: 'home', label: 'Página Inicial (Home)', path: '/' },
+    { key: 'sobre', label: 'Página Sobre', path: '/sobre' },
+    { key: 'diferenciais', label: 'Página Diferenciais', path: '/diferenciais' },
+    { key: 'como-funciona', label: 'Página Como Funciona', path: '/como-funciona' },
+    { key: 'duvidas', label: 'Página Dúvidas', path: '/duvidas' },
     { key: 'pressurizador', label: 'LP Pressurizador de Água', path: '/pressurizador' },
     { key: 'aquecedor-a-gas', label: 'LP Aquecedor a Gás', path: '/aquecedor-a-gas' },
     { key: 'aquecedor-solar', label: 'LP Aquecedor Solar & Boiler', path: '/aquecedor-solar' },

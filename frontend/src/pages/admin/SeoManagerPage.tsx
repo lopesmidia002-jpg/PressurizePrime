@@ -16,6 +16,10 @@ export const SeoManagerPage: React.FC = () => {
 
   const pageKeys = [
     { key: 'home', label: 'Página Inicial (Home)', path: 'https://pressurizeprime.com.br/' },
+    { key: 'sobre', label: 'Página Sobre', path: 'https://pressurizeprime.com.br/sobre' },
+    { key: 'diferenciais', label: 'Página Diferenciais', path: 'https://pressurizeprime.com.br/diferenciais' },
+    { key: 'como-funciona', label: 'Página Como Funciona', path: 'https://pressurizeprime.com.br/como-funciona' },
+    { key: 'duvidas', label: 'Página Dúvidas', path: 'https://pressurizeprime.com.br/duvidas' },
     { key: 'pressurizador', label: 'LP Pressurizador de Água', path: 'https://pressurizeprime.com.br/pressurizador' },
     { key: 'aquecedor-a-gas', label: 'LP Aquecedor a Gás', path: 'https://pressurizeprime.com.br/aquecedor-a-gas' },
     { key: 'aquecedor-solar', label: 'LP Aquecedor Solar & Boiler', path: 'https://pressurizeprime.com.br/aquecedor-solar' },

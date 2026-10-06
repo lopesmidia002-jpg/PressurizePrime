@@ -164,9 +164,12 @@ export const Footer: React.FC = () => {
       {/* Links Institucionais */}
       <div className="border-t border-slate-900 bg-slate-900/30 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-center gap-6 text-xs text-slate-400">
-          <Link to="/sobre" className="hover:text-primary transition-colors">Sobre Nós</Link>
-          <Link to="/contato" className="hover:text-primary transition-colors">Fale Conosco</Link>
-          <Link to="/privacidade" className="hover:text-primary transition-colors">Política de Privacidade</Link>
+          <Link to="/sobre" className="hover:text-primary transition-colors">Sobre</Link>
+          <Link to="/diferenciais" className="hover:text-primary transition-colors">Diferenciais</Link>
+          <Link to="/como-funciona" className="hover:text-primary transition-colors">Como funciona</Link>
+          <Link to="/duvidas" className="hover:text-primary transition-colors">Dúvidas</Link>
+          <Link to="/contato" className="hover:text-primary transition-colors">Contato</Link>
+          <Link to="/privacidade" className="hover:text-primary transition-colors">Privacidade</Link>
           <Link to="/termos" className="hover:text-primary transition-colors">Termos de Uso</Link>
         </div>
       </div>
