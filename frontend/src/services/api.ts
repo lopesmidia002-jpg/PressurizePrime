@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Instância para rotas públicas
 export const api = axios.create({
-  baseURL: 'http://localhost:8000/api',
+  baseURL: '/api',
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
@@ -11,7 +11,7 @@ export const api = axios.create({
 
 // Instância para rotas do painel admin (requer auth)
 export const adminApi = axios.create({
-  baseURL: 'http://localhost:8000/api/admin',
+  baseURL: '/api/admin',
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
