@@ -248,13 +248,19 @@ export const SeoManagerPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-slate-100 flex justify-center sm:justify-end">
+              <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-center sm:justify-end gap-3">
+                {savedSuccess && (
+                  <div className="flex items-center gap-1.5 text-emerald-600 text-sm font-bold animate-in fade-in">
+                    <CheckCircle2 className="w-4 h-4" />
+                    <span>Salvo com sucesso!</span>
+                  </div>
+                )}
                 <button
                   type="submit"
-                  className="bg-primary hover:bg-primary-dark text-white font-extrabold px-6 py-3 rounded-xl shadow-md transition-all flex justify-center items-center gap-2 text-sm cursor-pointer w-full sm:w-auto"
+                  className={`${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'} text-white font-extrabold px-6 py-3 rounded-xl shadow-md transition-all flex justify-center items-center gap-2 text-sm cursor-pointer w-full sm:w-auto`}
                 >
                   <Save className="w-4 h-4" />
-                  <span>Salvar Configurações de SEO</span>
+                  <span>{savedSuccess ? 'Salvo!' : 'Salvar Configurações de SEO'}</span>
                 </button>
               </div>
             </form>

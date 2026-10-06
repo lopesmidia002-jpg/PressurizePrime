@@ -352,13 +352,19 @@ export const SettingsPage: React.FC = () => {
         </div>
 
         {/* Botão de Salvar Flutuante ou no Fim */}
-        <div className="flex items-center justify-center sm:justify-end gap-3 pt-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-end gap-3 pt-4 border-t border-slate-100">
+          {savedSuccess && (
+            <div className="flex items-center gap-1.5 text-emerald-600 text-sm font-bold animate-in fade-in">
+              <CheckCircle2 className="w-4 h-4" />
+              <span>Salvo com sucesso!</span>
+            </div>
+          )}
           <button
             type="submit"
-            className="bg-primary hover:bg-primary-dark text-white font-extrabold px-8 py-3.5 rounded-xl shadow-lg transition-all flex justify-center items-center gap-2 text-sm cursor-pointer w-full sm:w-auto"
+            className={`${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'} text-white font-extrabold px-8 py-3.5 rounded-xl shadow-lg transition-all flex justify-center items-center gap-2 text-sm cursor-pointer w-full sm:w-auto`}
           >
             <Save className="w-4 h-4 shrink-0" />
-            <span>Salvar Todas as Configurações</span>
+            <span>{savedSuccess ? 'Salvo!' : 'Salvar Todas as Configurações'}</span>
           </button>
         </div>
       </form>

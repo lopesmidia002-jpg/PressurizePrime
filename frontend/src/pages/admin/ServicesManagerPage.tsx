@@ -243,7 +243,7 @@ export const ServicesManagerPage: React.FC = () => {
               />
             </div>
 
-            <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100">
+            <div className="flex flex-col sm:flex-row items-center justify-end gap-3 pt-3 border-t border-slate-100">
               <button
                 type="button"
                 onClick={handleCancel}
@@ -253,9 +253,10 @@ export const ServicesManagerPage: React.FC = () => {
               </button>
               <button
                 type="submit"
-                className="bg-primary hover:bg-primary-dark text-white font-bold px-5 py-2 text-xs rounded-xl shadow-sm cursor-pointer"
+                className="bg-primary hover:bg-primary-dark text-white font-bold px-5 py-2 text-xs rounded-xl shadow-sm cursor-pointer flex items-center gap-2"
               >
-                {isCreating ? 'Salvar Novo Serviço' : 'Atualizar Serviço'}
+                <Save className="w-3.5 h-3.5" />
+                <span>{isCreating ? 'Salvar Novo Serviço' : 'Atualizar Serviço'}</span>
               </button>
             </div>
           </form>
