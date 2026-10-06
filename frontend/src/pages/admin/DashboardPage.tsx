@@ -108,13 +108,13 @@ export const DashboardPage: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-in fade-in slide-in-from-bottom-4 duration-700 items-stretch relative z-20">
         
         {/* Card Principal (Solid Dark/Primary) */}
-        <div className="bg-primary text-white p-5 rounded-3xl shadow-lg relative overflow-hidden flex flex-col justify-between hover:-translate-y-1 transition-transform group">
+        <Link to="/admin/leads" className="bg-primary text-white p-5 rounded-3xl shadow-lg relative overflow-hidden flex flex-col justify-between hover:-translate-y-1 transition-transform group cursor-pointer block">
           <div className="absolute -right-4 -top-12 opacity-10">
             <Users className="w-32 h-32" />
           </div>
           <div className="flex items-center justify-between z-10">
             <span className="text-sm font-bold text-white/80">Total de Contatos</span>
-            <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+            <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center transition-colors group-hover:bg-white/30">
               <ArrowRight className="w-3 h-3 text-white -rotate-45" />
             </div>
           </div>
@@ -124,10 +124,10 @@ export const DashboardPage: React.FC = () => {
               {(newLeads > 0) ? `+${newLeads} hoje` : 'atualizado'}
             </span>
           </div>
-        </div>
+        </Link>
 
         {/* Card 2 */}
-        <div className="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between hover:-translate-y-1 transition-transform group">
+        <Link to="/admin/leads" className="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between hover:-translate-y-1 transition-transform group cursor-pointer block">
           <div className="flex items-center justify-between">
             <span className="text-sm font-bold text-slate-500">Leads Novos</span>
             <div className="w-6 h-6 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 group-hover:bg-slate-50 transition-colors">
@@ -138,10 +138,10 @@ export const DashboardPage: React.FC = () => {
             <span className="text-4xl font-black text-slate-800">{newLeads}</span>
             <span className="text-xs text-slate-400 font-medium mb-1">Aguardando</span>
           </div>
-        </div>
+        </Link>
 
         {/* Card 3 */}
-        <div className="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between hover:-translate-y-1 transition-transform group">
+        <Link to="/admin/leads" className="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between hover:-translate-y-1 transition-transform group cursor-pointer block">
           <div className="flex items-center justify-between">
             <span className="text-sm font-bold text-slate-500">Em Atendimento</span>
             <div className="w-6 h-6 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 group-hover:bg-slate-50 transition-colors">
@@ -155,7 +155,7 @@ export const DashboardPage: React.FC = () => {
               Fila
             </span>
           </div>
-        </div>
+        </Link>
 
         {/* Card 4 */}
         <div 
@@ -256,7 +256,7 @@ export const DashboardPage: React.FC = () => {
               <h2 className="text-lg font-black text-slate-800">Fila de Atendimento</h2>
               <p className="text-xs text-slate-400 font-medium">Prioridades do momento</p>
             </div>
-            <button className="text-primary text-xs font-bold hover:underline bg-primary/10 px-2 py-1 rounded-lg">Ver tudo</button>
+            <Link to="/admin/leads" className="text-primary text-xs font-bold hover:underline bg-primary/10 px-2 py-1 rounded-lg">Ver tudo</Link>
           </div>
 
           <div className="flex-1 overflow-hidden">

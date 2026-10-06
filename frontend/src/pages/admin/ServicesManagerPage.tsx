@@ -313,7 +313,7 @@ export const ServicesManagerPage: React.FC = () => {
                 </div>
               </div>
 
-              <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+              <p className="text-xs text-slate-600 sm:line-clamp-2 leading-relaxed">
                 {service.short_description}
               </p>
 

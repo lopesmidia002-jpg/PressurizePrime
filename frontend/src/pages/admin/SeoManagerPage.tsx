@@ -144,11 +144,11 @@ export const SeoManagerPage: React.FC = () => {
             <form onSubmit={handleSave} className="space-y-6">
               {/* Meta Title */}
               <div>
-                <div className="flex items-center justify-between mb-1.5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 mb-2">
                   <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
                     Meta Title (Título na Aba e Google) *
                   </label>
-                  <span className={`text-[11px] font-bold ${titleLen > 65 ? 'text-red-500' : 'text-slate-400'}`}>
+                  <span className={`text-[11px] font-bold shrink-0 ${titleLen > 65 ? 'text-red-500' : 'text-slate-400'}`}>
                     {titleLen}/60 caracteres recomendados
                   </span>
                 </div>
@@ -163,11 +163,11 @@ export const SeoManagerPage: React.FC = () => {
 
               {/* Meta Description */}
               <div>
-                <div className="flex items-center justify-between mb-1.5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 mb-2">
                   <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
                     Meta Description (Resumo nos Resultados de Busca) *
                   </label>
-                  <span className={`text-[11px] font-bold ${descLen > 165 ? 'text-red-500' : 'text-slate-400'}`}>
+                  <span className={`text-[11px] font-bold shrink-0 ${descLen > 165 ? 'text-red-500' : 'text-slate-400'}`}>
                     {descLen}/160 caracteres recomendados
                   </span>
                 </div>
