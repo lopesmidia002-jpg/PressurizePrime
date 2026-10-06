@@ -70,7 +70,7 @@ export const HeroSection: React.FC = () => {
             onTouchStart={() => setIsHovered(true)}
             onTouchEnd={() => setIsHovered(false)}
           >
-            <div className="flex sm:flex-wrap sm:justify-center gap-2 bg-white/10 p-1.5 rounded-2xl backdrop-blur-md border border-white/20 w-max sm:w-auto mx-auto min-w-full">
+            <div className="flex sm:flex-wrap sm:justify-center gap-2 p-1.5 rounded-2xl w-max sm:w-auto mx-auto min-w-full">
               {displayServices.map((srv, idx) => {
                 const isActive = activeTab === idx;
                 return (
