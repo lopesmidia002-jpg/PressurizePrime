@@ -215,7 +215,7 @@ export const ServicesManagerPage: React.FC = () => {
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                  URL da Imagem Ilustrativa
+                  Imagem de Fundo (Carrossel da Home)
                 </label>
                 <div className="flex gap-2 items-center w-full">
                   <input

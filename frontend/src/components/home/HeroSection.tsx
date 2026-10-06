@@ -40,7 +40,7 @@ export const HeroSection: React.FC = () => {
 
   return (
     <section 
-      className="relative overflow-hidden pt-24 pb-24 md:pt-36 md:pb-36 border-b border-slate-200 min-h-[85vh] flex flex-col justify-center transition-all duration-700"
+      className="relative overflow-hidden pt-28 pb-16 md:pt-32 md:pb-28 border-b border-slate-200 min-h-[65vh] md:min-h-[70vh] flex flex-col justify-center transition-all duration-700"
     >
       {/* Imagem de Fundo com Transição Suave */}
       {displayServices.map((srv, idx) => (
@@ -52,9 +52,10 @@ export const HeroSection: React.FC = () => {
             src={srv.image_url || fallbackImages[idx % fallbackImages.length]}
             alt=""
             aria-hidden="true"
-            className={`w-full h-full object-cover ${activeTab === idx ? 'animate-hero-bg-pan' : ''}`}
+            className={`w-full h-full object-cover object-center ${activeTab === idx ? 'animate-hero-bg-pan' : ''}`}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/60 to-slate-900/90" />
+          {/* Overlay otimizado: mais claro no centro/topo do mobile para dar destaque à foto */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-900/30 to-slate-950/90 sm:from-slate-900/80 sm:via-slate-900/50 sm:to-slate-900/90" />
         </div>
       ))}
 
@@ -64,23 +65,23 @@ export const HeroSection: React.FC = () => {
         {/* Abas (Tabs) */}
         {displayServices.length > 1 && (
           <div 
-            className="w-full max-w-full overflow-x-auto hide-scrollbar snap-x snap-mandatory mb-8 sm:mb-10 rounded-2xl"
+            className="w-full mb-8 sm:mb-10"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onTouchStart={() => setIsHovered(true)}
             onTouchEnd={() => setIsHovered(false)}
           >
-            <div className="flex sm:flex-wrap sm:justify-center gap-2 p-1.5 rounded-2xl w-max sm:w-auto mx-auto min-w-full">
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 p-1.5 rounded-2xl w-full mx-auto">
               {displayServices.map((srv, idx) => {
                 const isActive = activeTab === idx;
                 return (
                   <button
                     key={idx}
                     onClick={() => setActiveTab(idx)}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 shrink-0 snap-center ${
+                    className={`flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 ${
                       isActive 
-                        ? 'bg-primary text-white shadow-lg shadow-primary/30 scale-105 sm:scale-105' 
-                        : 'text-white/80 hover:bg-white/10 hover:text-white'
+                        ? 'bg-primary text-white shadow-lg shadow-primary/30 scale-105' 
+                        : 'bg-slate-900/40 text-white/90 hover:bg-white/20 hover:text-white border border-white/10'
                     }`}
                   >
                     <span className={isActive ? 'animate-pulse' : ''}>{getServiceIcon(srv.icon_name)}</span>
