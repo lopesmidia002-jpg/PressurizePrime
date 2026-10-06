@@ -12,7 +12,7 @@ export const LPFinalCta: React.FC<LPFinalCtaProps> = ({ lp }) => {
 
   return (
     <section 
-      className="py-20 text-white relative overflow-hidden"
+      className="py-16 md:py-24 lg:py-28 text-white relative overflow-hidden"
       style={{
         backgroundImage: 'linear-gradient(to bottom right, rgba(15, 23, 42, 0.55), rgba(23, 37, 84, 0.75)), url("https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80")',
         backgroundSize: 'cover',

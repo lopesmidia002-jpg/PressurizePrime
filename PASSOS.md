@@ -276,3 +276,10 @@ Cada etapa possui critÃ©rios de aceitaÃ§Ã£o claros e checkboxes que sÃ£o
     - [x] Atualizacao da formatacao e insercao exata do texto fornecido nas imagens na Home, Sobre, Diferenciais, Como Funciona e Duvidas.
     - [x] Sincronizacao dos novos textos padrao direto no banco de dados para edicao via painel.
 
+- [x] **Passo 24: Ajustes de Espacamento Corporativo**
+  - **Prioridade**: Alta (Design & UX)
+  - **Status**: Concluido
+  - **Entregaveis**:
+    - [x] Substituicao de paddings genericos (py-20) por espacamentos responsivos mais amplos (py-16 md:py-24 lg:py-28) em todo o site.
+    - [x] Melhoria do respiro (white space) entre secoes para transmitir sofisticacao e padrao premium.
+    - [x] Ajuste nos modais e botoes do painel de controle (feedback visual de salvamento dinamico sem depender apenas de toast messages distantes).

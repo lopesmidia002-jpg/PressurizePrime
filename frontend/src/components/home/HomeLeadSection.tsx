@@ -7,7 +7,7 @@ export const HomeLeadSection: React.FC = () => {
   const { settings } = useSiteData();
 
   return (
-    <section id="orcamento" className="py-20 bg-gradient-to-b from-slate-100 to-slate-200/60 relative">
+    <section id="orcamento" className="py-16 md:py-24 lg:py-28 bg-gradient-to-b from-slate-100 to-slate-200/60 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Coluna da Esquerda: Autoridade e Motivos para Contato */}

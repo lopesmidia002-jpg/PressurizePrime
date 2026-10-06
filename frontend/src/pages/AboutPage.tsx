@@ -61,7 +61,7 @@ export const AboutPage: React.FC = () => {
         </div>
 
         {/* Quem Somos / História */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-28">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-6">
               <div className="inline-block bg-blue-50 text-primary font-bold px-3 py-1 rounded-full text-sm">
@@ -104,7 +104,7 @@ export const AboutPage: React.FC = () => {
         </div>
 
         {/* Missão, Visão e Valores */}
-        <div className="bg-white py-20 border-y border-slate-200">
+        <div className="bg-white py-16 md:py-24 lg:py-28 border-y border-slate-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold text-slate-900 mb-4">Nosso Propósito</h2>
@@ -146,7 +146,7 @@ export const AboutPage: React.FC = () => {
         </div>
 
         {/* Números */}
-        <div className="bg-slate-950 py-20 border-y border-slate-900">
+        <div className="bg-slate-950 py-16 md:py-24 lg:py-28 border-y border-slate-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-8 text-center md:divide-x divide-slate-800">
               {/* Stat 1 */}

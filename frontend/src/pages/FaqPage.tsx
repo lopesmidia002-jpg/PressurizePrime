@@ -102,7 +102,7 @@ export const FaqPage: React.FC = () => {
         </div>
 
         {/* FAQ Accordion */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-28">
           {filteredFaqs.length === 0 ? (
             <div className="text-center py-12 text-slate-500">
               Nenhuma pergunta encontrada para "{searchTerm}". Tente usar outros termos.

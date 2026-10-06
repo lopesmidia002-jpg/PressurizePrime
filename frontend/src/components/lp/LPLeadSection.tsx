@@ -9,7 +9,7 @@ interface LPLeadSectionProps {
 
 export const LPLeadSection: React.FC<LPLeadSectionProps> = ({ lp }) => {
   return (
-    <section id="orcamento-lp" className="py-20 bg-slate-100/80 border-t border-slate-200/80 relative">
+    <section id="orcamento-lp" className="py-16 md:py-24 lg:py-28 bg-slate-100/80 border-t border-slate-200/80 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Coluna da Esquerda: Benefícios e Diagnóstico da LP */}

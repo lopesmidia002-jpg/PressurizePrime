@@ -114,7 +114,7 @@ export const DiferenciaisPage: React.FC = () => {
         </div>
 
         {/* Comparativo */}
-        <div className="bg-white py-20 border-y border-slate-200">
+        <div className="bg-white py-16 md:py-24 lg:py-28 border-y border-slate-200">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold text-slate-900 mb-4">A Diferença Pressurize Prime</h2>
@@ -150,7 +150,7 @@ export const DiferenciaisPage: React.FC = () => {
         </div>
 
         {/* Prova Social */}
-        <div className="bg-slate-50 py-20">
+        <div className="bg-slate-50 py-16 md:py-24 lg:py-28">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold text-slate-900 mb-4">O que dizem sobre nós</h2>
