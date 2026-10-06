@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-import { TopBar, LPHeader, Footer, WhatsAppButton, LeadModal } from '../components/common';
+import { TopBar, Header, Footer, WhatsAppButton, LeadModal } from '../components/common';
 import { landingPagesData } from '../services/lpData';
 import {
   LPHero,
@@ -47,8 +47,8 @@ export const ServiceLPPage: React.FC<ServiceLPPageProps> = ({ pageSlug }) => {
       {/* Barra de Horário */}
       <TopBar />
 
-      {/* Header Minimalista das LPs (Sem Menus de Fuga) */}
-      <LPHeader serviceName={lp.name} />
+      {/* Header Completo com Menus */}
+      <Header />
 
       <main className="flex-1">
         {/* 1. Hero com H1 Dinâmico e Alerta de Segurança */}
