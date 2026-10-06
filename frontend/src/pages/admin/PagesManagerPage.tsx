@@ -8,6 +8,7 @@ import {
   ChevronRight,
   Layers
 } from 'lucide-react';
+import { DynamicSectionEditor } from '../../components/admin/DynamicSectionEditor';
 
 export const PagesManagerPage: React.FC = () => {
   const { pages, updatePageData } = useSiteData();
@@ -221,66 +222,163 @@ export const PagesManagerPage: React.FC = () => {
 
             {/* Edição de Seções Adicionais (Home) */}
             {selectedKey === 'home' && (
-              <div className="pt-6 border-t border-slate-200 mt-6 space-y-6">
-                <div>
-                  <span className="text-xs font-bold text-primary uppercase tracking-wider block">
-                    Seção: Quem Somos (Técnicos de Verdade)
-                  </span>
-                  <h3 className="text-md font-bold text-slate-800 mt-1">
-                    Textos da Seção Sobre
-                  </h3>
+              <div className="pt-6 border-t border-slate-200 mt-6 space-y-8">
+                {/* ABOUT SECTION */}
+                <div className="space-y-6">
+                  <div>
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider block">
+                      Seção: Quem Somos
+                    </span>
+                    <h3 className="text-md font-bold text-slate-800 mt-1">
+                      Textos da Seção Sobre
+                    </h3>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Título Principal</label>
+                    <textarea rows={2} value={formData.sections?.about?.title || ''} onChange={e => { const newSections = { ...formData.sections }; if (!newSections.about) newSections.about = {} as any; newSections.about.title = e.target.value; handleChange('sections', newSections as any); }} className="w-full px-3.5 py-2.5 text-sm font-semibold bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Conteúdo / Texto Descritivo</label>
+                    <textarea rows={4} value={formData.sections?.about?.content || ''} onChange={e => { const newSections = { ...formData.sections }; if (!newSections.about) newSections.about = {} as any; newSections.about.content = e.target.value; handleChange('sections', newSections as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Citação / Frase de Destaque</label>
+                    <textarea rows={2} value={(formData.sections?.about as any)?.quote || ''} onChange={e => { const newSections = { ...formData.sections }; if (!newSections.about) newSections.about = {} as any; (newSections.about as any).quote = e.target.value; handleChange('sections', newSections as any); }} className="w-full px-3.5 py-2.5 text-sm font-medium italic bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none" />
+                  </div>
                 </div>
 
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Título Principal da Seção Sobre
-                  </label>
-                  <textarea
-                    rows={2}
-                    value={formData.sections?.about?.title || 'Técnicos de verdade, com nome e responsabilidade pelo serviço.'}
-                    onChange={e => {
-                      const newSections = { ...formData.sections };
-                      if (!newSections.about) newSections.about = {} as any;
-                      newSections.about.title = e.target.value;
-                      handleChange('sections', newSections as any);
-                    }}
-                    className="w-full px-3.5 py-2.5 text-sm font-semibold bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none"
-                  />
+                {/* WHY US SECTION */}
+                <div className="space-y-6 pt-6 border-t border-slate-200">
+                  <div>
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider block">
+                      Seção: Diferenciais
+                    </span>
+                    <h3 className="text-md font-bold text-slate-800 mt-1">
+                      Por que escolher a Pressurize Prime?
+                    </h3>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Título Principal</label>
+                    <textarea rows={2} value={formData.sections?.whyUs?.title || ''} onChange={e => { const newSections = { ...formData.sections }; if (!newSections.whyUs) newSections.whyUs = {} as any; newSections.whyUs.title = e.target.value; handleChange('sections', newSections as any); }} className="w-full px-3.5 py-2.5 text-sm font-semibold bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Subtítulo</label>
+                    <textarea rows={2} value={formData.sections?.whyUs?.subtitle || ''} onChange={e => { const newSections = { ...formData.sections }; if (!newSections.whyUs) newSections.whyUs = {} as any; newSections.whyUs.subtitle = e.target.value; handleChange('sections', newSections as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
+                  </div>
+                  
+                  {/* Items do Why Us */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {[0, 1, 2, 3].map(index => {
+                      const item = (formData.sections?.whyUs as any)?.items?.[index] || { title: '', desc: '' };
+                      return (
+                        <div key={index} className="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                          <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Diferencial {index + 1} - Título</label>
+                          <input type="text" value={item.title} onChange={e => {
+                            const newSections = { ...formData.sections };
+                            if (!newSections.whyUs) newSections.whyUs = { items: [] } as any;
+                            if (!(newSections.whyUs as any).items) (newSections.whyUs as any).items = [];
+                            (newSections.whyUs as any).items[index] = { ...item, title: e.target.value };
+                            handleChange('sections', newSections as any);
+                          }} className="w-full px-3 py-2 text-sm mb-3 border border-slate-300 rounded-lg" />
+                          <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Diferencial {index + 1} - Descrição</label>
+                          <textarea rows={3} value={item.desc} onChange={e => {
+                            const newSections = { ...formData.sections };
+                            if (!newSections.whyUs) newSections.whyUs = { items: [] } as any;
+                            if (!(newSections.whyUs as any).items) (newSections.whyUs as any).items = [];
+                            (newSections.whyUs as any).items[index] = { ...item, desc: e.target.value };
+                            handleChange('sections', newSections as any);
+                          }} className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
 
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Conteúdo / Texto Descritivo
-                  </label>
-                  <textarea
-                    rows={4}
-                    value={formData.sections?.about?.content || 'A Pressurize Prime nasceu de mais de uma década de experiência prática com pressurizadores e aquecedores...'}
-                    onChange={e => {
-                      const newSections = { ...formData.sections };
-                      if (!newSections.about) newSections.about = {} as any;
-                      newSections.about.content = e.target.value;
-                      handleChange('sections', newSections as any);
-                    }}
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                  />
+                {/* HOW IT WORKS SECTION */}
+                <div className="space-y-6 pt-6 border-t border-slate-200">
+                  <div>
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider block">
+                      Seção: Processo
+                    </span>
+                    <h3 className="text-md font-bold text-slate-800 mt-1">
+                      Como Funciona
+                    </h3>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Título Principal</label>
+                    <textarea rows={2} value={formData.sections?.howItWorks?.title || ''} onChange={e => { const newSections = { ...formData.sections }; if (!newSections.howItWorks) newSections.howItWorks = {} as any; newSections.howItWorks.title = e.target.value; handleChange('sections', newSections as any); }} className="w-full px-3.5 py-2.5 text-sm font-semibold bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Subtítulo</label>
+                    <textarea rows={2} value={formData.sections?.howItWorks?.subtitle || ''} onChange={e => { const newSections = { ...formData.sections }; if (!newSections.howItWorks) newSections.howItWorks = {} as any; newSections.howItWorks.subtitle = e.target.value; handleChange('sections', newSections as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Botão (CTA)</label>
+                    <input type="text" value={(formData.sections?.howItWorks as any)?.cta || ''} onChange={e => { const newSections = { ...formData.sections }; if (!newSections.howItWorks) newSections.howItWorks = {} as any; (newSections.howItWorks as any).cta = e.target.value; handleChange('sections', newSections as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" />
+                  </div>
+                  
+                  {/* Items do How It Works */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {[0, 1, 2].map(index => {
+                      const item = (formData.sections?.howItWorks as any)?.items?.[index] || { title: '', desc: '' };
+                      return (
+                        <div key={index} className="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                          <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Passo {index + 1} - Título</label>
+                          <input type="text" value={item.title} onChange={e => {
+                            const newSections = { ...formData.sections };
+                            if (!newSections.howItWorks) newSections.howItWorks = { items: [] } as any;
+                            if (!(newSections.howItWorks as any).items) (newSections.howItWorks as any).items = [];
+                            (newSections.howItWorks as any).items[index] = { ...item, title: e.target.value };
+                            handleChange('sections', newSections as any);
+                          }} className="w-full px-3 py-2 text-sm mb-3 border border-slate-300 rounded-lg" />
+                          <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Passo {index + 1} - Descrição</label>
+                          <textarea rows={4} value={item.desc} onChange={e => {
+                            const newSections = { ...formData.sections };
+                            if (!newSections.howItWorks) newSections.howItWorks = { items: [] } as any;
+                            if (!(newSections.howItWorks as any).items) (newSections.howItWorks as any).items = [];
+                            (newSections.howItWorks as any).items[index] = { ...item, desc: e.target.value };
+                            handleChange('sections', newSections as any);
+                          }} className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
+                {/* DEMASIADAS SEÇÕES VIA DYNAMIC EDITOR */}
+                <DynamicSectionEditor
+                  sectionKey="commitments"
+                  label="Compromissos / Garantias"
+                  sectionData={formData.sections?.commitments}
+                  onChange={(data) => handleChange('sections', { ...formData.sections, commitments: data } as any)}
+                />
+                
+                <DynamicSectionEditor
+                  sectionKey="coverage"
+                  label="Regiões Atendidas"
+                  sectionData={formData.sections?.coverage}
+                  onChange={(data) => handleChange('sections', { ...formData.sections, coverage: data } as any)}
+                />
 
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Citação / Frase de Destaque
-                  </label>
-                  <textarea
-                    rows={2}
-                    value={(formData.sections?.about as any)?.quote || '“Aqui, quem atende você é gente de verdade, do primeiro contato ao pós-serviço. E se algo não ficar certo, a gente volta.”'}
-                    onChange={e => {
-                      const newSections = { ...formData.sections };
-                      if (!newSections.about) newSections.about = {} as any;
-                      (newSections.about as any).quote = e.target.value;
-                      handleChange('sections', newSections as any);
-                    }}
-                    className="w-full px-3.5 py-2.5 text-sm font-medium italic bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none"
-                  />
-                </div>
+                <DynamicSectionEditor
+                  sectionKey="faq"
+                  label="Dúvidas Frequentes"
+                  sectionData={formData.sections?.faq}
+                  onChange={(data) => handleChange('sections', { ...formData.sections, faq: data } as any)}
+                />
+
+                <DynamicSectionEditor
+                  sectionKey="homeLead"
+                  label="Formulário de Contato (Vistoria)"
+                  sectionData={formData.sections?.homeLead}
+                  onChange={(data) => handleChange('sections', { ...formData.sections, homeLead: data } as any)}
+                />
+
+                <DynamicSectionEditor
+                  sectionKey="finalCta"
+                  label="Chamada Final (Rodapé)"
+                  sectionData={formData.sections?.finalCta}
+                  onChange={(data) => handleChange('sections', { ...formData.sections, finalCta: data } as any)}
+                />
               </div>
             )}
 

@@ -3,25 +3,39 @@ import { useSiteData } from '../../context/SiteDataContext';
 import { MessageSquare, ClipboardCheck, CheckCircle2, ArrowRight } from 'lucide-react';
 
 export const HowItWorksSection: React.FC = () => {
-  const { settings } = useSiteData();
+  const { settings, pages } = useSiteData();
+
+  const howItWorks = pages['home']?.sections?.howItWorks as any;
+
+  const title = howItWorks?.title || 'Como Funciona o Atendimento?';
+  const subtitle = howItWorks?.subtitle || 'Processo ágil, sem burocracia e com transparência total de custos antes de qualquer reparo.';
+  const cta = howItWorks?.cta || 'Chamar no WhatsApp e Contar Meu Problema';
+
+  const defaultItems = [
+    { title: 'Conte o problema', desc: 'Entre em contato pelo WhatsApp ou telefone. Envie uma foto ou vídeo do seu pressurizador ou aquecedor para orientarmos o técnico antes da visita.' },
+    { title: 'Vistoria e orçamento', desc: 'O técnico avalia no local e passa o valor exato antes de iniciar o conserto. Aprovou o serviço? A taxa de vistoria e locomoção não é cobrada.' },
+    { title: 'Problema resolvido', desc: 'Conserto ou instalação realizado de imediato ou em até 24 horas úteis, com garantia de 3 meses em peças e 30 dias em mão de obra.' }
+  ];
+
+  const items = howItWorks?.items || defaultItems;
 
   const steps = [
     {
       step: '01',
-      title: 'Conte o problema',
-      desc: 'Entre em contato pelo WhatsApp ou telefone. Envie uma foto ou vídeo do seu pressurizador ou aquecedor para orientarmos o técnico antes da visita.',
+      title: items[0]?.title || defaultItems[0].title,
+      desc: items[0]?.desc || defaultItems[0].desc,
       icon: <MessageSquare className="w-6 h-6 text-primary" />
     },
     {
       step: '02',
-      title: 'Vistoria e orçamento',
-      desc: 'O técnico avalia no local e passa o valor exato antes de iniciar o conserto. Aprovou o serviço? A taxa de vistoria e locomoção não é cobrada.',
+      title: items[1]?.title || defaultItems[1].title,
+      desc: items[1]?.desc || defaultItems[1].desc,
       icon: <ClipboardCheck className="w-6 h-6 text-secondary" />
     },
     {
       step: '03',
-      title: 'Problema resolvido',
-      desc: 'Conserto ou instalação realizado de imediato ou em até 24 horas úteis, com garantia de 3 meses em peças e 30 dias em mão de obra.',
+      title: items[2]?.title || defaultItems[2].title,
+      desc: items[2]?.desc || defaultItems[2].desc,
       icon: <CheckCircle2 className="w-6 h-6 text-emerald-600" />
     }
   ];
@@ -30,11 +44,11 @@ export const HowItWorksSection: React.FC = () => {
     <section id="como-funciona" className="py-16 md:py-24 lg:py-28 bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-slate-900 tracking-[-0.03em] leading-tight text-balance">
-            Como Funciona o Atendimento?
+          <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-slate-900 tracking-[-0.03em] leading-tight text-balance whitespace-pre-wrap">
+            {title}
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-600 font-normal max-w-2xl mx-auto leading-relaxed text-pretty">
-            Processo ágil, sem burocracia e com transparência total de custos antes de qualquer reparo.
+          <p className="mt-4 text-base sm:text-lg text-slate-600 font-normal max-w-2xl mx-auto leading-relaxed text-pretty whitespace-pre-wrap">
+            {subtitle}
           </p>
         </div>
 
@@ -81,7 +95,7 @@ export const HowItWorksSection: React.FC = () => {
             className="inline-flex items-center gap-2 bg-secondary hover:bg-secondary-dark text-slate-950 font-bold px-8 py-4 rounded-xl shadow-md transition-all text-sm group"
           >
             <MessageSquare className="w-5 h-5 transition-transform group-hover:scale-110" />
-            <span>Chamar no WhatsApp e Contar Meu Problema</span>
+            <span>{cta}</span>
           </a>
         </div>
       </div>

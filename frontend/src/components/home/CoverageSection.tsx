@@ -3,7 +3,12 @@ import { useSiteData } from '../../context/SiteDataContext';
 import { MapPin, CheckCircle } from 'lucide-react';
 
 export const CoverageSection: React.FC = () => {
-  const { settings } = useSiteData();
+  const { settings, pages } = useSiteData();
+  const coverageData = pages['home']?.sections?.coverage as any;
+
+  const title = coverageData?.title || 'Regiões Atendidas em São Paulo';
+  const subtitle = coverageData?.subtitle || 'Nossos técnicos atuam com rotas diárias otimizadas na capital e na Grande São Paulo, garantindo agilidade no deslocamento e pontualidade na visita técnica.';
+  const badge = coverageData?.badge || 'Atendimento prioritário em condomínios e residências de médio e alto padrão';
 
   return (
     <section className="py-16 md:py-24 lg:py-28 bg-slate-50 border-b border-slate-200">
@@ -11,17 +16,17 @@ export const CoverageSection: React.FC = () => {
         <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-5 space-y-4">
-              <h2 className="text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-[-0.03em] leading-tight text-balance">
-                Regiões Atendidas em São Paulo
+              <h2 className="text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-[-0.03em] leading-tight text-balance whitespace-pre-wrap">
+                {title}
               </h2>
 
-              <p className="text-slate-600 text-sm sm:text-base leading-[1.65] text-pretty font-normal">
-                Nossos técnicos atuam com rotas diárias otimizadas na capital e na Grande São Paulo, garantindo agilidade no deslocamento e pontualidade na visita técnica.
+              <p className="text-slate-600 text-sm sm:text-base leading-[1.65] text-pretty font-normal whitespace-pre-wrap">
+                {subtitle}
               </p>
 
               <div className="pt-2 flex items-center gap-2 text-xs sm:text-sm font-medium text-slate-700">
                 <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Atendimento prioritário em condomínios e residências de médio e alto padrão</span>
+                <span className="whitespace-pre-wrap">{badge}</span>
               </div>
             </div>
 

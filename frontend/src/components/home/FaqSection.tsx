@@ -3,8 +3,12 @@ import { useSiteData } from '../../context/SiteDataContext';
 import { ChevronDown } from 'lucide-react';
 
 export const FaqSection: React.FC = () => {
-  const { faqs } = useSiteData();
+  const { faqs, pages } = useSiteData();
+  const faqData = pages['home']?.sections?.faq as any;
   const [openId, setOpenId] = useState<string | null>(null);
+
+  const title = faqData?.title || 'Perguntas Frequentes';
+  const subtitle = faqData?.subtitle || 'Respostas diretas e transparentes sobre nosso atendimento em São Paulo.';
 
   const toggleFaq = (id: string) => {
     setOpenId(prev => (prev === id ? null : id));
@@ -14,11 +18,11 @@ export const FaqSection: React.FC = () => {
     <section id="faq" className="py-16 md:py-24 lg:py-28 bg-slate-50 border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-extrabold text-slate-900 tracking-[-0.03em] leading-tight text-balance">
-            Perguntas Frequentes
+          <h2 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-extrabold text-slate-900 tracking-[-0.03em] leading-tight text-balance whitespace-pre-wrap">
+            {title}
           </h2>
-          <p className="mt-3.5 text-base sm:text-lg text-slate-600 font-normal max-w-xl mx-auto text-pretty">
-            Respostas diretas e transparentes sobre nosso atendimento em São Paulo.
+          <p className="mt-3.5 text-base sm:text-lg text-slate-600 font-normal max-w-xl mx-auto text-pretty whitespace-pre-wrap">
+            {subtitle}
           </p>
         </div>
 

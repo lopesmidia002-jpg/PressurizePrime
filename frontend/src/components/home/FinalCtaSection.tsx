@@ -3,7 +3,12 @@ import { useSiteData } from '../../context/SiteDataContext';
 import { MessageSquare, Phone, ShieldCheck } from 'lucide-react';
 
 export const FinalCtaSection: React.FC = () => {
-  const { settings, isBusinessHours, openLeadModal } = useSiteData();
+  const { settings, pages, isBusinessHours, openLeadModal } = useSiteData();
+  const finalCta = pages['home']?.sections?.finalCta as any;
+
+  const title = finalCta?.title || 'Chuveiro fraco ou água fria não esperam. Nem a gente.';
+  const subtitle = finalCta?.subtitle || 'Fale agora com um técnico. Atendimento de segunda a sexta, das 8h às 19h. Conserto e instalação de imediato ou em até 24 horas.';
+  const cta = finalCta?.cta || 'Chamar no WhatsApp';
 
   return (
     <section 
@@ -19,12 +24,12 @@ export const FinalCtaSection: React.FC = () => {
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-secondary/20 rounded-full blur-3xl pointer-events-none mix-blend-screen"></div>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <h2 className="text-3xl sm:text-5xl lg:text-[3.25rem] font-extrabold tracking-[-0.035em] leading-[1.15] max-w-3xl mx-auto text-balance">
-          Chuveiro fraco ou água fria não esperam. Nem a gente.
+        <h2 className="text-3xl sm:text-5xl lg:text-[3.25rem] font-extrabold tracking-[-0.035em] leading-[1.15] max-w-3xl mx-auto text-balance whitespace-pre-wrap">
+          {title}
         </h2>
 
-        <p className="mt-6 text-base sm:text-lg lg:text-xl text-slate-300 font-normal max-w-2xl mx-auto leading-[1.65] text-pretty">
-          Fale agora com um técnico. Atendimento de segunda a sexta, das 8h às 19h. Conserto e instalação de imediato ou em até 24 horas.
+        <p className="mt-6 text-base sm:text-lg lg:text-xl text-slate-300 font-normal max-w-2xl mx-auto leading-[1.65] text-pretty whitespace-pre-wrap">
+          {subtitle}
         </p>
 
         {!isBusinessHours && (
@@ -41,7 +46,7 @@ export const FinalCtaSection: React.FC = () => {
             className="flex-1 bg-secondary hover:bg-secondary-dark text-slate-950 font-extrabold px-8 py-4 rounded-xl shadow-xl transition-all text-center flex items-center justify-center gap-2.5 text-base group"
           >
             <MessageSquare className="w-5 h-5 transition-transform group-hover:scale-110" />
-            <span>Chamar no WhatsApp</span>
+            <span>{cta}</span>
           </a>
 
           <a

@@ -4,7 +4,8 @@ import { LeadForm } from '../common/LeadForm';
 import { ShieldCheck, Zap, CreditCard, Phone, MapPin } from 'lucide-react';
 
 export const HomeLeadSection: React.FC = () => {
-  const { settings } = useSiteData();
+  const { settings, pages } = useSiteData();
+  const homeLead = pages['home']?.sections?.homeLead as any;
 
   return (
     <section id="orcamento" className="py-16 md:py-24 lg:py-28 bg-gradient-to-b from-slate-100 to-slate-200/60 relative">
@@ -87,8 +88,8 @@ export const HomeLeadSection: React.FC = () => {
           <div className="lg:col-span-6">
             <LeadForm
               origin="/#orcamento"
-              title="Solicitar Orçamento Online"
-              subtitle="Preencha os dados e receba nosso contato imediato com estimativa e horários disponíveis."
+              title={homeLead?.title || "Solicite uma Vistoria Técnica"}
+              subtitle={homeLead?.subtitle || "Preencha os dados e receba nosso contato imediato com estimativa e horários disponíveis."}
             />
           </div>
         </div>
