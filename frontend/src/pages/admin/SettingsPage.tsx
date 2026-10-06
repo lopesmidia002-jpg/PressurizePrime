@@ -338,6 +338,17 @@ export const SettingsPage: React.FC = () => {
               />
             </div>
           </div>
+          
+          <div className="flex justify-end pt-2 border-t border-slate-100 mt-6">
+            <button
+              type="button"
+              onClick={handleSave}
+              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-lg shadow-md transition-all flex items-center gap-2 text-sm"
+            >
+              <Save className="w-4 h-4" />
+              <span>Salvar Contatos</span>
+            </button>
+          </div>
         </div>
 
         {/* Botão de Salvar Flutuante ou no Fim */}
