@@ -21,20 +21,32 @@ O painel de controle (CMS) permite total autonomia operacional para a empresa:
 - **Gestão de SEO:** Total controle das Meta Tags (Título, Descrição, Palavras-chave) e OpenGraph (Imagem e Título de compartilhamento no WhatsApp).
 - **Gerenciamento de Serviços:** Adição, edição e controle visual dos cards de serviço exibidos na página inicial, incluindo upload direto das imagens ilustrativas.
 
-## 🛠️ Como Executar Localmente (Ambiente de Desenvolvimento)
+## 🛠️ Como Executar Localmente (Docker)
+
+Todo o ecossistema do projeto está configurado para rodar de forma isolada e automatizada usando contêineres Docker, o que significa que você não precisa instalar Node, PHP ou MySQL no seu computador.
 
 ### 1. Requisitos
-- Node.js (v18+)
-- NPM ou Yarn
+- **Docker Desktop** instalado e rodando.
 
-### 2. Rodando o Frontend
+### 2. Rodando o Projeto Completo
+Abra o terminal na pasta raiz do projeto (`PressurizePrime`) e execute:
+
 ```bash
-cd frontend
-npm install
-npm run dev
+docker compose up -d --build
 ```
+*Na primeira vez, o Docker vai baixar as imagens e construir o ambiente.*
 
-O projeto iniciará em `http://localhost:5173`. Você poderá acessar a Landing Page oficial e o Painel Administrativo (na rota `/admin`).
+### 3. Acessos e Links (Localhost)
+
+Após iniciar os contêineres, os seguintes links estarão disponíveis no seu navegador:
+
+- 🌍 **Página Inicial (Landing Page):** [http://localhost:5173](http://localhost:5173)
+- ⚙️ **Painel Administrativo (Login):** [http://localhost:5173/admin/login](http://localhost:5173/admin/login)
+  - *Email:* `admin@pressurizeprime.com.br`
+  - *Senha:* `password`
+- 🗄️ **API Backend (Laravel):** [http://localhost:8000/api/public/bootstrap](http://localhost:8000/api/public/bootstrap)
+
+*Nota: Para ver as mudanças no código em tempo real, basta editar os arquivos na sua máquina; o Docker com Hot Reload atualiza o navegador automaticamente!*
 
 ## ⚙️ Layout Responsivo
 
