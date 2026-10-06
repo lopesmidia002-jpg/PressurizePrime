@@ -21,7 +21,7 @@ export const HowItWorksPage: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const steps = [
+  const defaultSteps = [
     {
       number: "1",
       icon: <MessageSquare className="w-8 h-8 text-primary" />,
@@ -41,6 +41,30 @@ export const HowItWorksPage: React.FC = () => {
       description: "Conserto ou instalação de imediato ou em até 24h, com garantia."
     }
   ];
+
+  const cmsProcesso = pages['como-funciona']?.sections?.processo?.items;
+  const steps = defaultSteps.map((def, idx) => ({
+    number: def.number,
+    icon: def.icon,
+    title: cmsProcesso?.[idx]?.title || def.title,
+    description: cmsProcesso?.[idx]?.desc || def.description
+  }));
+
+  const regioesData = pages['como-funciona']?.sections?.regioes as any;
+  const regioesTitle = regioesData?.title || 'Regiões atendidas';
+  const regioesSubtitle = regioesData?.subtitle || 'Atendemos São Paulo e Grande São Paulo, com atendimento prioritário em Brooklin, Vila Olímpia, Vila Clementino, Chácara Santo Antônio, Morumbi, Alphaville, Barueri e Santana de Parnaíba.';
+
+  const compromissosData = pages['como-funciona']?.sections?.compromissos as any;
+  const compTitle = compromissosData?.title || 'Nossos compromissos';
+  const compSubtitle = compromissosData?.subtitle || 'O que você pode cobrar da gente.';
+  
+  const defaultCompromissos = [
+    { title: 'Orçamento antes do serviço.', desc: 'Você sabe o valor antes de qualquer peça ser trocada.' },
+    { title: 'Vistoria que sai de graça.', desc: 'Aprovou o serviço, a taxa de vistoria e locomoção não é cobrada.' },
+    { title: 'Garantia de verdade.', desc: '3 meses em peças e 30 dias de mão de obra.' },
+    { title: 'Pagamento facilitado.', desc: 'Até 10x sem juros no cartão ou desconto no Pix.' }
+  ];
+  const compromissosItems = compromissosData?.items || defaultCompromissos;
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
@@ -98,7 +122,7 @@ export const HowItWorksPage: React.FC = () => {
                     {step.icon}
                   </div>
                   <h3 className="text-xl font-bold text-slate-900 mb-4">{step.title}</h3>
-                  <p className="text-slate-600 text-base leading-relaxed flex-grow">
+                  <p className="text-slate-600 text-base leading-relaxed flex-grow whitespace-pre-wrap">
                     {step.description}
                   </p>
                 </div>
@@ -110,9 +134,9 @@ export const HowItWorksPage: React.FC = () => {
         {/* Regiões Atendidas */}
         <div className="bg-slate-50 py-16 border-t border-slate-200">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Regiões atendidas</h2>
-            <p className="text-lg text-slate-600 leading-relaxed">
-              Atendemos São Paulo e Grande São Paulo, com atendimento prioritário em Brooklin, Vila Olímpia, Vila Clementino, Chácara Santo Antônio, Morumbi, Alphaville, Barueri e Santana de Parnaíba.
+            <h2 className="text-3xl font-bold text-slate-900 mb-4 whitespace-pre-wrap">{regioesTitle}</h2>
+            <p className="text-lg text-slate-600 leading-relaxed whitespace-pre-wrap">
+              {regioesSubtitle}
             </p>
           </div>
         </div>
@@ -121,46 +145,23 @@ export const HowItWorksPage: React.FC = () => {
         <div className="bg-white py-24 border-y border-slate-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
-                Nossos compromissos
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight whitespace-pre-wrap">
+                {compTitle}
               </h2>
-              <p className="text-slate-500 max-w-2xl mx-auto text-lg">
-                O que você pode cobrar da gente.
+              <p className="text-slate-500 max-w-2xl mx-auto text-lg whitespace-pre-wrap">
+                {compSubtitle}
               </p>
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {/* Compromisso 1 */}
-              <div className="bg-slate-50 rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300">
-                <h3 className="text-lg font-bold text-slate-900 mb-3">Orçamento antes do serviço.</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">
-                  Você sabe o valor antes de qualquer peça ser trocada.
-                </p>
-              </div>
-
-              {/* Compromisso 2 */}
-              <div className="bg-slate-50 rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300">
-                <h3 className="text-lg font-bold text-slate-900 mb-3">Vistoria que sai de graça.</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">
-                  Aprovou o serviço, a taxa de vistoria e locomoção não é cobrada.
-                </p>
-              </div>
-
-              {/* Compromisso 3 */}
-              <div className="bg-slate-50 rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300">
-                <h3 className="text-lg font-bold text-slate-900 mb-3">Garantia de verdade.</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">
-                  3 meses em peças e 30 dias na mão de obra.
-                </p>
-              </div>
-
-              {/* Compromisso 4 */}
-              <div className="bg-slate-50 rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300">
-                <h3 className="text-lg font-bold text-slate-900 mb-3">Pagamento facilitado.</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">
-                  Pix, débito ou crédito em até 10x sem juros.
-                </p>
-              </div>
+              {compromissosItems.map((comp: any, idx: number) => (
+                <div key={idx} className="bg-slate-50 rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300">
+                  <h3 className="text-lg font-bold text-slate-900 mb-3">{comp.title}</h3>
+                  <p className="text-slate-600 text-sm leading-relaxed whitespace-pre-wrap">
+                    {comp.desc}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

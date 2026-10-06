@@ -21,7 +21,7 @@ export const DiferenciaisPage: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const diferenciais = [
+  const defaultDiferenciais = [
     {
       icon: <Medal className="w-8 h-8 text-primary" />,
       title: "Qualidade Premium",
@@ -52,6 +52,24 @@ export const DiferenciaisPage: React.FC = () => {
       title: "Pontualidade Britânica",
       description: "Chegamos no horário combinado. Valorizamos o seu tempo tanto quanto você."
     }
+  ];
+
+  const cmsDiferenciais = pages['diferenciais']?.sections?.diferenciais?.items;
+  const diferenciais = defaultDiferenciais.map((def, idx) => ({
+    icon: def.icon,
+    title: cmsDiferenciais?.[idx]?.title || def.title,
+    description: cmsDiferenciais?.[idx]?.desc || def.description
+  }));
+
+  const comparativo = pages['diferenciais']?.sections?.comparativo as any;
+  const compTitle = comparativo?.title || 'A Diferença Pressurize Prime';
+  const compSubtitle = comparativo?.subtitle || 'Veja por que nossos clientes não trocam nosso serviço.';
+  const compItems = comparativo?.items || [
+    { bad: "Orçamentos surpresa após iniciar", good: "Diagnóstico claro e orçamento fixo" },
+    { bad: "Peças paralelas sem procedência", good: "100% Peças Originais de fábrica" },
+    { bad: "Garantia apenas 'de boca'", good: "Garantia documentada em Nota Fiscal" },
+    { bad: "Atrasos e desmarcações", good: "Pontualidade e respeito à agenda" },
+    { bad: "Sujeira após o serviço", good: "Limpeza completa do local de trabalho" }
   ];
 
   return (
@@ -105,7 +123,7 @@ export const DiferenciaisPage: React.FC = () => {
                   {item.icon}
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3">{item.title}</h3>
-                <p className="text-slate-600 leading-relaxed">
+                <p className="text-slate-600 leading-relaxed whitespace-pre-wrap">
                   {item.description}
                 </p>
               </div>
@@ -117,8 +135,8 @@ export const DiferenciaisPage: React.FC = () => {
         <div className="bg-white py-16 md:py-24 lg:py-28 border-y border-slate-200">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">A Diferença Pressurize Prime</h2>
-              <p className="text-slate-600">Veja por que nossos clientes não trocam nosso serviço.</p>
+              <h2 className="text-3xl font-bold text-slate-900 mb-4 whitespace-pre-wrap">{compTitle}</h2>
+              <p className="text-slate-600 whitespace-pre-wrap">{compSubtitle}</p>
             </div>
 
             <div className="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden">
@@ -127,21 +145,15 @@ export const DiferenciaisPage: React.FC = () => {
                 <div className="p-6 font-bold text-primary text-center bg-blue-50/50">Pressurize Prime</div>
               </div>
               
-              {[
-                { bad: "Orçamentos surpresa após iniciar", good: "Diagnóstico claro e orçamento fixo" },
-                { bad: "Peças paralelas sem procedência", good: "100% Peças Originais de fábrica" },
-                { bad: "Garantia apenas 'de boca'", good: "Garantia documentada em Nota Fiscal" },
-                { bad: "Atrasos e desmarcações", good: "Pontualidade e respeito à agenda" },
-                { bad: "Sujeira após o serviço", good: "Limpeza completa do local de trabalho" }
-              ].map((row, idx) => (
+              {compItems.map((row: any, idx: number) => (
                 <div key={idx} className="grid grid-cols-2 border-b border-slate-100 last:border-0">
                   <div className="p-4 sm:p-6 text-slate-500 border-r border-slate-200 flex items-center gap-3">
                     <span className="w-5 h-5 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center shrink-0 font-bold text-xs">✕</span>
-                    <span className="text-sm sm:text-base">{row.bad}</span>
+                    <span className="text-sm sm:text-base whitespace-pre-wrap">{row.bad}</span>
                   </div>
                   <div className="p-4 sm:p-6 text-slate-900 bg-blue-50/20 flex items-center gap-3">
                     <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
-                    <span className="text-sm sm:text-base font-medium">{row.good}</span>
+                    <span className="text-sm sm:text-base font-medium whitespace-pre-wrap">{row.good}</span>
                   </div>
                 </div>
               ))}

@@ -23,7 +23,7 @@ export const FaqPage: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const faqs = [
+  const defaultFaqs = [
     {
       question: "De quanto em quanto tempo devo fazer manutenção?",
       answer: "O recomendado pelos fabricantes é uma revisão por ano, ou conforme o manual do seu modelo."
@@ -45,6 +45,12 @@ export const FaqPage: React.FC = () => {
       answer: "3 meses em peças e 30 dias na mão de obra."
     }
   ];
+
+  const cmsFaqs = pages['duvidas']?.sections?.duvidas?.items;
+  const faqs = cmsFaqs?.map((item: any) => ({
+    question: item.title,
+    answer: item.desc
+  })) || defaultFaqs;
 
   const filteredFaqs = faqs.filter(faq => 
     faq.question.toLowerCase().includes(searchTerm.toLowerCase()) || 

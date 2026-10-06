@@ -65,39 +65,37 @@ export const AboutPage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-6">
               <div className="inline-block bg-blue-50 text-primary font-bold px-3 py-1 rounded-full text-sm">
-                Nossa História
+                {pages['sobre']?.sections?.historia?.badge || 'Nossa História'}
               </div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">Técnicos de verdade, com nome e responsabilidade pelo serviço.</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight whitespace-pre-wrap">
+                {pages['sobre']?.sections?.historia?.title || 'Técnicos de verdade, com nome e responsabilidade pelo serviço.'}
+              </h2>
               <div className="prose prose-slate text-slate-600 text-lg">
-                <p>
-                  A Pressurize Prime nasceu de mais de uma década de experiência prática com pressurizadores e aquecedores. Uma equipe que aprendeu o ofício em campo, instalação por instalação, e conhece por dentro os equipamentos que você tem em casa.
-                </p>
-                <p>
-                  Aqui, quem atende você é gente de verdade, do primeiro contato ao pós-serviço. E se algo não ficar certo, a gente volta.
-                </p>
+                <p className="whitespace-pre-wrap">{pages['sobre']?.sections?.historia?.content1 || 'A Pressurize Prime nasceu de mais de uma década de experiência prática com pressurizadores e aquecedores. Uma equipe que aprendeu o ofício em campo, instalação por instalação, e conhece por dentro os equipamentos que você tem em casa.'}</p>
+                <p className="whitespace-pre-wrap">{pages['sobre']?.sections?.historia?.content2 || 'Aqui, quem atende você é gente de verdade, do primeiro contato ao pós-serviço. E se algo não ficar certo, a gente volta.'}</p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
                 <Droplets className="w-10 h-10 text-primary mb-4" />
-                <h3 className="font-bold text-slate-900 mb-2">Resolvemos de primeira</h3>
-                <p className="text-sm text-slate-600">Diagnóstico técnico antes de trocar qualquer peça. Você paga pelo que precisa, não por tentativa e erro.</p>
+                <h3 className="font-bold text-slate-900 mb-2">{pages['sobre']?.sections?.historia?.items?.[0]?.title || 'Resolvemos de primeira'}</h3>
+                <p className="text-sm text-slate-600 whitespace-pre-wrap">{pages['sobre']?.sections?.historia?.items?.[0]?.desc || 'Diagnóstico técnico antes de trocar qualquer peça. Você paga pelo que precisa, não por tentativa e erro.'}</p>
               </div>
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
                 <ShieldCheck className="w-10 h-10 text-amber-500 mb-4" />
-                <h3 className="font-bold text-slate-900 mb-2">Se voltar, a gente volta</h3>
-                <p className="text-sm text-slate-600">Nosso pós-atendimento existe para resolver qualquer retorno. Técnico com nome, empresa com endereço, serviço com garantia.</p>
+                <h3 className="font-bold text-slate-900 mb-2">{pages['sobre']?.sections?.historia?.items?.[1]?.title || 'Se voltar, a gente volta'}</h3>
+                <p className="text-sm text-slate-600 whitespace-pre-wrap">{pages['sobre']?.sections?.historia?.items?.[1]?.desc || 'Nosso pós-atendimento existe para resolver qualquer retorno. Técnico com nome, empresa com endereço, serviço com garantia.'}</p>
               </div>
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
                 <Flame className="w-10 h-10 text-slate-700 mb-4" />
-                <h3 className="font-bold text-slate-900 mb-2">Rápido de verdade</h3>
-                <p className="text-sm text-slate-600">Atendimento imediato, conserto em até 24h e instalação de equipamentos novos sem semanas de espera.</p>
+                <h3 className="font-bold text-slate-900 mb-2">{pages['sobre']?.sections?.historia?.items?.[2]?.title || 'Rápido de verdade'}</h3>
+                <p className="text-sm text-slate-600 whitespace-pre-wrap">{pages['sobre']?.sections?.historia?.items?.[2]?.desc || 'Atendimento imediato, conserto em até 24h e instalação de equipamentos novos sem semanas de espera.'}</p>
               </div>
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
                 <Wrench className="w-10 h-10 text-emerald-500 mb-4" />
-                <h3 className="font-bold text-slate-900 mb-2">Gente, não robô</h3>
-                <p className="text-sm text-slate-600">Do WhatsApp à visita, você fala com pessoas que entendem do assunto.</p>
+                <h3 className="font-bold text-slate-900 mb-2">{pages['sobre']?.sections?.historia?.items?.[3]?.title || 'Gente, não robô'}</h3>
+                <p className="text-sm text-slate-600 whitespace-pre-wrap">{pages['sobre']?.sections?.historia?.items?.[3]?.desc || 'Do WhatsApp à visita, você fala com pessoas que entendem do assunto.'}</p>
               </div>
             </div>
           </div>

@@ -382,6 +382,68 @@ export const PagesManagerPage: React.FC = () => {
               </div>
             )}
 
+            {selectedKey === 'sobre' && (
+              <div className="pt-6 border-t border-slate-200 mt-6 space-y-8">
+                <DynamicSectionEditor
+                  sectionKey="historia"
+                  label="História e Diferenciais"
+                  sectionData={formData.sections?.historia}
+                  onChange={(data) => handleChange('sections', { ...formData.sections, historia: data } as any)}
+                />
+              </div>
+            )}
+
+            {selectedKey === 'diferenciais' && (
+              <div className="pt-6 border-t border-slate-200 mt-6 space-y-8">
+                <DynamicSectionEditor
+                  sectionKey="diferenciais"
+                  label="Diferenciais em Destaque"
+                  sectionData={formData.sections?.diferenciais}
+                  onChange={(data) => handleChange('sections', { ...formData.sections, diferenciais: data } as any)}
+                />
+                <DynamicSectionEditor
+                  sectionKey="comparativo"
+                  label="Tabela Comparativa"
+                  sectionData={formData.sections?.comparativo}
+                  onChange={(data) => handleChange('sections', { ...formData.sections, comparativo: data } as any)}
+                />
+              </div>
+            )}
+
+            {selectedKey === 'como-funciona' && (
+              <div className="pt-6 border-t border-slate-200 mt-6 space-y-8">
+                <DynamicSectionEditor
+                  sectionKey="processo"
+                  label="Etapas do Processo"
+                  sectionData={formData.sections?.processo}
+                  onChange={(data) => handleChange('sections', { ...formData.sections, processo: data } as any)}
+                />
+                <DynamicSectionEditor
+                  sectionKey="regioes"
+                  label="Regiões Atendidas"
+                  sectionData={formData.sections?.regioes}
+                  onChange={(data) => handleChange('sections', { ...formData.sections, regioes: data } as any)}
+                />
+                <DynamicSectionEditor
+                  sectionKey="compromissos"
+                  label="Nossos Compromissos"
+                  sectionData={formData.sections?.compromissos}
+                  onChange={(data) => handleChange('sections', { ...formData.sections, compromissos: data } as any)}
+                />
+              </div>
+            )}
+
+            {selectedKey === 'duvidas' && (
+              <div className="pt-6 border-t border-slate-200 mt-6 space-y-8">
+                <DynamicSectionEditor
+                  sectionKey="duvidas"
+                  label="Perguntas e Respostas"
+                  sectionData={formData.sections?.duvidas}
+                  onChange={(data) => handleChange('sections', { ...formData.sections, duvidas: data } as any)}
+                />
+              </div>
+            )}
+
             <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-center sm:justify-end gap-3">
               {savedSuccess && (
                 <div className="flex items-center gap-1.5 text-emerald-600 text-sm font-bold animate-in fade-in">
