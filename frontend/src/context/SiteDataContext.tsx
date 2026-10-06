@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { SiteSettings, PageData, ServiceItem, FaqItem, Lead, LeadFormData } from '../types';
 import { defaultSettings, defaultPages, defaultServices, defaultFaqs } from '../services/initialData';
+import { api, adminApi } from '../services/api';
 
 interface SiteDataContextType {
   settings: SiteSettings;
@@ -73,6 +74,61 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     ];
   });
 
+  // Fetch initial data from Laravel Backend
+  useEffect(() => {
+    api.get('/public/bootstrap')
+      .then(response => {
+        if (response.data?.success) {
+          const { settings: apiSettings, services: apiServices, seo: apiSeo, pages: apiPages } = response.data.data;
+          
+          if (apiSettings) {
+            let addressCoverage = [];
+            if (apiSettings.coverage_cities) {
+              try {
+                addressCoverage = JSON.parse(apiSettings.coverage_cities);
+              } catch (e) {
+                addressCoverage = [];
+              }
+            }
+            
+            setSettings(prev => ({
+              ...prev,
+              ...apiSettings,
+              address_coverage: addressCoverage.length > 0 ? addressCoverage : prev.address_coverage
+            }));
+          }
+          
+          if (apiServices && apiServices.length > 0) {
+            // Ensure features are arrays
+            const mappedServices = apiServices.map((s: any) => ({
+              ...s,
+              id: s.id.toString(),
+              features: typeof s.features === 'string' ? JSON.parse(s.features) : (s.features || [])
+            }));
+            setServices(mappedServices);
+          }
+          
+          if (apiPages) {
+            // A API retorna as páginas já com as SEO tags mescladas no backend
+            // Precisamos adaptar para o formato do Record<string, PageData>
+            const formattedPages: Record<string, PageData> = {};
+            
+            Object.keys(apiPages).forEach(key => {
+              formattedPages[key] = {
+                ...apiPages[key],
+                seo: apiSeo?.[key] || null
+              };
+            });
+            
+            setPages(formattedPages);
+          }
+        }
+      })
+      .catch(error => {
+        console.error('Failed to fetch from backend, falling back to local storage/defaults', error);
+      });
+  }, []);
+
   // Atualizar variáveis CSS do tema dinamicamente no :root
   useEffect(() => {
     const root = document.documentElement;
@@ -115,32 +171,7 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return () => clearInterval(interval);
   }, []);
 
-  // Sincronização inicial com o backend Laravel (Bootstrap Endpoint)
-  useEffect(() => {
-    const fetchBootstrapData = async () => {
-      try {
-        const res = await fetch('/api/public/bootstrap');
-        if (res.ok) {
-          const json = await res.json();
-          if (json.success && json.data) {
-            if (json.data.settings) {
-              setSettings(prev => ({ ...prev, ...json.data.settings }));
-            }
-            if (json.data.services && Array.isArray(json.data.services) && json.data.services.length > 0) {
-              setServices(json.data.services);
-            }
-            if (json.data.pages) {
-              setPages(prev => ({ ...prev, ...json.data.pages }));
-            }
-          }
-        }
-      } catch {
-        // Fallback gracioso local ativo automaticamente
-      }
-    };
 
-    fetchBootstrapData();
-  }, []);
 
   const updateSettings = (newSettings: Partial<SiteSettings>) => {
     setSettings(prev => ({ ...prev, ...newSettings }));
@@ -148,20 +179,18 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     // Tentativa assíncrona de sincronizar com a API se autenticado
     const token = localStorage.getItem('pressurize_token');
     if (token) {
-      const settingsPayload = Object.entries(newSettings).map(([key, value]) => ({
-        key,
-        value: typeof value === 'object' ? JSON.stringify(value) : String(value),
-        group: 'general'
-      }));
+      const settingsPayload = Object.entries(newSettings).map(([key, value]) => {
+        let finalKey = key;
+        if (key === 'address_coverage') finalKey = 'coverage_cities';
+        return {
+          key: finalKey,
+          value: typeof value === 'object' ? JSON.stringify(value) : String(value),
+          group: 'general'
+        };
+      });
 
-      fetch('/api/admin/settings', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ settings: settingsPayload })
-      }).catch(() => {});
+      adminApi.put('/settings', { settings: settingsPayload })
+        .catch(() => {});
     }
   };
 
@@ -195,6 +224,15 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         ...pageData,
         seo: mergedSeo
       };
+      
+      // Async API sync
+      const token = localStorage.getItem('pressurize_token');
+      if (token) {
+        adminApi.put(`/pages/${slug}`, pageData).catch(() => {});
+        if (pageData.seo) {
+          adminApi.put(`/seo/${slug}`, mergedSeo).catch(() => {});
+        }
+      }
 
       return {
         ...prev,
@@ -205,14 +243,20 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const updateService = (id: string, updated: Partial<ServiceItem>) => {
     setServices(prev => prev.map(s => (s.id === id ? { ...s, ...updated } : s)));
+    const token = localStorage.getItem('pressurize_token');
+    if (token) adminApi.put(`/services/${id}`, updated).catch(() => {});
   };
 
   const addService = (newService: ServiceItem) => {
     setServices(prev => [...prev, newService]);
+    const token = localStorage.getItem('pressurize_token');
+    if (token) adminApi.post('/services', newService).catch(() => {});
   };
 
   const deleteService = (id: string) => {
     setServices(prev => prev.filter(s => s.id !== id));
+    const token = localStorage.getItem('pressurize_token');
+    if (token) adminApi.delete(`/services/${id}`).catch(() => {});
   };
 
   const addLead = async (leadData: LeadFormData): Promise<boolean> => {
@@ -226,11 +270,7 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
     // Tentativa assíncrona de enviar para backend Laravel quando ativo
     try {
-      await fetch('/api/public/leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(leadData)
-      });
+      await api.post('/public/leads', leadData);
     } catch {
       // Falha silenciosa de offline/mock
     }
@@ -240,6 +280,8 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const updateLeadStatus = (id: string | number, status: Lead['status']) => {
     setLeads(prev => prev.map(l => (l.id === id ? { ...l, status } : l)));
+    const token = localStorage.getItem('pressurize_token');
+    if (token) adminApi.patch(`/leads/${id}/status`, { status }).catch(() => {});
   };
 
   const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);

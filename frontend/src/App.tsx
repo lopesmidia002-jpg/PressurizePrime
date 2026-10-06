@@ -3,6 +3,10 @@ import { SiteDataProvider } from './context/SiteDataContext';
 import { AuthProvider } from './context/AuthContext';
 import { HomePage } from './pages/HomePage';
 import { ServiceLPPage } from './pages/ServiceLPPage';
+import { AboutPage } from './pages/AboutPage';
+import { ContactPage } from './pages/ContactPage';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
+import { TermsOfUsePage } from './pages/TermsOfUsePage';
 import { AdminLayout, ProtectedRoute } from './components/admin';
 import {
   LoginPage,
@@ -22,6 +26,10 @@ export default function App() {
           <Routes>
             {/* Rotas Públicas do Site Institucional */}
             <Route path="/" element={<HomePage />} />
+            <Route path="/sobre" element={<AboutPage />} />
+            <Route path="/contato" element={<ContactPage />} />
+            <Route path="/privacidade" element={<PrivacyPolicyPage />} />
+            <Route path="/termos" element={<TermsOfUsePage />} />
 
             {/* Landing Pages Especializadas com Rotas Dedicadas */}
             <Route path="/pressurizador" element={<ServiceLPPage pageSlug="pressurizador" />} />

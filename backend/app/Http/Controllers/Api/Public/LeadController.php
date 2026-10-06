@@ -43,6 +43,14 @@ class LeadController extends Controller
 
         Log::info("Novo Lead Pressurize Prime recebido #{$lead->id} - {$lead->name} ({$lead->neighborhood})");
 
+        try {
+            $setting = \App\Models\Setting::where('key', 'contact_email')->first();
+            $recipient = $setting ? $setting->value : 'contato@pressurizeprime.com.br';
+            \Illuminate\Support\Facades\Mail::to($recipient)->send(new \App\Mail\NewLeadNotification($lead));
+        } catch (\Exception $e) {
+            Log::error("Erro ao enviar email para o lead #{$lead->id}: " . $e->getMessage());
+        }
+
         return response()->json([
             'success' => true,
             'message' => 'Orçamento solicitado com sucesso! Entraremos em contato via WhatsApp.',

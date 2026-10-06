@@ -222,3 +222,36 @@ Cada etapa possui critérios de aceitação claros e checkboxes que são atualiz
     - [x] Suporte a `logo_vertical_url` nas interfaces TypeScript (`types/index.ts`) e dados padrão (`initialData.ts`).
     - [x] Atualização de `HeroSection.tsx` substituindo o logotipo horizontal que ficava acanhado no card pelo novo formato vertical, perfeitamente centralizado e proporcional com a referência visual do usuário.
     - [x] Build limpo do Vite/TypeScript compilado com sucesso em 1.35s com 0 erros.
+
+---
+
+- [x] **Passo 18: Criação de Páginas Institucionais e Legais**
+  - **Prioridade**: Alta (Completude Institucional & LGPD)
+  - **Status**: Concluído
+  - **Entregáveis**:
+    - [x] Página Sobre Nós (`/sobre`).
+    - [x] Página de Contato Oficial (`/contato`) com mapa e formulário.
+    - [x] Páginas Legais: Política de Privacidade (`/privacidade`) e Termos de Uso (`/termos`).
+    - [x] Criação de um `Footer` dinâmico para abrigar esses links.
+
+- [x] **Passo 19: Integração do Frontend com a API Laravel (Banco de Dados)**
+  - **Prioridade**: Máxima (Core System)
+  - **Status**: Concluído
+  - **Entregáveis**:
+    - [x] Criação dos Models, Migrations e Controllers no Laravel.
+    - [x] Substituição do `localStorage` no `SiteDataContext.tsx` por chamadas HTTP reais via `axios`.
+
+- [x] **Passo 20: Configuração de Disparo de E-mails e Alertas**
+  - **Prioridade**: Alta (Automação de Vendas)
+  - **Status**: Concluído
+  - **Entregáveis**:
+    - [x] Configuração do serviço SMTP (Envio de email no backend Laravel).
+    - [x] Disparo automático para o email do administrador a cada novo Lead cadastrado.
+
+- [x] **Passo 21: Ajustes Finais e Melhorias UI (Hero Abas e Uploads)**
+  - **Prioridade**: Alta (Aesthetics & UX)
+  - **Status**: Conclu�do
+  - **Entreg�veis**:
+    - [x] Transforma��o do HeroSection em um banner interativo com Abas (Tabs) sincronizado com os servi�os.
+    - [x] Adapta��o do Carrossel de Abas para scroll horizontal no Mobile, ocultando a barra de rolagem (hide-scrollbar).
+    - [x] Inclus�o de bot�es de Upload Base64 nas telas de Admin (Servi�os, Configura��es e SEO).

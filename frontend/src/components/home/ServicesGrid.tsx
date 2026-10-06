@@ -95,7 +95,7 @@ export const ServicesGrid: React.FC = () => {
                   {/* Lista de Recursos / Diferenciais */}
                   {service.features && (
                     <ul className="space-y-2 mb-6 border-t border-slate-100 pt-4">
-                      {service.features.map((feat, idx) => (
+                      {(service.features || []).map((feat, idx) => (
                         <li key={idx} className="flex items-center gap-2 text-xs text-slate-600">
                           <CheckCircle className="w-3.5 h-3.5 text-secondary shrink-0" />
                           <span>{feat}</span>

@@ -101,7 +101,7 @@ export const Footer: React.FC = () => {
               Atendimento com rota prioritária para condomínios e residências nas seguintes regiões:
             </p>
             <div className="flex flex-wrap gap-1.5">
-              {settings.address_coverage.map((bairro, idx) => (
+              {(settings.address_coverage || []).map((bairro, idx) => (
                 <span
                   key={idx}
                   className="bg-slate-900 border border-slate-800 text-[11px] text-slate-300 px-2 py-1 rounded"
@@ -160,7 +160,16 @@ export const Footer: React.FC = () => {
           </div>
         </div>
       </div>
-
+      
+      {/* Links Institucionais */}
+      <div className="border-t border-slate-900 bg-slate-900/30 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-center gap-6 text-xs text-slate-400">
+          <Link to="/sobre" className="hover:text-primary transition-colors">Sobre Nós</Link>
+          <Link to="/contato" className="hover:text-primary transition-colors">Fale Conosco</Link>
+          <Link to="/privacidade" className="hover:text-primary transition-colors">Política de Privacidade</Link>
+          <Link to="/termos" className="hover:text-primary transition-colors">Termos de Uso</Link>
+        </div>
+      </div>
       {/* Copyright e Acesso Administrativo */}
       <div className="border-t border-slate-900 bg-slate-950 py-5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
