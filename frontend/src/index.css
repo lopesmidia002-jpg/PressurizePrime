@@ -157,6 +157,22 @@
   will-change: transform, box-shadow;
 }
 
+@keyframes drop-float {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+    filter: drop-shadow(0 10px 15px rgba(0, 75, 147, 0.15));
+  }
+  50% {
+    transform: translateY(-10px) scale(1.02);
+    filter: drop-shadow(0 20px 25px rgba(0, 75, 147, 0.25));
+  }
+}
+
+.animate-drop-float {
+  animation: drop-float 5s ease-in-out infinite;
+  will-change: transform, filter;
+}
+
 .animate-water-ripple-1 {
   animation: water-ripple-refined 4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
   will-change: transform, opacity;
@@ -212,6 +228,27 @@
 
 .animate-fade-up-4 {
   animation: fade-in-up-refined 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+}
+
+@keyframes hero-bg-pan {
+  0% {
+    transform: scale(1.12) translate(0%, 0%);
+  }
+  33% {
+    transform: scale(1.15) translate(-3%, -2%);
+  }
+  66% {
+    transform: scale(1.12) translate(3%, 1%);
+  }
+  100% {
+    transform: scale(1.12) translate(0%, 0%);
+  }
+}
+
+.animate-hero-bg-pan {
+  animation: hero-bg-pan 20s ease-in-out infinite;
+  will-change: transform;
+  transform-origin: center center;
 }
 
 @keyframes aurora-mesh-drift {

@@ -10,7 +10,6 @@ import {
   ShieldCheck,
   RotateCcw,
   Sparkles,
-  MapPin,
   User,
   Phone,
   Wrench
@@ -26,36 +25,7 @@ interface LeadFormProps {
   className?: string;
 }
 
-// Bairros prioritários e regiões atendidas para sugestão rápida
-const SP_NEIGHBORHOODS = [
-  'Brooklin',
-  'Vila Olímpia',
-  'Itaim Bibi',
-  'Moema',
-  'Jardins / Cerqueira César',
-  'Pinheiros',
-  'Alto de Pinheiros',
-  'Morumbi',
-  'Campo Belo',
-  'Vila Nova Conceição',
-  'Perdizes',
-  'Higienópolis',
-  'Santana / Zona Norte',
-  'Tatuapé / Anália Franco',
-  'Alphaville / Tamboré',
-  'Granja Viana'
-];
 
-// Sugestões de sintomas e serviços para chips de toque rápido
-const QUICK_ISSUES = [
-  'Sem pressão no chuveiro',
-  'Água não esquenta',
-  'Aparelho desliga sozinho',
-  'Vazamento ou goteira',
-  'Barulho forte / estalo',
-  'Instalação de equipamento novo',
-  'Manutenção preventiva periódica'
-];
 
 // Formatação e máscara de telefone celular (Brasil: DDD + 9 ou 8 dígitos)
 export const formatPhoneMask = (raw: string): string => {
@@ -77,7 +47,6 @@ export const LeadForm: React.FC<LeadFormProps> = ({
   defaultService = '',
   origin = typeof window !== 'undefined' ? window.location.pathname : '',
   onSuccess,
-  compact = false,
   title,
   subtitle,
   className = ''
@@ -116,27 +85,6 @@ export const LeadForm: React.FC<LeadFormProps> = ({
     }
   };
 
-  // Alternar chip de sintoma rápido
-  const handleToggleIssueChip = (issue: string) => {
-    setFormData(prev => {
-      const current = prev.problem_description.trim();
-      if (!current) {
-        return { ...prev, problem_description: issue };
-      }
-      if (current.includes(issue)) {
-        // Remover caso já esteja presente
-        const updated = current
-          .replace(new RegExp(`(?:, )?${issue}`, 'g'), '')
-          .replace(/^, /, '')
-          .trim();
-        return { ...prev, problem_description: updated };
-      }
-      return { ...prev, problem_description: `${current}, ${issue}` };
-    });
-    if (errors.problem_description) {
-      setErrors(prev => ({ ...prev, problem_description: undefined }));
-    }
-  };
 
   // Validação dos campos
   const validate = (): boolean => {
@@ -151,12 +99,8 @@ export const LeadForm: React.FC<LeadFormProps> = ({
       newErrors.whatsapp = 'Informe um número de WhatsApp válido com DDD (ex: (11) 98765-4321).';
     }
 
-    if (!formData.neighborhood.trim()) {
-      newErrors.neighborhood = 'Informe seu bairro ou região em São Paulo.';
-    }
-
-    if (!formData.problem_description.trim() || formData.problem_description.trim().length < 5) {
-      newErrors.problem_description = 'Descreva brevemente o problema ou selecione uma opção acima.';
+    if (!formData.service_category) {
+      newErrors.service_category = 'Por favor, selecione o tipo de problema ou serviço.';
     }
 
     setErrors(newErrors);
@@ -172,6 +116,8 @@ export const LeadForm: React.FC<LeadFormProps> = ({
     try {
       const payload: LeadFormData = {
         ...formData,
+        neighborhood: 'N/A',
+        problem_description: 'N/A',
         origin_url: origin || window.location.pathname
       };
 
@@ -208,7 +154,8 @@ export const LeadForm: React.FC<LeadFormProps> = ({
   // Mensagem pré-formatada para acelerar o atendimento via WhatsApp
   const generateWhatsAppDirectLink = () => {
     if (!submittedLead) return `https://wa.me/${settings.whatsapp_raw}`;
-    const text = `Olá, meu nome é ${submittedLead.name}. Acabei de solicitar orçamento pelo site para o bairro ${submittedLead.neighborhood}. Problema: ${submittedLead.problem_description}. Gostaria de agilizar o atendimento.`;
+    const serviceName = services.find(s => s.slug === submittedLead.service_category)?.title || 'um atendimento técnico';
+    const text = `Olá, meu nome é ${submittedLead.name}. Acabei de solicitar orçamento pelo site para ${serviceName}. Gostaria de agilizar o atendimento.`;
     return `https://wa.me/${settings.whatsapp_raw}?text=${encodeURIComponent(text)}`;
   };
 
@@ -236,18 +183,12 @@ export const LeadForm: React.FC<LeadFormProps> = ({
 
         {/* Resumo do Pedido */}
         <div className="mt-4 bg-slate-50 border border-slate-200/60 rounded-xl p-4 text-left text-xs text-slate-700 space-y-1.5 max-w-md mx-auto">
-          <div>
-            <strong className="text-slate-900">Bairro:</strong> {submittedLead.neighborhood}
-          </div>
           {submittedLead.service_category && (
             <div>
-              <strong className="text-slate-900">Equipamento:</strong>{' '}
+              <strong className="text-slate-900">Equipamento / Serviço:</strong>{' '}
               {services.find(s => s.slug === submittedLead.service_category)?.title || submittedLead.service_category}
             </div>
           )}
-          <div>
-            <strong className="text-slate-900">Descrição:</strong> {submittedLead.problem_description}
-          </div>
         </div>
 
         {/* Horário de Atendimento Info */}
@@ -346,60 +287,28 @@ export const LeadForm: React.FC<LeadFormProps> = ({
           )}
         </div>
 
-        {/* Linha dupla: WhatsApp e Bairro */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* Campo: WhatsApp */}
-          <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-              <Phone className="w-3.5 h-3.5 text-slate-400" />
-              <span>WhatsApp / Celular *</span>
-            </label>
-            <input
-              type="tel"
-              value={formData.whatsapp}
-              onChange={e => handleChange('whatsapp', e.target.value)}
-              placeholder="(11) 98765-4321"
-              maxLength={15}
-              className={`w-full px-3.5 py-2.5 text-sm bg-slate-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all ${
-                errors.whatsapp ? 'border-red-400 bg-red-50/30' : 'border-slate-300 focus:border-primary'
-              }`}
-            />
-            {errors.whatsapp && (
-              <p className="mt-1 text-xs text-red-600 flex items-center gap-1">
-                <AlertCircle className="w-3 h-3 shrink-0" />
-                <span>{errors.whatsapp}</span>
-              </p>
-            )}
-          </div>
-
-          {/* Campo: Bairro */}
-          <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-slate-400" />
-              <span>Bairro / Região em SP *</span>
-            </label>
-            <input
-              type="text"
-              list="sp-neighborhoods-list"
-              value={formData.neighborhood}
-              onChange={e => handleChange('neighborhood', e.target.value)}
-              placeholder="Ex: Brooklin, Moema, Alphaville..."
-              className={`w-full px-3.5 py-2.5 text-sm bg-slate-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all ${
-                errors.neighborhood ? 'border-red-400 bg-red-50/30' : 'border-slate-300 focus:border-primary'
-              }`}
-            />
-            <datalist id="sp-neighborhoods-list">
-              {SP_NEIGHBORHOODS.map(nh => (
-                <option key={nh} value={nh} />
-              ))}
-            </datalist>
-            {errors.neighborhood && (
-              <p className="mt-1 text-xs text-red-600 flex items-center gap-1">
-                <AlertCircle className="w-3 h-3 shrink-0" />
-                <span>{errors.neighborhood}</span>
-              </p>
-            )}
-          </div>
+        {/* Campo: WhatsApp */}
+        <div>
+          <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+            <Phone className="w-3.5 h-3.5 text-slate-400" />
+            <span>WhatsApp / Celular *</span>
+          </label>
+          <input
+            type="tel"
+            value={formData.whatsapp}
+            onChange={e => handleChange('whatsapp', e.target.value)}
+            placeholder="(11) 98765-4321"
+            maxLength={15}
+            className={`w-full px-3.5 py-2.5 text-sm bg-slate-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all ${
+              errors.whatsapp ? 'border-red-400 bg-red-50/30' : 'border-slate-300 focus:border-primary'
+            }`}
+          />
+          {errors.whatsapp && (
+            <p className="mt-1 text-xs text-red-600 flex items-center gap-1">
+              <AlertCircle className="w-3 h-3 shrink-0" />
+              <span>{errors.whatsapp}</span>
+            </p>
+          )}
         </div>
 
         {/* Campo: Categoria de Serviço */}
@@ -422,56 +331,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
           </select>
         </div>
 
-        {/* Chips de Sugestões Rápidas */}
-        {!compact && (
-          <div>
-            <span className="block text-[11px] font-semibold text-slate-500 mb-1.5">
-              Toque rápido para adicionar sintomas comuns:
-            </span>
-            <div className="flex flex-wrap gap-1.5">
-              {QUICK_ISSUES.map(issue => {
-                const isSelected = formData.problem_description.includes(issue);
-                return (
-                  <button
-                    key={issue}
-                    type="button"
-                    onClick={() => handleToggleIssueChip(issue)}
-                    className={`text-[11px] font-medium px-2.5 py-1 rounded-lg border transition-all ${
-                      isSelected
-                        ? 'bg-blue-50 border-primary text-primary font-bold'
-                        : 'bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-700'
-                    }`}
-                  >
-                    {isSelected ? '✓ ' : '+ '}
-                    {issue}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
 
-        {/* Campo: Descrição do Problema */}
-        <div>
-          <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-            Descrição do Problema ou Necessidade *
-          </label>
-          <textarea
-            rows={compact ? 2 : 3}
-            value={formData.problem_description}
-            onChange={e => handleChange('problem_description', e.target.value)}
-            placeholder="Conte brevemente o que está acontecendo (ex: aparelho fazendo barulho, água fria, vazamento, marca do equipamento)..."
-            className={`w-full px-3.5 py-2.5 text-sm bg-slate-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-none ${
-              errors.problem_description ? 'border-red-400 bg-red-50/30' : 'border-slate-300 focus:border-primary'
-            }`}
-          />
-          {errors.problem_description && (
-            <p className="mt-1 text-xs text-red-600 flex items-center gap-1">
-              <AlertCircle className="w-3 h-3 shrink-0" />
-              <span>{errors.problem_description}</span>
-            </p>
-          )}
-        </div>
 
         {/* Mensagem Amigável de Horário de Expediente */}
         {!isBusinessHours && (

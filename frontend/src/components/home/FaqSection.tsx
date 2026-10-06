@@ -4,7 +4,7 @@ import { ChevronDown } from 'lucide-react';
 
 export const FaqSection: React.FC = () => {
   const { faqs } = useSiteData();
-  const [openId, setOpenId] = useState<string | null>(faqs[0]?.id || null);
+  const [openId, setOpenId] = useState<string | null>(null);
 
   const toggleFaq = (id: string) => {
     setOpenId(prev => (prev === id ? null : id));
@@ -45,13 +45,13 @@ export const FaqSection: React.FC = () => {
                 >
                   <span className="text-base sm:text-lg tracking-tight text-balance">{faq.question}</span>
                   <div
-                    className={`w-8 h-8 rounded-full border flex items-center justify-center shrink-0 transition-all duration-300 pointer-events-none ${
+                    className={`w-8 h-8 rounded-full border flex items-center justify-center shrink-0 transition-colors duration-300 pointer-events-none ${
                       isOpen
-                        ? 'rotate-180 bg-blue-50 border-blue-200 text-primary'
-                        : 'rotate-0 bg-slate-50 border-slate-200 text-slate-500'
+                        ? 'bg-blue-50 border-blue-200 text-primary'
+                        : 'bg-slate-50 border-slate-200 text-slate-500'
                     }`}
                   >
-                    <ChevronDown className="w-4 h-4 pointer-events-none" />
+                    <ChevronDown className={`w-5 h-5 pointer-events-none transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
                   </div>
                 </button>
 

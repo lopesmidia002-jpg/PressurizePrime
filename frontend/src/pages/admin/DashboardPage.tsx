@@ -249,56 +249,101 @@ export const DashboardPage: React.FC = () => {
             Nenhum contato recebido ainda.
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-slate-50 text-xs font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100">
-                <tr>
-                  <th className="py-3 px-4">Cliente</th>
-                  <th className="py-3 px-4">Bairro</th>
-                  <th className="py-3 px-4">Equipamento</th>
-                  <th className="py-3 px-4">Problema</th>
-                  <th className="py-3 px-4">Status</th>
-                  <th className="py-3 px-4 text-right">Ação</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {recentLeads.map(lead => {
-                  const rawPhone = lead.whatsapp.replace(/\D/g, '');
-                  return (
-                    <tr key={lead.id} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="py-3.5 px-4">
+          <>
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-left text-sm">
+                <thead className="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100 whitespace-nowrap">
+                  <tr>
+                    <th className="py-3 px-4">Cliente</th>
+                    <th className="py-3 px-4">Bairro</th>
+                    <th className="py-3 px-4">Equipamento</th>
+                    <th className="py-3 px-4">Problema</th>
+                    <th className="py-3 px-4">Status</th>
+                    <th className="py-3 px-4 text-right">Ação</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {recentLeads.map(lead => {
+                    const rawPhone = lead.whatsapp.replace(/\D/g, '');
+                    return (
+                      <tr key={lead.id} className="hover:bg-slate-50/80 transition-colors">
+                        <td className="py-3.5 px-4 whitespace-nowrap">
+                          <span className="font-bold text-slate-900 block">{lead.name}</span>
+                          <span className="text-xs text-slate-500">{lead.whatsapp}</span>
+                        </td>
+                        <td className="py-3.5 px-4 font-medium text-slate-700 whitespace-nowrap">
+                          {lead.neighborhood}
+                        </td>
+                        <td className="py-3.5 px-4 text-xs text-slate-600 whitespace-nowrap">
+                          {lead.service_category || 'Geral'}
+                        </td>
+                        <td className="py-3.5 px-4 text-xs text-slate-600 max-w-[200px] truncate" title={lead.problem_description}>
+                          {lead.problem_description}
+                        </td>
+                        <td className="py-3.5 px-4 whitespace-nowrap">
+                          {getStatusBadge(lead.status)}
+                        </td>
+                        <td className="py-3.5 px-4 text-right whitespace-nowrap">
+                          <a
+                            href={`https://wa.me/55${rawPhone}?text=${encodeURIComponent(`Olá ${lead.name}, aqui é da Pressurize Prime sobre sua solicitação no bairro ${lead.neighborhood}.`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-3 py-1.5 rounded-lg font-bold text-xs transition-colors"
+                          >
+                            <MessageSquare className="w-3.5 h-3.5" />
+                            <span>WhatsApp</span>
+                          </a>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="md:hidden flex flex-col divide-y divide-slate-100">
+              {recentLeads.map(lead => {
+                const rawPhone = lead.whatsapp.replace(/\D/g, '');
+                
+                return (
+                  <div key={lead.id} className="p-4 flex flex-col gap-3">
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
                         <span className="font-bold text-slate-900 block">{lead.name}</span>
-                        <span className="text-xs text-slate-500">{lead.whatsapp}</span>
-                      </td>
-                      <td className="py-3.5 px-4 font-medium text-slate-700">
-                        {lead.neighborhood}
-                      </td>
-                      <td className="py-3.5 px-4 text-xs text-slate-600">
-                        {lead.service_category || 'Geral'}
-                      </td>
-                      <td className="py-3.5 px-4 text-xs text-slate-600 max-w-xs truncate" title={lead.problem_description}>
-                        {lead.problem_description}
-                      </td>
-                      <td className="py-3.5 px-4">
+                        <span className="text-xs text-slate-500 font-medium">{lead.whatsapp}</span>
+                      </div>
+                      <span className="shrink-0 mt-0.5">
                         {getStatusBadge(lead.status)}
-                      </td>
-                      <td className="py-3.5 px-4 text-right">
-                        <a
-                          href={`https://wa.me/55${rawPhone}?text=${encodeURIComponent(`Olá ${lead.name}, aqui é da Pressurize Prime sobre sua solicitação no bairro ${lead.neighborhood}.`)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-3 py-1.5 rounded-lg font-bold text-xs transition-colors"
-                        >
-                          <MessageSquare className="w-3.5 h-3.5" />
-                          <span>WhatsApp</span>
-                        </a>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div>
+                        <span className="block text-slate-400 font-semibold mb-0.5">Bairro:</span>
+                        <span className="text-slate-700 font-medium">{lead.neighborhood}</span>
+                      </div>
+                      <div>
+                        <span className="block text-slate-400 font-semibold mb-0.5">Serviço:</span>
+                        <span className="text-slate-700 font-medium truncate block">{lead.service_category || 'Geral'}</span>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-end mt-1 pt-3 border-t border-slate-50">
+                      <a
+                        href={`https://wa.me/55${rawPhone}?text=${encodeURIComponent(`Olá ${lead.name}, aqui é da Pressurize Prime sobre sua solicitação no bairro ${lead.neighborhood}.`)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg font-bold text-xs shadow-xs transition-colors w-full"
+                      >
+                        <MessageSquare className="w-3.5 h-3.5" />
+                        <span>Chamar no WhatsApp</span>
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </>
         )}
       </div>
     </div>

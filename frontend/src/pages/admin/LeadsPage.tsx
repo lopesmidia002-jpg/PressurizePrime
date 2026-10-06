@@ -141,89 +141,159 @@ export const LeadsPage: React.FC = () => {
             Nenhum contato encontrado para os filtros selecionados.
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100">
-                <tr>
-                  <th className="py-3 px-4">Data / Hora</th>
-                  <th className="py-3 px-4">Cliente / Contato</th>
-                  <th className="py-3 px-4">Bairro em SP</th>
-                  <th className="py-3 px-4">Equipamento</th>
-                  <th className="py-3 px-4">Problema Relatado</th>
-                  <th className="py-3 px-4">Status</th>
-                  <th className="py-3 px-4 text-right">Ação Direta</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {filteredLeads.map(lead => {
-                  const rawPhone = lead.whatsapp.replace(/\D/g, '');
-                  const dateStr = lead.created_at
-                    ? new Date(lead.created_at).toLocaleString('pt-BR', {
-                        day: '2-digit',
-                        month: '2-digit',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                      })
-                    : 'Hoje';
+          <>
+            {/* Versão Desktop (Tabela) */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-left text-sm">
+                <thead className="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100 whitespace-nowrap">
+                  <tr>
+                    <th className="py-3 px-4">Data / Hora</th>
+                    <th className="py-3 px-4">Cliente / Contato</th>
+                    <th className="py-3 px-4">Bairro em SP</th>
+                    <th className="py-3 px-4">Equipamento</th>
+                    <th className="py-3 px-4">Problema Relatado</th>
+                    <th className="py-3 px-4">Status</th>
+                    <th className="py-3 px-4 text-right">Ação Direta</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {filteredLeads.map(lead => {
+                    const rawPhone = lead.whatsapp.replace(/\D/g, '');
+                    const dateStr = lead.created_at
+                      ? new Date(lead.created_at).toLocaleString('pt-BR', {
+                          day: '2-digit',
+                          month: '2-digit',
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })
+                      : 'Hoje';
 
-                  return (
-                    <tr
-                      key={lead.id}
-                      className="hover:bg-slate-50/80 transition-colors cursor-pointer"
-                      onClick={() => setSelectedLead(lead)}
-                    >
-                      <td className="py-3.5 px-4 text-xs text-slate-500 whitespace-nowrap">
-                        {dateStr}
-                      </td>
-                      <td className="py-3.5 px-4">
+                    return (
+                      <tr
+                        key={lead.id}
+                        className="hover:bg-slate-50/80 transition-colors cursor-pointer"
+                        onClick={() => setSelectedLead(lead)}
+                      >
+                        <td className="py-3.5 px-4 text-xs text-slate-500 whitespace-nowrap">
+                          {dateStr}
+                        </td>
+                        <td className="py-3.5 px-4 whitespace-nowrap">
+                          <span className="font-bold text-slate-900 block">{lead.name}</span>
+                          <span className="text-xs text-slate-500">{lead.whatsapp}</span>
+                        </td>
+                        <td className="py-3.5 px-4 font-medium text-slate-700 whitespace-nowrap">
+                          {lead.neighborhood}
+                        </td>
+                        <td className="py-3.5 px-4 text-xs text-slate-600 whitespace-nowrap">
+                          <span className="bg-slate-100 px-2 py-0.5 rounded-md font-medium">
+                            {lead.service_category || 'Geral'}
+                          </span>
+                        </td>
+                        <td className="py-3.5 px-4 text-xs text-slate-600 max-w-[200px] truncate" title={lead.problem_description}>
+                          {lead.problem_description}
+                        </td>
+                        <td className="py-3.5 px-4 whitespace-nowrap" onClick={e => e.stopPropagation()}>
+                          <select
+                            value={lead.status}
+                            onChange={e => handleStatusChange(lead.id, e.target.value as Lead['status'])}
+                            className="text-xs font-bold py-1 px-2 rounded-lg border border-slate-200 bg-white focus:outline-none cursor-pointer"
+                          >
+                            <option value="novo">Novo</option>
+                            <option value="em_atendimento">Em Atendimento</option>
+                            <option value="concluido">Concluído</option>
+                            <option value="arquivado">Arquivado</option>
+                          </select>
+                        </td>
+                        <td className="py-3.5 px-4 text-right whitespace-nowrap" onClick={e => e.stopPropagation()}>
+                          <div className="flex items-center justify-end gap-1.5">
+                            <a
+                              href={`https://wa.me/55${rawPhone}?text=${encodeURIComponent(
+                                `Olá ${lead.name}, aqui é da assistência técnica Pressurize Prime! Recebemos sua solicitação para o bairro ${lead.neighborhood} referente a ${lead.problem_description}. Podemos conversar agora?`
+                              )}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg font-bold text-xs shadow-xs transition-colors"
+                              title="Abrir WhatsApp com mensagem pronta"
+                            >
+                              <MessageSquare className="w-3.5 h-3.5" />
+                              <span>WhatsApp</span>
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Versão Mobile (Cards) */}
+            <div className="md:hidden flex flex-col divide-y divide-slate-100">
+              {filteredLeads.map(lead => {
+                const rawPhone = lead.whatsapp.replace(/\D/g, '');
+                const dateStr = lead.created_at
+                  ? new Date(lead.created_at).toLocaleString('pt-BR', {
+                      day: '2-digit',
+                      month: '2-digit',
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    })
+                  : 'Hoje';
+
+                return (
+                  <div key={lead.id} className="p-4 flex flex-col gap-3" onClick={() => setSelectedLead(lead)}>
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
                         <span className="font-bold text-slate-900 block">{lead.name}</span>
-                        <span className="text-xs text-slate-500">{lead.whatsapp}</span>
-                      </td>
-                      <td className="py-3.5 px-4 font-medium text-slate-700">
-                        {lead.neighborhood}
-                      </td>
-                      <td className="py-3.5 px-4 text-xs text-slate-600">
-                        <span className="bg-slate-100 px-2 py-0.5 rounded-md font-medium">
-                          {lead.service_category || 'Geral'}
-                        </span>
-                      </td>
-                      <td className="py-3.5 px-4 text-xs text-slate-600 max-w-xs truncate" title={lead.problem_description}>
-                        {lead.problem_description}
-                      </td>
-                      <td className="py-3.5 px-4" onClick={e => e.stopPropagation()}>
+                        <span className="text-xs text-slate-500 font-medium">{lead.whatsapp}</span>
+                      </div>
+                      <span className="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded-md">
+                        {dateStr}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div>
+                        <span className="block text-slate-400 font-semibold mb-0.5">Bairro:</span>
+                        <span className="text-slate-700 font-medium">{lead.neighborhood}</span>
+                      </div>
+                      <div>
+                        <span className="block text-slate-400 font-semibold mb-0.5">Serviço:</span>
+                        <span className="text-slate-700 font-medium truncate block">{lead.service_category || 'Geral'}</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between mt-1 pt-3 border-t border-slate-50 gap-2">
+                      <div onClick={e => e.stopPropagation()} className="flex-1">
                         <select
                           value={lead.status}
                           onChange={e => handleStatusChange(lead.id, e.target.value as Lead['status'])}
-                          className="text-xs font-bold py-1 px-2 rounded-lg border border-slate-200 bg-white focus:outline-none cursor-pointer"
+                          className="w-full text-xs font-bold py-1.5 px-2 rounded-lg border border-slate-200 bg-slate-50 focus:outline-none cursor-pointer"
                         >
                           <option value="novo">Novo</option>
                           <option value="em_atendimento">Em Atendimento</option>
                           <option value="concluido">Concluído</option>
                           <option value="arquivado">Arquivado</option>
                         </select>
-                      </td>
-                      <td className="py-3.5 px-4 text-right" onClick={e => e.stopPropagation()}>
-                        <div className="flex items-center justify-end gap-1.5">
-                          <a
-                            href={`https://wa.me/55${rawPhone}?text=${encodeURIComponent(
-                              `Olá ${lead.name}, aqui é da assistência técnica Pressurize Prime! Recebemos sua solicitação para o bairro ${lead.neighborhood} referente a ${lead.problem_description}. Podemos conversar agora?`
-                            )}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg font-bold text-xs shadow-xs transition-colors"
-                            title="Abrir WhatsApp com mensagem pronta"
-                          >
-                            <MessageSquare className="w-3.5 h-3.5" />
-                            <span>WhatsApp</span>
-                          </a>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                      </div>
+                      <a
+                        onClick={e => e.stopPropagation()}
+                        href={`https://wa.me/55${rawPhone}?text=${encodeURIComponent(
+                          `Olá ${lead.name}, aqui é da assistência técnica Pressurize Prime! Recebemos sua solicitação para o bairro ${lead.neighborhood} referente a ${lead.problem_description}. Podemos conversar agora?`
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg font-bold text-xs shadow-xs transition-colors flex-1"
+                      >
+                        <MessageSquare className="w-3.5 h-3.5" />
+                        <span>Chamar</span>
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </>
         )}
       </div>
 

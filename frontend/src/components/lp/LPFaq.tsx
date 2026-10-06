@@ -7,7 +7,7 @@ interface LPFaqProps {
 }
 
 export const LPFaq: React.FC<LPFaqProps> = ({ lp }) => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleIndex = (index: number) => {
     setOpenIndex(prev => (prev === index ? null : index));
@@ -48,13 +48,13 @@ export const LPFaq: React.FC<LPFaqProps> = ({ lp }) => {
                 >
                   <span className="text-base sm:text-lg tracking-tight text-balance">{faq.question}</span>
                   <div
-                    className={`w-8 h-8 rounded-full border flex items-center justify-center shrink-0 transition-all duration-300 pointer-events-none ${
+                    className={`w-8 h-8 rounded-full border flex items-center justify-center shrink-0 transition-colors duration-300 pointer-events-none ${
                       isOpen
-                        ? 'rotate-180 bg-blue-50 border-blue-200 text-primary'
-                        : 'rotate-0 bg-white border-slate-200 text-slate-500'
+                        ? 'bg-blue-50 border-blue-200 text-primary'
+                        : 'bg-white border-slate-200 text-slate-500'
                     }`}
                   >
-                    <ChevronDown className="w-4 h-4 pointer-events-none" />
+                    <ChevronDown className={`w-5 h-5 pointer-events-none transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
                   </div>
                 </button>
 

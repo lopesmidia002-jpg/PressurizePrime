@@ -6,7 +6,7 @@ export const TopBar: React.FC = () => {
   const { settings, isBusinessHours } = useSiteData();
 
   return (
-    <div className="bg-slate-950 text-slate-300 text-xs border-b border-slate-800">
+    <div className="hidden sm:block bg-slate-950 text-slate-300 text-xs border-b border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-col sm:flex-row items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <Clock className="w-3.5 h-3.5 text-secondary shrink-0" />

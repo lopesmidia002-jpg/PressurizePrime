@@ -34,10 +34,10 @@ export const CoverageSection: React.FC = () => {
                   {settings.address_coverage.map((bairro, idx) => (
                     <div
                       key={idx}
-                      className="flex items-center gap-2 bg-white px-3.5 py-2.5 rounded-xl border border-slate-200 shadow-2xs text-xs font-bold text-slate-800 hover:border-primary transition-colors"
+                      className="flex items-center gap-2.5 bg-white px-3.5 py-2.5 rounded-xl border border-slate-200 shadow-2xs text-xs font-bold text-slate-800 hover:border-primary transition-colors"
                     >
                       <MapPin className="w-3.5 h-3.5 text-secondary shrink-0" />
-                      <span className="truncate">{bairro}</span>
+                      <span className="leading-snug text-left">{bairro}</span>
                     </div>
                   ))}
                 </div>

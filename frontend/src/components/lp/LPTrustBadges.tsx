@@ -23,7 +23,7 @@ export const LPTrustBadges: React.FC<LPTrustBadgesProps> = ({ lp }) => {
   return (
     <section className="bg-white py-6 border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
           {lp.trustBadges.map((badge, idx) => (
             <div
               key={idx}
@@ -33,8 +33,8 @@ export const LPTrustBadges: React.FC<LPTrustBadgesProps> = ({ lp }) => {
                 {getBadgeIcon(idx)}
               </div>
               <div className="min-w-0">
-                <h4 className="font-bold text-slate-900 text-xs sm:text-sm truncate">{badge.title}</h4>
-                <p className="text-[11px] text-slate-500 truncate">{badge.subtitle}</p>
+                <h4 className="font-bold text-slate-900 text-sm leading-snug">{badge.title}</h4>
+                <p className="text-xs text-slate-500 font-normal leading-normal mt-0.5">{badge.subtitle}</p>
               </div>
             </div>
           ))}

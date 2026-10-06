@@ -215,12 +215,12 @@ export const PagesManagerPage: React.FC = () => {
               />
             </div>
 
-            <div className="pt-4 border-t border-slate-100 flex justify-end">
+            <div className="pt-4 border-t border-slate-100 flex justify-center sm:justify-end">
               <button
                 type="submit"
-                className="bg-primary hover:bg-primary-dark text-white font-extrabold px-6 py-3 rounded-xl shadow-md transition-all flex items-center gap-2 text-sm cursor-pointer"
+                className="bg-primary hover:bg-primary-dark text-white font-extrabold px-6 py-3 rounded-xl shadow-md transition-all flex justify-center items-center gap-2 text-sm cursor-pointer w-full sm:w-auto"
               >
-                <Save className="w-4 h-4" />
+                <Save className="w-4 h-4 shrink-0" />
                 <span>Salvar Conteúdo da Página</span>
               </button>
             </div>

@@ -44,14 +44,14 @@ export const AboutSection: React.FC = () => {
               </div>
             </div>
 
-            <div className="pt-4">
+            <div className="pt-4 flex justify-center lg:justify-start">
               <a
-                href={`https://wa.me/${settings.whatsapp_raw}?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Pressurize%20Prime.`}
+                href={`https://wa.me/${settings.whatsapp_raw}?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os%20da%20Pressurize%20Prime.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-secondary hover:bg-secondary-dark text-slate-950 font-bold px-6 py-3.5 rounded-xl shadow transition-all text-sm"
+                className="inline-flex justify-center items-center gap-2 bg-secondary hover:bg-secondary-dark text-slate-950 font-bold px-6 py-3.5 rounded-xl shadow transition-all text-sm w-full sm:w-auto"
               >
-                <MessageSquare className="w-4 h-4" />
+                <MessageSquare className="w-4 h-4 shrink-0" />
                 <span>Conversar com a Equipe</span>
               </a>
             </div>

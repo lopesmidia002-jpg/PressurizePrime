@@ -9,6 +9,7 @@ import {
   ChevronRight,
   Layers
 } from 'lucide-react';
+import { ImageUploadButton } from '../../components/admin/ImageUploadButton';
 
 export const SeoManagerPage: React.FC = () => {
   const { pages, updatePageData } = useSiteData();
@@ -147,12 +148,12 @@ export const SeoManagerPage: React.FC = () => {
                     {titleLen}/60 caracteres recomendados
                   </span>
                 </div>
-                <input
-                  type="text"
+                <textarea
+                  rows={2}
                   required
                   value={formData.meta_title}
                   onChange={e => handleChange('meta_title', e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none"
                 />
               </div>
 
@@ -181,12 +182,12 @@ export const SeoManagerPage: React.FC = () => {
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                     Palavras-Chave (Separadas por vírgula)
                   </label>
-                  <input
-                    type="text"
+                  <textarea
+                    rows={2}
                     value={formData.keywords || ''}
                     onChange={e => handleChange('keywords', e.target.value)}
                     placeholder="pressurizador, conserto, sao paulo"
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none"
                   />
                 </div>
 
@@ -216,12 +217,12 @@ export const SeoManagerPage: React.FC = () => {
                     <label className="block text-xs font-semibold text-slate-600 mb-1">
                       og:title (Título no WhatsApp)
                     </label>
-                    <input
-                      type="text"
+                    <textarea
+                      rows={2}
                       value={formData.og_title || ''}
                       onChange={e => handleChange('og_title', e.target.value)}
                       placeholder={formData.meta_title}
-                      className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20"
+                      className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none"
                     />
                   </div>
 
@@ -229,21 +230,24 @@ export const SeoManagerPage: React.FC = () => {
                     <label className="block text-xs font-semibold text-slate-600 mb-1">
                       og:image (Imagem do Card)
                     </label>
-                    <input
-                      type="text"
-                      value={formData.og_image || ''}
-                      onChange={e => handleChange('og_image', e.target.value)}
-                      placeholder="/images/pressurizador.jpg"
-                      className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20"
-                    />
+                    <div className="flex gap-2 items-center w-full">
+                      <input
+                        type="text"
+                        value={formData.og_image || ''}
+                        onChange={e => handleChange('og_image', e.target.value)}
+                        placeholder="/images/pressurizador.jpg"
+                        className="flex-1 w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20"
+                      />
+                      <ImageUploadButton onUpload={(url) => handleChange('og_image', url)} />
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-slate-100 flex justify-end">
+              <div className="pt-4 border-t border-slate-100 flex justify-center sm:justify-end">
                 <button
                   type="submit"
-                  className="bg-primary hover:bg-primary-dark text-white font-extrabold px-6 py-3 rounded-xl shadow-md transition-all flex items-center gap-2 text-sm cursor-pointer"
+                  className="bg-primary hover:bg-primary-dark text-white font-extrabold px-6 py-3 rounded-xl shadow-md transition-all flex justify-center items-center gap-2 text-sm cursor-pointer w-full sm:w-auto"
                 >
                   <Save className="w-4 h-4" />
                   <span>Salvar Configurações de SEO</span>
@@ -260,13 +264,13 @@ export const SeoManagerPage: React.FC = () => {
             </span>
 
             <div className="bg-white p-4 rounded-xl border border-slate-200 max-w-xl">
-              <div className="text-xs text-slate-600 truncate mb-0.5">
+              <div className="text-xs text-slate-600 mb-0.5 break-all">
                 {currentMeta?.path}
               </div>
-              <h4 className="text-blue-800 hover:underline font-medium text-base truncate cursor-pointer">
+              <h4 className="text-blue-800 hover:underline font-medium text-base cursor-pointer leading-tight">
                 {formData.meta_title || 'Título da Página'}
               </h4>
-              <p className="text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
+              <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
                 {formData.meta_description || 'Descrição informativa nos resultados de busca do Google.'}
               </p>
             </div>

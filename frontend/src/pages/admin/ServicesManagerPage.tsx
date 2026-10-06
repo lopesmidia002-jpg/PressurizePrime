@@ -16,6 +16,7 @@ import {
   EyeOff,
   CheckCircle2
 } from 'lucide-react';
+import { ImageUploadButton } from '../../components/admin/ImageUploadButton';
 
 export const ServicesManagerPage: React.FC = () => {
   const { services, addService, updateService, deleteService } = useSiteData();
@@ -216,13 +217,16 @@ export const ServicesManagerPage: React.FC = () => {
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                   URL da Imagem Ilustrativa
                 </label>
-                <input
-                  type="text"
-                  value={formData.image_url}
-                  onChange={e => setFormData({ ...formData, image_url: e.target.value })}
-                  placeholder="/images/pressurizador.jpg"
-                  className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20"
-                />
+                <div className="flex gap-2 items-center w-full">
+                  <input
+                    type="text"
+                    value={formData.image_url}
+                    onChange={e => setFormData({ ...formData, image_url: e.target.value })}
+                    placeholder="/images/pressurizador.jpg"
+                    className="flex-1 w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  />
+                  <ImageUploadButton onUpload={(url) => setFormData({ ...formData, image_url: url })} />
+                </div>
               </div>
             </div>
 

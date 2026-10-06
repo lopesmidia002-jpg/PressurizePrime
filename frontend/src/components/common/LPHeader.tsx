@@ -36,7 +36,7 @@ export const LPHeader: React.FC<LPHeaderProps> = ({ serviceName }) => {
           <div className="flex items-center gap-3">
             <a
               href={`tel:${settings.phone_raw}`}
-              className="inline-flex items-center gap-2 text-sm font-bold text-slate-700 hover:text-primary px-3 py-2 rounded-lg border border-slate-200 hover:border-primary transition-all"
+              className="hidden sm:inline-flex items-center gap-2 text-sm font-bold text-slate-700 hover:text-primary px-3 py-2 rounded-lg border border-slate-200 hover:border-primary transition-all"
             >
               <Phone className="w-4 h-4 text-primary" />
               <span className="hidden sm:inline">Ligue:</span>

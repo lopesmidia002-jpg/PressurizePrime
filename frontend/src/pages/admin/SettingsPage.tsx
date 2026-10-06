@@ -11,6 +11,8 @@ import {
   RotateCcw,
   Sparkles
 } from 'lucide-react';
+import { ImageUploadButton } from '../../components/admin/ImageUploadButton';
+
 
 export const SettingsPage: React.FC = () => {
   const { settings, updateSettings } = useSiteData();
@@ -237,13 +239,16 @@ export const SettingsPage: React.FC = () => {
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                 Caminho / URL do Logotipo
               </label>
-              <input
-                type="text"
-                value={formData.logo_url}
-                onChange={e => handleChange('logo_url', e.target.value)}
-                placeholder="/logo.jpeg"
-                className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20"
-              />
+              <div className="flex gap-2 items-center w-full">
+                <input
+                  type="text"
+                  value={formData.logo_url}
+                  onChange={e => handleChange('logo_url', e.target.value)}
+                  placeholder="/logo.jpeg"
+                  className="flex-1 w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20"
+                />
+                <ImageUploadButton onUpload={(url) => handleChange('logo_url', url)} />
+              </div>
             </div>
           </div>
 
@@ -336,12 +341,12 @@ export const SettingsPage: React.FC = () => {
         </div>
 
         {/* Botão de Salvar Flutuante ou no Fim */}
-        <div className="flex items-center justify-end gap-3 pt-4">
+        <div className="flex items-center justify-center sm:justify-end gap-3 pt-4">
           <button
             type="submit"
-            className="bg-primary hover:bg-primary-dark text-white font-extrabold px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center gap-2 text-sm cursor-pointer"
+            className="bg-primary hover:bg-primary-dark text-white font-extrabold px-8 py-3.5 rounded-xl shadow-lg transition-all flex justify-center items-center gap-2 text-sm cursor-pointer w-full sm:w-auto"
           >
-            <Save className="w-4 h-4" />
+            <Save className="w-4 h-4 shrink-0" />
             <span>Salvar Todas as Configurações</span>
           </button>
         </div>

@@ -32,17 +32,19 @@ export const TrustBadges: React.FC = () => {
   return (
     <section className="bg-white py-8 border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Mobile: 1 col para evitar truncação | sm: 2 col | lg: 4 col */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {badges.map((b, i) => (
             <div
               key={i}
               className="flex items-center gap-3.5 p-4 rounded-xl border border-slate-200/80 bg-slate-50/50 hover:bg-white hover:shadow-sm transition-all"
             >
-              <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border ${b.bg}`}>
+              <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 border ${b.bg}`}>
                 {b.icon}
               </div>
-              <div>
-                <h4 className="font-bold text-slate-900 text-[0.9375rem] tracking-tight leading-snug">{b.title}</h4>
+              {/* min-w-0 permite que o texto quebre linha em vez de truncar */}
+              <div className="min-w-0">
+                <h4 className="font-bold text-slate-900 text-sm leading-snug">{b.title}</h4>
                 <p className="text-xs text-slate-500 font-normal leading-normal mt-0.5">{b.subtitle}</p>
               </div>
             </div>
