@@ -114,8 +114,22 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             const formattedPages: Record<string, PageData> = {};
             
             Object.keys(apiPages).forEach(key => {
+              const p = apiPages[key];
+              let mappedSections: Record<string, any> = {};
+              
+              if (p.sections && Array.isArray(p.sections)) {
+                p.sections.forEach((sec: any) => {
+                  try {
+                    mappedSections[sec.section_key] = typeof sec.content === 'string' ? JSON.parse(sec.content) : sec.content;
+                  } catch(e) {
+                    mappedSections[sec.section_key] = sec.content;
+                  }
+                });
+              }
+
               formattedPages[key] = {
-                ...apiPages[key],
+                ...p,
+                sections: Object.keys(mappedSections).length > 0 ? mappedSections : p.sections,
                 seo: apiSeo?.[key] || null
               };
             });
@@ -231,7 +245,16 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       // Async API sync
       const token = localStorage.getItem('pressurize_token');
       if (token) {
-        adminApi.put(`/pages/${slug}`, pageData)
+        // Converter sections (objeto) para array de sections esperado pelo backend
+        let apiPayload = { ...pageData };
+        if (apiPayload.sections && !Array.isArray(apiPayload.sections)) {
+          apiPayload.sections = Object.entries(apiPayload.sections).map(([key, value]) => ({
+            section_key: key,
+            content: typeof value === 'object' ? JSON.stringify(value) : value
+          })) as any;
+        }
+
+        adminApi.put(`/pages/${slug}`, apiPayload)
           .catch(err => {
             alert("Erro ao salvar página: " + (err.response?.data?.message || err.message));
             console.error(err);

@@ -58,6 +58,15 @@ export const PagesManagerPage: React.FC = () => {
     setSavedSuccess(false);
   };
 
+  React.useEffect(() => {
+    if (pages[selectedKey]) {
+      setFormData(prev => ({
+        ...pages[selectedKey],
+        // Preserve any unsaved local edits if needed, but for simplicity we overwrite to ensure structure is correct when data arrives
+      }));
+    }
+  }, [pages, selectedKey]);
+
   const handleChange = (field: keyof PageData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
