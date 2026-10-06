@@ -53,19 +53,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setUser(data.user);
           return { success: true };
         }
+      } else {
+        const errorData = await response.json().catch(() => null);
+        if (response.status === 422 || response.status === 401) {
+          return {
+            success: false,
+            message: 'E-mail ou senha incorretos. Verifique suas credenciais de acesso.'
+          };
+        } else {
+          return {
+            success: false,
+            message: `Erro do servidor (${response.status}). O painel precisa ser reiniciado corretamente.`
+          };
+        }
       }
     } catch (e) {
       console.error(e);
       return {
         success: false,
-        message: 'Erro de conexão com o servidor. O backend pode estar offline.'
+        message: 'Erro de conexão (Vite Proxy falhou). Pare o servidor no terminal (Ctrl+C) e digite: npm run dev'
       };
     }
-
-    return {
-      success: false,
-      message: 'E-mail ou senha incorretos. Verifique suas credenciais de acesso.'
-    };
+    
+    return { success: false, message: 'Erro desconhecido.' };
   };
 
   const logout = () => {
