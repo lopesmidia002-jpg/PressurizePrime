@@ -190,7 +190,10 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       });
 
       adminApi.put('/settings', { settings: settingsPayload })
-        .catch(() => {});
+        .catch(err => {
+          alert("Erro ao salvar config: " + (err.response?.data?.message || err.message));
+          console.error(err);
+        });
     }
   };
 
@@ -228,7 +231,11 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       // Async API sync
       const token = localStorage.getItem('pressurize_token');
       if (token) {
-        adminApi.put(`/pages/${slug}`, pageData).catch(() => {});
+        adminApi.put(`/pages/${slug}`, pageData)
+          .catch(err => {
+            alert("Erro ao salvar página: " + (err.response?.data?.message || err.message));
+            console.error(err);
+          });
         if (pageData.seo) {
           adminApi.put(`/seo/${slug}`, mergedSeo).catch(() => {});
         }
