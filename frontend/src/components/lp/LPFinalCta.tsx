@@ -11,9 +11,17 @@ export const LPFinalCta: React.FC<LPFinalCtaProps> = ({ lp }) => {
   const { settings, isBusinessHours, openLeadModal } = useSiteData();
 
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-900 via-slate-950 to-blue-950 text-white relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-secondary/15 rounded-full blur-3xl pointer-events-none"></div>
+    <section 
+      className="py-20 text-white relative overflow-hidden"
+      style={{
+        backgroundImage: 'linear-gradient(to bottom right, rgba(15, 23, 42, 0.55), rgba(23, 37, 84, 0.75)), url("https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/30 rounded-full blur-3xl pointer-events-none mix-blend-screen"></div>
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-secondary/20 rounded-full blur-3xl pointer-events-none mix-blend-screen"></div>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <div className="inline-flex items-center gap-2 bg-amber-500/15 text-amber-300 border border-amber-500/25 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide mb-6">

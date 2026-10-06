@@ -15,7 +15,7 @@ export const LPFaq: React.FC<LPFaqProps> = ({ lp }) => {
 
   return (
     <section className="py-20 bg-white border-b border-slate-200">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-slate-900 tracking-[-0.03em] leading-tight text-balance">
             Perguntas Frequentes sobre {lp.name}
@@ -25,7 +25,7 @@ export const LPFaq: React.FC<LPFaqProps> = ({ lp }) => {
           </p>
         </div>
 
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
           {lp.faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
 
