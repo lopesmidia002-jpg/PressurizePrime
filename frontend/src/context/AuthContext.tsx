@@ -54,22 +54,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           return { success: true };
         }
       }
-    } catch {
-      // Backend offline ou inacessível no momento, fallback para autenticação local padrão
-    }
-
-    // 2. Fallback local / demo com as credenciais oficiais do projeto
-    if (email === 'admin@pressurizeprime.com.br' && password === 'Prime@2026!') {
-      const demoUser: User = {
-        id: '1',
-        name: 'Administrador Prime',
-        email: 'admin@pressurizeprime.com.br',
-        role: 'admin'
+    } catch (e) {
+      console.error(e);
+      return {
+        success: false,
+        message: 'Erro de conexão com o servidor. O backend pode estar offline.'
       };
-      const demoToken = 'mock_sanctum_token_' + Date.now();
-      setToken(demoToken);
-      setUser(demoUser);
-      return { success: true };
     }
 
     return {
