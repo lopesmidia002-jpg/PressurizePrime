@@ -253,15 +253,15 @@ export const SettingsPage: React.FC = () => {
           </div>
 
           {/* Preview do Logotipo Oficial */}
-          <div className="p-4 rounded-xl border border-slate-200 bg-slate-50 flex items-center gap-4">
-            <span className="text-xs font-bold text-slate-500 uppercase">Logo Atual:</span>
+          <div className="p-4 rounded-xl border border-slate-200 bg-slate-50 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left overflow-hidden">
+            <span className="text-xs font-bold text-slate-500 uppercase shrink-0">Logo Atual:</span>
             <img
               src={formData.logo_url || '/logo.jpeg'}
               alt="Logo Preview"
-              className="h-12 w-auto object-contain bg-white p-1 rounded-lg border border-slate-200"
+              className="h-12 w-auto object-contain bg-white p-1 rounded-lg border border-slate-200 shrink-0"
             />
-            <span className="text-xs text-slate-500">
-              Arquivo oficial: <code className="text-slate-700 font-bold">asserts/WhatsApp Image 2026-10-05 at 15.25.27.jpeg</code>
+            <span className="text-xs text-slate-500 min-w-0 w-full sm:w-auto">
+              Arquivo oficial: <code className="text-slate-700 font-bold break-all inline-block mt-1 sm:mt-0">asserts/WhatsApp Image 2026-10-05 at 15.25.27.jpeg</code>
             </span>
           </div>
         </div>

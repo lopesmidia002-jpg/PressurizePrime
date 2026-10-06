@@ -93,13 +93,13 @@ export const AdminLayout: React.FC = () => {
               className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-200 hover:text-white bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-700 transition-colors"
             >
               <ExternalLink className="w-3.5 h-3.5 text-primary" />
-              <span className="hidden sm:inline">Ver Site</span>
+              <span>Ver Site</span>
             </Link>
 
             {/* Usuário e Logout */}
             <div className="flex items-center gap-2 pl-2 border-l border-slate-800">
-              <div className="text-right hidden sm:block">
-                <span className="block text-xs font-bold text-white leading-tight">
+              <div className="text-right">
+                <span className="block text-[10px] sm:text-xs font-bold text-white leading-tight">
                   {user?.name || 'Administrador'}
                 </span>
                 <span className="block text-[10px] text-emerald-400 font-semibold uppercase">
