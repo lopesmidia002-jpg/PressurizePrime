@@ -4,7 +4,7 @@ import { ShieldCheck, Droplets, Wrench, Flame, Target, Eye, Heart } from 'lucide
 import { useSiteData } from '../context/SiteDataContext';
 
 export const AboutPage: React.FC = () => {
-  const { settings } = useSiteData();
+  const { settings, pages } = useSiteData();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   const bgImages = [
@@ -47,10 +47,12 @@ export const AboutPage: React.FC = () => {
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 drop-shadow-lg text-white">
-              Sobre a <span className="text-primary">Pressurize Prime</span>
+              {pages['sobre']?.hero_title || (
+                <>Sobre a <span className="text-primary">Pressurize Prime</span></>
+              )}
             </h1>
             <p className="text-lg sm:text-xl text-white/90 font-medium max-w-3xl mx-auto leading-relaxed drop-shadow-md">
-              O ofício especializado em pressão de água e controle térmico. Uma década garantindo conforto e segurança hídrica em São Paulo.
+              {pages['sobre']?.hero_subtitle || 'O ofício especializado em pressão de água e controle térmico. Uma década garantindo conforto e segurança hídrica em São Paulo.'}
             </p>
           </div>
           
@@ -65,16 +67,13 @@ export const AboutPage: React.FC = () => {
               <div className="inline-block bg-blue-50 text-primary font-bold px-3 py-1 rounded-full text-sm">
                 Nossa História
               </div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">Elevando o padrão técnico do mercado</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">Técnicos de verdade, com nome e responsabilidade pelo serviço.</h2>
               <div className="prose prose-slate text-slate-600 text-lg">
                 <p>
-                  Fundada na capital paulista, a Pressurize Prime nasceu da percepção de que muitos problemas hidráulicos residenciais e comerciais — especialmente banhos frios ou com pouca pressão — eram tratados de forma amadora.
+                  A Pressurize Prime nasceu de mais de uma década de experiência prática com pressurizadores e aquecedores. Uma equipe que aprendeu o ofício em campo, instalação por instalação, e conhece por dentro os equipamentos que você tem em casa.
                 </p>
                 <p>
-                  Nossa missão desde o primeiro dia foi elevar o padrão técnico do mercado de <strong>aquecimento a gás</strong> e <strong>pressurização de redes</strong>. Não queríamos apenas ser "instaladores", mas sim especialistas certificados capazes de dimensionar e resolver qualquer desafio hidráulico com precisão cirúrgica.
-                </p>
-                <p>
-                  Hoje, atendemos milhares de clientes satisfeitos em condomínios de alto padrão, residências, academias e hotéis, sempre utilizando peças originais das melhores marcas do mercado mundial.
+                  Aqui, quem atende você é gente de verdade, do primeiro contato ao pós-serviço. E se algo não ficar certo, a gente volta.
                 </p>
               </div>
             </div>
@@ -82,23 +81,23 @@ export const AboutPage: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
                 <Droplets className="w-10 h-10 text-primary mb-4" />
-                <h3 className="font-bold text-slate-900 mb-2">Especialistas em Pressão</h3>
-                <p className="text-sm text-slate-600">Dimensionamento preciso para evitar rompimentos ou baixa vazão em todos os pontos.</p>
+                <h3 className="font-bold text-slate-900 mb-2">Resolvemos de primeira</h3>
+                <p className="text-sm text-slate-600">Diagnóstico técnico antes de trocar qualquer peça. Você paga pelo que precisa, não por tentativa e erro.</p>
               </div>
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                <Flame className="w-10 h-10 text-amber-500 mb-4" />
-                <h3 className="font-bold text-slate-900 mb-2">Controle Térmico</h3>
-                <p className="text-sm text-slate-600">Certificação completa em aquecedores a gás, elétricos, solares e conjugados.</p>
+                <ShieldCheck className="w-10 h-10 text-amber-500 mb-4" />
+                <h3 className="font-bold text-slate-900 mb-2">Se voltar, a gente volta</h3>
+                <p className="text-sm text-slate-600">Nosso pós-atendimento existe para resolver qualquer retorno. Técnico com nome, empresa com endereço, serviço com garantia.</p>
               </div>
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                <Wrench className="w-10 h-10 text-slate-700 mb-4" />
-                <h3 className="font-bold text-slate-900 mb-2">Técnicos de Fábrica</h3>
-                <p className="text-sm text-slate-600">Treinamento oficial nas marcas Rinnai, Rowa, Lorenzetti, Komeco e outras.</p>
+                <Flame className="w-10 h-10 text-slate-700 mb-4" />
+                <h3 className="font-bold text-slate-900 mb-2">Rápido de verdade</h3>
+                <p className="text-sm text-slate-600">Atendimento imediato, conserto em até 24h e instalação de equipamentos novos sem semanas de espera.</p>
               </div>
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                <ShieldCheck className="w-10 h-10 text-emerald-500 mb-4" />
-                <h3 className="font-bold text-slate-900 mb-2">Garantia Comprovada</h3>
-                <p className="text-sm text-slate-600">Nota fiscal e garantia real de serviço prestado em domicílio com respaldo técnico.</p>
+                <Wrench className="w-10 h-10 text-emerald-500 mb-4" />
+                <h3 className="font-bold text-slate-900 mb-2">Gente, não robô</h3>
+                <p className="text-sm text-slate-600">Do WhatsApp à visita, você fala com pessoas que entendem do assunto.</p>
               </div>
             </div>
           </div>

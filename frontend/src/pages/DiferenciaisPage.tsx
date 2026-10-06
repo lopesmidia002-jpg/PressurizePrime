@@ -4,7 +4,7 @@ import { Shield, Clock, Wrench, ThumbsUp, Medal, Zap, HeartHandshake, CheckCircl
 import { useSiteData } from '../context/SiteDataContext';
 
 export const DiferenciaisPage: React.FC = () => {
-  const { settings } = useSiteData();
+  const { settings, pages } = useSiteData();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   const bgImages = [
@@ -80,10 +80,12 @@ export const DiferenciaisPage: React.FC = () => {
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 drop-shadow-lg text-white">
-              Por que escolher a <span className="text-primary">nossa solução?</span>
+              {pages['diferenciais']?.hero_title || (
+                <>Por que escolher a <span className="text-primary">nossa solução?</span></>
+              )}
             </h1>
             <p className="text-lg sm:text-xl text-white/90 font-medium max-w-3xl mx-auto leading-relaxed drop-shadow-md">
-              Não somos apenas instaladores. Somos uma engenharia de conforto focada em resolver o seu problema hídrico ou térmico de forma definitiva.
+              {pages['diferenciais']?.hero_subtitle || 'Não somos apenas instaladores. Somos uma engenharia de conforto focada em resolver o seu problema hídrico ou térmico de forma definitiva.'}
             </p>
           </div>
           

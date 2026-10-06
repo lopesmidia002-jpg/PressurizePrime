@@ -4,7 +4,7 @@ import { Search, ChevronDown, MessageSquare } from 'lucide-react';
 import { useSiteData } from '../context/SiteDataContext';
 
 export const FaqPage: React.FC = () => {
-  const { settings } = useSiteData();
+  const { settings, pages } = useSiteData();
   const [searchTerm, setSearchTerm] = useState('');
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -25,44 +25,24 @@ export const FaqPage: React.FC = () => {
 
   const faqs = [
     {
-      question: "Vocês atendem todos os dias da semana?",
-      answer: "Sim, nosso atendimento padrão é de segunda a sexta em horário comercial, e sábados pela manhã. Para emergências (falta d'água, vazamentos graves), consulte a disponibilidade de plantão."
+      question: "De quanto em quanto tempo devo fazer manutenção?",
+      answer: "O recomendado pelos fabricantes é uma revisão por ano, ou conforme o manual do seu modelo."
     },
     {
-      question: "O orçamento tem custo?",
-      answer: "O orçamento presencial pode ter uma pequena taxa de visita técnica para cobrir o deslocamento, que é abatida 100% do valor final se o serviço for aprovado. Em alguns casos, conseguimos dar uma prévia pelo WhatsApp mediante envio de fotos ou vídeos."
+      question: "Meu aquecedor desliga no meio do banho. O que pode ser?",
+      answer: "Pode ser sensor, exaustão obstruída, baixa pressão de água ou gás. Só o diagnóstico no local confirma."
     },
     {
-      question: "Quais marcas de aquecedores e pressurizadores vocês atendem?",
-      answer: "Atendemos as principais e melhores marcas do mercado: Rinnai, Rowa, Lorenzetti, Komeco, Rheem, Bosch, Cumulus, entre outras."
+      question: "Vocês trabalham com quais marcas?",
+      answer: "Atendemos aquecedores Rinnai, Rheem e Komeco, entre outras."
     },
     {
-      question: "Em quanto tempo o técnico chega à minha casa?",
-      answer: "Dependendo da sua região e da urgência, conseguimos enviar um técnico no mesmo dia ou em até 24 horas úteis."
+      question: "Atendem gás natural e GLP?",
+      answer: "Sim, os dois. Só não executamos tubulação de gás: o ponto precisa estar pronto no local."
     },
     {
-      question: "Vocês fornecem as peças ou eu preciso comprar?",
-      answer: "Nós fornecemos todas as peças necessárias, 100% originais e com garantia de fábrica. Isso garante a qualidade do serviço e agiliza a solução."
-    },
-    {
-      question: "Quais são as formas de pagamento?",
-      answer: "Aceitamos Pix, cartões de débito e crédito. Parcelamos em até 10x (consulte condições com nossa equipe de atendimento)."
-    },
-    {
-      question: "O serviço tem garantia?",
-      answer: "Com certeza. Oferecemos garantia mínima de 90 dias (3 meses) para peças e mão de obra, documentada em ordem de serviço/nota fiscal. Algumas peças específicas têm garantia ainda maior do fabricante."
-    },
-    {
-      question: "Faz muita sujeira ou quebra-quebra?",
-      answer: "Nossos técnicos são treinados para trabalhar da forma mais limpa possível. Usamos lonas de proteção quando necessário e sempre deixamos o ambiente limpo após o serviço."
-    },
-    {
-      question: "A água do meu chuveiro está fraca, a solução é sempre um pressurizador?",
-      answer: "Não necessariamente. Pode ser um problema de obstrução, erro na tubulação ou ar na rede. Por isso a avaliação de um especialista é fundamental antes de comprar equipamentos desnecessários."
-    },
-    {
-      question: "Meu aquecedor a gás está desligando durante o banho, o que pode ser?",
-      answer: "Pode ser desde pilhas fracas, baixa pressão da água, ventos fortes na chaminé, até a necessidade de uma manutenção preventiva (limpeza). Agende uma visita para diagnóstico exato."
+      question: "Qual a garantia?",
+      answer: "3 meses em peças e 30 dias na mão de obra."
     }
   ];
 
@@ -97,10 +77,12 @@ export const FaqPage: React.FC = () => {
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 drop-shadow-lg text-white">
-              Perguntas <span className="text-primary">frequentes</span>
+              {pages['duvidas']?.hero_title || (
+                <>Perguntas <span className="text-primary">frequentes</span></>
+              )}
             </h1>
             <p className="text-lg sm:text-xl text-white/90 font-medium max-w-3xl mx-auto leading-relaxed mb-10 drop-shadow-md">
-              Tire suas dúvidas rapidamente. Encontre respostas para as perguntas mais comuns dos nossos clientes.
+              {pages['duvidas']?.hero_subtitle || 'Tire suas dúvidas rapidamente. Encontre respostas para as perguntas mais comuns dos nossos clientes.'}
             </p>
             
             {/* Barra de Busca */}

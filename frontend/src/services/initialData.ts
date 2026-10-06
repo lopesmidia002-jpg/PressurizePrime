@@ -146,6 +146,62 @@ export const defaultPages: Record<string, PageData> = {
       meta_title: 'Aquecedor Elétrico e Boiler em SP | Conserto em até 24h',
       meta_description: 'Boiler elétrico não esquenta ou desarma o disjuntor? Venda, instalação e conserto de aquecedor elétrico em São Paulo. Técnicos experientes. Chame agora.'
     }
+  },
+  sobre: {
+    id: 'sobre',
+    slug: 'sobre',
+    title: 'Página Sobre',
+    hero_title: 'Técnicos de verdade, com nome e responsabilidade pelo serviço.',
+    hero_subtitle: 'A Pressurize Prime nasceu de mais de uma década de experiência prática com pressurizadores e aquecedores. Uma equipe que aprendeu o ofício em campo, instalação por instalação, e conhece por dentro os equipamentos que você tem em casa.',
+    hero_cta_primary: 'Falar com um consultor',
+    hero_cta_secondary: 'Ligar agora',
+    seo: {
+      page_slug: 'sobre',
+      meta_title: 'Sobre Nós | Pressurize Prime',
+      meta_description: 'Especialistas em pressurização de água e aquecimento a gás e elétrico em São Paulo. Conheça nossa história e compromisso.'
+    }
+  },
+  'diferenciais': {
+    id: 'diferenciais',
+    slug: 'diferenciais',
+    title: 'Diferenciais',
+    hero_title: 'Por que escolher a nossa solução?',
+    hero_subtitle: 'Não somos apenas instaladores. Somos uma engenharia de conforto focada em resolver o seu problema hídrico ou térmico de forma definitiva.',
+    hero_cta_primary: 'Ver Diferenciais',
+    hero_cta_secondary: 'Contato',
+    seo: {
+      page_slug: 'diferenciais',
+      meta_title: 'Nossos Diferenciais | Pressurize Prime',
+      meta_description: 'Descubra por que a Pressurize Prime é a escolha certa para a instalação e manutenção do seu equipamento.'
+    }
+  },
+  'como-funciona': {
+    id: 'como-funciona',
+    slug: 'como-funciona',
+    title: 'Como Funciona',
+    hero_title: 'Como funciona?',
+    hero_subtitle: 'Um processo simples, rápido e transparente. Desenhado para poupar seu tempo e garantir sua tranquilidade.',
+    hero_cta_primary: 'Entenda o Processo',
+    hero_cta_secondary: 'Agendar Visita',
+    seo: {
+      page_slug: 'como-funciona',
+      meta_title: 'Como Funciona | Pressurize Prime',
+      meta_description: 'Entenda o nosso processo de atendimento, do primeiro contato até a resolução do problema e emissão da garantia.'
+    }
+  },
+  duvidas: {
+    id: 'duvidas',
+    slug: 'duvidas',
+    title: 'Dúvidas Frequentes',
+    hero_title: 'Perguntas frequentes',
+    hero_subtitle: 'Tire suas dúvidas rapidamente. Encontre respostas para as perguntas mais comuns dos nossos clientes.',
+    hero_cta_primary: 'Falar no WhatsApp',
+    hero_cta_secondary: 'Ligar para a equipe',
+    seo: {
+      page_slug: 'duvidas',
+      meta_title: 'Dúvidas Frequentes | Pressurize Prime',
+      meta_description: 'Tire suas dúvidas sobre instalação, conserto, garantia e funcionamento de pressurizadores e aquecedores a gás.'
+    }
   }
 };
 

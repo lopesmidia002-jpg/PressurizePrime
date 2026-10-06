@@ -9,12 +9,14 @@ interface LPHeroProps {
 }
 
 export const LPHero: React.FC<LPHeroProps> = ({ lp }) => {
-  const { settings } = useSiteData();
+  const { settings, pages } = useSiteData();
   const [searchParams] = useSearchParams();
+
+  const cmsPage = pages[lp.slug];
 
   // Detecção de variação de H1 por grupo de anúncio via URL (?h1=conserto ou ?intent=conserto)
   const h1Param = searchParams.get('h1') || searchParams.get('intent');
-  let currentH1 = lp.defaultH1;
+  let currentH1 = cmsPage?.hero_title || lp.defaultH1;
 
   if (h1Param && lp.h1Variants) {
     const key = h1Param.toLowerCase() as keyof typeof lp.h1Variants;
@@ -22,6 +24,11 @@ export const LPHero: React.FC<LPHeroProps> = ({ lp }) => {
       currentH1 = lp.h1Variants[key]!;
     }
   }
+
+  const currentSubtitle = cmsPage?.hero_subtitle || lp.subtitle;
+  const currentMicrocopy = cmsPage?.microcopy || lp.microcopy;
+  const ctaPrimary = cmsPage?.hero_cta_primary || 'Chamar no WhatsApp agora';
+  const ctaSecondary = cmsPage?.hero_cta_secondary || 'Ligar agora';
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-slate-100/70 pt-8 pb-16 lg:pt-14 lg:pb-20 border-b border-slate-200">
@@ -48,7 +55,7 @@ export const LPHero: React.FC<LPHeroProps> = ({ lp }) => {
 
             {/* Subtítulo Específico da LP */}
             <p className="mt-5 text-base sm:text-lg text-slate-600 font-normal leading-[1.65] max-w-2xl text-pretty">
-              {lp.subtitle}
+              {currentSubtitle}
             </p>
 
             {/* Botões de Ação Imediata */}
@@ -60,7 +67,7 @@ export const LPHero: React.FC<LPHeroProps> = ({ lp }) => {
                 className="flex-1 bg-secondary hover:bg-secondary-dark text-slate-950 font-extrabold px-6 py-4 rounded-xl shadow-lg transition-all text-center flex items-center justify-center gap-2 text-base group hover:scale-[1.02] active:scale-[0.98]"
               >
                 <MessageSquare className="w-5 h-5 transition-transform group-hover:scale-110" />
-                <span>Chamar no WhatsApp agora</span>
+                <span>{ctaPrimary}</span>
               </a>
 
               <a
@@ -68,14 +75,14 @@ export const LPHero: React.FC<LPHeroProps> = ({ lp }) => {
                 className="flex-1 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-bold px-6 py-4 rounded-xl shadow-xs transition-all text-center flex items-center justify-center gap-2 text-base hover:border-primary hover:text-primary"
               >
                 <Phone className="w-5 h-5 text-primary" />
-                <span>Ligar agora</span>
+                <span>{ctaSecondary}</span>
               </a>
             </div>
 
             {/* Microcopy Oficial da LP */}
             <p className="mt-4 text-xs text-slate-500 font-medium flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-              <span>{lp.microcopy}</span>
+              <span>{currentMicrocopy}</span>
             </p>
 
             {/* Alerta de Segurança Discreto (Exclusivo para Aquecedor a Gás) */}

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { TopBar, Header, Footer } from '../components/common';
-import { MessageSquare, Wrench, CheckCircle, Smile } from 'lucide-react';
+import { MessageSquare, Wrench, CheckCircle } from 'lucide-react';
 import { useSiteData } from '../context/SiteDataContext';
 
 export const HowItWorksPage: React.FC = () => {
-  const { settings } = useSiteData();
+  const { settings, pages } = useSiteData();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   const bgImages = [
@@ -25,26 +25,20 @@ export const HowItWorksPage: React.FC = () => {
     {
       number: "1",
       icon: <MessageSquare className="w-8 h-8 text-primary" />,
-      title: "Contato e Agendamento",
-      description: "Você entra em contato conosco pelo WhatsApp ou telefone. Um especialista entenderá sua necessidade inicial e agendará uma visita técnica no melhor horário para você."
+      title: "Conte o problema",
+      description: "Pelo WhatsApp ou telefone. Se puder, mande uma foto ou vídeo do equipamento."
     },
     {
       number: "2",
       icon: <Wrench className="w-8 h-8 text-primary" />,
-      title: "Diagnóstico Especializado",
-      description: "Nosso técnico uniformizado comparece ao local, analisa o equipamento ou a infraestrutura e emite um diagnóstico técnico detalhado e transparente."
+      title: "Vistoria e orçamento",
+      description: "O técnico avalia no local e passa o valor antes de começar. Se você aprovar o serviço, a taxa de vistoria e locomoção não é cobrada."
     },
     {
       number: "3",
       icon: <CheckCircle className="w-8 h-8 text-primary" />,
-      title: "Orçamento e Aprovação",
-      description: "Apresentamos o orçamento fixo com todas as peças necessárias. Sem surpresas ou custos ocultos. Com sua aprovação, iniciamos o serviço na mesma hora ou agendamos."
-    },
-    {
-      number: "4",
-      icon: <Smile className="w-8 h-8 text-primary" />,
-      title: "Solução e Garantia",
-      description: "O serviço é executado com peças originais e testado exaustivamente. Entregamos a ordem de serviço, nota fiscal e o termo de garantia."
+      title: "Problema resolvido",
+      description: "Conserto ou instalação de imediato ou em até 24h, com garantia."
     }
   ];
 
@@ -75,10 +69,12 @@ export const HowItWorksPage: React.FC = () => {
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 drop-shadow-lg text-white">
-              Como <span className="text-primary">funciona?</span>
+              {pages['como-funciona']?.hero_title || (
+                <>Como <span className="text-primary">funciona?</span></>
+              )}
             </h1>
             <p className="text-lg sm:text-xl text-white/90 font-medium max-w-3xl mx-auto leading-relaxed drop-shadow-md">
-              Um processo simples, rápido e transparente. Desenhado para poupar seu tempo e garantir sua tranquilidade.
+              {pages['como-funciona']?.hero_subtitle || 'Um processo simples, rápido e transparente. Desenhado para poupar seu tempo e garantir sua tranquilidade.'}
             </p>
           </div>
           
@@ -88,7 +84,7 @@ export const HowItWorksPage: React.FC = () => {
 
         {/* Processo Visual */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative mt-6">
             {steps.map((step, index) => (
               <div key={index} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:shadow-lg transition-all duration-300 group relative flex flex-col h-full">
                 
@@ -111,47 +107,58 @@ export const HowItWorksPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Benefícios do Processo */}
-        <div className="bg-slate-50 py-24 border-y border-slate-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
-              O que você ganha com o nosso processo?
-            </h2>
-            <p className="text-slate-500 max-w-2xl mx-auto mb-16 text-lg">
-              Nosso método foi desenhado para eliminar frustrações e garantir a melhor experiência.
+        {/* Regiões Atendidas */}
+        <div className="bg-slate-50 py-16 border-t border-slate-200">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Regiões atendidas</h2>
+            <p className="text-lg text-slate-600 leading-relaxed">
+              Atendemos São Paulo e Grande São Paulo, com atendimento prioritário em Brooklin, Vila Olímpia, Vila Clementino, Chácara Santo Antônio, Morumbi, Alphaville, Barueri e Santana de Parnaíba.
             </p>
+          </div>
+        </div>
+
+        {/* Nossos compromissos */}
+        <div className="bg-white py-24 border-y border-slate-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
+                Nossos compromissos
+              </h2>
+              <p className="text-slate-500 max-w-2xl mx-auto text-lg">
+                O que você pode cobrar da gente.
+              </p>
+            </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-12">
-              {/* Card 1 */}
-              <div className="bg-white rounded-3xl p-10 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                <div className="text-5xl font-extrabold bg-gradient-to-br from-primary via-blue-500 to-sky-400 bg-clip-text text-transparent mb-6 inline-block opacity-90 group-hover:scale-105 group-hover:opacity-100 transition-all">
-                  Zero
-                </div>
-                <h3 className="text-xl font-bold text-slate-800 mb-3">Dor de cabeça</h3>
-                <p className="text-slate-500 text-base leading-relaxed">
-                  Nós cuidamos de tudo de ponta a ponta: da avaliação criteriosa à limpeza final do local após a instalação.
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* Compromisso 1 */}
+              <div className="bg-slate-50 rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300">
+                <h3 className="text-lg font-bold text-slate-900 mb-3">Orçamento antes do serviço.</h3>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  Você sabe o valor antes de qualquer peça ser trocada.
                 </p>
               </div>
 
-              {/* Card 2 */}
-              <div className="bg-white rounded-3xl p-10 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                <div className="text-5xl font-extrabold bg-gradient-to-br from-primary via-blue-500 to-sky-400 bg-clip-text text-transparent mb-6 inline-block opacity-90 group-hover:scale-105 group-hover:opacity-100 transition-all">
-                  100%
-                </div>
-                <h3 className="text-xl font-bold text-slate-800 mb-3">Transparência</h3>
-                <p className="text-slate-500 text-base leading-relaxed">
-                  Orçamento claro e fixo. Você sabe exatamente o que está pagando e por quê, sem custos ocultos de última hora.
+              {/* Compromisso 2 */}
+              <div className="bg-slate-50 rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300">
+                <h3 className="text-lg font-bold text-slate-900 mb-3">Vistoria que sai de graça.</h3>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  Aprovou o serviço, a taxa de vistoria e locomoção não é cobrada.
                 </p>
               </div>
 
-              {/* Card 3 */}
-              <div className="bg-white rounded-3xl p-10 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                <div className="text-5xl font-extrabold bg-gradient-to-br from-primary via-blue-500 to-sky-400 bg-clip-text text-transparent mb-6 inline-block opacity-90 group-hover:scale-105 group-hover:opacity-100 transition-all">
-                  Paz
-                </div>
-                <h3 className="text-xl font-bold text-slate-800 mb-3">De Espírito</h3>
-                <p className="text-slate-500 text-base leading-relaxed">
-                  Garantia total e documentada do serviço prestado para você tomar seu banho tranquilo, todos os dias.
+              {/* Compromisso 3 */}
+              <div className="bg-slate-50 rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300">
+                <h3 className="text-lg font-bold text-slate-900 mb-3">Garantia de verdade.</h3>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  3 meses em peças e 30 dias na mão de obra.
+                </p>
+              </div>
+
+              {/* Compromisso 4 */}
+              <div className="bg-slate-50 rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300">
+                <h3 className="text-lg font-bold text-slate-900 mb-3">Pagamento facilitado.</h3>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  Pix, débito ou crédito em até 10x sem juros.
                 </p>
               </div>
             </div>
