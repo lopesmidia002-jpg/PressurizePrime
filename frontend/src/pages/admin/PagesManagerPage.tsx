@@ -219,6 +219,71 @@ export const PagesManagerPage: React.FC = () => {
               />
             </div>
 
+            {/* Edição de Seções Adicionais (Home) */}
+            {selectedKey === 'home' && (
+              <div className="pt-6 border-t border-slate-200 mt-6 space-y-6">
+                <div>
+                  <span className="text-xs font-bold text-primary uppercase tracking-wider block">
+                    Seção: Quem Somos (Técnicos de Verdade)
+                  </span>
+                  <h3 className="text-md font-bold text-slate-800 mt-1">
+                    Textos da Seção Sobre
+                  </h3>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                    Título Principal da Seção Sobre
+                  </label>
+                  <textarea
+                    rows={2}
+                    value={formData.sections?.about?.title || 'Técnicos de verdade, com nome e responsabilidade pelo serviço.'}
+                    onChange={e => {
+                      const newSections = { ...formData.sections };
+                      if (!newSections.about) newSections.about = {} as any;
+                      newSections.about.title = e.target.value;
+                      handleChange('sections', newSections as any);
+                    }}
+                    className="w-full px-3.5 py-2.5 text-sm font-semibold bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                    Conteúdo / Texto Descritivo
+                  </label>
+                  <textarea
+                    rows={4}
+                    value={formData.sections?.about?.content || 'A Pressurize Prime nasceu de mais de uma década de experiência prática com pressurizadores e aquecedores...'}
+                    onChange={e => {
+                      const newSections = { ...formData.sections };
+                      if (!newSections.about) newSections.about = {} as any;
+                      newSections.about.content = e.target.value;
+                      handleChange('sections', newSections as any);
+                    }}
+                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                    Citação / Frase de Destaque
+                  </label>
+                  <textarea
+                    rows={2}
+                    value={(formData.sections?.about as any)?.quote || '“Aqui, quem atende você é gente de verdade, do primeiro contato ao pós-serviço. E se algo não ficar certo, a gente volta.”'}
+                    onChange={e => {
+                      const newSections = { ...formData.sections };
+                      if (!newSections.about) newSections.about = {} as any;
+                      (newSections.about as any).quote = e.target.value;
+                      handleChange('sections', newSections as any);
+                    }}
+                    className="w-full px-3.5 py-2.5 text-sm font-medium italic bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none"
+                  />
+                </div>
+              </div>
+            )}
+
             <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-center sm:justify-end gap-3">
               {savedSuccess && (
                 <div className="flex items-center gap-1.5 text-emerald-600 text-sm font-bold animate-in fade-in">

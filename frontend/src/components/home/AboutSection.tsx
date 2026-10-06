@@ -3,7 +3,12 @@ import { useSiteData } from '../../context/SiteDataContext';
 import { CheckCircle2, Award, Wrench, Shield, MessageSquare } from 'lucide-react';
 
 export const AboutSection: React.FC = () => {
-  const { settings } = useSiteData();
+  const { settings, pages } = useSiteData();
+  
+  const aboutSection = pages['home']?.sections?.about;
+  const title = aboutSection?.title || 'Técnicos de verdade, com nome e responsabilidade pelo serviço.';
+  const content = (aboutSection as any)?.content || 'A Pressurize Prime nasceu de mais de uma década de experiência prática com pressurizadores e aquecedores. Uma equipe que aprendeu o ofício em campo, instalação por instalação, e conhece por dentro os equipamentos que você tem em casa.';
+  const quote = (aboutSection as any)?.quote || '“Aqui, quem atende você é gente de verdade, do primeiro contato ao pós-serviço. E se algo não ficar certo, a gente volta.”';
 
   return (
     <section id="quem-somos" className="py-16 md:py-24 lg:py-28 bg-white border-b border-slate-200">
@@ -11,17 +16,17 @@ export const AboutSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Coluna de Texto Principal */}
           <div className="lg:col-span-7 space-y-6">
-            <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-slate-900 tracking-[-0.03em] leading-[1.18] text-balance">
-              Técnicos de verdade, com nome e responsabilidade pelo serviço.
+            <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-slate-900 tracking-[-0.03em] leading-[1.18] text-balance whitespace-pre-wrap">
+              {title}
             </h2>
 
-            <p className="text-base sm:text-lg text-slate-600 leading-[1.7] max-w-[62ch] text-pretty font-normal">
-              A <strong className="font-semibold text-slate-900">Pressurize Prime</strong> nasceu de mais de uma década de experiência prática com pressurizadores e aquecedores. Uma equipe que aprendeu o ofício em campo, instalação por instalação, e conhece por dentro os equipamentos que você tem em casa.
+            <p className="text-base sm:text-lg text-slate-600 leading-[1.7] max-w-[62ch] text-pretty font-normal whitespace-pre-wrap">
+              {content}
             </p>
 
             <blockquote className="p-5 sm:p-6 rounded-2xl bg-amber-500/10 border-l-4 border-secondary text-slate-800">
-              <p className="text-sm sm:text-base font-medium text-slate-800 leading-relaxed italic text-pretty">
-                “Aqui, quem atende você é gente de verdade, do primeiro contato ao pós-serviço. E se algo não ficar certo, a gente volta.”
+              <p className="text-sm sm:text-base font-medium text-slate-800 leading-relaxed italic text-pretty whitespace-pre-wrap">
+                {quote}
               </p>
             </blockquote>
 
