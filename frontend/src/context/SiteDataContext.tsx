@@ -25,9 +25,20 @@ interface SiteDataContextType {
 
 const SiteDataContext = createContext<SiteDataContextType | undefined>(undefined);
 
+// Versão dos dados — ao incrementar, o localStorage é limpo e os defaults são usados
+const DATA_VERSION = '2.0';
+
 export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Configurações Globais (com persistência local e fallback)
   const [settings, setSettings] = useState<SiteSettings>(() => {
+    const savedVersion = localStorage.getItem('pressurize_data_version');
+    if (savedVersion !== DATA_VERSION) {
+      // Limpa o cache antigo quando a versão muda
+      localStorage.removeItem('pressurize_pages');
+      localStorage.removeItem('pressurize_settings');
+      localStorage.removeItem('pressurize_services');
+      localStorage.setItem('pressurize_data_version', DATA_VERSION);
+    }
     const saved = localStorage.getItem('pressurize_settings');
     return saved ? JSON.parse(saved) : defaultSettings;
   });
@@ -35,7 +46,75 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   // Páginas do Site
   const [pages, setPages] = useState<Record<string, PageData>>(() => {
     const saved = localStorage.getItem('pressurize_pages');
-    return saved ? JSON.parse(saved) : defaultPages;
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      // Merge com os defaults para garantir que novas seções (como sections da home) apareçam mesmo se o usuário já tiver salvo antes
+      const merged = { ...defaultPages };
+      Object.keys(parsed).forEach(key => {
+        // Merge raso inicial
+        const rawMerge = { ...defaultPages[key], ...parsed[key] };
+        // Para campos de nível raiz (como hero_title, hero_subtitle, microcopy), se estiverem vazios, usa o default
+        const topLevelKeys = ['hero_title', 'hero_subtitle', 'hero_cta_primary', 'hero_cta_secondary', 'microcopy', 'title'];
+        topLevelKeys.forEach(field => {
+          if (rawMerge[field] === '' || rawMerge[field] === undefined || rawMerge[field] === null) {
+            rawMerge[field] = (defaultPages[key] as any)[field];
+          }
+        });
+        merged[key] = rawMerge;
+        // Deep merge das sections para todas as páginas (2 níveis)
+        if (defaultPages[key]?.sections) {
+          const defaultSecs = defaultPages[key].sections || {};
+          const parsedSecs = parsed[key]?.sections || {};
+          const mergedSecs: Record<string, any> = { ...parsedSecs };
+          
+          Object.keys(defaultSecs).forEach(secKey => {
+            const defVal = defaultSecs[secKey];
+            // Se o valor da seção for primitivo (ex: image_url como string), trata como fallback simples
+            if (typeof defVal !== 'object' || defVal === null) {
+              if (!mergedSecs[secKey] || mergedSecs[secKey] === '') {
+                mergedSecs[secKey] = defVal;
+              }
+              return;
+            }
+            if (!mergedSecs[secKey] || typeof mergedSecs[secKey] !== 'object') {
+              mergedSecs[secKey] = { ...defVal };
+            } else {
+              // Merge de propriedades dentro da seção
+              const defProps = defVal || {};
+              const parProps = parsedSecs[secKey] || {};
+              const mergedProps = { ...parProps };
+              
+              Object.keys(defProps).forEach(prop => {
+                // Se no saved está vazio (string vazia ou undefined), usamos o default
+                if (mergedProps[prop] === '' || mergedProps[prop] === undefined || mergedProps[prop] === null) {
+                  mergedProps[prop] = defProps[prop];
+                }
+                
+                // Tratamento especial para arrays (como items do howItWorks)
+                if (Array.isArray(defProps[prop])) {
+                  const parArray = Array.isArray(parProps[prop]) ? parProps[prop] : [];
+                  const mergedArray = defProps[prop].map((defItem: any, idx: number) => {
+                    const parItem = parArray[idx] || {};
+                    const mergedItem = { ...parItem };
+                    Object.keys(defItem).forEach(itemProp => {
+                      if (mergedItem[itemProp] === '' || mergedItem[itemProp] === undefined) {
+                        mergedItem[itemProp] = defItem[itemProp];
+                      }
+                    });
+                    return mergedItem;
+                  });
+                  mergedProps[prop] = mergedArray;
+                }
+              });
+              mergedSecs[secKey] = mergedProps;
+            }
+          });
+          merged[key].sections = mergedSecs;
+        }
+      });
+      return merged;
+    }
+    return defaultPages;
   });
 
   // Serviços
@@ -128,10 +207,66 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
               }
 
               formattedPages[key] = {
+                ...(defaultPages[key] || {}),
                 ...p,
-                sections: Object.keys(mappedSections).length > 0 ? mappedSections : p.sections,
+                sections: Object.keys(mappedSections).length > 0 ? { ...((defaultPages[key] || {}).sections || {}), ...mappedSections } : p.sections,
                 seo: apiSeo?.[key] || null
               };
+              
+              // Para campos de nível raiz, se estiverem vazios, usa o default
+              const topLevelKeysApi = ['hero_title', 'hero_subtitle', 'hero_cta_primary', 'hero_cta_secondary', 'microcopy', 'title'];
+              topLevelKeysApi.forEach(field => {
+                if ((formattedPages[key] as any)[field] === '' || (formattedPages[key] as any)[field] === undefined || (formattedPages[key] as any)[field] === null) {
+                  (formattedPages[key] as any)[field] = (defaultPages[key] as any)?.[field];
+                }
+              });
+              
+              if (defaultPages[key]?.sections) {
+                const defaultSecs = defaultPages[key].sections || {};
+                const parsedSecs = formattedPages[key].sections || {};
+                const mergedSecs: Record<string, any> = { ...parsedSecs };
+                
+                Object.keys(defaultSecs).forEach(secKey => {
+                  const defVal = defaultSecs[secKey];
+                  // Se o valor da seção for primitivo (ex: image_url como string), trata como fallback simples
+                  if (typeof defVal !== 'object' || defVal === null) {
+                    if (!mergedSecs[secKey] || mergedSecs[secKey] === '') {
+                      mergedSecs[secKey] = defVal;
+                    }
+                    return;
+                  }
+                  if (!mergedSecs[secKey] || typeof mergedSecs[secKey] !== 'object') {
+                    mergedSecs[secKey] = { ...defVal };
+                  } else {
+                    const defProps = defVal || {};
+                    const parProps = parsedSecs[secKey] || {};
+                    const mergedProps = { ...parProps };
+                    
+                    Object.keys(defProps).forEach(prop => {
+                      if (mergedProps[prop] === '' || mergedProps[prop] === undefined || mergedProps[prop] === null) {
+                        mergedProps[prop] = defProps[prop];
+                      }
+                      
+                      if (Array.isArray(defProps[prop])) {
+                        const parArray = Array.isArray(parProps[prop]) ? parProps[prop] : [];
+                        const mergedArray = defProps[prop].map((defItem: any, idx: number) => {
+                          const parItem = parArray[idx] || {};
+                          const mergedItem = { ...parItem };
+                          Object.keys(defItem).forEach(itemProp => {
+                            if (mergedItem[itemProp] === '' || mergedItem[itemProp] === undefined) {
+                              mergedItem[itemProp] = defItem[itemProp];
+                            }
+                          });
+                          return mergedItem;
+                        });
+                        mergedProps[prop] = mergedArray;
+                      }
+                    });
+                    mergedSecs[secKey] = mergedProps;
+                  }
+                });
+                formattedPages[key].sections = mergedSecs;
+              }
             });
             
             setPages(formattedPages);

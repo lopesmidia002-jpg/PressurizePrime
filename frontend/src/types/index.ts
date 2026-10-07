@@ -62,7 +62,7 @@ export interface PageData {
   hero_cta_primary: string;
   hero_cta_secondary: string;
   microcopy?: string;
-  sections?: Record<string, PageSection>;
+  sections?: Record<string, any>;
   seo?: SeoMeta;
 }
 

@@ -7,11 +7,13 @@ export const HowItWorksPage: React.FC = () => {
   const { settings, pages } = useSiteData();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
+  const pageImages = (pages['como-funciona']?.sections?.images as any) || {};
   const bgImages = [
-    'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80',
-    'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80',
-    'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1920&q=80'
+    pageImages.hero1 || 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80',
+    pageImages.hero2 || 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80',
+    pageImages.hero3 || 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1920&q=80'
   ];
+  const ctaImage = pageImages.cta || 'https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=1920&q=80';
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -42,7 +44,7 @@ export const HowItWorksPage: React.FC = () => {
     }
   ];
 
-  const cmsProcesso = pages['como-funciona']?.sections?.processo?.items;
+  const cmsProcesso = (pages['como-funciona']?.sections?.processo as any)?.items;
   const steps = defaultSteps.map((def, idx) => ({
     number: def.number,
     icon: def.icon,
@@ -171,8 +173,8 @@ export const HowItWorksPage: React.FC = () => {
           {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <img 
-              src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=1920&q=80" 
-              alt="Iniciar Atendimento" 
+              src={ctaImage}
+              alt="Iniciar Atendimento"
               className="w-full h-full object-cover object-center"
             />
             {/* Overlay Azul Premium */}

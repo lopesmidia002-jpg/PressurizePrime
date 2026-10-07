@@ -29,6 +29,7 @@ export const LPHero: React.FC<LPHeroProps> = ({ lp }) => {
   const currentMicrocopy = cmsPage?.microcopy || lp.microcopy;
   const ctaPrimary = cmsPage?.hero_cta_primary || 'Chamar no WhatsApp agora';
   const ctaSecondary = cmsPage?.hero_cta_secondary || 'Ligar agora';
+  const heroImage = (cmsPage?.sections?.image_url as any) || lp.image_url;
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-slate-100/70 pt-8 pb-16 lg:pt-14 lg:pb-20 border-b border-slate-200">
@@ -107,7 +108,7 @@ export const LPHero: React.FC<LPHeroProps> = ({ lp }) => {
               {/* Moldura da Fotografia Técnica */}
               <div className="relative overflow-hidden rounded-3xl border-2 border-slate-200/90 shadow-2xl bg-white group">
                 <img
-                  src={lp.image_url}
+                  src={heroImage}
                   alt={`Equipamento de ${lp.name}`}
                   className="w-full h-80 sm:h-96 object-cover object-center transform group-hover:scale-103 transition-transform duration-700"
                 />

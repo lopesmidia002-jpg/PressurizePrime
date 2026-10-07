@@ -9,12 +9,13 @@ export const FinalCtaSection: React.FC = () => {
   const title = finalCta?.title || 'Chuveiro fraco ou água fria não esperam. Nem a gente.';
   const subtitle = finalCta?.subtitle || 'Fale agora com um técnico. Atendimento de segunda a sexta, das 8h às 19h. Conserto e instalação de imediato ou em até 24 horas.';
   const cta = finalCta?.cta || 'Chamar no WhatsApp';
+  const bgImage = finalCta?.bgImage || 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80';
 
   return (
     <section 
       className="py-16 md:py-24 lg:py-28 text-white relative overflow-hidden"
       style={{
-        backgroundImage: 'linear-gradient(to bottom right, rgba(15, 23, 42, 0.55), rgba(23, 37, 84, 0.75)), url("https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80")',
+        backgroundImage: `linear-gradient(to bottom right, rgba(15, 23, 42, 0.55), rgba(23, 37, 84, 0.75)), url("${bgImage}")`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed'

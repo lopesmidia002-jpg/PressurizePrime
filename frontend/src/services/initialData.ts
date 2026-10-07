@@ -81,6 +81,62 @@ export const defaultPages: Record<string, PageData> = {
     hero_cta_primary: 'Chamar no WhatsApp',
     hero_cta_secondary: 'Ligar agora',
     microcopy: 'Atendimento humano desde a primeira mensagem. Sem robô, sem fila.',
+    sections: {
+      about: {
+        title: 'Quem Somos',
+        content: 'A Pressurize Prime é especialista em soluções de aquecimento e pressurização. Há mais de 10 anos entregando conforto e segurança para residências e condomínios em São Paulo.',
+        quote: '"Acreditamos que o conforto da sua família não pode esperar."'
+      },
+      whyUs: {
+        title: 'Por que escolher a Pressurize Prime?',
+        subtitle: 'Diferenciais que fazem a diferença na hora de contratar um especialista.',
+        items: [
+          { title: 'Atendimento Rápido', desc: 'Técnicos disponíveis para resolver o seu problema em até 24 horas.' },
+          { title: 'Técnicos Especializados', desc: 'Profissionais altamente capacitados e atualizados com as normas técnicas.' },
+          { title: 'Garantia Comprovada', desc: 'Oferecemos garantia de 3 meses em todas as peças instaladas.' },
+          { title: 'Preço Justo e Transparente', desc: 'Orçamento claro antes do início do serviço, sem surpresas no final.' }
+        ]
+      },
+      howItWorks: {
+        title: 'Como Funciona',
+        subtitle: 'Nosso processo é simples e transparente, desenhado para resolver seu problema rápido.',
+        cta: 'Solicitar Orçamento',
+        items: [
+          { title: 'Contato Inicial', desc: 'Fale conosco via WhatsApp ou ligação para detalhar o problema.' },
+          { title: 'Avaliação Técnica', desc: 'Nossa equipe analisa as fotos/vídeos ou envia um técnico ao local.' },
+          { title: 'Execução', desc: 'Serviço realizado com peças originais e garantia.' }
+        ]
+      },
+      commitments: {
+        title: 'Nossos Compromissos e Garantias',
+        subtitle: 'O que o cliente pode cobrar da gente. Regras claras e garantia por escrito a respeito do seu investimento.',
+        items: [
+          { title: 'Pontualidade', desc: 'Chegamos no horário combinado.' },
+          { title: 'Limpeza', desc: 'Deixamos o local exatamente como encontramos.' },
+          { title: 'Segurança', desc: 'Serviço realizado dentro de todas as normas técnicas vigentes (NBR).' },
+          { title: 'Transparência', desc: 'Você acompanha cada etapa do conserto ou instalação.' }
+        ]
+      },
+      coverage: {
+        title: 'Regiões Atendidas',
+        subtitle: 'Chegamos rápido onde você precisa.',
+        badge: 'Cobertura em toda São Paulo e Grande SP'
+      },
+      faq: {
+        title: 'Dúvidas Frequentes',
+        subtitle: 'Respostas rápidas para as perguntas mais comuns.'
+      },
+      homeLead: {
+        title: 'Problema no pressurizador ou aquecedor? Fale com quem entende.',
+        subtitle: 'Evite técnicos amadores ou soluções provisórias. Agende uma visita técnica especializada e resolva seu problema de forma definitiva.'
+      },
+      finalCta: {
+        title: 'Chuveiro fraco ou água fria não esperam. Nem a gente.',
+        subtitle: 'Fale agora com um técnico. Atendimento de segunda a sexta, das 8h às 19h. Conserto e instalação de imediato ou em até 24 horas.',
+        cta: 'Chamar no WhatsApp',
+        bgImage: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80'
+      }
+    },
     seo: {
       page_slug: 'home',
       meta_title: 'Pressurize Prime | Pressurizador e Aquecedores em São Paulo',
@@ -100,6 +156,10 @@ export const defaultPages: Record<string, PageData> = {
       page_slug: 'pressurizador',
       meta_title: 'Pressurizador de Água em SP | Instalação e Conserto em 24h',
       meta_description: 'Chuveiro fraco? Venda, instalação e conserto de pressurizador residencial em São Paulo. Técnicos experientes, atendimento imediato. Chame no WhatsApp.'
+    },
+    sections: {
+      image_url: '/images/pressurizador.jpg',
+      bg_image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80'
     }
   },
   'aquecedor-a-gas': {
@@ -115,6 +175,10 @@ export const defaultPages: Record<string, PageData> = {
       page_slug: 'aquecedor-a-gas',
       meta_title: 'Conserto e Instalação de Aquecedor a Gás em SP | Em até 24h',
       meta_description: 'Aquecedor a gás não acende ou desliga no banho? Conserto, manutenção e instalação conforme as normas em São Paulo. Técnicos experientes. Chame agora.'
+    },
+    sections: {
+      image_url: '/images/aquecedor-a-gas.jpg',
+      bg_image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80'
     }
   },
   'aquecedor-solar': {
@@ -130,6 +194,10 @@ export const defaultPages: Record<string, PageData> = {
       page_slug: 'aquecedor-solar',
       meta_title: 'Aquecedor Solar em SP | Instalação, Manutenção e Conserto',
       meta_description: 'Água morna mesmo com sol? Instalação, manutenção e conserto de aquecedor solar e boiler em São Paulo. Técnicos experientes, atendimento imediato.'
+    },
+    sections: {
+      image_url: '/images/aquecedor-solar.jpg',
+      bg_image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80'
     }
   },
   'aquecedor-eletrico': {
@@ -145,6 +213,10 @@ export const defaultPages: Record<string, PageData> = {
       page_slug: 'aquecedor-eletrico',
       meta_title: 'Aquecedor Elétrico e Boiler em SP | Conserto em até 24h',
       meta_description: 'Boiler elétrico não esquenta ou desarma o disjuntor? Venda, instalação e conserto de aquecedor elétrico em São Paulo. Técnicos experientes. Chame agora.'
+    },
+    sections: {
+      image_url: '/images/aquecedor-eletrico.jpg',
+      bg_image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80'
     }
   },
   sobre: {
@@ -155,6 +227,19 @@ export const defaultPages: Record<string, PageData> = {
     hero_subtitle: 'A Pressurize Prime nasceu de mais de uma década de experiência prática com pressurizadores e aquecedores. Uma equipe que aprendeu o ofício em campo, instalação por instalação, e conhece por dentro os equipamentos que você tem em casa.',
     hero_cta_primary: 'Falar com um consultor',
     hero_cta_secondary: 'Ligar agora',
+    sections: {
+      historia: {
+        title: 'Nossa História',
+        content: 'Nascemos da necessidade de um serviço técnico de alta qualidade na cidade de São Paulo. Ao longo dos anos, aperfeiçoamos nossas técnicas para entregar o melhor para sua casa.',
+        quote: '"Comprometimento e excelência em cada visita técnica."'
+      },
+      images: {
+        hero1: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1920&q=80',
+        hero2: 'https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=1920&q=80',
+        hero3: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1920&q=80',
+        cta: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80'
+      }
+    },
     seo: {
       page_slug: 'sobre',
       meta_title: 'Sobre Nós | Pressurize Prime',
@@ -169,6 +254,33 @@ export const defaultPages: Record<string, PageData> = {
     hero_subtitle: 'Não somos apenas instaladores. Somos uma engenharia de conforto focada em resolver o seu problema hídrico ou térmico de forma definitiva.',
     hero_cta_primary: 'Ver Diferenciais',
     hero_cta_secondary: 'Contato',
+    sections: {
+      diferenciais: {
+        title: 'Nossos Diferenciais',
+        subtitle: 'O que nos torna a melhor escolha',
+        items: [
+          { title: 'Experiência Comprovada', desc: 'Mais de 10 anos de mercado.' },
+          { title: 'Técnicos Certificados', desc: 'Profissionais altamente capacitados.' },
+          { title: 'Atendimento Rápido', desc: 'Chegamos até você rapidamente.' },
+          { title: 'Garantia', desc: 'Tranquilidade e segurança para você.' }
+        ]
+      },
+      comparativo: {
+        title: 'Comparativo do Mercado',
+        subtitle: 'Veja por que a Pressurize Prime se destaca.',
+        items: [
+          { feature: 'Garantia', prime: 'Sim, por escrito', outros: 'Nem sempre' },
+          { feature: 'Atendimento', prime: 'Imediato', outros: 'Demorado' },
+          { feature: 'Técnicos', prime: 'Especializados', outros: 'Terceirizados genéricos' }
+        ]
+      },
+      images: {
+        hero1: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1920&q=80',
+        hero2: 'https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=1920&q=80',
+        hero3: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1920&q=80',
+        cta: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80'
+      }
+    },
     seo: {
       page_slug: 'diferenciais',
       meta_title: 'Nossos Diferenciais | Pressurize Prime',
@@ -183,6 +295,36 @@ export const defaultPages: Record<string, PageData> = {
     hero_subtitle: 'Um processo simples, rápido e transparente. Desenhado para poupar seu tempo e garantir sua tranquilidade.',
     hero_cta_primary: 'Entenda o Processo',
     hero_cta_secondary: 'Agendar Visita',
+    sections: {
+      processo: {
+        title: 'O Processo',
+        subtitle: 'Passo a passo do nosso atendimento',
+        items: [
+          { title: 'Passo 1', desc: 'Agendamento rápido.' },
+          { title: 'Passo 2', desc: 'Visita técnica.' },
+          { title: 'Passo 3', desc: 'Solução do problema.' }
+        ]
+      },
+      regioes: {
+        title: 'Regiões Atendidas',
+        subtitle: 'Onde estamos',
+        badge: 'Atendemos toda SP e região metropolitana'
+      },
+      compromissos: {
+        title: 'Nossos Compromissos',
+        subtitle: 'Nossas garantias para você',
+        items: [
+          { title: 'Pontualidade', desc: 'Sempre no horário.' },
+          { title: 'Qualidade', desc: 'Peças originais.' }
+        ]
+      },
+      images: {
+        hero1: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1920&q=80',
+        hero2: 'https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=1920&q=80',
+        hero3: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1920&q=80',
+        cta: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80'
+      }
+    },
     seo: {
       page_slug: 'como-funciona',
       meta_title: 'Como Funciona | Pressurize Prime',
@@ -197,6 +339,18 @@ export const defaultPages: Record<string, PageData> = {
     hero_subtitle: 'Tire suas dúvidas rapidamente. Encontre respostas para as perguntas mais comuns dos nossos clientes.',
     hero_cta_primary: 'Falar no WhatsApp',
     hero_cta_secondary: 'Ligar para a equipe',
+    sections: {
+      duvidas: {
+        title: 'Dúvidas Frequentes',
+        subtitle: 'As perguntas que mais recebemos.'
+      },
+      images: {
+        hero1: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1920&q=80',
+        hero2: 'https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=1920&q=80',
+        hero3: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1920&q=80',
+        cta: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80'
+      }
+    },
     seo: {
       page_slug: 'duvidas',
       meta_title: 'Dúvidas Frequentes | Pressurize Prime',

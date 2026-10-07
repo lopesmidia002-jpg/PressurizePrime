@@ -59,7 +59,7 @@ export const AdminLayout: React.FC = () => {
               />
               <div className="hidden sm:block">
                 <span className="font-bold text-sm text-white tracking-wide block leading-none">
-                  Pressurize Prime
+                  {settings.site_name}
                 </span>
                 <span className="text-[10px] text-amber-400 font-bold uppercase tracking-wider">
                   Painel de Controle CMS

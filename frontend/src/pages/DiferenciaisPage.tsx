@@ -7,11 +7,13 @@ export const DiferenciaisPage: React.FC = () => {
   const { settings, pages } = useSiteData();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
+  const pageImages = (pages['diferenciais']?.sections?.images as any) || {};
   const bgImages = [
-    'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80',
-    'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80',
-    'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1920&q=80'
+    pageImages.hero1 || 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80',
+    pageImages.hero2 || 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80',
+    pageImages.hero3 || 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1920&q=80'
   ];
+  const ctaImage = pageImages.cta || 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1920&q=80';
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -54,7 +56,7 @@ export const DiferenciaisPage: React.FC = () => {
     }
   ];
 
-  const cmsDiferenciais = pages['diferenciais']?.sections?.diferenciais?.items;
+  const cmsDiferenciais = (pages['diferenciais']?.sections?.diferenciais as any)?.items;
   const diferenciais = defaultDiferenciais.map((def, idx) => ({
     icon: def.icon,
     title: cmsDiferenciais?.[idx]?.title || def.title,
@@ -192,8 +194,8 @@ export const DiferenciaisPage: React.FC = () => {
           {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <img 
-              src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1920&q=80" 
-              alt="Instalação Segura" 
+              src={ctaImage}
+              alt="Instalação Segura"
               className="w-full h-full object-cover object-center"
             />
             {/* Overlay Azul Premium */}

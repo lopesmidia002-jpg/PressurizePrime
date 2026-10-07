@@ -9,11 +9,13 @@ export const FaqPage: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
+  const pageImages = (pages['duvidas']?.sections?.images as any) || {};
   const bgImages = [
-    'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80',
-    'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80',
-    'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1920&q=80'
+    pageImages.hero1 || 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80',
+    pageImages.hero2 || 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80',
+    pageImages.hero3 || 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1920&q=80'
   ];
+  const ctaImage = pageImages.cta || 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80';
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -46,13 +48,13 @@ export const FaqPage: React.FC = () => {
     }
   ];
 
-  const cmsFaqs = pages['duvidas']?.sections?.duvidas?.items;
-  const faqs = cmsFaqs?.map((item: any) => ({
+  const cmsFaqs = (pages['duvidas']?.sections?.duvidas as any)?.items;
+  const faqs: { question: string; answer: string }[] = cmsFaqs?.map((item: any) => ({
     question: item.title,
     answer: item.desc
   })) || defaultFaqs;
 
-  const filteredFaqs = faqs.filter(faq => 
+  const filteredFaqs = faqs.filter((faq: { question: string; answer: string }) => 
     faq.question.toLowerCase().includes(searchTerm.toLowerCase()) || 
     faq.answer.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -150,8 +152,8 @@ export const FaqPage: React.FC = () => {
           {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <img 
-              src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80" 
-              alt="Atendimento Rápido" 
+              src={ctaImage}
+              alt="Atendimento Rápido"
               className="w-full h-full object-cover object-center"
             />
             {/* Overlay Azul Premium */}

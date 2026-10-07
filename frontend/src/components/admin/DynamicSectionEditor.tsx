@@ -1,5 +1,4 @@
 import React from 'react';
-import { Plus, Trash2 } from 'lucide-react';
 
 interface DynamicSectionEditorProps {
   sectionKey: string;
@@ -9,7 +8,7 @@ interface DynamicSectionEditorProps {
 }
 
 export const DynamicSectionEditor: React.FC<DynamicSectionEditorProps> = ({
-  sectionKey,
+  sectionKey: _sectionKey,
   sectionData,
   onChange,
   label

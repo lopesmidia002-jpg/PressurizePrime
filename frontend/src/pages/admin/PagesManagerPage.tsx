@@ -9,6 +9,7 @@ import {
   Layers
 } from 'lucide-react';
 import { DynamicSectionEditor } from '../../components/admin/DynamicSectionEditor';
+import { ImageUploadButton } from '../../components/admin/ImageUploadButton';
 
 export const PagesManagerPage: React.FC = () => {
   const { pages, updatePageData } = useSiteData();
@@ -60,10 +61,9 @@ export const PagesManagerPage: React.FC = () => {
 
   React.useEffect(() => {
     if (pages[selectedKey]) {
-      setFormData(prev => ({
+      setFormData({
         ...pages[selectedKey],
-        // Preserve any unsaved local edits if needed, but for simplicity we overwrite to ensure structure is correct when data arrives
-      }));
+      });
     }
   }, [pages, selectedKey]);
 
@@ -229,6 +229,57 @@ export const PagesManagerPage: React.FC = () => {
               />
             </div>
 
+            {/* IMAGENS DA LANDING PAGE */}
+            {['pressurizador', 'aquecedor-a-gas', 'aquecedor-solar', 'aquecedor-eletrico'].includes(selectedKey) && (() => {
+              const lpImageLabels: Record<string, { label: string; hint: string }> = {
+                pressurizador: { label: 'Foto do Pressurizador (Hero)', hint: 'Foto do produto principal exibida na página. Ideal: foto real do pressurizador instalado.' },
+                'aquecedor-a-gas': { label: 'Foto do Aquecedor a Gás (Hero)', hint: 'Foto do produto principal. Ideal: aquecedor a gás instalado na parede.' },
+                'aquecedor-solar': { label: 'Foto do Aquecedor Solar (Hero)', hint: 'Foto do produto principal. Ideal: placas solares instaladas no telhado.' },
+                'aquecedor-eletrico': { label: 'Foto do Aquecedor Elétrico (Hero)', hint: 'Foto do produto principal. Ideal: boiler ou aquecedor elétrico instalado.' },
+              };
+              const lpInfo = lpImageLabels[selectedKey] || { label: 'Foto do Produto (Hero)', hint: 'Foto exibida na seção principal da página.' };
+              const val = (formData.sections?.image_url as any) || '';
+              const bgVal = (formData.sections?.bg_image as any) || '';
+              return (
+                <div className="space-y-6 pt-6 border-t border-slate-200">
+                  <div>
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider flex items-center gap-1.5">🖼️ Imagens da Landing Page</span>
+                    <h3 className="text-md font-bold text-slate-800 mt-1">Foto do Serviço e Imagem de Fundo CTA</h3>
+                    <p className="text-[11px] text-slate-400 mt-0.5">Defina a foto principal do produto e a imagem de fundo do botão de conversão no rodapé.</p>
+                  </div>
+
+                  {/* Foto do Produto (Hero) */}
+                  <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-[10px] font-bold text-slate-700 uppercase">{lpInfo.label}</label>
+                      {val && <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">✓ Configurada</span>}
+                    </div>
+                    <p className="text-[10px] text-slate-400">{lpInfo.hint}</p>
+                    {val && <img src={val} alt="Foto do produto" className="w-full h-40 object-cover rounded-lg border border-slate-200" onError={e => (e.currentTarget.style.display = 'none')} />}
+                    <div className="flex gap-2 items-end">
+                      <input type="text" value={val} onChange={e => { const s = { ...formData.sections }; (s as any).image_url = e.target.value; handleChange('sections', s as any); }} placeholder="/images/pressurizador.jpg ou URL externa" className="flex-1 px-3 py-2 text-xs border border-slate-300 rounded-lg" />
+                      <ImageUploadButton buttonText="Upload" onUpload={(url) => { const s = { ...formData.sections }; (s as any).image_url = url; handleChange('sections', s as any); }} />
+                    </div>
+                  </div>
+
+                  {/* Foto de Fundo CTA */}
+                  <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-[10px] font-bold text-slate-700 uppercase">Foto de Fundo (Seção CTA Final)</label>
+                      {bgVal && <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">✓ Configurada</span>}
+                    </div>
+                    <p className="text-[10px] text-slate-400">Imagem de fundo da última seção de conversão da página. Recomendado: foto técnica 1920×1080px.</p>
+                    {bgVal && <img src={bgVal} alt="CTA Background" className="w-full h-24 object-cover rounded-lg border border-slate-200" onError={e => (e.currentTarget.style.display = 'none')} />}
+                    <div className="flex gap-2 items-end">
+                      <input type="text" value={bgVal} onChange={e => { const s = { ...formData.sections }; (s as any).bg_image = e.target.value; handleChange('sections', s as any); }} placeholder="URL ou base64" className="flex-1 px-3 py-2 text-xs border border-slate-300 rounded-lg" />
+                      <ImageUploadButton buttonText="Upload" onUpload={(url) => { const s = { ...formData.sections }; (s as any).bg_image = url; handleChange('sections', s as any); }} />
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+
+
             {/* Edição de Seções Adicionais (Home) */}
             {selectedKey === 'home' && (
               <div className="pt-6 border-t border-slate-200 mt-6 space-y-8">
@@ -353,41 +404,144 @@ export const PagesManagerPage: React.FC = () => {
                     })}
                   </div>
                 </div>
-                {/* DEMASIADAS SEÇÕES VIA DYNAMIC EDITOR */}
-                <DynamicSectionEditor
-                  sectionKey="commitments"
-                  label="Compromissos / Garantias"
-                  sectionData={formData.sections?.commitments}
-                  onChange={(data) => handleChange('sections', { ...formData.sections, commitments: data } as any)}
-                />
-                
-                <DynamicSectionEditor
-                  sectionKey="coverage"
-                  label="Regiões Atendidas"
-                  sectionData={formData.sections?.coverage}
-                  onChange={(data) => handleChange('sections', { ...formData.sections, coverage: data } as any)}
-                />
+                {/* COMMITMENTS SECTION */}
+                <div className="space-y-6 pt-6 border-t border-slate-200">
+                  <div>
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider block">
+                      Seção: Compromissos / Garantias
+                    </span>
+                    <h3 className="text-md font-bold text-slate-800 mt-1">O que o cliente pode cobrar da gente</h3>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Título da Seção</label>
+                    <textarea rows={2} value={(formData.sections?.commitments as any)?.title || ''} onChange={e => { const s = { ...formData.sections }; if (!s.commitments) s.commitments = {} as any; (s.commitments as any).title = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm font-semibold bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none" placeholder="O que você pode cobrar da gente" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Subtítulo</label>
+                    <textarea rows={2} value={(formData.sections?.commitments as any)?.subtitle || ''} onChange={e => { const s = { ...formData.sections }; if (!s.commitments) s.commitments = {} as any; (s.commitments as any).subtitle = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Regras claras, garantia por escrito e respeito ao seu investimento..." />
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {[
+                      { label: 'Compromisso 1', defTitle: 'Orçamento antes do serviço', defDesc: 'Você sabe o valor exato antes de qualquer componente ser trocado.' },
+                      { label: 'Compromisso 2', defTitle: 'Vistoria que sai de graça', defDesc: 'Aprovando o serviço, a taxa de vistoria e locomoção não é cobrada.' },
+                      { label: 'Compromisso 3', defTitle: 'Garantia de verdade', defDesc: '3 meses de garantia nas peças e 30 dias na mão de obra.' },
+                      { label: 'Compromisso 4', defTitle: 'Pagamento facilitado', defDesc: 'Parcelamento em até 10x sem juros no cartão.' },
+                    ].map((c, idx) => {
+                      const item = (formData.sections?.commitments as any)?.items?.[idx] || { title: c.defTitle, desc: c.defDesc };
+                      return (
+                        <div key={idx} className="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                          <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">{c.label} — Título</label>
+                          <input type="text" value={item.title} onChange={e => { const s = { ...formData.sections }; if (!s.commitments) s.commitments = {} as any; if (!(s.commitments as any).items) (s.commitments as any).items = []; (s.commitments as any).items[idx] = { ...item, title: e.target.value }; handleChange('sections', s as any); }} className="w-full px-3 py-2 text-sm mb-3 border border-slate-300 rounded-lg" />
+                          <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">{c.label} — Descrição</label>
+                          <textarea rows={3} value={item.desc} onChange={e => { const s = { ...formData.sections }; if (!s.commitments) s.commitments = {} as any; if (!(s.commitments as any).items) (s.commitments as any).items = []; (s.commitments as any).items[idx] = { ...item, desc: e.target.value }; handleChange('sections', s as any); }} className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg resize-none" />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
 
-                <DynamicSectionEditor
-                  sectionKey="faq"
-                  label="Dúvidas Frequentes"
-                  sectionData={formData.sections?.faq}
-                  onChange={(data) => handleChange('sections', { ...formData.sections, faq: data } as any)}
-                />
+                {/* COVERAGE SECTION */}
+                <div className="space-y-6 pt-6 border-t border-slate-200">
+                  <div>
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider block">
+                      Seção: Regiões Atendidas
+                    </span>
+                    <h3 className="text-md font-bold text-slate-800 mt-1">Cobertura geográfica de atendimento</h3>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Título da Seção</label>
+                    <textarea rows={2} value={(formData.sections?.coverage as any)?.title || ''} onChange={e => { const s = { ...formData.sections }; if (!s.coverage) s.coverage = {} as any; (s.coverage as any).title = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm font-semibold bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none" placeholder="Regiões Atendidas em São Paulo" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Subtítulo / Descrição</label>
+                    <textarea rows={3} value={(formData.sections?.coverage as any)?.subtitle || ''} onChange={e => { const s = { ...formData.sections }; if (!s.coverage) s.coverage = {} as any; (s.coverage as any).subtitle = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Nossos técnicos atuam com rotas diárias otimizadas..." />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Texto do Badge / Nota de Atendimento Prioritário</label>
+                    <input type="text" value={(formData.sections?.coverage as any)?.badge || ''} onChange={e => { const s = { ...formData.sections }; if (!s.coverage) s.coverage = {} as any; (s.coverage as any).badge = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Atendimento prioritário em condomínios e residências de médio e alto padrão" />
+                  </div>
+                </div>
 
-                <DynamicSectionEditor
-                  sectionKey="homeLead"
-                  label="Formulário de Contato (Vistoria)"
-                  sectionData={formData.sections?.homeLead}
-                  onChange={(data) => handleChange('sections', { ...formData.sections, homeLead: data } as any)}
-                />
+                {/* FAQ SECTION */}
+                <div className="space-y-6 pt-6 border-t border-slate-200">
+                  <div>
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider block">
+                      Seção: Dúvidas Frequentes
+                    </span>
+                    <h3 className="text-md font-bold text-slate-800 mt-1">Título e subtítulo do FAQ (as perguntas são gerenciadas na área de Serviços)</h3>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Título do FAQ</label>
+                    <textarea rows={2} value={(formData.sections?.faq as any)?.title || ''} onChange={e => { const s = { ...formData.sections }; if (!s.faq) s.faq = {} as any; (s.faq as any).title = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm font-semibold bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none" placeholder="Perguntas Frequentes" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Subtítulo do FAQ</label>
+                    <textarea rows={2} value={(formData.sections?.faq as any)?.subtitle || ''} onChange={e => { const s = { ...formData.sections }; if (!s.faq) s.faq = {} as any; (s.faq as any).subtitle = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Respostas diretas e transparentes sobre nosso atendimento em São Paulo." />
+                  </div>
+                </div>
 
-                <DynamicSectionEditor
-                  sectionKey="finalCta"
-                  label="Chamada Final (Rodapé)"
-                  sectionData={formData.sections?.finalCta}
-                  onChange={(data) => handleChange('sections', { ...formData.sections, finalCta: data } as any)}
-                />
+                {/* HOME LEAD SECTION */}
+                <div className="space-y-6 pt-6 border-t border-slate-200">
+                  <div>
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider block">
+                      Seção: Formulário de Contato (Vistoria)
+                    </span>
+                    <h3 className="text-md font-bold text-slate-800 mt-1">Textos da seção de captação de leads</h3>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Título da Seção</label>
+                    <textarea rows={2} value={(formData.sections?.homeLead as any)?.title || ''} onChange={e => { const s = { ...formData.sections }; if (!s.homeLead) s.homeLead = {} as any; (s.homeLead as any).title = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm font-semibold bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none" placeholder="Problema no pressurizador ou aquecedor? Fale com quem entende." />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Subtítulo / Argumento</label>
+                    <textarea rows={3} value={(formData.sections?.homeLead as any)?.subtitle || ''} onChange={e => { const s = { ...formData.sections }; if (!s.homeLead) s.homeLead = {} as any; (s.homeLead as any).subtitle = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Evite técnicos amadores ou soluções provisórias..." />
+                  </div>
+                </div>
+
+                {/* FINAL CTA SECTION */}
+                <div className="space-y-6 pt-6 border-t border-slate-200">
+                  <div>
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider block">
+                      Seção: Chamada Final (CTA de Urgência)
+                    </span>
+                    <h3 className="text-md font-bold text-slate-800 mt-1">Textos da seção de urgência no rodapé da Home</h3>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Título Principal (Frase de Urgência)</label>
+                    <textarea rows={2} value={(formData.sections?.finalCta as any)?.title || ''} onChange={e => { const s = { ...formData.sections }; if (!s.finalCta) s.finalCta = {} as any; (s.finalCta as any).title = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm font-semibold bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none" placeholder="Chuveiro fraco ou água fria não esperam. Nem a gente." />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Subtítulo / Reforço de Conversão</label>
+                    <textarea rows={3} value={(formData.sections?.finalCta as any)?.subtitle || ''} onChange={e => { const s = { ...formData.sections }; if (!s.finalCta) s.finalCta = {} as any; (s.finalCta as any).subtitle = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Fale agora com um técnico. Atendimento de segunda a sexta, das 8h às 19h..." />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Rótulo do Botão Principal (WhatsApp)</label>
+                    <input type="text" value={(formData.sections?.finalCta as any)?.cta || ''} onChange={e => { const s = { ...formData.sections }; if (!s.finalCta) s.finalCta = {} as any; (s.finalCta as any).cta = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Chamar no WhatsApp" />
+                  </div>
+                </div>
+                {/* IMAGEM DE FUNDO — CHAMADA FINAL CTA */}
+                <div className="space-y-4 pt-6 border-t border-slate-200">
+                  <div>
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider block">Imagem de Fundo</span>
+                    <h3 className="text-md font-bold text-slate-800 mt-1">Foto de fundo da seção Chamada Final (CTA)</h3>
+                    <p className="text-[11px] text-slate-400 mt-0.5">Usada como plano de fundo na seção de urgência ao final da Home. Recomendado: foto técnica 1920×1080px.</p>
+                  </div>
+                  {(formData.sections?.finalCta as any)?.bgImage && (
+                    <div className="relative w-full h-24 rounded-xl overflow-hidden border border-slate-200 bg-slate-100">
+                      <img src={(formData.sections?.finalCta as any)?.bgImage} alt="Preview" className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-slate-900/40 flex items-center justify-center">
+                        <span className="text-white text-xs font-bold bg-black/40 px-2 py-1 rounded">Imagem atual</span>
+                      </div>
+                    </div>
+                  )}
+                  <div className="flex gap-2 items-end">
+                    <div className="flex-1">
+                      <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">URL da Imagem</label>
+                      <input type="text" value={(formData.sections?.finalCta as any)?.bgImage || ''} onChange={e => { const s = { ...formData.sections }; if (!s.finalCta) s.finalCta = {} as any; (s.finalCta as any).bgImage = e.target.value; handleChange('sections', s as any); }} placeholder="https://... ou base64" className="w-full px-3 py-2 text-sm border border-slate-300 rounded-xl" />
+                    </div>
+                    <ImageUploadButton buttonText="Upload" onUpload={(url) => { const s = { ...formData.sections }; if (!s.finalCta) s.finalCta = {} as any; (s.finalCta as any).bgImage = url; handleChange('sections', s as any); }} />
+                  </div>
+                </div>
               </div>
             )}
 
@@ -399,6 +553,32 @@ export const PagesManagerPage: React.FC = () => {
                   sectionData={formData.sections?.historia}
                   onChange={(data) => handleChange('sections', { ...formData.sections, historia: data } as any)}
                 />
+
+                {/* IMAGENS DA PÁGINA SOBRE */}
+                <div className="space-y-6 pt-6 border-t border-slate-200">
+                  <div>
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider flex items-center gap-1.5">🖼️ Imagens da Página</span>
+                    <h3 className="text-md font-bold text-slate-800 mt-1">Fotos do Hero (carrossel) e CTA</h3>
+                    <p className="text-[11px] text-slate-400 mt-0.5">3 imagens que rodam no banner da página + 1 foto de fundo do botão de contato. Recomendado: 1920×1080px.</p>
+                  </div>
+                  {(['hero1','hero2','hero3','cta'] as const).map((key, idx) => {
+                    const labels = ['Hero Foto 1', 'Hero Foto 2', 'Hero Foto 3', 'Foto de Fundo CTA'];
+                    const val = (formData.sections?.images as any)?.[key] || '';
+                    return (
+                      <div key={key} className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                        <div className="flex items-center justify-between">
+                          <label className="text-[10px] font-bold text-slate-700 uppercase">{labels[idx]}</label>
+                          {val && <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">✓ Configurada</span>}
+                        </div>
+                        {val && <img src={val} alt={labels[idx]} className="w-full h-20 object-cover rounded-lg border border-slate-200" />}
+                        <div className="flex gap-2 items-end">
+                          <input type="text" value={val} onChange={e => { const s = { ...formData.sections }; if (!s.images) s.images = {} as any; (s.images as any)[key] = e.target.value; handleChange('sections', s as any); }} placeholder="URL ou base64" className="flex-1 px-3 py-2 text-xs border border-slate-300 rounded-lg" />
+                          <ImageUploadButton buttonText="Upload" onUpload={(url) => { const s = { ...formData.sections }; if (!s.images) s.images = {} as any; (s.images as any)[key] = url; handleChange('sections', s as any); }} />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             )}
 
@@ -416,6 +596,32 @@ export const PagesManagerPage: React.FC = () => {
                   sectionData={formData.sections?.comparativo}
                   onChange={(data) => handleChange('sections', { ...formData.sections, comparativo: data } as any)}
                 />
+
+                {/* IMAGENS DA PÁGINA DIFERENCIAIS */}
+                <div className="space-y-6 pt-6 border-t border-slate-200">
+                  <div>
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider flex items-center gap-1.5">🖼️ Imagens da Página</span>
+                    <h3 className="text-md font-bold text-slate-800 mt-1">Fotos do Hero (carrossel) e CTA</h3>
+                    <p className="text-[11px] text-slate-400 mt-0.5">Recomendado: 1920×1080px. Fotos aparecem no banner e na seção de contato final.</p>
+                  </div>
+                  {(['hero1','hero2','hero3','cta'] as const).map((key, idx) => {
+                    const labels = ['Hero Foto 1', 'Hero Foto 2', 'Hero Foto 3', 'Foto de Fundo CTA'];
+                    const val = (formData.sections?.images as any)?.[key] || '';
+                    return (
+                      <div key={key} className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                        <div className="flex items-center justify-between">
+                          <label className="text-[10px] font-bold text-slate-700 uppercase">{labels[idx]}</label>
+                          {val && <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">✓ Configurada</span>}
+                        </div>
+                        {val && <img src={val} alt={labels[idx]} className="w-full h-20 object-cover rounded-lg border border-slate-200" />}
+                        <div className="flex gap-2 items-end">
+                          <input type="text" value={val} onChange={e => { const s = { ...formData.sections }; if (!s.images) s.images = {} as any; (s.images as any)[key] = e.target.value; handleChange('sections', s as any); }} placeholder="URL ou base64" className="flex-1 px-3 py-2 text-xs border border-slate-300 rounded-lg" />
+                          <ImageUploadButton buttonText="Upload" onUpload={(url) => { const s = { ...formData.sections }; if (!s.images) s.images = {} as any; (s.images as any)[key] = url; handleChange('sections', s as any); }} />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             )}
 
@@ -439,6 +645,32 @@ export const PagesManagerPage: React.FC = () => {
                   sectionData={formData.sections?.compromissos}
                   onChange={(data) => handleChange('sections', { ...formData.sections, compromissos: data } as any)}
                 />
+
+                {/* IMAGENS DA PÁGINA COMO FUNCIONA */}
+                <div className="space-y-6 pt-6 border-t border-slate-200">
+                  <div>
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider flex items-center gap-1.5">🖼️ Imagens da Página</span>
+                    <h3 className="text-md font-bold text-slate-800 mt-1">Fotos do Hero (carrossel) e CTA</h3>
+                    <p className="text-[11px] text-slate-400 mt-0.5">Recomendado: 1920×1080px.</p>
+                  </div>
+                  {(['hero1','hero2','hero3','cta'] as const).map((key, idx) => {
+                    const labels = ['Hero Foto 1', 'Hero Foto 2', 'Hero Foto 3', 'Foto de Fundo CTA'];
+                    const val = (formData.sections?.images as any)?.[key] || '';
+                    return (
+                      <div key={key} className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                        <div className="flex items-center justify-between">
+                          <label className="text-[10px] font-bold text-slate-700 uppercase">{labels[idx]}</label>
+                          {val && <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">✓ Configurada</span>}
+                        </div>
+                        {val && <img src={val} alt={labels[idx]} className="w-full h-20 object-cover rounded-lg border border-slate-200" />}
+                        <div className="flex gap-2 items-end">
+                          <input type="text" value={val} onChange={e => { const s = { ...formData.sections }; if (!s.images) s.images = {} as any; (s.images as any)[key] = e.target.value; handleChange('sections', s as any); }} placeholder="URL ou base64" className="flex-1 px-3 py-2 text-xs border border-slate-300 rounded-lg" />
+                          <ImageUploadButton buttonText="Upload" onUpload={(url) => { const s = { ...formData.sections }; if (!s.images) s.images = {} as any; (s.images as any)[key] = url; handleChange('sections', s as any); }} />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             )}
 
@@ -450,6 +682,32 @@ export const PagesManagerPage: React.FC = () => {
                   sectionData={formData.sections?.duvidas}
                   onChange={(data) => handleChange('sections', { ...formData.sections, duvidas: data } as any)}
                 />
+
+                {/* IMAGENS DA PÁGINA DÚVIDAS */}
+                <div className="space-y-6 pt-6 border-t border-slate-200">
+                  <div>
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider flex items-center gap-1.5">🖼️ Imagens da Página</span>
+                    <h3 className="text-md font-bold text-slate-800 mt-1">Fotos do Hero (carrossel) e CTA</h3>
+                    <p className="text-[11px] text-slate-400 mt-0.5">Recomendado: 1920×1080px.</p>
+                  </div>
+                  {(['hero1','hero2','hero3','cta'] as const).map((key, idx) => {
+                    const labels = ['Hero Foto 1', 'Hero Foto 2', 'Hero Foto 3', 'Foto de Fundo CTA'];
+                    const val = (formData.sections?.images as any)?.[key] || '';
+                    return (
+                      <div key={key} className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                        <div className="flex items-center justify-between">
+                          <label className="text-[10px] font-bold text-slate-700 uppercase">{labels[idx]}</label>
+                          {val && <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">✓ Configurada</span>}
+                        </div>
+                        {val && <img src={val} alt={labels[idx]} className="w-full h-20 object-cover rounded-lg border border-slate-200" />}
+                        <div className="flex gap-2 items-end">
+                          <input type="text" value={val} onChange={e => { const s = { ...formData.sections }; if (!s.images) s.images = {} as any; (s.images as any)[key] = e.target.value; handleChange('sections', s as any); }} placeholder="URL ou base64" className="flex-1 px-3 py-2 text-xs border border-slate-300 rounded-lg" />
+                          <ImageUploadButton buttonText="Upload" onUpload={(url) => { const s = { ...formData.sections }; if (!s.images) s.images = {} as any; (s.images as any)[key] = url; handleChange('sections', s as any); }} />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             )}
 

@@ -27,34 +27,36 @@ export const SeoManagerPage: React.FC = () => {
   ];
 
   const [selectedKey, setSelectedKey] = useState('home');
-  const [formData, setFormData] = useState<SeoMeta>(() => {
-    return pages[selectedKey]?.seo || {
-      page_slug: selectedKey,
-      meta_title: 'Pressurize Prime | Pressurizador de Água e Aquecedores em São Paulo',
-      meta_description: 'Conserto, venda e instalação de pressurizadores e aquecedores em SP. Atendimento em até 24h e 10x sem juros.',
-      keywords: 'pressurizador, aquecedor a gas, sao paulo',
-      canonical_url: 'https://pressurizeprime.com.br/',
-      og_title: 'Pressurize Prime — Especialistas em Pressurização em SP',
-      og_description: 'Conserto em até 24 horas.',
-      og_image: '/logo.jpeg'
-    };
-  });
+  const defaultSeoData: Record<string, SeoMeta> = {
+    home: { page_slug: 'home', meta_title: 'Pressurize Prime | Pressurizador e Aquecedores em São Paulo', meta_description: 'Venda, instalação e manutenção de pressurizador, aquecedor a gás, solar e elétrico em SP. Técnicos experientes e conserto em até 24h. Chame no WhatsApp.', keywords: 'pressurizador, aquecedor a gas, sao paulo, conserto', canonical_url: 'https://pressurizeprime.com.br/', og_title: 'Pressurize Prime — Especialistas em Pressurização em SP', og_description: 'Conserto em até 24 horas.', og_image: '/logo.jpeg' },
+    sobre: { page_slug: 'sobre', meta_title: 'Sobre Nós | Pressurize Prime', meta_description: 'Especialistas em pressurização de água e aquecimento a gás e elétrico em São Paulo. Conheça nossa história e compromisso.', keywords: 'pressurize prime, sobre, empresa, sao paulo', canonical_url: 'https://pressurizeprime.com.br/sobre', og_title: 'Sobre a Pressurize Prime', og_description: 'Conheça nossa história e equipe.', og_image: '/logo.jpeg' },
+    diferenciais: { page_slug: 'diferenciais', meta_title: 'Nossos Diferenciais | Pressurize Prime', meta_description: 'Descubra por que a Pressurize Prime é a escolha certa para a instalação e manutenção do seu equipamento.', keywords: 'diferenciais, garantia, tecnico especializado', canonical_url: 'https://pressurizeprime.com.br/diferenciais', og_title: 'Diferenciais Pressurize Prime', og_description: 'O que nos torna a melhor escolha.', og_image: '/logo.jpeg' },
+    'como-funciona': { page_slug: 'como-funciona', meta_title: 'Como Funciona | Pressurize Prime', meta_description: 'Entenda o nosso processo de atendimento, do primeiro contato até a resolução do problema e emissão da garantia.', keywords: 'como funciona, processo, atendimento', canonical_url: 'https://pressurizeprime.com.br/como-funciona', og_title: 'Como Funciona a Pressurize Prime', og_description: 'Processo simples e transparente.', og_image: '/logo.jpeg' },
+    duvidas: { page_slug: 'duvidas', meta_title: 'Dúvidas Frequentes | Pressurize Prime', meta_description: 'Tire suas dúvidas sobre instalação, conserto, garantia e funcionamento de pressurizadores e aquecedores a gás.', keywords: 'faq, duvidas, pressurizador, aquecedor', canonical_url: 'https://pressurizeprime.com.br/duvidas', og_title: 'Dúvidas Frequentes', og_description: 'Respostas rápidas para as suas perguntas.', og_image: '/logo.jpeg' },
+    pressurizador: { page_slug: 'pressurizador', meta_title: 'Pressurizador de Água em SP | Instalação e Conserto em 24h', meta_description: 'Chuveiro fraco? Venda, instalação e conserto de pressurizador residencial em São Paulo. Técnicos experientes, atendimento imediato. Chame no WhatsApp.', keywords: 'pressurizador, chuveiro fraco, sao paulo, conserto', canonical_url: 'https://pressurizeprime.com.br/pressurizador', og_title: 'Pressurizador de Água em SP', og_description: 'Instalação e conserto em até 24h.', og_image: '/images/pressurizador.jpg' },
+    'aquecedor-a-gas': { page_slug: 'aquecedor-a-gas', meta_title: 'Conserto e Instalação de Aquecedor a Gás em SP | Em até 24h', meta_description: 'Aquecedor a gás não acende ou desliga no banho? Conserto, manutenção e instalação conforme as normas em São Paulo. Técnicos experientes. Chame agora.', keywords: 'aquecedor a gas, conserto, instalacao, sao paulo', canonical_url: 'https://pressurizeprime.com.br/aquecedor-a-gas', og_title: 'Aquecedor a Gás em SP', og_description: 'Conserto e instalação em até 24h.', og_image: '/images/aquecedor-a-gas.jpg' },
+    'aquecedor-solar': { page_slug: 'aquecedor-solar', meta_title: 'Aquecedor Solar em SP | Instalação, Manutenção e Conserto', meta_description: 'Água morna mesmo com sol? Instalação, manutenção e conserto de aquecedor solar e boiler em São Paulo. Técnicos experientes, atendimento imediato.', keywords: 'aquecedor solar, boiler, instalacao, sao paulo', canonical_url: 'https://pressurizeprime.com.br/aquecedor-solar', og_title: 'Aquecedor Solar em SP', og_description: 'Instalação e manutenção de aquecedor solar.', og_image: '/images/aquecedor-solar.jpg' },
+    'aquecedor-eletrico': { page_slug: 'aquecedor-eletrico', meta_title: 'Aquecedor Elétrico e Boiler em SP | Conserto em até 24h', meta_description: 'Boiler elétrico não esquenta ou desarma o disjuntor? Venda, instalação e conserto de aquecedor elétrico em São Paulo. Técnicos experientes. Chame agora.', keywords: 'aquecedor eletrico, boiler eletrico, conserto, sao paulo', canonical_url: 'https://pressurizeprime.com.br/aquecedor-eletrico', og_title: 'Aquecedor Elétrico em SP', og_description: 'Conserto de boiler elétrico em até 24h.', og_image: '/images/aquecedor-eletrico.jpg' },
+  };
+
+  const getSeoForKey = (key: string): SeoMeta => {
+    const saved = pages[key]?.seo;
+    const def = defaultSeoData[key];
+    if (!saved || (!saved.meta_title && !saved.meta_description)) return def || { page_slug: key, meta_title: '', meta_description: '', keywords: '', canonical_url: pageKeys.find(p => p.key === key)?.path || '', og_title: '', og_description: '', og_image: '/logo.jpeg' };
+    // Merge: if a field is empty, use default
+    return {
+      ...def,
+      ...Object.fromEntries(Object.entries(saved).filter(([, v]) => v !== '' && v !== null && v !== undefined))
+    } as SeoMeta;
+  };
+
+  const [formData, setFormData] = useState<SeoMeta>(() => getSeoForKey(selectedKey));
 
   const [savedSuccess, setSavedSuccess] = useState(false);
 
   const handleSelectPage = (key: string) => {
     setSelectedKey(key);
-    const targetSeo = pages[key]?.seo || {
-      page_slug: key,
-      meta_title: '',
-      meta_description: '',
-      keywords: '',
-      canonical_url: pageKeys.find(p => p.key === key)?.path || '',
-      og_title: '',
-      og_description: '',
-      og_image: '/logo.jpeg'
-    };
-    setFormData(targetSeo);
+    setFormData(getSeoForKey(key));
     setSavedSuccess(false);
   };
 

@@ -1,4 +1,4 @@
-﻿# PLANO DE EXECUÃ‡ÃƒO EM PASSOS â€” PRESSURIZE PRIME
+# PLANO DE EXECUÃ‡ÃƒO EM PASSOS â€” PRESSURIZE PRIME
 
 Este documento organiza todas as etapas de desenvolvimento do projeto por ordem estrita de prioridade.
 Cada etapa possui critÃ©rios de aceitaÃ§Ã£o claros e checkboxes que sÃ£o atualizados pelo assistente Ã  medida que forem concluÃ­dos.
@@ -283,3 +283,28 @@ Cada etapa possui critÃ©rios de aceitaÃ§Ã£o claros e checkboxes que sÃ£o
     - [x] Substituicao de paddings genericos (py-20) por espacamentos responsivos mais amplos (py-16 md:py-24 lg:py-28) em todo o site.
     - [x] Melhoria do respiro (white space) entre secoes para transmitir sofisticacao e padrao premium.
     - [x] Ajuste nos modais e botoes do painel de controle (feedback visual de salvamento dinamico sem depender apenas de toast messages distantes).
+
+- [x] **Passo 25: Correção de Erros de Build e Seções da Home no Admin CMS**
+  - **Prioridade**: Máxima (Estabilidade)
+  - **Status**: Concluído
+  - **Entregáveis**:
+    - [x] Correção de todos os erros TypeScript que impediam o build de produção (`tsc -b && vite build`).
+    - [x] Remoção de imports não utilizados (`Plus`, `Trash2`) e variáveis não lidas (`errorData`, `sectionKey`, `prev`) nos arquivos `DynamicSectionEditor.tsx`, `AuthContext.tsx` e `PagesManagerPage.tsx`.
+    - [x] Adição do import faltante (`Save`) no `ServicesManagerPage.tsx`.
+    - [x] Correção de erros de tipo no `AboutPage.tsx`, `DiferenciaisPage.tsx`, `FaqPage.tsx` e `HowItWorksPage.tsx` com casts `as any` nas propriedades dinâmicas de `PageSection` (`badge`, `content1`, `content2`, `items`).
+    - [x] Substituição dos 5 `DynamicSectionEditor` genéricos (que ficavam em branco) na aba Home do Admin por editores inline específicos e funcionais para: **Compromissos/Garantias** (título, subtítulo + 4 itens editáveis), **Regiões Atendidas** (título, subtítulo, badge), **FAQ** (título, subtítulo), **Formulário de Contato** (título, subtítulo) e **Chamada Final CTA** (título, subtítulo, botão).
+
+- [x] **Passo 26: Gestão de Imagens das Páginas no Painel Administrativo**
+  - **Prioridade**: Alta (CMS Completo)
+  - **Status**: Concluído
+  - **Entregáveis**:
+    - [x] Auditoria completa de todas as imagens usadas no projeto (unsplash, image_url, logo_url, backgroundImage) em todos os componentes TSX.
+    - [x] Atualização de `AboutPage.tsx`, `DiferenciaisPage.tsx`, `HowItWorksPage.tsx` e `FaqPage.tsx` para ler imagens do CMS via `sections.images` com fallback para Unsplash.
+    - [x] Atualização de `FinalCtaSection.tsx` (Home) para ler `finalCta.bgImage` do CMS com fallback.
+    - [x] Adição de blocos de upload de imagem no `PagesManagerPage.tsx` para todas as páginas: **Home** (foto CTA Final), **Sobre** (3 fotos hero carrossel + 1 foto CTA), **Diferenciais** (3 fotos hero + 1 CTA), **Como Funciona** (3 fotos hero + 1 CTA), **Dúvidas** (3 fotos hero + 1 CTA).
+    - [x] Preview da imagem configurada com badge "✓ Configurada" e suporte a upload Base64 ou URL externa.
+    - [x] **Adicional**: Edição de imagens das **Landing Pages** (Pressurizador, Aquecedor a Gás, Aquecedor Solar e Aquecedor Elétrico) habilitada no admin.
+    - [x] Conexão do `LPHero.tsx` (Foto do Produto) e `LPFinalCta.tsx` (Imagem de Fundo CTA) ao CMS.
+    - [x] **Adicional**: Inserção de textos e defaults em `initialData.ts` para que todas as caixas de edição (Home, Sobre, Diferenciais, Como Funciona, Dúvidas) no Painel Administrativo apareçam pré-preenchidas e não fiquem vazias, facilitando a edição pelo usuário. Corrigido chaves e tipagens (ex: `processo` vs `howItWorks`, `description` vs `desc`) para baterem perfeitamente com os forms do `PagesManagerPage.tsx`.
+    - [x] Atualização de `PageData` no `types/index.ts` e do merge profundo em `SiteDataContext.tsx` para forçar a substituição de strings vazias (salvas em cache) pelos textos padrões, garantindo que nenhum formulário fique em branco.
+    - [x] **Adicional**: Adição de imagens técnicas padrão (fallback) em **todas** as páginas institucionais (Home, Sobre, Diferenciais, Como Funciona, Dúvidas) e também nas **Landing Pages de Serviços** (Pressurizador, Aquecedor a Gás, Solar e Elétrico). Isso garante que o painel sempre exiba a miniatura da foto principal do serviço e da CTA de rodapé, mesmo antes do usuário inserir uma imagem própria.

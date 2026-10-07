@@ -54,7 +54,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           return { success: true };
         }
       } else {
-        const errorData = await response.json().catch(() => null);
+        await response.json().catch(() => null);
         if (response.status === 422 || response.status === 401) {
           return {
             success: false,
