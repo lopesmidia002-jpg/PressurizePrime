@@ -231,18 +231,20 @@ export const PagesManagerPage: React.FC = () => {
             </div>
 
             {/* Microcopy */}
-            <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Microcopy de Urgência e Horário (Abaixo dos Botões)
-              </label>
-              <input
-                type="text"
-                value={formData.microcopy || ''}
-                onChange={e => handleChange('microcopy', e.target.value)}
-                placeholder="Ex: Atendimento de segunda a sexta, das 8h às 19h. Conserto em até 24 horas."
-                className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20"
-              />
-            </div>
+            {!['sobre', 'diferenciais', 'como-funciona', 'duvidas'].includes(selectedKey) && (
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                  Microcopy de Urgência e Horário (Abaixo dos Botões)
+                </label>
+                <input
+                  type="text"
+                  value={formData.microcopy || ''}
+                  onChange={e => handleChange('microcopy', e.target.value)}
+                  placeholder="Ex: Atendimento de segunda a sexta, das 8h às 19h. Conserto em até 24 horas."
+                  className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20"
+                />
+              </div>
+            )}
             <div className="flex justify-end mt-4">
               <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
   {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
