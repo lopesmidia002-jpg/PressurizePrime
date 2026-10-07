@@ -10,39 +10,19 @@ export const CommitmentsSection: React.FC = () => {
   const subtitle = commitmentsData?.subtitle || 'Regras claras, garantia por escrito e respeito ao seu investimento desde o primeiro contato.';
 
   const defaultItems = [
-    { title: 'Orçamento antes do serviço', desc: 'Você sabe o valor exato antes de qualquer componente ser trocado. Sem surpresas na conta final.' },
-    { title: 'Vistoria que sai de graça', desc: 'Aprovando o serviço com o nosso técnico durante a visita, a taxa de vistoria e locomoção não é cobrada.' },
-    { title: 'Garantia de verdade', desc: '3 meses de garantia integral nas peças instaladas e 30 dias na mão de obra com assistência dedicada.' },
-    { title: 'Pagamento facilitado', desc: 'Parcelamento em até 10x sem juros no cartão de crédito, com opção de pagamento no Pix ou débito.' }
+    { title: 'Pontualidade', desc: 'Chegamos no horário combinado.' },
+    { title: 'Limpeza', desc: 'Deixamos o local exatamente como encontramos.' },
+    { title: 'Segurança', desc: 'Serviço realizado dentro de todas as normas técnicas vigentes (NBR).' },
+    { title: 'Transparência', desc: 'Você acompanha cada etapa do conserto ou instalação.' }
   ];
 
   const items = commitmentsData?.items || defaultItems;
 
-  const commitments = [
-    {
-      icon: <DollarSign className="w-6 h-6 text-primary" />,
-      bg: 'bg-blue-50 border-blue-200',
-      title: items[0]?.title || defaultItems[0].title,
-      desc: items[0]?.desc || defaultItems[0].desc
-    },
-    {
-      icon: <CheckCircle2 className="w-6 h-6 text-secondary" />,
-      bg: 'bg-amber-50 border-amber-200',
-      title: items[1]?.title || defaultItems[1].title,
-      desc: items[1]?.desc || defaultItems[1].desc
-    },
-    {
-      icon: <ShieldAlert className="w-6 h-6 text-emerald-600" />,
-      bg: 'bg-emerald-50 border-emerald-200',
-      title: items[2]?.title || defaultItems[2].title,
-      desc: items[2]?.desc || defaultItems[2].desc
-    },
-    {
-      icon: <CreditCard className="w-6 h-6 text-amber-500" />,
-      bg: 'bg-yellow-50 border-yellow-200',
-      title: items[3]?.title || defaultItems[3].title,
-      desc: items[3]?.desc || defaultItems[3].desc
-    }
+  const defaultIcons = [
+    { icon: <DollarSign className="w-6 h-6 text-primary" />, bg: 'bg-blue-50 border-blue-200' },
+    { icon: <CheckCircle2 className="w-6 h-6 text-secondary" />, bg: 'bg-amber-50 border-amber-200' },
+    { icon: <ShieldAlert className="w-6 h-6 text-emerald-600" />, bg: 'bg-emerald-50 border-emerald-200' },
+    { icon: <CreditCard className="w-6 h-6 text-amber-500" />, bg: 'bg-yellow-50 border-yellow-200' }
   ];
 
   return (
@@ -58,20 +38,23 @@ export const CommitmentsSection: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {commitments.map((c, i) => (
+          {items.map((c: any, i: number) => {
+            const iconData = defaultIcons[i % defaultIcons.length];
+            return (
             <div
               key={i}
               className="bg-slate-50/60 rounded-2xl p-7 border border-slate-200/90 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between"
             >
               <div>
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 border ${c.bg}`}>
-                  {c.icon}
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 border ${iconData.bg}`}>
+                  {iconData.icon}
                 </div>
                 <h3 className="text-lg font-bold text-slate-900 mb-2.5 tracking-tight text-balance">{c.title}</h3>
                 <p className="text-sm text-slate-600 leading-[1.65] text-pretty font-normal">{c.desc}</p>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

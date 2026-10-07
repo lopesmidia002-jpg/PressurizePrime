@@ -7,6 +7,18 @@ export const HomeLeadSection: React.FC = () => {
   const { settings, pages } = useSiteData();
   const homeLead = pages['home']?.sections?.homeLead as any;
 
+  const defaultItems = [
+    { title: 'Vistoria sem custo na aprovação', desc: 'O valor da visita é 100% abatido quando você aprova o conserto ou a instalação conosco.' },
+    { title: 'Agilidade em até 24 horas', desc: 'Sabemos que banho frio ou falta de água não podem esperar. Agendamos seu atendimento com urgência.' },
+    { title: 'Até 10x sem juros no cartão', desc: 'Condições facilitadas de pagamento para consertos, peças originais e equipamentos novos.' },
+    { title: 'Cobertura em toda a Grande São Paulo', desc: 'Técnicos equipados com ferramentas e peças de reposição frequentes nos principais bairros.' }
+  ];
+
+  const items = homeLead?.items || defaultItems;
+
+  const leftTitle = homeLead?.title || "Problema no pressurizador ou aquecedor? Fale com quem entende.";
+  const leftSubtitle = homeLead?.subtitle || "Evite técnicos amadores ou soluções provisórias que colocam sua casa em risco. Solicite uma avaliação com nossos especialistas e receba um atendimento transparente.";
+
   return (
     <section id="orcamento" className="py-16 md:py-24 lg:py-28 bg-gradient-to-b from-slate-100 to-slate-200/60 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -14,11 +26,11 @@ export const HomeLeadSection: React.FC = () => {
           {/* Coluna da Esquerda: Autoridade e Motivos para Contato */}
           <div className="lg:col-span-6 space-y-6">
             <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-slate-900 tracking-[-0.03em] leading-[1.18] text-balance">
-              Problema no pressurizador ou aquecedor? <span className="text-primary font-black">Fale com quem entende.</span>
+              {leftTitle}
             </h2>
 
             <p className="text-slate-600 text-base sm:text-lg leading-[1.65] max-w-[55ch] text-pretty font-normal">
-              Evite técnicos amadores ou soluções provisórias que colocam sua casa em risco. Solicite uma avaliação com nossos especialistas e receba um atendimento transparente.
+              {leftSubtitle}
             </p>
 
             {/* Destaques Técnicos */}
@@ -28,9 +40,9 @@ export const HomeLeadSection: React.FC = () => {
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900">Vistoria sem custo na aprovação</h4>
+                  <h4 className="text-sm font-bold text-slate-900">{items[0]?.title || defaultItems[0].title}</h4>
                   <p className="text-xs text-slate-600 mt-0.5">
-                    O valor da visita é 100% abatido quando você aprova o conserto ou a instalação conosco.
+                    {items[0]?.desc || defaultItems[0].desc}
                   </p>
                 </div>
               </div>
@@ -40,9 +52,9 @@ export const HomeLeadSection: React.FC = () => {
                   <Zap className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900">Agilidade em até 24 horas</h4>
+                  <h4 className="text-sm font-bold text-slate-900">{items[1]?.title || defaultItems[1].title}</h4>
                   <p className="text-xs text-slate-600 mt-0.5">
-                    Sabemos que banho frio ou falta de água não podem esperar. Agendamos seu atendimento com urgência.
+                    {items[1]?.desc || defaultItems[1].desc}
                   </p>
                 </div>
               </div>
@@ -52,9 +64,9 @@ export const HomeLeadSection: React.FC = () => {
                   <CreditCard className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900">Até 10x sem juros no cartão</h4>
+                  <h4 className="text-sm font-bold text-slate-900">{items[2]?.title || defaultItems[2].title}</h4>
                   <p className="text-xs text-slate-600 mt-0.5">
-                    Condições facilitadas de pagamento para consertos, peças originais e equipamentos novos.
+                    {items[2]?.desc || defaultItems[2].desc}
                   </p>
                 </div>
               </div>
@@ -64,9 +76,9 @@ export const HomeLeadSection: React.FC = () => {
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900">Cobertura em toda a Grande São Paulo</h4>
+                  <h4 className="text-sm font-bold text-slate-900">{items[3]?.title || defaultItems[3].title}</h4>
                   <p className="text-xs text-slate-600 mt-0.5">
-                    Técnicos equipados com ferramentas e peças de reposição frequentes nos principais bairros.
+                    {items[3]?.desc || defaultItems[3].desc}
                   </p>
                 </div>
               </div>
@@ -88,8 +100,12 @@ export const HomeLeadSection: React.FC = () => {
           <div className="lg:col-span-6">
             <LeadForm
               origin="/#orcamento"
-              title={homeLead?.title || "Solicite uma Vistoria Técnica"}
-              subtitle={homeLead?.subtitle || "Preencha os dados e receba nosso contato imediato com estimativa e horários disponíveis."}
+              title={homeLead?.title || "Problema no pressurizador ou aquecedor? Fale com quem entende."}
+              subtitle={homeLead?.subtitle || "Evite técnicos amadores ou soluções provisórias..."}
+              buttonText={homeLead?.buttonText}
+              securityText={homeLead?.securityText}
+              outOfHoursTitle={homeLead?.outOfHoursTitle}
+              outOfHoursText={homeLead?.outOfHoursText}
             />
           </div>
         </div>

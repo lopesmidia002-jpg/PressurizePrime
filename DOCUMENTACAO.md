@@ -532,3 +532,11 @@ Para harmonizar com a proporÃ§Ã£o vertical do card interativo da Home, foi imple
 - Adicionadas rotas /diferenciais, /como-funciona e /duvidas.
 - Atualizada a rota /sobre com seÃ§Ãµes de HistÃ³ria, MissÃ£o/VisÃ£o, NÃºmeros e CTAs.
 - Atualizado Header e Footer.
+
+
+---
+
+## 18. Padronização Dinâmica de Balões/Cards no CMS
+- Todas as páginas com layouts baseados em "balões" e "cards" (Diferenciais, Como Funciona, Porque Escolher-nos, Nossos Compromissos e página Sobre) tiveram suas limitações de tamanho fixo removidas.
+- A ferramenta `DynamicSectionEditor` foi integrada às rotas no painel administrativo para permitir a adição e exclusão ilimitada de itens (título e descrição).
+- No frontend, a renderização desses itens ocorre através de iterações flexíveis que utilizam `items.map()`, alocando ícones predefinidos usando fallbacks modulares de matriz (`defaultIcons[idx % defaultIcons.length]`).

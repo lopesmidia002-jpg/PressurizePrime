@@ -10,8 +10,19 @@ export interface SiteSettings {
   phone_raw: string;
   business_hours: string;
   address_coverage: string[];
+  footer?: {
+    footer_logo_url?: string;
+    top_banner_title1?: string;
+    top_banner_desc1?: string;
+    top_banner_title2?: string;
+    top_banner_desc2?: string;
+    top_banner_title3?: string;
+    top_banner_desc3?: string;
+    about_text?: string;
+    contact_text?: string;
+    brands?: string[];
+  };
 }
-
 export interface SeoMeta {
   page_slug: string;
   meta_title: string;

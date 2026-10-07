@@ -56,11 +56,22 @@ export const DiferenciaisPage: React.FC = () => {
     }
   ];
 
+  const defaultIcons = [
+    <Medal className="w-8 h-8 text-primary" />,
+    <Shield className="w-8 h-8 text-emerald-500" />,
+    <Zap className="w-8 h-8 text-amber-500" />,
+    <HeartHandshake className="w-8 h-8 text-rose-500" />,
+    <Wrench className="w-8 h-8 text-slate-700" />,
+    <Clock className="w-8 h-8 text-blue-500" />
+  ];
+
   const cmsDiferenciais = (pages['diferenciais']?.sections?.diferenciais as any)?.items;
-  const diferenciais = defaultDiferenciais.map((def, idx) => ({
-    icon: def.icon,
-    title: cmsDiferenciais?.[idx]?.title || def.title,
-    description: cmsDiferenciais?.[idx]?.desc || def.description
+  const items = cmsDiferenciais || defaultDiferenciais;
+
+  const diferenciais = items.map((item: any, idx: number) => ({
+    icon: defaultIcons[idx % defaultIcons.length],
+    title: item.title,
+    description: item.desc || item.description
   }));
 
   const comparativo = pages['diferenciais']?.sections?.comparativo as any;
@@ -73,6 +84,12 @@ export const DiferenciaisPage: React.FC = () => {
     { bad: "Atrasos e desmarcações", good: "Pontualidade e respeito à agenda" },
     { bad: "Sujeira após o serviço", good: "Limpeza completa do local de trabalho" }
   ];
+
+  const depoimentos = pages['diferenciais']?.sections?.depoimentos as any;
+  const depTitle = depoimentos?.title || 'O que dizem sobre nós';
+  const depSubtitle = depoimentos?.subtitle || 'A satisfação dos nossos clientes é nossa melhor propaganda.';
+  const depItems = depoimentos?.items || [];
+
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
@@ -116,7 +133,7 @@ export const DiferenciaisPage: React.FC = () => {
         {/* Grid de Diferenciais */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {diferenciais.map((item, index) => (
+            {diferenciais.map((item: any, index: number) => (
               <div 
                 key={index} 
                 className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group"
@@ -164,30 +181,28 @@ export const DiferenciaisPage: React.FC = () => {
         </div>
 
         {/* Prova Social */}
-        <div className="bg-slate-50 py-16 md:py-24 lg:py-28">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">O que dizem sobre nós</h2>
-              <p className="text-slate-600">A satisfação dos nossos clientes é nossa melhor propaganda.</p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                { name: "Carlos M.", text: "Resolveram em 1 hora o que outros 2 técnicos não conseguiram em dias. Excelente atendimento!" },
-                { name: "Mariana R.", text: "Muito limpos e organizados. Chegaram no horário e deixaram tudo funcionando perfeitamente." },
-                { name: "Roberto F.", text: "Preço justo pelo nível de profissionalismo. Nota fiscal e garantia entregues na hora." }
-              ].map((dep, idx) => (
-                <div key={idx} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 relative">
-                  <div className="flex gap-1 mb-4">
-                    {[1,2,3,4,5].map(star => <Star key={star} className="w-5 h-5 text-amber-400 fill-amber-400" />)}
+        {depItems.length > 0 && (
+          <div className="bg-slate-50 py-16 md:py-24 lg:py-28">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-16">
+                <h2 className="text-3xl font-bold text-slate-900 mb-4 whitespace-pre-wrap">{depTitle}</h2>
+                <p className="text-slate-600 whitespace-pre-wrap">{depSubtitle}</p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {depItems.map((dep: any, idx: number) => (
+                  <div key={idx} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 relative">
+                    <div className="flex gap-1 mb-4">
+                      {[1,2,3,4,5].map(star => <Star key={star} className="w-5 h-5 text-amber-400 fill-amber-400" />)}
+                    </div>
+                    <p className="text-slate-600 italic mb-6">"{dep.desc}"</p>
+                    <p className="font-bold text-slate-900">— {dep.title}</p>
                   </div>
-                  <p className="text-slate-600 italic mb-6">"{dep.text}"</p>
-                  <p className="font-bold text-slate-900">— {dep.name}</p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Call to Action */}
         <div className="relative py-24 overflow-hidden">
@@ -205,12 +220,12 @@ export const DiferenciaisPage: React.FC = () => {
 
           <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-8 drop-shadow-lg">
-              Não arrisque sua segurança com amadores.
+              {pages['diferenciais']?.sections?.finalCta?.title || 'Não arrisque sua segurança com amadores.'}
             </h2>
             <div className="flex justify-center">
               <a href={`https://wa.me/${settings.whatsapp_raw}`} className="bg-secondary hover:bg-secondary-dark text-slate-950 font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-xl hover:-translate-y-1 text-lg flex items-center justify-center gap-2 group">
                 <ThumbsUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform" />
-                Agendar Atendimento Seguro
+                {pages['diferenciais']?.sections?.finalCta?.cta || 'Agendar Atendimento Seguro'}
               </a>
             </div>
           </div>

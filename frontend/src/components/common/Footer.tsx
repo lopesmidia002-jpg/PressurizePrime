@@ -7,7 +7,7 @@ export const Footer: React.FC = () => {
   const { settings, services } = useSiteData();
   const currentYear = new Date().getFullYear();
 
-  const brands = [
+  const brands = settings.footer?.brands?.length ? settings.footer.brands : [
     'Rowa', 'Komeco', 'Fluxonn', 'Syllent', 'Grundfos', 'Rinnai', 'Rheem', 'Cumulus', 'Heliotek'
   ];
 
@@ -21,8 +21,8 @@ export const Footer: React.FC = () => {
               <Clock className="w-6 h-6 text-amber-400" />
             </div>
             <div>
-              <h4 className="text-white font-bold text-sm">Conserto e Instalação em até 24h</h4>
-              <p className="text-xs text-slate-400">Atendimento rápido em dias úteis com técnicos experientes.</p>
+              <h4 className="text-white font-bold text-sm">{settings.footer?.top_banner_title1 || 'Conserto e Instalação em até 24h'}</h4>
+              <p className="text-xs text-slate-400">{settings.footer?.top_banner_desc1 || 'Atendimento rápido em dias úteis com técnicos experientes.'}</p>
             </div>
           </div>
 
@@ -31,8 +31,8 @@ export const Footer: React.FC = () => {
               <ShieldCheck className="w-6 h-6 text-amber-400" />
             </div>
             <div>
-              <h4 className="text-white font-bold text-sm">Garantia Comprovada</h4>
-              <p className="text-xs text-slate-400">3 meses em peças e 30 dias na mão de obra com suporte.</p>
+              <h4 className="text-white font-bold text-sm">{settings.footer?.top_banner_title2 || 'Garantia Comprovada'}</h4>
+              <p className="text-xs text-slate-400">{settings.footer?.top_banner_desc2 || '3 meses em peças e 30 dias na mão de obra com suporte.'}</p>
             </div>
           </div>
 
@@ -41,8 +41,8 @@ export const Footer: React.FC = () => {
               <CreditCard className="w-6 h-6 text-amber-400" />
             </div>
             <div>
-              <h4 className="text-white font-bold text-sm">Facilidade no Pagamento</h4>
-              <p className="text-xs text-slate-400">Pix, débito ou cartão de crédito em até 10x sem juros.</p>
+              <h4 className="text-white font-bold text-sm">{settings.footer?.top_banner_title3 || 'Facilidade no Pagamento'}</h4>
+              <p className="text-xs text-slate-400">{settings.footer?.top_banner_desc3 || 'Pix, débito ou cartão de crédito em até 10x sem juros.'}</p>
             </div>
           </div>
         </div>
@@ -55,13 +55,13 @@ export const Footer: React.FC = () => {
           <div className="space-y-4">
             <Link to="/" className="inline-block bg-white p-2.5 rounded-xl shadow-xs">
               <img
-                src={settings.logo_url || '/logo.jpeg'}
+                src={settings.footer?.footer_logo_url || settings.logo_url || '/logo.jpeg'}
                 alt={settings.site_name}
                 className="h-10 w-auto object-contain"
               />
             </Link>
             <p className="text-xs text-slate-400 leading-relaxed">
-              O problema resolvido de primeira, por um técnico que responde pelo serviço. Mais de 10 anos de experiência prática em pressurizadores e aquecedores em São Paulo.
+              {settings.footer?.about_text || 'O problema resolvido de primeira, por um técnico que responde pelo serviço. Mais de 10 anos de experiência prática em pressurizadores e aquecedores em São Paulo.'}
             </p>
             <div className="pt-2 text-xs text-slate-400 flex flex-col gap-1.5">
               <div className="flex items-center gap-2">
@@ -118,7 +118,7 @@ export const Footer: React.FC = () => {
               Atendimento Imediato
             </h3>
             <p className="text-xs text-slate-400 mb-4">
-              Atendimento 100% humano desde a primeira mensagem. Sem filas e sem robôs.
+              {settings.footer?.contact_text || 'Atendimento 100% humano desde a primeira mensagem. Sem filas e sem robôs.'}
             </p>
 
             <div className="space-y-3">

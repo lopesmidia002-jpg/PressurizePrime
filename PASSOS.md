@@ -308,3 +308,67 @@ Cada etapa possui crit√É¬©rios de aceita√É¬ß√É¬£o claros e checkboxes que s√É¬£o
     - [x] **Adicional**: Inser√ß√£o de textos e defaults em `initialData.ts` para que todas as caixas de edi√ß√£o (Home, Sobre, Diferenciais, Como Funciona, D√∫vidas) no Painel Administrativo apare√ßam pr√©-preenchidas e n√£o fiquem vazias, facilitando a edi√ß√£o pelo usu√°rio. Corrigido chaves e tipagens (ex: `processo` vs `howItWorks`, `description` vs `desc`) para baterem perfeitamente com os forms do `PagesManagerPage.tsx`.
     - [x] Atualiza√ß√£o de `PageData` no `types/index.ts` e do merge profundo em `SiteDataContext.tsx` para for√ßar a substitui√ß√£o de strings vazias (salvas em cache) pelos textos padr√µes, garantindo que nenhum formul√°rio fique em branco.
     - [x] **Adicional**: Adi√ß√£o de imagens t√©cnicas padr√£o (fallback) em **todas** as p√°ginas institucionais (Home, Sobre, Diferenciais, Como Funciona, D√∫vidas) e tamb√©m nas **Landing Pages de Servi√ßos** (Pressurizador, Aquecedor a G√°s, Solar e El√©trico). Isso garante que o painel sempre exiba a miniatura da foto principal do servi√ßo e da CTA de rodap√©, mesmo antes do usu√°rio inserir uma imagem pr√≥pria.
+
+---
+
+- [x] **Passo 27: Gest√£o do Rodap√© e Bal√µes da P√°gina Sobre**
+  - **Prioridade**: Alta (Ajuste de CMS Requerido pelo Usu√°rio)
+  - **Status**: Conclu√≠do
+  - **Entreg√°veis**:
+    - [x] Cria√ß√£o de `FooterManagerPage.tsx` com novo menu exclusivo "Rodap√©" no painel (`AdminLayout.tsx` e `App.tsx`).
+    - [x] Adi√ß√£o do campo `footer_logo_url` no `SiteSettings` e na tela de Gest√£o do Rodap√© para possibilitar uma vers√£o diferenciada do logo na √°rea escura do footer.
+    - [x] Conex√£o din√¢mica do rodap√© (`Footer.tsx`) com os dados salvos: blocos de diferenciais (t√≠tulo/descri√ß√£o do rel√≥gio, escudo e cart√£o de cr√©dito), textos Sobre, Contato Imediato e marcas atendidas.
+    - [x] Extens√£o das configura√ß√µes padr√£o de p√°gina (`initialData.ts`) da aba "Sobre" (`sobre`) para adicionar arrays default (`items`) nos blocos `historia`, `proposito` e `numeros`.
+    - [x] Ativa√ß√£o da edi√ß√£o dos 3 conjuntos de "bal√µes/cards" da p√°gina Sobre atrav√©s do `DynamicSectionEditor` em `PagesManagerPage.tsx`.
+    - [x] Mapeamento no frontend (`AboutPage.tsx`) para ler e exibir os dados din√¢micos dos bal√µes criados/editados no CMS (Resolvemos de primeira, Miss√£o/Vis√£o/Valores, 10+, 5.000+, 100%, 24h).
+
+---
+
+- [x] **Passo 28: Padroniza√ß√£o Din√¢mica de Bal√µes em Todas as P√°ginas do CMS**
+  - **Prioridade**: Alta (Ajuste de CMS Requerido pelo Usu√°rio)
+  - **Status**: Conclu√≠do
+  - **Entreg√°veis**:
+    - [x] Refatora√ß√£o da aba "Home" no `PagesManagerPage.tsx` para substituir mapeamentos manuais est√°ticos por `DynamicSectionEditor` nas se√ß√µes "Por que escolher a Pressurize Prime?", "Como Funciona" e "Nossos Compromissos e Garantias".
+    - [x] Modifica√ß√£o do frontend em `WhyUsSection.tsx`, `HowItWorksSection.tsx` e `CommitmentsSection.tsx` para aceitarem e renderizarem perfeitamente arrays din√¢micos de qualquer tamanho configurado no painel.
+    - [x] Tratamento c√≠clico dos √≠cones de layout para lidar com itens din√¢micos sem perder a identidade visual de cada componente.
+    - [x] Modifica√ß√£o an√°loga e definitiva nos arquivos `HowItWorksPage.tsx` e `DiferenciaisPage.tsx` para permitir a inclus√£o infinita de bal√µes din√¢micos via CMS, usando os mesmos conceitos de fallback modular para os √≠cones predefinidos (`idx % icons.length`).
+
+---
+
+- [x] **Passo 29: AdiÁ„o da SeÁ„o de Depoimentos Din‚micos na P·gina Diferenciais**
+  - **Prioridade**: Alta
+  - **Status**: ConcluÌdo
+  - **Entreg·veis**:
+    - [x] AtualizaÁ„o de `initialData.ts` para conter a seÁ„o padr„o de depoimentos para inicializaÁ„o no CMS.
+    - [x] AdiÁ„o do editor `DynamicSectionEditor` para Depoimentos na tela do Admin (aba Diferenciais).
+    - [x] IntegraÁ„o da `DiferenciaisPage.tsx` para ler os depoimentos do banco de dados.
+    - [x] ConfiguraÁ„o da renderizaÁ„o condicional (se o array de depoimentos estiver vazio, a seÁ„o 'O que dizem sobre nÛs' È ocultada automaticamente no frontend).
+
+---
+
+- [x] **Passo 30: Ajustes Finais na P·gina Como Funciona**
+  - **Prioridade**: Alta
+  - **Status**: ConcluÌdo
+  - **Entreg·veis**:
+    - [x] CorreÁ„o da renderizaÁ„o da grade de bairros em `Regiıes Atendidas` (agora ela lÍ os mesmos bairros que vocÍ cadastrou nas ConfiguraÁıes Gerais do site).
+    - [x] CorreÁ„o do banco de dados e do `initialData.ts` para garantir que a seÁ„o `Nossos Compromissos` inicie com os 4 itens corretos, em vez de 2.
+    - [x] **BÙnus:** Percebi que a Chamada para AÁ„o final (CTA - 'Pronto para comeÁar?') tambÈm estava com os textos fixos. Adicionei a opÁ„o para vocÍ editar esses textos direto no painel administrativo!
+
+---
+
+- [x] **Passo 31: EdiÁ„o do FAQ (D˙vidas) e CTA Final**
+  - **Prioridade**: Alta
+  - **Status**: ConcluÌdo
+  - **Entreg·veis**:
+    - [x] Convers„o das D˙vidas Frequentes da p·gina para um array interativo no Painel Administrativo.
+    - [x] O usu·rio agora pode cadastrar, editar e deletar as perguntas e respostas diretamente na aba 'D˙vidas' do painel.
+    - [x] **BÙnus:** AdiÁ„o do bloco 'Chamada para AÁ„o (RodapÈ)' tambÈm na p·gina de D˙vidas para permitir a ediÁ„o dos textos de contato ('Ainda tem alguma d˙vida?').
+
+---
+
+- [x] **Passo 32: EdiÁ„o Completa das P·ginas de ServiÁos (Landing Pages)**
+  - **Prioridade**: Alta
+  - **Status**: ConcluÌdo
+  - **Entreg·veis**:
+    - [x] AdiÁ„o da ediÁ„o de todas as seÁıes (Dores/Sintomas, ServiÁos, Diferenciais, ObjeÁıes, FAQs e CTA) no Painel Administrativo para todas as 4 p·ginas de serviÁo (Pressurizador, Aquecedor a G·s, Solar e ElÈtrico).
+    - [x] CorreÁ„o da injeÁ„o de dados din‚micos do CMS no Frontend para garantir que as alteraÁıes feitas no painel sejam refletidas em tempo real nos cards e textos do site.

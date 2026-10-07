@@ -163,15 +163,15 @@ export const FaqPage: React.FC = () => {
 
           <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-6 drop-shadow-lg">
-              Ainda tem alguma dúvida?
+              {pages['duvidas']?.sections?.finalCta?.title || 'Ainda tem alguma dúvida?'}
             </h2>
-            <p className="text-lg md:text-xl text-white/90 mb-10 font-medium max-w-2xl mx-auto drop-shadow-md">
-              Nossa equipe de atendimento humano está pronta para responder qualquer pergunta que não esteja na lista.
+            <p className="text-lg md:text-xl text-white/90 mb-10 font-medium max-w-2xl mx-auto drop-shadow-md whitespace-pre-wrap">
+              {pages['duvidas']?.sections?.finalCta?.subtitle || 'Nossa equipe de atendimento humano está pronta para responder qualquer pergunta que não esteja na lista.'}
             </p>
             <div className="flex justify-center">
               <a href={`https://wa.me/${settings.whatsapp_raw}`} className="bg-secondary hover:bg-secondary-dark text-slate-950 font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2">
                 <MessageSquare className="w-5 h-5" />
-                Perguntar no WhatsApp
+                {pages['duvidas']?.sections?.finalCta?.cta || 'Perguntar no WhatsApp'}
               </a>
             </div>
           </div>

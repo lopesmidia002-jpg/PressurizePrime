@@ -107,8 +107,8 @@ export const AboutPage: React.FC = () => {
         <div className="bg-white py-16 md:py-24 lg:py-28 border-y border-slate-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">Nosso Propósito</h2>
-              <p className="text-slate-600 max-w-2xl mx-auto">O que nos move e orienta cada atendimento que realizamos.</p>
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">{(pages['sobre']?.sections?.proposito as any)?.title || 'Nosso Propósito'}</h2>
+              <p className="text-slate-600 max-w-2xl mx-auto">{(pages['sobre']?.sections?.proposito as any)?.subtitle || 'O que nos move e orienta cada atendimento que realizamos.'}</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -116,9 +116,9 @@ export const AboutPage: React.FC = () => {
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
                   <Target className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-4">Missão</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">{(pages['sobre']?.sections?.proposito as any)?.items?.[0]?.title || 'Missão'}</h3>
                 <p className="text-slate-600">
-                  Garantir segurança hídrica e conforto térmico excepcional, oferecendo soluções técnicas precisas e atendimento ágil e resolutivo para cada cliente.
+                  {(pages['sobre']?.sections?.proposito as any)?.items?.[0]?.desc || 'Garantir segurança hídrica e conforto térmico excepcional, oferecendo soluções técnicas precisas e atendimento ágil e resolutivo para cada cliente.'}
                 </p>
               </div>
               
@@ -126,9 +126,9 @@ export const AboutPage: React.FC = () => {
                 <div className="w-16 h-16 bg-amber-500/10 rounded-full flex items-center justify-center mb-6">
                   <Eye className="w-8 h-8 text-amber-500" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-4">Visão</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">{(pages['sobre']?.sections?.proposito as any)?.items?.[1]?.title || 'Visão'}</h3>
                 <p className="text-slate-600">
-                  Ser reconhecida como a maior e mais confiável autoridade em pressurização e aquecimento da Grande São Paulo até 2028.
+                  {(pages['sobre']?.sections?.proposito as any)?.items?.[1]?.desc || 'Ser reconhecida como a maior e mais confiável autoridade em pressurização e aquecimento da Grande São Paulo até 2028.'}
                 </p>
               </div>
 
@@ -136,9 +136,9 @@ export const AboutPage: React.FC = () => {
                 <div className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center mb-6">
                   <Heart className="w-8 h-8 text-emerald-500" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-4">Valores</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">{(pages['sobre']?.sections?.proposito as any)?.items?.[2]?.title || 'Valores'}</h3>
                 <p className="text-slate-600">
-                  Transparência absoluta, excelência técnica, pontualidade britânica, respeito ao cliente e utilização de peças 100% originais.
+                  {(pages['sobre']?.sections?.proposito as any)?.items?.[2]?.desc || 'Transparência absoluta, excelência técnica, pontualidade britânica, respeito ao cliente e utilização de peças 100% originais.'}
                 </p>
               </div>
             </div>
@@ -151,26 +151,26 @@ export const AboutPage: React.FC = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-8 text-center md:divide-x divide-slate-800">
               {/* Stat 1 */}
               <div className="flex flex-col items-center justify-center px-4">
-                <div className="text-4xl md:text-5xl font-bold bg-gradient-to-b from-amber-200 to-amber-500 bg-clip-text text-transparent mb-2 tracking-tight drop-shadow-sm">10+</div>
-                <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Anos de Experiência</div>
+                <div className="text-4xl md:text-5xl font-bold bg-gradient-to-b from-amber-200 to-amber-500 bg-clip-text text-transparent mb-2 tracking-tight drop-shadow-sm">{(pages['sobre']?.sections?.numeros as any)?.items?.[0]?.title || '10+'}</div>
+                <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">{(pages['sobre']?.sections?.numeros as any)?.items?.[0]?.desc || 'Anos de Experiência'}</div>
               </div>
 
               {/* Stat 2 */}
               <div className="flex flex-col items-center justify-center px-4">
-                <div className="text-4xl md:text-5xl font-bold bg-gradient-to-b from-amber-200 to-amber-500 bg-clip-text text-transparent mb-2 tracking-tight drop-shadow-sm">5.000+</div>
-                <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Clientes Atendidos</div>
+                <div className="text-4xl md:text-5xl font-bold bg-gradient-to-b from-amber-200 to-amber-500 bg-clip-text text-transparent mb-2 tracking-tight drop-shadow-sm">{(pages['sobre']?.sections?.numeros as any)?.items?.[1]?.title || '5.000+'}</div>
+                <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">{(pages['sobre']?.sections?.numeros as any)?.items?.[1]?.desc || 'Clientes Atendidos'}</div>
               </div>
 
               {/* Stat 3 */}
               <div className="flex flex-col items-center justify-center px-4">
-                <div className="text-4xl md:text-5xl font-bold bg-gradient-to-b from-amber-200 to-amber-500 bg-clip-text text-transparent mb-2 tracking-tight drop-shadow-sm">100%</div>
-                <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Comprometimento</div>
+                <div className="text-4xl md:text-5xl font-bold bg-gradient-to-b from-amber-200 to-amber-500 bg-clip-text text-transparent mb-2 tracking-tight drop-shadow-sm">{(pages['sobre']?.sections?.numeros as any)?.items?.[2]?.title || '100%'}</div>
+                <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">{(pages['sobre']?.sections?.numeros as any)?.items?.[2]?.desc || 'Comprometimento'}</div>
               </div>
 
               {/* Stat 4 */}
               <div className="flex flex-col items-center justify-center px-4">
-                <div className="text-4xl md:text-5xl font-bold bg-gradient-to-b from-amber-200 to-amber-500 bg-clip-text text-transparent mb-2 tracking-tight drop-shadow-sm">24h</div>
-                <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Agilidade na Resposta</div>
+                <div className="text-4xl md:text-5xl font-bold bg-gradient-to-b from-amber-200 to-amber-500 bg-clip-text text-transparent mb-2 tracking-tight drop-shadow-sm">{(pages['sobre']?.sections?.numeros as any)?.items?.[3]?.title || '24h'}</div>
+                <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">{(pages['sobre']?.sections?.numeros as any)?.items?.[3]?.desc || 'Agilidade na Resposta'}</div>
               </div>
             </div>
           </div>

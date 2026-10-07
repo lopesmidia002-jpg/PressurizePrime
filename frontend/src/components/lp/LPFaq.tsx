@@ -18,10 +18,10 @@ export const LPFaq: React.FC<LPFaqProps> = ({ lp }) => {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-slate-900 tracking-[-0.03em] leading-tight text-balance">
-            Perguntas Frequentes sobre {lp.name}
+            {lp.faqsTitle || `Perguntas Frequentes sobre ${lp.name}`}
           </h2>
           <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed text-pretty">
-            Dúvidas mais recorrentes solucionadas pelo nosso corpo técnico.
+            {lp.faqsIntro || 'Dúvidas mais recorrentes solucionadas pelo nosso corpo técnico.'}
           </p>
         </div>
 

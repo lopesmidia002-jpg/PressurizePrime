@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSiteData } from '../../context/SiteDataContext';
-import type { ServiceItem } from '../../types';
+import type { ServiceItem, FaqItem } from '../../types';
 import {
   Wrench,
   Plus,
@@ -15,16 +15,21 @@ import {
   Eye,
   EyeOff,
   CheckCircle2,
-  Save
+  Save,
+  HelpCircle
 } from 'lucide-react';
 import { ImageUploadButton } from '../../components/admin/ImageUploadButton';
 
 export const ServicesManagerPage: React.FC = () => {
-  const { services, addService, updateService, deleteService } = useSiteData();
+  const { services, addService, updateService, deleteService, faqs, addFaq, updateFaq, deleteFaq } = useSiteData();
 
   const [editingItem, setEditingItem] = useState<ServiceItem | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+
+  const [editingFaq, setEditingFaq] = useState<FaqItem | null>(null);
+  const [isCreatingFaq, setIsCreatingFaq] = useState(false);
+  const [faqFormData, setFaqFormData] = useState<Partial<FaqItem>>({ question: '', answer: '' });
 
   const [formData, setFormData] = useState<Partial<ServiceItem>>({
     title: '',
@@ -78,6 +83,23 @@ export const ServicesManagerPage: React.FC = () => {
     setIsCreating(false);
   };
 
+  const handleStartCreateFaq = () => {
+    setEditingFaq(null);
+    setFaqFormData({ question: '', answer: '' });
+    setIsCreatingFaq(true);
+  };
+
+  const handleStartEditFaq = (faq: FaqItem) => {
+    setIsCreatingFaq(false);
+    setEditingFaq(faq);
+    setFaqFormData({ ...faq });
+  };
+
+  const handleCancelFaq = () => {
+    setEditingFaq(null);
+    setIsCreatingFaq(false);
+  };
+
   const handleToggleActive = (service: ServiceItem) => {
     updateService(service.id, { is_active: !service.is_active });
     showNotification(`Serviço "${service.title}" ${!service.is_active ? 'ativado' : 'desativado'}.`);
@@ -118,6 +140,23 @@ export const ServicesManagerPage: React.FC = () => {
     }
 
     handleCancel();
+  };
+
+  const handleFaqSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isCreatingFaq) {
+      const newFaq: FaqItem = {
+        id: Date.now().toString(),
+        question: faqFormData.question || '',
+        answer: faqFormData.answer || '',
+      };
+      addFaq(newFaq);
+      showNotification('Pergunta adicionada com sucesso!');
+    } else if (editingFaq) {
+      updateFaq(editingFaq.id, faqFormData);
+      showNotification('Pergunta atualizada com sucesso!');
+    }
+    handleCancelFaq();
   };
 
   return (
@@ -339,6 +378,139 @@ export const ServicesManagerPage: React.FC = () => {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Seção de Dúvidas Frequentes (FAQ) */}
+      <div className="mt-16 pt-8 border-t border-slate-200">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+          <div>
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              Dúvidas Frequentes (FAQ)
+            </h2>
+            <p className="text-slate-600 text-xs sm:text-sm mt-1">
+              Cadastre, edite ou remova as perguntas que aparecem na seção de dúvidas.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={handleStartCreateFaq}
+            className="bg-primary hover:bg-primary-dark text-white font-bold px-4 py-2.5 rounded-xl shadow-sm transition-all flex items-center justify-center gap-2 text-xs sm:text-sm cursor-pointer"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Nova Pergunta</span>
+          </button>
+        </div>
+
+        {/* Modal/Form FAQ */}
+        {(isCreatingFaq || editingFaq) && (
+          <div className="bg-white rounded-2xl p-6 border-2 border-primary/30 shadow-lg space-y-6 animate-in slide-in-from-top-4 mb-8">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                <HelpCircle className="w-4 h-4 text-primary" />
+                <span>{isCreatingFaq ? 'Cadastrar Nova Pergunta' : 'Editar Pergunta'}</span>
+              </h2>
+              <button
+                type="button"
+                onClick={handleCancelFaq}
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-700"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleFaqSubmit} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Pergunta *</label>
+                <input
+                  type="text"
+                  required
+                  value={faqFormData.question}
+                  onChange={e => setFaqFormData({ ...faqFormData, question: e.target.value })}
+                  placeholder="Ex: Vocês atendem finais de semana?"
+                  className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Resposta *</label>
+                <textarea
+                  rows={3}
+                  required
+                  value={faqFormData.answer}
+                  onChange={e => setFaqFormData({ ...faqFormData, answer: e.target.value })}
+                  placeholder="Resposta detalhada..."
+                  className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none"
+                />
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center justify-end gap-3 pt-3 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={handleCancelFaq}
+                  className="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  className="bg-primary hover:bg-primary-dark text-white font-bold px-5 py-2 text-xs rounded-xl shadow-sm cursor-pointer flex items-center gap-2"
+                >
+                  <Save className="w-3.5 h-3.5" />
+                  <span>{isCreatingFaq ? 'Salvar Pergunta' : 'Atualizar Pergunta'}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+
+        {/* Lista de FAQs */}
+        <div className="space-y-3">
+          {faqs.map((faq) => (
+            <div key={faq.id} className="bg-white rounded-xl p-4 border border-slate-200 flex items-start justify-between gap-4 transition-all">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <HelpCircle className="w-4 h-4 text-primary shrink-0" />
+                  <h4 className="font-bold text-slate-900 text-sm truncate">{faq.question}</h4>
+                </div>
+                <p className="text-xs text-slate-600 pl-6 leading-relaxed text-pretty">
+                  {faq.answer}
+                </p>
+              </div>
+              
+              <div className="flex items-center gap-1 shrink-0">
+
+                <button
+                  type="button"
+                  onClick={() => handleStartEditFaq(faq)}
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-primary hover:bg-slate-100 transition-colors"
+                  title="Editar"
+                >
+                  <Edit2 className="w-4 h-4" />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (confirm('Excluir esta pergunta?')) {
+                      deleteFaq(faq.id);
+                      showNotification('Pergunta excluída.');
+                    }
+                  }}
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+                  title="Excluir"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          ))}
+          {faqs.length === 0 && (
+            <div className="text-center py-8 text-slate-500 text-sm">
+              Nenhuma pergunta cadastrada.
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

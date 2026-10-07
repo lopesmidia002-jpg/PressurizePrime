@@ -18,31 +18,11 @@ export const WhyUsSection: React.FC = () => {
 
   const items = whyUs?.items || defaultItems;
 
-  const differentials = [
-    {
-      icon: <Target className="w-7 h-7 text-primary" />,
-      bg: 'bg-blue-50 border-blue-100',
-      title: items[0]?.title || defaultItems[0].title,
-      desc: items[0]?.desc || defaultItems[0].desc
-    },
-    {
-      icon: <RotateCcw className="w-7 h-7 text-secondary" />,
-      bg: 'bg-amber-50 border-amber-100',
-      title: items[1]?.title || defaultItems[1].title,
-      desc: items[1]?.desc || defaultItems[1].desc
-    },
-    {
-      icon: <Zap className="w-7 h-7 text-amber-500" />,
-      bg: 'bg-yellow-50 border-yellow-100',
-      title: items[2]?.title || defaultItems[2].title,
-      desc: items[2]?.desc || defaultItems[2].desc
-    },
-    {
-      icon: <Users className="w-7 h-7 text-primary" />,
-      bg: 'bg-blue-50 border-blue-100',
-      title: items[3]?.title || defaultItems[3].title,
-      desc: items[3]?.desc || defaultItems[3].desc
-    }
+  const defaultIcons = [
+    { icon: <Target className="w-7 h-7 text-primary" />, bg: 'bg-blue-50 border-blue-100' },
+    { icon: <RotateCcw className="w-7 h-7 text-secondary" />, bg: 'bg-amber-50 border-amber-100' },
+    { icon: <Zap className="w-7 h-7 text-amber-500" />, bg: 'bg-yellow-50 border-yellow-100' },
+    { icon: <Users className="w-7 h-7 text-primary" />, bg: 'bg-blue-50 border-blue-100' }
   ];
 
   return (
@@ -58,14 +38,16 @@ export const WhyUsSection: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {differentials.map((diff, index) => (
+          {items.map((diff: any, index: number) => {
+            const iconData = defaultIcons[index % defaultIcons.length];
+            return (
             <div
               key={index}
               className="bg-white rounded-2xl p-7 border border-slate-200/90 shadow-2xs hover:shadow-lg transition-all duration-200 flex flex-col justify-between"
             >
               <div>
-                <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 border ${diff.bg}`}>
-                  {diff.icon}
+                <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 border ${iconData.bg}`}>
+                  {iconData.icon}
                 </div>
                 <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2.5 tracking-tight text-balance">
                   {diff.title}
@@ -75,7 +57,8 @@ export const WhyUsSection: React.FC = () => {
                 </p>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

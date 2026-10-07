@@ -18,7 +18,8 @@ import {
   PagesManagerPage,
   ServicesManagerPage,
   SeoManagerPage,
-  LeadsPage
+  LeadsPage,
+  FooterManagerPage
 } from './pages/admin';
 import { WhatsAppButton, LeadModal } from './components/common';
 
@@ -55,6 +56,7 @@ export default function App() {
                 <Route path="pages" element={<PagesManagerPage />} />
                 <Route path="services" element={<ServicesManagerPage />} />
                 <Route path="seo" element={<SeoManagerPage />} />
+                <Route path="footer" element={<FooterManagerPage />} />
                 <Route path="leads" element={<LeadsPage />} />
               </Route>
             </Route>

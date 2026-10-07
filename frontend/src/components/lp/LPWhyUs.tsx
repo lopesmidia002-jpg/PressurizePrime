@@ -12,10 +12,10 @@ export const LPWhyUs: React.FC<LPWhyUsProps> = ({ lp }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-slate-900 tracking-[-0.03em] leading-tight text-balance">
-            Nossos Diferenciais em {lp.name}
+            {lp.whyUsTitle || `Nossos Diferenciais em ${lp.name}`}
           </h2>
           <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed text-pretty">
-            Segurança, conhecimento prático e garantia real para a sua tranquilidade.
+            {lp.whyUsIntro || 'Segurança, conhecimento prático e garantia real para a sua tranquilidade.'}
           </p>
         </div>
 

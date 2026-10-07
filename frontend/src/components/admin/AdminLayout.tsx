@@ -13,6 +13,7 @@ import {
   ExternalLink,
   Menu,
   X,
+  LayoutTemplate,
   Shield
 } from 'lucide-react';
 
@@ -33,6 +34,7 @@ export const AdminLayout: React.FC = () => {
     { to: '/admin/pages', label: 'Conteúdo das Páginas', icon: FileText },
     { to: '/admin/services', label: 'Serviços', icon: Wrench },
     { to: '/admin/seo', label: 'SEO Individual', icon: Search },
+    { to: '/admin/footer', label: 'Rodapé', icon: LayoutTemplate },
     { to: '/admin/leads', label: 'Gestão de Leads', icon: Users },
   ];
 

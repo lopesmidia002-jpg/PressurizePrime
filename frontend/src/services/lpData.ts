@@ -41,12 +41,25 @@ export interface LPPageDetail {
   safetyAlert?: string;
   trustBadges: { title: string; subtitle: string }[];
   symptomsTitle: string;
-  symptoms: string[];
+  symptomsIntro: string;
+  symptoms: { title: string }[];
   symptomsClosing: string;
+  whatWeDoTitle?: string;
+  whatWeDoIntro?: string;
   whatWeDo: LPWhatWeDoItem[];
+  whyUsTitle?: string;
+  whyUsIntro?: string;
   whyUs: LPWhyUsItem[];
+  objectionsTitle?: string;
+  objectionsIntro?: string;
   objections: LPObjectionItem[];
+  faqsTitle?: string;
+  faqsIntro?: string;
   faqs: LPFaqItem[];
+  leadSectionTitle?: string;
+  leadSectionSubtitle?: string;
+  leadSectionIntro?: string;
+  leadSection?: { title: string; desc?: string }[];
   ctaTitle: string;
   ctaText: string;
   brands: string[];
@@ -78,13 +91,14 @@ export const landingPagesData: Record<string, LPPageDetail> = {
       { title: 'Garantia de 3 meses em peças', subtitle: 'Com 30 dias na mão de obra' }
     ],
     symptomsTitle: 'Algum desses está acontecendo na sua casa?',
+    symptomsIntro: 'Identifique os sinais de falha do seu equipamento antes que ocorra uma pane completa.',
     symptoms: [
-      'Chuveiro fraco, principalmente nos andares de cima',
-      'Pressurizador ligando e desligando sozinho, mesmo com as torneiras fechadas',
-      'Barulho alto ou vibração na casa de máquinas',
-      'Vazamento no equipamento ou nas conexões hidráulicas',
-      'Pressurizador que não liga ou não desliga',
-      'Pressão que cai repentinamente quando duas pessoas usam água ao mesmo tempo'
+      { title: 'Chuveiro fraco, principalmente nos andares de cima' },
+      { title: 'Pressurizador ligando e desligando sozinho, mesmo com as torneiras fechadas' },
+      { title: 'Barulho alto ou vibração na casa de máquinas' },
+      { title: 'Vazamento no equipamento ou nas conexões hidráulicas' },
+      { title: 'Pressurizador que não liga ou não desliga' },
+      { title: 'Pressão que cai repentinamente quando duas pessoas usam água ao mesmo tempo' }
     ],
     symptomsClosing: 'Cada um desses sinais tem uma causa diferente. Trocar peça no chute sai caro. Nosso técnico identifica a causa exata antes de mexer em qualquer coisa.',
     whatWeDo: [
@@ -193,13 +207,14 @@ export const landingPagesData: Record<string, LPPageDetail> = {
       { title: 'Até 10x sem juros no cartão', subtitle: 'Facilidade no pagamento' }
     ],
     symptomsTitle: 'Seu aquecedor está dando algum desses sinais?',
+    symptomsIntro: 'Identifique os sinais de falha do seu equipamento antes que ocorra uma pane completa.',
     symptoms: [
-      'Não acende ou demora muito para acender',
-      'Desliga sozinho repentinamente no meio do banho',
-      'Água que esquenta pouco ou oscila drasticamente entre quente e fria',
-      'Código de erro piscando no display digital',
-      'Chama amarelada ou fuligem preta no equipamento',
-      'Barulho de estalo alto ou pequena explosão ao ligar'
+      { title: 'Não acende ou demora muito para acender' },
+      { title: 'Desliga sozinho repentinamente no meio do banho' },
+      { title: 'Água que esquenta pouco ou oscila drasticamente entre quente e fria' },
+      { title: 'Código de erro piscando no display digital' },
+      { title: 'Chama amarelada ou fuligem preta no equipamento' },
+      { title: 'Barulho de estalo alto ou pequena explosão ao ligar' }
     ],
     symptomsClosing: 'Com aquecedor a gás, improviso é risco. Chame quem faz o diagnóstico certo e atua dentro das normas técnicas antes de mexer.',
     whatWeDo: [
@@ -303,13 +318,14 @@ export const landingPagesData: Record<string, LPPageDetail> = {
       { title: 'Até 10x sem juros no cartão', subtitle: 'Pagamento facilitado' }
     ],
     symptomsTitle: 'O seu sistema solar está apresentando esses sintomas?',
+    symptomsIntro: 'Identifique os sinais de falha do seu equipamento antes que ocorra uma pane completa.',
     symptoms: [
-      'Água morna ou fria mesmo em dias ensolarados',
-      'Água quente que acaba muito rápido no primeiro banho',
-      'Boiler pingando, vazando ou com sinais visíveis de ferrugem',
-      'Placas solares com vidros embaçados, quebradas ou sem limpeza há anos',
-      'Conta de luz disparando porque a resistência elétrica de apoio não desliga',
-      'Água saindo com cor escura ou cheiro alterado nas torneiras'
+      { title: 'Água morna ou fria mesmo em dias ensolarados' },
+      { title: 'Água quente que acaba muito rápido no primeiro banho' },
+      { title: 'Boiler pingando, vazando ou com sinais visíveis de ferrugem' },
+      { title: 'Placas solares com vidros embaçados, quebradas ou sem limpeza há anos' },
+      { title: 'Conta de luz disparando porque a resistência elétrica de apoio não desliga' },
+      { title: 'Água saindo com cor escura ou cheiro alterado nas torneiras' }
     ],
     symptomsClosing: 'Um sistema solar inoperante é dinheiro investido que não volta. Na grande maioria das vezes, é perfeitamente viável recuperar o sistema sem ter que trocá-lo por completo.',
     whatWeDo: [
@@ -413,13 +429,14 @@ export const landingPagesData: Record<string, LPPageDetail> = {
       { title: 'Até 10x sem juros no cartão', subtitle: 'Pagamento facilitado' }
     ],
     symptomsTitle: 'Seu aquecedor elétrico está apresentando esses problemas?',
+    symptomsIntro: 'Identifique os sinais de falha do seu equipamento antes que ocorra uma pane completa.',
     symptoms: [
-      'Água não esquenta de forma alguma ou fica apenas morna',
-      'Disjuntor geral ou do aquecedor desarmando assim que o equipamento é ligado',
-      'Água quente que acaba muito antes do fim de um único banho',
-      'Gotejamento ou vazamento visível no boiler ou nas conexões elétricas/hidráulicas',
-      'Conta de luz nas alturas sem alteração na rotina da casa',
-      'Sensação de choque ou formigamento leve ao tocar no registro ou na torneira'
+      { title: 'Água não esquenta de forma alguma ou fica apenas morna' },
+      { title: 'Disjuntor geral ou do aquecedor desarmando assim que o equipamento é ligado' },
+      { title: 'Água quente que acaba muito antes do fim de um único banho' },
+      { title: 'Gotejamento ou vazamento visível no boiler ou nas conexões elétricas/hidráulicas' },
+      { title: 'Conta de luz nas alturas sem alteração na rotina da casa' },
+      { title: 'Sensação de choque ou formigamento leve ao tocar no registro ou na torneira' }
     ],
     symptomsClosing: 'Aquecedor elétrico envolve água e alta amperagem no mesmo ambiente. Diagnóstico preciso é uma questão fundamental de segurança da sua família, não só de conforto. Em caso de choque, desligue o disjuntor imediatamente.',
     whatWeDo: [

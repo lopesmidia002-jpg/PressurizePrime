@@ -231,7 +231,30 @@ export const defaultPages: Record<string, PageData> = {
       historia: {
         title: 'Nossa História',
         content: 'Nascemos da necessidade de um serviço técnico de alta qualidade na cidade de São Paulo. Ao longo dos anos, aperfeiçoamos nossas técnicas para entregar o melhor para sua casa.',
-        quote: '"Comprometimento e excelência em cada visita técnica."'
+        quote: '"Comprometimento e excelência em cada visita técnica."',
+        items: [
+          { title: 'Resolvemos de primeira', desc: 'Diagnóstico técnico antes de trocar qualquer peça. Você paga pelo que precisa, não por tentativa e erro.' },
+          { title: 'Se voltar, a gente volta', desc: 'Nosso pós-atendimento existe para resolver qualquer retorno. Técnico com nome, empresa com endereço, serviço com garantia.' },
+          { title: 'Rápido de verdade', desc: 'Atendimento imediato, conserto em até 24h e instalação de equipamentos novos sem semanas de espera.' },
+          { title: 'Gente, não robô', desc: 'Do WhatsApp à visita, você fala com pessoas que entendem do assunto.' }
+        ]
+      },
+      proposito: {
+        title: 'Nosso Propósito',
+        subtitle: 'O que nos move e orienta cada atendimento que realizamos.',
+        items: [
+          { title: 'Missão', desc: 'Garantir segurança hídrica e conforto térmico excepcional, oferecendo soluções técnicas precisas e atendimento ágil e resolutivo para cada cliente.' },
+          { title: 'Visão', desc: 'Ser reconhecida como a maior e mais confiável autoridade em pressurização e aquecimento da Grande São Paulo até 2028.' },
+          { title: 'Valores', desc: 'Transparência absoluta, excelência técnica, pontualidade britânica, respeito ao cliente e utilização de peças 100% originais.' }
+        ]
+      },
+      numeros: {
+        items: [
+          { title: '10+', desc: 'Anos de Experiência' },
+          { title: '5.000+', desc: 'Clientes Atendidos' },
+          { title: '100%', desc: 'Comprometimento' },
+          { title: '24h', desc: 'Agilidade na Resposta' }
+        ]
       },
       images: {
         hero1: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1920&q=80',
@@ -262,17 +285,34 @@ export const defaultPages: Record<string, PageData> = {
           { title: 'Experiência Comprovada', desc: 'Mais de 10 anos de mercado.' },
           { title: 'Técnicos Certificados', desc: 'Profissionais altamente capacitados.' },
           { title: 'Atendimento Rápido', desc: 'Chegamos até você rapidamente.' },
-          { title: 'Garantia', desc: 'Tranquilidade e segurança para você.' }
+          { title: 'Garantia', desc: 'Tranquilidade e segurança para você.' },
+          { title: 'Tecnologia de Ponta', desc: 'Equipamentos de diagnóstico avançado para localizar o problema sem quebra-quebra.' },
+          { title: 'Pontualidade Britânica', desc: 'Chegamos no horário combinado. Valorizamos o seu tempo tanto quanto você.' }
         ]
       },
       comparativo: {
         title: 'Comparativo do Mercado',
         subtitle: 'Veja por que a Pressurize Prime se destaca.',
         items: [
-          { feature: 'Garantia', prime: 'Sim, por escrito', outros: 'Nem sempre' },
-          { feature: 'Atendimento', prime: 'Imediato', outros: 'Demorado' },
-          { feature: 'Técnicos', prime: 'Especializados', outros: 'Terceirizados genéricos' }
+          { bad: "Orçamentos surpresa após iniciar", good: "Diagnóstico claro e orçamento fixo" },
+          { bad: "Peças paralelas sem procedência", good: "100% Peças Originais de fábrica" },
+          { bad: "Garantia apenas 'de boca'", good: "Garantia documentada em Nota Fiscal" },
+          { bad: "Atrasos e desmarcações", good: "Pontualidade e respeito à agenda" },
+          { bad: "Sujeira após o serviço", good: "Limpeza completa do local de trabalho" }
         ]
+      },
+      depoimentos: {
+        title: 'O que dizem sobre nós',
+        subtitle: 'A satisfação dos nossos clientes é nossa melhor propaganda.',
+        items: [
+          { title: 'Carlos M.', desc: 'Resolveram em 1 hora o que outros 2 técnicos não conseguiram em dias. Excelente atendimento!' },
+          { title: 'Mariana R.', desc: 'Muito limpos e organizados. Chegaram no horário e deixaram tudo funcionando perfeitamente.' },
+          { title: 'Roberto F.', desc: 'Preço justo pelo nível de profissionalismo. Nota fiscal e garantia entregues na hora.' }
+        ]
+      },
+      finalCta: {
+        title: 'Não arrisque sua segurança com amadores.',
+        cta: 'Agendar Atendimento Seguro'
       },
       images: {
         hero1: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1920&q=80',
@@ -315,8 +355,15 @@ export const defaultPages: Record<string, PageData> = {
         subtitle: 'Nossas garantias para você',
         items: [
           { title: 'Pontualidade', desc: 'Sempre no horário.' },
-          { title: 'Qualidade', desc: 'Peças originais.' }
+          { title: 'Qualidade', desc: 'Peças originais.' },
+          { title: 'Segurança', desc: 'Técnicos certificados e normas rigorosamente seguidas.' },
+          { title: 'Transparência', desc: 'Orçamento claro e sem surpresas.' }
         ]
+      },
+      finalCta: {
+        title: 'Pronto para começar?',
+        subtitle: 'Nossa equipe de atendimento está a um clique de distância para resolver seu problema.',
+        cta: 'Iniciar Atendimento'
       },
       images: {
         hero1: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1920&q=80',
@@ -342,7 +389,19 @@ export const defaultPages: Record<string, PageData> = {
     sections: {
       duvidas: {
         title: 'Dúvidas Frequentes',
-        subtitle: 'As perguntas que mais recebemos.'
+        subtitle: 'As perguntas que mais recebemos.',
+        items: [
+          { title: "De quanto em quanto tempo devo fazer manutenção?", desc: "O recomendado pelos fabricantes é uma revisão por ano, ou conforme o manual do seu modelo." },
+          { title: "Meu aquecedor desliga no meio do banho. O que pode ser?", desc: "Pode ser sensor, exaustão obstruída, baixa pressão de água ou gás. Só o diagnóstico no local confirma." },
+          { title: "Vocês trabalham com quais marcas?", desc: "Atendemos aquecedores Rinnai, Rheem e Komeco, entre outras." },
+          { title: "Atendem gás natural e GLP?", desc: "Sim, os dois. Só não executamos tubulação de gás: o ponto precisa estar pronto no local." },
+          { title: "Qual a garantia?", desc: "3 meses em peças e 30 dias na mão de obra." }
+        ]
+      },
+      finalCta: {
+        title: 'Ainda tem alguma dúvida?',
+        subtitle: 'Nossa equipe de atendimento humano está pronta para responder qualquer pergunta que não esteja na lista.',
+        cta: 'Perguntar no WhatsApp'
       },
       images: {
         hero1: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1920&q=80',

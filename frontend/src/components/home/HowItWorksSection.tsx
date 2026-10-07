@@ -19,25 +19,10 @@ export const HowItWorksSection: React.FC = () => {
 
   const items = howItWorks?.items || defaultItems;
 
-  const steps = [
-    {
-      step: '01',
-      title: items[0]?.title || defaultItems[0].title,
-      desc: items[0]?.desc || defaultItems[0].desc,
-      icon: <MessageSquare className="w-6 h-6 text-primary" />
-    },
-    {
-      step: '02',
-      title: items[1]?.title || defaultItems[1].title,
-      desc: items[1]?.desc || defaultItems[1].desc,
-      icon: <ClipboardCheck className="w-6 h-6 text-secondary" />
-    },
-    {
-      step: '03',
-      title: items[2]?.title || defaultItems[2].title,
-      desc: items[2]?.desc || defaultItems[2].desc,
-      icon: <CheckCircle2 className="w-6 h-6 text-emerald-600" />
-    }
+  const defaultIcons = [
+    { icon: <MessageSquare className="w-6 h-6 text-primary" /> },
+    { icon: <ClipboardCheck className="w-6 h-6 text-secondary" /> },
+    { icon: <CheckCircle2 className="w-6 h-6 text-emerald-600" /> }
   ];
 
   return (
@@ -53,7 +38,9 @@ export const HowItWorksSection: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-          {steps.map((st, index) => (
+          {items.map((st: any, index: number) => {
+            const iconData = defaultIcons[index % defaultIcons.length];
+            return (
             <div
               key={index}
               className="bg-slate-50/80 rounded-2xl p-8 border border-slate-200/90 relative flex flex-col justify-between"
@@ -61,10 +48,10 @@ export const HowItWorksSection: React.FC = () => {
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <span className="text-4xl font-extrabold text-slate-300 tracking-tighter">
-                    {st.step}
+                    {String(index + 1).padStart(2, '0')}
                   </span>
                   <div className="w-12 h-12 rounded-xl bg-white shadow-2xs border border-slate-200/80 flex items-center justify-center">
-                    {st.icon}
+                    {iconData.icon}
                   </div>
                 </div>
 
@@ -76,7 +63,7 @@ export const HowItWorksSection: React.FC = () => {
                 </p>
               </div>
 
-              {index < 2 && (
+              {index < items.length - 1 && (
                 <div className="hidden md:block absolute -right-4 top-1/2 -translate-y-1/2 z-10">
                   <div className="w-8 h-8 rounded-full bg-white border border-slate-300 shadow flex items-center justify-center text-slate-400">
                     <ArrowRight className="w-4 h-4" />
@@ -84,7 +71,8 @@ export const HowItWorksSection: React.FC = () => {
                 </div>
               )}
             </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="mt-12 text-center">

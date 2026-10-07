@@ -23,10 +23,10 @@ export const LPWhatWeDo: React.FC<LPWhatWeDoProps> = ({ lp }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-slate-900 tracking-[-0.03em] leading-tight text-balance">
-            O que fazemos por você
+            {lp.whatWeDoTitle || 'O que fazemos por você'}
           </h2>
           <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed text-pretty">
-            Da indicação correta do modelo até a manutenção de longo prazo.
+            {lp.whatWeDoIntro || 'Da indicação correta do modelo até a manutenção de longo prazo.'}
           </p>
         </div>
 

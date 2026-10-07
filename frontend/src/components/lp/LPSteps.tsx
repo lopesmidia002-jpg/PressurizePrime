@@ -10,63 +10,57 @@ interface LPStepsProps {
 export const LPSteps: React.FC<LPStepsProps> = ({ lp }) => {
   const { settings } = useSiteData();
 
+  const processo = (lp as any).processo || {
+    title: 'Como Funciona o Conserto ou Instalação',
+    subtitle: 'Três etapas diretas para resolver a pressão ou aquecimento da sua casa.',
+    items: [
+      { title: 'Chame no WhatsApp', desc: 'Conte o sintoma e envie foto ou vídeo do equipamento. Agilizamos a triagem em minutos.' },
+      { title: 'Vistoria e Orçamento', desc: 'O técnico avalia no local e passa o valor antes de começar. Aprovou o serviço? A taxa de vistoria não é cobrada.' },
+      { title: 'Problema Resolvido', desc: 'Conserto ou instalação imediata ou em até 24h, com emissão de garantia real e assistência.' }
+    ]
+  };
+
+  const getStepIcon = (idx: number) => {
+    if (idx === 0) return <MessageSquare className="w-5 h-5" />;
+    if (idx === 1) return <ClipboardList className="w-5 h-5" />;
+    return <CheckCircle2 className="w-5 h-5" />;
+  };
+
+  const getStepColorClass = (idx: number) => {
+    if (idx === 0) return "text-primary";
+    if (idx === 1) return "text-secondary";
+    return "text-emerald-600";
+  };
+
   return (
     <section className="py-16 md:py-24 lg:py-28 bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-slate-900 tracking-[-0.03em] leading-tight text-balance">
-            Como Funciona o Conserto ou Instalação
+            {processo.title}
           </h2>
           <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed text-pretty">
-            Três etapas diretas para resolver a pressão ou aquecimento da sua casa.
+            {processo.subtitle}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-          <div className="bg-slate-50/80 rounded-2xl p-7 border border-slate-200/90 flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-5">
-                <span className="text-2xl font-extrabold text-slate-300 font-mono tracking-tighter">01</span>
-                <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-primary shadow-2xs">
-                  <MessageSquare className="w-5 h-5" />
+          {processo.items.map((item: any, idx: number) => (
+            <div key={idx} className="bg-slate-50/80 rounded-2xl p-7 border border-slate-200/90 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-5">
+                  <span className="text-2xl font-extrabold text-slate-300 font-mono tracking-tighter">0{idx + 1}</span>
+                  <div className={`w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center shadow-2xs ${getStepColorClass(idx)}`}>
+                    {getStepIcon(idx)}
+                  </div>
                 </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 tracking-tight text-balance">{item.title}</h3>
+                <p className="text-sm text-slate-600 leading-[1.65] text-pretty">
+                  {item.desc}
+                </p>
               </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2 tracking-tight text-balance">Chame no WhatsApp</h3>
-              <p className="text-sm text-slate-600 leading-[1.65] text-pretty">
-                Conte o sintoma e envie foto ou vídeo do equipamento. Agilizamos a triagem em minutos.
-              </p>
             </div>
-          </div>
-
-          <div className="bg-slate-50/80 rounded-2xl p-7 border border-slate-200/90 flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-5">
-                <span className="text-2xl font-extrabold text-slate-300 font-mono tracking-tighter">02</span>
-                <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-secondary shadow-2xs">
-                  <ClipboardList className="w-5 h-5" />
-                </div>
-              </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2 tracking-tight text-balance">Vistoria e Orçamento</h3>
-              <p className="text-sm text-slate-600 leading-[1.65] text-pretty">
-                O técnico avalia no local e passa o valor antes de começar. Aprovou o serviço? A taxa de vistoria não é cobrada.
-              </p>
-            </div>
-          </div>
-
-          <div className="bg-slate-50/80 rounded-2xl p-7 border border-slate-200/90 flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-5">
-                <span className="text-2xl font-extrabold text-slate-300 font-mono tracking-tighter">03</span>
-                <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-emerald-600 shadow-2xs">
-                  <CheckCircle2 className="w-5 h-5" />
-                </div>
-              </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2 tracking-tight text-balance">Problema Resolvido</h3>
-              <p className="text-sm text-slate-600 leading-[1.65] text-pretty">
-                Conserto ou instalação imediata ou em até 24h, com emissão de garantia real e assistência.
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
 
         <div className="mt-12 text-center">

@@ -15,7 +15,7 @@ export const LPSymptoms: React.FC<LPSymptomsProps> = ({ lp }) => {
             {lp.symptomsTitle}
           </h2>
           <p className="mt-3.5 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed text-pretty">
-            Identifique os sinais de falha do seu equipamento antes que ocorra uma pane completa.
+            {lp.symptomsIntro || 'Identifique os sinais de falha do seu equipamento antes que ocorra uma pane completa.'}
           </p>
         </div>
 
@@ -29,7 +29,7 @@ export const LPSymptoms: React.FC<LPSymptomsProps> = ({ lp }) => {
                 <CheckCircle2 className="w-4 h-4" />
               </div>
               <span className="text-sm font-semibold text-slate-800 leading-snug">
-                {symptom}
+                {symptom.title}
               </span>
             </div>
           ))}

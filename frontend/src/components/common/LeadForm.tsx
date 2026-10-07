@@ -22,6 +22,10 @@ interface LeadFormProps {
   compact?: boolean;
   title?: string;
   subtitle?: string;
+  buttonText?: string;
+  securityText?: string;
+  outOfHoursTitle?: string;
+  outOfHoursText?: string;
   className?: string;
 }
 
@@ -49,6 +53,10 @@ export const LeadForm: React.FC<LeadFormProps> = ({
   onSuccess,
   title,
   subtitle,
+  buttonText = 'Solicitar Orçamento Gratuito',
+  securityText = 'Seus dados estão seguros e serão utilizados exclusivamente para contato técnico direto.',
+  outOfHoursTitle = 'Fora do horário de expediente comercial:',
+  outOfHoursText = 'Nosso atendimento presencial e telefônico opera de segunda a sexta, das 8h às 19h. Deixe sua solicitação agora e ela será tratada com prioridade na primeira hora do próximo dia útil!',
   className = ''
 }) => {
   const { addLead, isBusinessHours, settings, services } = useSiteData();
@@ -338,7 +346,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-800 flex items-start gap-2">
             <Clock className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
             <div>
-              <strong>Fora do horário de expediente comercial:</strong> Nosso atendimento presencial e telefônico opera de segunda a sexta, das 8h às 19h. Deixe sua solicitação agora e ela será tratada com prioridade na primeira hora do próximo dia útil!
+              <strong>{outOfHoursTitle}</strong> {outOfHoursText}
             </div>
           </div>
         )}
@@ -357,13 +365,13 @@ export const LeadForm: React.FC<LeadFormProps> = ({
           ) : (
             <>
               <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              <span>Solicitar Orçamento Gratuito</span>
+              <span>{buttonText}</span>
             </>
           )}
         </button>
 
         <p className="text-[11px] text-center text-slate-400">
-          🔒 Seus dados estão seguros e serão utilizados exclusivamente para contato técnico direto.
+          🔒 {securityText}
         </p>
       </form>
     </div>

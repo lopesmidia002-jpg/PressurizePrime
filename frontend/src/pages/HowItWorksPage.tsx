@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TopBar, Header, Footer } from '../components/common';
-import { MessageSquare, Wrench, CheckCircle } from 'lucide-react';
+import { MessageSquare, Wrench, CheckCircle, MapPin } from 'lucide-react';
 import { useSiteData } from '../context/SiteDataContext';
 
 export const HowItWorksPage: React.FC = () => {
@@ -44,17 +44,26 @@ export const HowItWorksPage: React.FC = () => {
     }
   ];
 
+  const defaultIcons = [
+    <MessageSquare className="w-8 h-8 text-primary" />,
+    <Wrench className="w-8 h-8 text-primary" />,
+    <CheckCircle className="w-8 h-8 text-primary" />
+  ];
+
   const cmsProcesso = (pages['como-funciona']?.sections?.processo as any)?.items;
-  const steps = defaultSteps.map((def, idx) => ({
-    number: def.number,
-    icon: def.icon,
-    title: cmsProcesso?.[idx]?.title || def.title,
-    description: cmsProcesso?.[idx]?.desc || def.description
+  const items = cmsProcesso || defaultSteps;
+
+  const steps = items.map((item: any, idx: number) => ({
+    number: String(idx + 1),
+    icon: defaultIcons[idx % defaultIcons.length],
+    title: item.title,
+    description: item.desc || item.description
   }));
 
   const regioesData = pages['como-funciona']?.sections?.regioes as any;
   const regioesTitle = regioesData?.title || 'Regiões atendidas';
   const regioesSubtitle = regioesData?.subtitle || 'Atendemos São Paulo e Grande São Paulo, com atendimento prioritário em Brooklin, Vila Olímpia, Vila Clementino, Chácara Santo Antônio, Morumbi, Alphaville, Barueri e Santana de Parnaíba.';
+  const regioesBadge = regioesData?.badge || 'Atendemos toda SP e região metropolitana';
 
   const compromissosData = pages['como-funciona']?.sections?.compromissos as any;
   const compTitle = compromissosData?.title || 'Nossos compromissos';
@@ -110,8 +119,16 @@ export const HowItWorksPage: React.FC = () => {
 
         {/* Processo Visual */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+              {(pages['como-funciona']?.sections?.processo as any)?.title || 'O Processo'}
+            </h2>
+            <p className="mt-4 text-lg text-slate-600">
+              {(pages['como-funciona']?.sections?.processo as any)?.subtitle || 'Passo a passo do nosso atendimento'}
+            </p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative mt-6">
-            {steps.map((step, index) => (
+            {steps.map((step: any, index: number) => (
               <div key={index} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:shadow-lg transition-all duration-300 group relative flex flex-col h-full">
                 
                 {/* Número no canto */}
@@ -135,11 +152,28 @@ export const HowItWorksPage: React.FC = () => {
 
         {/* Regiões Atendidas */}
         <div className="bg-slate-50 py-16 border-t border-slate-200">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl font-bold text-slate-900 mb-4 whitespace-pre-wrap">{regioesTitle}</h2>
-            <p className="text-lg text-slate-600 leading-relaxed whitespace-pre-wrap">
+            <p className="text-lg text-slate-600 leading-relaxed whitespace-pre-wrap mb-8">
               {regioesSubtitle}
             </p>
+            {regioesBadge && (
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 border border-emerald-200 rounded-full text-emerald-700 font-bold text-sm mb-12">
+                <CheckCircle className="w-4 h-4" />
+                {regioesBadge}
+              </div>
+            )}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+              {(settings.address_coverage || []).map((bairro, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-center justify-center gap-2 bg-white px-4 py-3 rounded-xl border border-slate-200 shadow-sm font-semibold text-slate-700 hover:border-primary transition-colors text-sm"
+                >
+                  <MapPin className="w-4 h-4 text-secondary shrink-0" />
+                  <span className="leading-tight text-center">{bairro}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -184,15 +218,15 @@ export const HowItWorksPage: React.FC = () => {
 
           <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-6 drop-shadow-lg">
-              Pronto para começar?
+              {pages['como-funciona']?.sections?.finalCta?.title || 'Pronto para começar?'}
             </h2>
-            <p className="text-lg md:text-xl text-white/90 mb-10 font-medium max-w-2xl mx-auto drop-shadow-md">
-              Nossa equipe de atendimento está a um clique de distância para resolver seu problema.
+            <p className="text-lg md:text-xl text-white/90 mb-10 font-medium max-w-2xl mx-auto drop-shadow-md whitespace-pre-wrap">
+              {pages['como-funciona']?.sections?.finalCta?.subtitle || 'Nossa equipe de atendimento está a um clique de distância para resolver seu problema.'}
             </p>
             <div className="flex justify-center">
               <a href={`https://wa.me/${settings.whatsapp_raw}`} className="bg-secondary hover:bg-secondary-dark text-slate-950 font-bold py-4 px-10 rounded-xl transition-all duration-300 shadow-xl hover:-translate-y-1 text-lg flex items-center justify-center gap-2">
                 <MessageSquare className="w-5 h-5" />
-                Iniciar Atendimento
+                {pages['como-funciona']?.sections?.finalCta?.cta || 'Iniciar Atendimento'}
               </a>
             </div>
           </div>

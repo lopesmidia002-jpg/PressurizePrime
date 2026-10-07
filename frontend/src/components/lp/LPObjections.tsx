@@ -11,10 +11,10 @@ export const LPObjections: React.FC<LPObjectionsProps> = ({ lp }) => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-slate-900 tracking-[-0.03em] leading-tight text-balance">
-            Objeções Respondidas
+            {lp.objectionsTitle || 'Objeções Respondidas'}
           </h2>
           <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed text-pretty">
-            Respostas honestas para as perguntas mais comuns antes de contratar.
+            {lp.objectionsIntro || 'Respostas honestas para as perguntas mais comuns antes de contratar.'}
           </p>
         </div>
 

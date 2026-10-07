@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { TopBar, Header, Footer, WhatsAppButton, LeadModal } from '../components/common';
 import { landingPagesData } from '../services/lpData';
+import { useSiteData } from '../context/SiteDataContext';
 import {
   LPHero,
   LPTrustBadges,
@@ -23,7 +24,49 @@ export const ServiceLPPage: React.FC<ServiceLPPageProps> = ({ pageSlug }) => {
   const params = useParams<{ slug: string }>();
   const activeSlug = pageSlug || params.slug;
 
-  const lp = activeSlug ? landingPagesData[activeSlug] : undefined;
+  const lpBase = activeSlug ? landingPagesData[activeSlug] : undefined;
+  const { pages } = useSiteData();
+  const cmsPage = activeSlug ? pages[activeSlug] : undefined;
+
+  const lp = React.useMemo(() => {
+    if (!lpBase) return undefined;
+    if (!cmsPage || !cmsPage.sections) return lpBase;
+
+    const s = cmsPage.sections as any;
+    return {
+      ...lpBase,
+      symptomsTitle: s.symptoms?.title || lpBase.symptomsTitle,
+      symptomsIntro: s.symptoms?.intro || lpBase.symptomsIntro,
+      symptomsClosing: s.symptoms?.subtitle || lpBase.symptomsClosing,
+      symptoms: s.symptoms?.items && s.symptoms.items.length > 0 ? s.symptoms.items : lpBase.symptoms,
+      whatWeDoTitle: s.whatWeDo?.title || lpBase.whatWeDoTitle,
+      whatWeDoIntro: s.whatWeDo?.subtitle || lpBase.whatWeDoIntro,
+      whatWeDo: s.whatWeDo?.items && s.whatWeDo.items.length > 0 ? s.whatWeDo.items : lpBase.whatWeDo,
+      whyUsTitle: s.whyUs?.title || lpBase.whyUsTitle,
+      whyUsIntro: s.whyUs?.subtitle || lpBase.whyUsIntro,
+      whyUs: s.whyUs?.items && s.whyUs.items.length > 0 ? s.whyUs.items : lpBase.whyUs,
+      processo: s.processo?.items && s.processo.items.length > 0 ? s.processo : { title: 'Como Funciona o Conserto ou Instalação', subtitle: 'Três etapas diretas para resolver a pressão ou aquecimento da sua casa.', items: [
+        { title: 'Chame no WhatsApp', desc: 'Conte o sintoma e envie foto ou vídeo do equipamento. Agilizamos a triagem em minutos.' },
+        { title: 'Vistoria e Orçamento', desc: 'O técnico avalia no local e passa o valor antes de começar. Aprovou o serviço? A taxa de vistoria não é cobrada.' },
+        { title: 'Problema Resolvido', desc: 'Conserto executado na hora (ou instalação). Serviço finalizado, garantia de 3 meses emitida.' }
+      ]},
+
+      objectionsTitle: s.objections?.title || lpBase.objectionsTitle,
+      objectionsIntro: s.objections?.subtitle || lpBase.objectionsIntro,
+      objections: s.objections?.items && s.objections.items.length > 0 ? s.objections.items : lpBase.objections,
+      faqsTitle: s.faqs?.title || lpBase.faqsTitle,
+      faqsIntro: s.faqs?.subtitle || lpBase.faqsIntro,
+      faqs: s.faqs?.items && s.faqs.items.length > 0 ? s.faqs.items : lpBase.faqs,
+      leadSectionTitle: s.leadSection?.title || lpBase.leadSectionTitle,
+      leadSectionSubtitle: s.leadSection?.subtitle || lpBase.leadSectionSubtitle,
+      leadSectionIntro: s.leadSection?.intro || lpBase.leadSectionIntro,
+      leadSection: s.leadSection?.items && s.leadSection.items.length > 0 ? s.leadSection.items : lpBase.leadSection,
+      ctaTitle: s.finalCta?.title || lpBase.ctaTitle,
+      ctaText: s.finalCta?.subtitle || lpBase.ctaText,
+      image_url: s.image_url || lpBase.image_url,
+      safetyAlert: s.safetyAlert_text !== undefined && s.safetyAlert_text !== '' ? s.safetyAlert_text : lpBase.safetyAlert,
+    };
+  }, [lpBase, cmsPage]);
 
   // Atualização Dinâmica de SEO (Meta Title e Description) por página individual
   useEffect(() => {

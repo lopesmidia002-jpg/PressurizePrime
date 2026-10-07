@@ -8,6 +8,13 @@ interface LPLeadSectionProps {
 }
 
 export const LPLeadSection: React.FC<LPLeadSectionProps> = ({ lp }) => {
+  const items = Array.isArray((lp as any).leadSection) ? (lp as any).leadSection : [
+    { title: 'Vistoria sem custo abatida na aprovação do conserto ou instalação.' },
+    { title: '3 meses de garantia legal e formal em peças substituídas e mão de obra técnica.' },
+    { title: 'Pagamento em até 10x sem juros no cartão de crédito após a conclusão e teste.' },
+    { title: 'Técnicos especialistas dedicados para resolver o seu problema.' }
+  ];
+
   return (
     <section id="orcamento-lp" className="py-16 md:py-24 lg:py-28 bg-slate-100/80 border-t border-slate-200/80 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -20,13 +27,11 @@ export const LPLeadSection: React.FC<LPLeadSectionProps> = ({ lp }) => {
             </div>
 
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
-              Prefere agendar pelo site? <br />
-              <span className="text-primary">Receba contato em minutos.</span>
+              {lp.leadSectionTitle || 'Prefere agendar pelo site?'} <br />
+              <span className="text-primary">{lp.leadSectionSubtitle || 'Receba contato em minutos.'}</span>
             </h2>
 
-            <p className="text-slate-600 text-base leading-relaxed">
-              Deixe os dados do seu chamado técnico para <strong>{lp.name}</strong>. Nossa equipe técnica entra em contato via WhatsApp com uma pré-avaliação do caso e agendamento da visita.
-            </p>
+            <p className="text-slate-600 text-base leading-relaxed" dangerouslySetInnerHTML={{ __html: lp.leadSectionIntro || `Deixe os dados do seu chamado técnico para <strong>${lp.name}</strong>. Nossa equipe técnica entra em contato via WhatsApp com uma pré-avaliação do caso e agendamento da visita.` }} />
 
             <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
               <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
@@ -35,34 +40,14 @@ export const LPLeadSection: React.FC<LPLeadSectionProps> = ({ lp }) => {
               </h4>
 
               <div className="space-y-3">
-                <div className="flex items-start gap-3 text-xs sm:text-sm text-slate-700">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                  <span>
-                    <strong>Vistoria sem custo</strong> abatida na aprovação do conserto ou instalação.
-                  </span>
-                </div>
-
-                <div className="flex items-start gap-3 text-xs sm:text-sm text-slate-700">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                  <span>
-                    <strong>3 meses de garantia legal e formal</strong> em peças substituídas e mão de obra técnica.
-                  </span>
-                </div>
-
-                <div className="flex items-start gap-3 text-xs sm:text-sm text-slate-700">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                  <span>
-                    <strong>Pagamento em até 10x sem juros</strong> no cartão de crédito após a conclusão e teste.
-                  </span>
-                </div>
-
-                <div className="flex items-start gap-3 text-xs sm:text-sm text-slate-700">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                  <span>
-                    <strong>Técnicos certificados</strong> com ferramentas adequadas para marcas como{' '}
-                    {lp.brands.slice(0, 3).join(', ')}.
-                  </span>
-                </div>
+                {items.map((item: any, idx: number) => (
+                  <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-slate-700">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>
+                      {item.title}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
 
