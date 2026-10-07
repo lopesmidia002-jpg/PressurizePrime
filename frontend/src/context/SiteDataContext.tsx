@@ -232,9 +232,15 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
               }
             }
             
+            let footerData = apiSettings.footer;
+            if (typeof footerData === 'string') {
+              try { footerData = JSON.parse(footerData); } catch(e) {}
+            }
+            
             setSettings(prev => ({
               ...prev,
               ...apiSettings,
+              footer: footerData || prev.footer,
               address_coverage: addressCoverage.length > 0 ? addressCoverage : prev.address_coverage
             }));
           }

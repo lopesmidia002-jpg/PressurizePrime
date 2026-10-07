@@ -244,10 +244,10 @@ export const PagesManagerPage: React.FC = () => {
               />
             </div>
             <div className="flex justify-end mt-4">
-              <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                <Save className="w-4 h-4" />
-                Salvar Textos Principais
-              </button>
+              <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Textos Principais'}
+</button>
             </div>
             {/* Alerta de Segurança (Apenas Aquecedor a Gás) */}
             {selectedKey === 'aquecedor-a-gas' && (
@@ -280,9 +280,10 @@ export const PagesManagerPage: React.FC = () => {
                   onChange={(data) => handleChange('sections', { ...formData.sections, symptoms: data } as any)}
                 />
                 <div className="flex justify-center sm:justify-end pb-4 border-b border-slate-100">
-                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                    <Save className="w-4 h-4" /> Salvar Sintomas
-                  </button>
+                  <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Sintomas'}
+</button>
                 </div>
 
                 <DynamicSectionEditor
@@ -292,9 +293,10 @@ export const PagesManagerPage: React.FC = () => {
                   onChange={(data) => handleChange('sections', { ...formData.sections, whatWeDo: data } as any)}
                 />
                 <div className="flex justify-center sm:justify-end pb-4 border-b border-slate-100">
-                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                    <Save className="w-4 h-4" /> Salvar Serviços
-                  </button>
+                  <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Serviços'}
+</button>
                 </div>
 
                 <DynamicSectionEditor
@@ -304,9 +306,10 @@ export const PagesManagerPage: React.FC = () => {
                   onChange={(data) => handleChange('sections', { ...formData.sections, whyUs: data } as any)}
                 />
                 <div className="flex justify-center sm:justify-end pb-4 border-b border-slate-100">
-                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                    <Save className="w-4 h-4" /> Salvar Diferenciais
-                  </button>
+                  <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Diferenciais'}
+</button>
                 </div>
 
                 <DynamicSectionEditor
@@ -316,9 +319,10 @@ export const PagesManagerPage: React.FC = () => {
                   onChange={(data) => handleChange('sections', { ...formData.sections, processo: data } as any)}
                 />
                 <div className="flex justify-center sm:justify-end pb-4 border-b border-slate-100">
-                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                    <Save className="w-4 h-4" /> Salvar Como Funciona
-                  </button>
+                  <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Como Funciona'}
+</button>
                 </div>
 
                 <DynamicSectionEditor
@@ -328,9 +332,10 @@ export const PagesManagerPage: React.FC = () => {
                   onChange={(data) => handleChange('sections', { ...formData.sections, leadSection: data } as any)}
                 />
                 <div className="flex justify-center sm:justify-end pb-4 border-b border-slate-100">
-                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                    <Save className="w-4 h-4" /> Salvar Formulário Lead
-                  </button>
+                  <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Formulário Lead'}
+</button>
                 </div>
 
                 <DynamicSectionEditor
@@ -340,9 +345,10 @@ export const PagesManagerPage: React.FC = () => {
                   onChange={(data) => handleChange('sections', { ...formData.sections, objections: data } as any)}
                 />
                 <div className="flex justify-center sm:justify-end pb-4 border-b border-slate-100">
-                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                    <Save className="w-4 h-4" /> Salvar Objeções
-                  </button>
+                  <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Objeções'}
+</button>
                 </div>
 
                 <DynamicSectionEditor
@@ -352,9 +358,10 @@ export const PagesManagerPage: React.FC = () => {
                   onChange={(data) => handleChange('sections', { ...formData.sections, faqs: data } as any)}
                 />
                 <div className="flex justify-center sm:justify-end pb-4 border-b border-slate-100">
-                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                    <Save className="w-4 h-4" /> Salvar Perguntas Frequentes
-                  </button>
+                  <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Perguntas Frequentes'}
+</button>
                 </div>
 
                 <DynamicSectionEditor
@@ -364,9 +371,10 @@ export const PagesManagerPage: React.FC = () => {
                   onChange={(data) => handleChange('sections', { ...formData.sections, finalCta: data } as any)}
                 />
                 <div className="flex justify-center sm:justify-end pb-4">
-                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                    <Save className="w-4 h-4" /> Salvar CTA Final
-                  </button>
+                  <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar CTA Final'}
+</button>
                 </div>
 
               </div>
@@ -448,10 +456,10 @@ export const PagesManagerPage: React.FC = () => {
                   <HomeServiceCardsEditor />
                 
                   <div className="flex justify-center sm:justify-end pt-4 mt-6">
-                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                      <Save className="w-4 h-4" />
-                      Salvar Serviços
-                    </button>
+                    <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Serviços'}
+</button>
                   </div>
 </div>
 
@@ -611,10 +619,10 @@ export const PagesManagerPage: React.FC = () => {
                   </div>
                 
                   <div className="flex justify-center sm:justify-end pt-4 mt-6">
-                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                      <Save className="w-4 h-4" />
-                      Salvar Quem Somos
-                    </button>
+                    <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Quem Somos'}
+</button>
                   </div>
 </div>
 
@@ -629,10 +637,10 @@ export const PagesManagerPage: React.FC = () => {
 
                 
                   <div className="flex justify-center sm:justify-end pt-4 mt-6">
-                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                      <Save className="w-4 h-4" />
-                      Salvar Diferenciais
-                    </button>
+                    <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Diferenciais'}
+</button>
                   </div>
                 </div>
                 <div className="pt-6 border-t border-slate-200">
@@ -646,10 +654,10 @@ export const PagesManagerPage: React.FC = () => {
 
                 
                   <div className="flex justify-center sm:justify-end pt-4 mt-6">
-                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                      <Save className="w-4 h-4" />
-                      Salvar Processo
-                    </button>
+                    <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Processo'}
+</button>
                   </div>
                 </div>
 {/* COVERAGE SECTION */}
@@ -712,10 +720,10 @@ export const PagesManagerPage: React.FC = () => {
                   </div>
                 
                   <div className="flex justify-center sm:justify-end pt-4 mt-6">
-                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                      <Save className="w-4 h-4" />
-                      Salvar Regiões
-                    </button>
+                    <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Regiões'}
+</button>
                   </div>
 </div>
 
@@ -730,10 +738,10 @@ export const PagesManagerPage: React.FC = () => {
 
                 
                   <div className="flex justify-center sm:justify-end pt-4 mt-6">
-                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                      <Save className="w-4 h-4" />
-                      Salvar Compromissos
-                    </button>
+                    <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Compromissos'}
+</button>
                   </div>
                 </div>
                 <div className="pt-6 border-t border-slate-200">
@@ -768,10 +776,10 @@ export const PagesManagerPage: React.FC = () => {
 
                 
                   <div className="flex justify-center sm:justify-end pt-4 mt-6">
-                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                      <Save className="w-4 h-4" />
-                      Salvar Dúvidas
-                    </button>
+                    <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Dúvidas'}
+</button>
                   </div>
                 </div>
 {/* HOME LEAD SECTION */}
@@ -855,10 +863,10 @@ export const PagesManagerPage: React.FC = () => {
                   </div>
                 
                   <div className="flex justify-center sm:justify-end pt-4 mt-6">
-                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                      <Save className="w-4 h-4" />
-                      Salvar Formulário
-                    </button>
+                    <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Formulário'}
+</button>
                   </div>
 </div>
 
@@ -929,10 +937,10 @@ export const PagesManagerPage: React.FC = () => {
                   </div>
                 
                   <div className="flex justify-center sm:justify-end pt-4 mt-6">
-                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                      <Save className="w-4 h-4" />
-                      Salvar Rodapé
-                    </button>
+                    <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Rodapé'}
+</button>
                   </div>
 </div>
               </div>
@@ -948,10 +956,10 @@ export const PagesManagerPage: React.FC = () => {
                     onChange={(data) => handleChange('sections', { ...formData.sections, historia: data } as any)}
                   />
                   <div className="flex justify-center sm:justify-end pt-4 mt-6">
-                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                      <Save className="w-4 h-4" />
-                      Salvar História
-                    </button>
+                    <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar História'}
+</button>
                   </div>
                 </div>
                 
@@ -963,10 +971,10 @@ export const PagesManagerPage: React.FC = () => {
                     onChange={(data) => handleChange('sections', { ...formData.sections, proposito: data } as any)}
                   />
                   <div className="flex justify-center sm:justify-end pt-4 mt-6">
-                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                      <Save className="w-4 h-4" />
-                      Salvar Propósito
-                    </button>
+                    <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Propósito'}
+</button>
                   </div>
                 </div>
 
@@ -978,10 +986,10 @@ export const PagesManagerPage: React.FC = () => {
                     onChange={(data) => handleChange('sections', { ...formData.sections, numeros: data } as any)}
                   />
                   <div className="flex justify-center sm:justify-end pt-4 mt-6">
-                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                      <Save className="w-4 h-4" />
-                      Salvar Números
-                    </button>
+                    <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Números'}
+</button>
                   </div>
                 </div>
 
@@ -993,10 +1001,10 @@ export const PagesManagerPage: React.FC = () => {
                     onChange={(data) => handleChange('sections', { ...formData.sections, finalCta: data } as any)}
                   />
                   <div className="flex justify-center sm:justify-end pt-4 mt-6">
-                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                      <Save className="w-4 h-4" />
-                      Salvar Chamada Final
-                    </button>
+                    <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Chamada Final'}
+</button>
                   </div>
                 </div>
 
@@ -1025,10 +1033,10 @@ export const PagesManagerPage: React.FC = () => {
                     );
                   })}
                   <div className="flex justify-center sm:justify-end pt-4 mt-6">
-                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                      <Save className="w-4 h-4" />
-                      Salvar Imagens
-                    </button>
+                    <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Imagens'}
+</button>
                   </div>
                 </div>
               </div>
@@ -1063,10 +1071,10 @@ export const PagesManagerPage: React.FC = () => {
 
 
                 <div className="flex justify-center sm:justify-end pt-4 mt-6">
-                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                    <Save className="w-4 h-4" />
-                    Salvar Diferenciais
-                  </button>
+                  <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Diferenciais'}
+</button>
                 </div>
 
                 {/* IMAGENS DA PÁGINA DIFERENCIAIS */}
@@ -1094,10 +1102,10 @@ export const PagesManagerPage: React.FC = () => {
                     );
                   })}
                   <div className="flex justify-center sm:justify-end pt-4 mt-4">
-                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                      <Save className="w-4 h-4" />
-                      Salvar Imagens
-                    </button>
+                    <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Imagens'}
+</button>
                   </div>
                 </div>
               </div>
@@ -1132,10 +1140,10 @@ export const PagesManagerPage: React.FC = () => {
 
 
                 <div className="flex justify-center sm:justify-end pt-4 mt-6">
-                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                    <Save className="w-4 h-4" />
-                    Salvar Como Funciona
-                  </button>
+                  <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Como Funciona'}
+</button>
                 </div>
 
                 {/* IMAGENS DA PÁGINA COMO FUNCIONA */}
@@ -1163,10 +1171,10 @@ export const PagesManagerPage: React.FC = () => {
                     );
                   })}
                   <div className="flex justify-center sm:justify-end pt-4 mt-4">
-                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                      <Save className="w-4 h-4" />
-                      Salvar Imagens
-                    </button>
+                    <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Imagens'}
+</button>
                   </div>
                 </div>
               </div>
@@ -1189,10 +1197,10 @@ export const PagesManagerPage: React.FC = () => {
 
 
                 <div className="flex justify-center sm:justify-end pt-4 mt-6">
-                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                    <Save className="w-4 h-4" />
-                    Salvar Dúvidas
-                  </button>
+                  <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Dúvidas'}
+</button>
                 </div>
 
                 {/* IMAGENS DA PÁGINA DÚVIDAS */}
@@ -1220,10 +1228,10 @@ export const PagesManagerPage: React.FC = () => {
                     );
                   })}
                   <div className="flex justify-center sm:justify-end pt-4 mt-4">
-                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                      <Save className="w-4 h-4" />
-                      Salvar Imagens
-                    </button>
+                    <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Imagens'}
+</button>
                   </div>
                 </div>
               </div>
@@ -1247,10 +1255,10 @@ export const PagesManagerPage: React.FC = () => {
                 />
 
                 <div className="flex justify-center sm:justify-end pt-4">
-                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                    <Save className="w-4 h-4" />
-                    Salvar Textos do Hero
-                  </button>
+                  <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Textos do Hero'}
+</button>
                 </div>
 
                 <div className="space-y-6 pt-6 border-t border-slate-200">
@@ -1301,10 +1309,10 @@ export const PagesManagerPage: React.FC = () => {
                 </div>
 
                 <div className="flex justify-center sm:justify-end pt-4">
-                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                    <Save className="w-4 h-4" />
-                    Salvar Formulário e Selos
-                  </button>
+                  <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Formulário e Selos'}
+</button>
                 </div>
 
                 <div className="space-y-6 pt-6 border-t border-slate-200">
@@ -1341,10 +1349,10 @@ export const PagesManagerPage: React.FC = () => {
                   </div>
 
                   <div className="flex justify-center sm:justify-end pt-4 mt-6">
-                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-                      <Save className="w-4 h-4" />
-                      {savedSuccess ? 'Salvo!' : 'Salvar Imagens'}
-                    </button>
+                    <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+  {savedSuccess ? 'Salvo!' : 'Salvar Imagens'}
+</button>
                   </div>
                 </div>
               </div>

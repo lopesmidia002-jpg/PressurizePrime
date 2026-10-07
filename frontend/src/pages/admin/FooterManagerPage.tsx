@@ -85,12 +85,11 @@ export const FooterManagerPage: React.FC = () => {
     setTimeout(() => setSavedSuccess(false), 3000);
   };
 
-  const SaveButton = ({ label = 'Salvar' }) => (
+  const SaveButton = () => (
     <div className="flex justify-center sm:justify-end pt-4 mt-6">
-      <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
-        <Save className="w-4 h-4" />
-        {label}
-      </button>
+      <button type="submit" className={`flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-white font-bold rounded-xl transition-colors shadow-sm ${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'}`}>
+  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+</button>
     </div>
   );
 
@@ -168,7 +167,7 @@ export const FooterManagerPage: React.FC = () => {
               </div>
             </div>
           </div>
-          <SaveButton label="Salvar Faixa Superior" />
+          <SaveButton />
         </div>
 
         {/* Informações da Empresa */}
@@ -215,7 +214,7 @@ export const FooterManagerPage: React.FC = () => {
               </div>
             </div>
           </div>
-          <SaveButton label="Salvar Empresa" />
+          <SaveButton />
         </div>
 
         {/* Serviços e Contato */}
@@ -263,7 +262,7 @@ export const FooterManagerPage: React.FC = () => {
               </div>
             </div>
           </div>
-          <SaveButton label="Salvar Serviços e Contato" />
+          <SaveButton />
         </div>
 
         {/* Links de Serviços (Coluna do Rodapé) */}
@@ -305,7 +304,7 @@ export const FooterManagerPage: React.FC = () => {
               + Adicionar Serviço
             </button>
           </div>
-          <SaveButton label="Salvar Links de Serviços" />
+          <SaveButton />
         </div>
 
         {/* Regiões Atendidas */}
@@ -336,7 +335,7 @@ export const FooterManagerPage: React.FC = () => {
               <textarea rows={5} value={formData.address_coverage} onChange={e => handleChange('address_coverage', e.target.value)} className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none" placeholder="São Paulo, Barueri, Santo André..." />
             </div>
           </div>
-          <SaveButton label="Salvar Regiões" />
+          <SaveButton />
         </div>
 
         {/* Marcas Atendidas */}
@@ -367,7 +366,7 @@ export const FooterManagerPage: React.FC = () => {
               <textarea rows={5} value={formData.brands} onChange={e => handleChange('brands', e.target.value)} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Rowa, Komeco, Rinnai..." />
             </div>
           </div>
-          <SaveButton label="Salvar Marcas" />
+          <SaveButton />
         </div>
 
         {/* Links Institucionais */}
@@ -409,7 +408,7 @@ export const FooterManagerPage: React.FC = () => {
               + Adicionar Link
             </button>
           </div>
-          <SaveButton label="Salvar Links" />
+          <SaveButton />
         </div>
 
       </form>

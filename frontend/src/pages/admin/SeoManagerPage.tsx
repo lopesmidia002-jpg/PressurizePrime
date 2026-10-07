@@ -261,7 +261,7 @@ export const SeoManagerPage: React.FC = () => {
                   type="submit"
                   className={`${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'} text-white font-extrabold px-6 py-3 rounded-xl shadow-md transition-all flex justify-center items-center gap-2 text-sm cursor-pointer w-full sm:w-auto`}
                 >
-                  <Save className="w-4 h-4" />
+                  {savedSuccess ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
                   <span>{savedSuccess ? 'Salvo!' : 'Salvar Configurações de SEO'}</span>
                 </button>
               </div>

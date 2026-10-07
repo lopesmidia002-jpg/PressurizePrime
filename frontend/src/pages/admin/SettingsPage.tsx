@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSiteData } from '../../context/SiteDataContext';
 import {
   Palette,
@@ -20,6 +20,30 @@ export const SettingsPage: React.FC = () => {
 
   const [formData, setFormData] = useState({ ...settings });
   const [savedSuccess, setSavedSuccess] = useState(false);
+
+  useEffect(() => {
+    if (settings) {
+      setFormData(prev => ({
+        ...prev,
+        site_name: settings.site_name || prev.site_name,
+        contact_email: settings.contact_email || prev.contact_email,
+        contact_phone: settings.contact_phone || prev.contact_phone,
+        contact_whatsapp: settings.contact_whatsapp || prev.contact_whatsapp,
+        business_hours: settings.business_hours || prev.business_hours,
+        address_street: settings.address_street || prev.address_street,
+        address_number: settings.address_number || prev.address_number,
+        address_neighborhood: settings.address_neighborhood || prev.address_neighborhood,
+        address_city: settings.address_city || prev.address_city,
+        address_state: settings.address_state || prev.address_state,
+        address_zip: settings.address_zip || prev.address_zip,
+        address_coverage: (settings.address_coverage || []).join(', ') || prev.address_coverage,
+        primary_color: settings.primary_color || prev.primary_color,
+        secondary_color: settings.secondary_color || prev.secondary_color,
+        logo_url: settings.logo_url || prev.logo_url,
+      }));
+    }
+  }, [settings]);
+
 
   // Paletas de cores sugeridas
   const primaryPalette = ['#004b93', '#0f2b5c', '#002d62', '#1e40af', '#0284c7'];
@@ -394,7 +418,7 @@ export const SettingsPage: React.FC = () => {
             type="submit"
             className={`${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'} text-white font-extrabold px-8 py-3.5 rounded-xl shadow-lg transition-all flex justify-center items-center gap-2 text-sm cursor-pointer w-full sm:w-auto`}
           >
-            <Save className="w-4 h-4 shrink-0" />
+            {savedSuccess ? <CheckCircle2 className="w-4 h-4 shrink-0" /> : <Save className="w-4 h-4 shrink-0" />}
             <span>{savedSuccess ? 'Salvo!' : 'Salvar Todas as Configurações'}</span>
           </button>
         </div>
