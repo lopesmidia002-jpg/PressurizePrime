@@ -89,11 +89,11 @@ export const DynamicSectionEditor: React.FC<DynamicSectionEditorProps> = ({
                 </div>
               </div>
             ) : subKey === 'title' || subKey === 'subtitle' || subKey === 'number' || subKey === 'badge' ? (
-                <input
-                  type="text"
+                <textarea
+                  rows={2}
                   value={(subVal as string) || ''}
                   onChange={(e) => onChangeField(subKey, e.target.value)}
-                  className="w-full px-2 py-1.5 text-sm border border-slate-300 rounded-lg"
+                  className="w-full px-2 py-1.5 text-sm border border-slate-300 rounded-lg resize-none"
                 />
             ) : (
                 <textarea

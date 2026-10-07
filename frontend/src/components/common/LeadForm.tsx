@@ -26,6 +26,11 @@ interface LeadFormProps {
   securityText?: string;
   outOfHoursTitle?: string;
   outOfHoursText?: string;
+  badgeText?: string;
+  nameLabel?: string;
+  whatsappLabel?: string;
+  serviceLabel?: string;
+  servicePlaceholder?: string;
   className?: string;
 }
 
@@ -57,6 +62,11 @@ export const LeadForm: React.FC<LeadFormProps> = ({
   securityText = 'Seus dados estão seguros e serão utilizados exclusivamente para contato técnico direto.',
   outOfHoursTitle = 'Fora do horário de expediente comercial:',
   outOfHoursText = 'Nosso atendimento presencial e telefônico opera de segunda a sexta, das 8h às 19h. Deixe sua solicitação agora e ela será tratada com prioridade na primeira hora do próximo dia útil!',
+  badgeText = 'Diagnóstico sem compromisso',
+  nameLabel = 'Seu Nome Completo *',
+  whatsappLabel = 'WhatsApp / Celular *',
+  serviceLabel = 'Tipo de Equipamento / Serviço',
+  servicePlaceholder = 'Selecione o equipamento (ou geral)',
   className = ''
 }) => {
   const { addLead, isBusinessHours, settings, services } = useSiteData();
@@ -246,7 +256,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
         <div className="flex items-center justify-between gap-2 mb-2">
           <span className="inline-flex items-center gap-1.5 bg-blue-50 text-primary border border-blue-100 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
             <ShieldCheck className="w-3.5 h-3.5 text-primary" />
-            Diagnóstico sem compromisso
+            {badgeText}
           </span>
 
           {/* Indicador de Horário Comercial */}
@@ -276,7 +286,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
         <div>
           <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
             <User className="w-3.5 h-3.5 text-slate-400" />
-            <span>Seu Nome Completo *</span>
+            <span>{nameLabel}</span>
           </label>
           <input
             type="text"
@@ -299,7 +309,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
         <div>
           <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
             <Phone className="w-3.5 h-3.5 text-slate-400" />
-            <span>WhatsApp / Celular *</span>
+            <span>{whatsappLabel}</span>
           </label>
           <input
             type="tel"
@@ -323,14 +333,14 @@ export const LeadForm: React.FC<LeadFormProps> = ({
         <div>
           <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
             <Wrench className="w-3.5 h-3.5 text-slate-400" />
-            <span>Tipo de Equipamento / Serviço</span>
+            <span>{serviceLabel}</span>
           </label>
           <select
             value={formData.service_category || ''}
             onChange={e => handleChange('service_category', e.target.value)}
             className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-slate-800 transition-all"
           >
-            <option value="">Selecione o equipamento (ou geral)</option>
+            <option value="">{servicePlaceholder}</option>
             {services.map(svc => (
               <option key={svc.id} value={svc.slug}>
                 {svc.title}

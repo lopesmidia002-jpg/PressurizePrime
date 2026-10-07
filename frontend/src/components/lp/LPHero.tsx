@@ -31,6 +31,10 @@ export const LPHero: React.FC<LPHeroProps> = ({ lp }) => {
   const ctaSecondary = cmsPage?.hero_cta_secondary || 'Ligar agora';
   const heroImage = (cmsPage?.sections?.image_url as any) || lp.image_url;
 
+  const overlayTitle = (cmsPage?.sections?.heroOverlay as any)?.title || 'Instalação e Reparo Oficial';
+  const overlaySubtitle = (cmsPage?.sections?.heroOverlay as any)?.subtitle || 'Peças com garantia de 3 meses';
+  const overlayBadge = (cmsPage?.sections?.heroOverlay as any)?.badge || 'Até 24h';
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-slate-100/70 pt-8 pb-16 lg:pt-14 lg:pb-20 border-b border-slate-200">
       {/* Background Decorativo */}
@@ -46,7 +50,7 @@ export const LPHero: React.FC<LPHeroProps> = ({ lp }) => {
             {/* Badge do Tipo de Serviço */}
             <div className="inline-flex items-center gap-2 bg-white/90 border border-slate-200/90 text-slate-800 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide mb-5 shadow-2xs backdrop-blur-md">
               <ShieldCheck className="w-3.5 h-3.5 text-primary" />
-              <span>{lp.badge}</span>
+              <span>{cmsPage?.hero_badge || lp.badge}</span>
             </div>
 
             {/* H1 Dinâmico por Grupo de Anúncio / Busca */}
@@ -127,12 +131,12 @@ export const LPHero: React.FC<LPHeroProps> = ({ lp }) => {
                       <CheckCircle2 className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="text-xs font-bold text-white">Instalação e Reparo Oficial</div>
-                      <div className="text-[11px] text-slate-300">Peças com garantia de 3 meses</div>
+                      <div className="text-xs font-bold text-white">{overlayTitle}</div>
+                      <div className="text-[11px] text-slate-300">{overlaySubtitle}</div>
                     </div>
                   </div>
                   <span className="text-[10px] font-extrabold uppercase tracking-wider bg-secondary text-slate-950 px-2 py-1 rounded">
-                    Até 24h
+                    {overlayBadge}
                   </span>
                 </div>
               </div>

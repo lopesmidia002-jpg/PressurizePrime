@@ -55,7 +55,7 @@ export const HeroSection: React.FC = () => {
           {/* Badge Superior */}
           <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 backdrop-blur-sm text-white/90 text-xs font-semibold px-4 py-1.5 rounded-full">
             <ShieldCheck className="w-3.5 h-3.5 text-secondary" />
-            Especialistas em Aquecedores e Pressurizadores
+            {pages['home']?.hero_badge || 'Especialistas em Aquecedores e Pressurizadores'}
           </div>
 
           {/* Título H1 */}

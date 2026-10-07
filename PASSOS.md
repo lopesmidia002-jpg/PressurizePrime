@@ -372,3 +372,14 @@ Cada etapa possui critÃƒÂ©rios de aceitaÃƒÂ§ÃƒÂ£o claros e checkboxes que sÃƒÂ£o
   - **Entregáveis**:
     - [x] Adição da edição de todas as seções (Dores/Sintomas, Serviços, Diferenciais, Objeções, FAQs e CTA) no Painel Administrativo para todas as 4 páginas de serviço (Pressurizador, Aquecedor a Gás, Solar e Elétrico).
     - [x] Correção da injeção de dados dinâmicos do CMS no Frontend para garantir que as alterações feitas no painel sejam refletidas em tempo real nos cards e textos do site.
+
+---
+
+- [x] **Passo 33: Controle Total do Rodapé no Painel Administrativo**
+  - **Prioridade**: Alta
+  - **Status**: Concluído
+  - **Entregáveis**:
+    - [x] Atualização de SiteSettings e FooterManagerPage.tsx para permitir edição de todos os textos restantes do rodapé, incluindo títulos de colunas e textos de copyright.
+    - [x] Adição da funcionalidade de exibir/ocultar a lista de serviços especializados.
+    - [x] Adição da edição dinâmica dos Links Institucionais (Adicionar, Editar, Remover e alterar URL/Label).
+    - [x] Integração dessas configurações diretamente no Footer.tsx no frontend, substituindo textos e links fixados no código.

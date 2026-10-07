@@ -9,6 +9,25 @@ export const AboutSection: React.FC = () => {
   const title = aboutSection?.title || 'Técnicos de verdade, com nome e responsabilidade pelo serviço.';
   const content = (aboutSection as any)?.content || 'A Pressurize Prime nasceu de mais de uma década de experiência prática com pressurizadores e aquecedores. Uma equipe que aprendeu o ofício em campo, instalação por instalação, e conhece por dentro os equipamentos que você tem em casa.';
   const quote = (aboutSection as any)?.quote || '“Aqui, quem atende você é gente de verdade, do primeiro contato ao pós-serviço. E se algo não ficar certo, a gente volta.”';
+  const items = (aboutSection as any)?.items || [
+    { title: 'Técnicos identificados e qualificados' },
+    { title: 'Empresa com endereço e CNPJ ativo' },
+    { title: 'Instalações em conformidade com as normas ABNT' },
+    { title: 'Pós-atendimento com suporte prioritário' }
+  ];
+  
+  const card = (aboutSection as any)?.card || {
+    title: 'Padrão Operacional',
+    badge: 'Garantia Ativa',
+    footer_text: 'Grande São Paulo e Capital • Atendimento Rápido',
+    items: [
+      { title: 'Ofício de Campo Especializado', desc: 'Conhecimento profundo das principais marcas: Rowa, Komeco, Grundfos, Rheem e Rinnai.' },
+      { title: 'Resolução no Primeiro Atendimento', desc: 'Diagnóstico exato e troca de componentes no mesmo local sempre que possível.' },
+      { title: 'Compromisso de Pós-Venda', desc: 'Não sumimos após o pagamento. Qualquer retorno é tratado com máxima prioridade.' }
+    ]
+  };
+
+  const cardIcons = [Wrench, Award, Shield];
 
   return (
     <section id="quem-somos" className="py-16 md:py-24 lg:py-28 bg-white border-b border-slate-200">
@@ -31,22 +50,12 @@ export const AboutSection: React.FC = () => {
             </blockquote>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-secondary shrink-0 mt-0.5" />
-                <span className="text-sm text-slate-700">Técnicos identificados e qualificados</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-secondary shrink-0 mt-0.5" />
-                <span className="text-sm text-slate-700">Empresa com endereço e CNPJ ativo</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-secondary shrink-0 mt-0.5" />
-                <span className="text-sm text-slate-700">Instalações em conformidade com as normas ABNT</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-secondary shrink-0 mt-0.5" />
-                <span className="text-sm text-slate-700">Pós-atendimento com suporte prioritário</span>
-              </div>
+              {items.map((item: any, idx: number) => (
+                <div key={idx} className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-secondary shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-700">{item.title}</span>
+                </div>
+              ))}
             </div>
 
             <div className="pt-4 flex justify-center lg:justify-start">
@@ -69,52 +78,36 @@ export const AboutSection: React.FC = () => {
 
               <div className="relative z-10 space-y-6">
                 <div className="flex items-center justify-between border-b border-slate-800 pb-5">
-                  <span className="text-xs uppercase tracking-wider text-slate-400 font-bold">Padrão Operacional</span>
-                  <span className="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-full border border-emerald-500/30">
-                    Garantia Ativa
-                  </span>
+                  <span className="text-xs uppercase tracking-wider text-slate-400 font-bold">{card.title}</span>
+                  {card.badge && (
+                    <span className="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-full border border-emerald-500/30">
+                      {card.badge}
+                    </span>
+                  )}
                 </div>
 
                 <div className="space-y-4">
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center shrink-0 text-secondary">
-                      <Wrench className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-white text-sm">Ofício de Campo Especializado</h4>
-                      <p className="text-xs text-slate-400 mt-0.5">
-                        Conhecimento profundo das principais marcas: Rowa, Komeco, Grundfos, Rheem e Rinnai.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center shrink-0 text-amber-400">
-                      <Award className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-white text-sm">Resolução no Primeiro Atendimento</h4>
-                      <p className="text-xs text-slate-400 mt-0.5">
-                        Diagnóstico exato e troca de componentes no mesmo local sempre que possível.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center shrink-0 text-primary">
-                      <Shield className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-white text-sm">Compromisso de Pós-Venda</h4>
-                      <p className="text-xs text-slate-400 mt-0.5">
-                        Não sumimos após o pagamento. Qualquer retorno é tratado com máxima prioridade.
-                      </p>
-                    </div>
-                  </div>
+                  {card.items.map((item: any, index: number) => {
+                    const Icon = cardIcons[index % cardIcons.length];
+                    const iconColors = ['text-secondary', 'text-amber-400', 'text-primary'];
+                    return (
+                      <div key={index} className="flex items-start gap-4">
+                        <div className={`w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center shrink-0 ${iconColors[index % iconColors.length]}`}>
+                          <Icon className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-white text-sm">{item.title}</h4>
+                          <p className="text-xs text-slate-400 mt-0.5">
+                            {item.desc}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
 
                 <div className="pt-4 border-t border-slate-800 text-xs text-slate-400">
-                  Grande São Paulo e Capital • Atendimento Rápido
+                  {card.footer_text}
                 </div>
               </div>
             </div>

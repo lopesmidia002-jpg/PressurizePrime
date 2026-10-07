@@ -21,6 +21,19 @@ export interface SiteSettings {
     about_text?: string;
     contact_text?: string;
     brands?: string[];
+    services_title?: string;
+    show_services?: boolean;
+    coverage_title?: string;
+    coverage_desc?: string;
+    contact_title?: string;
+    brands_title?: string;
+    brands_desc?: string;
+    btn_whatsapp_text?: string;
+    btn_phone_text?: string;
+    footer_services_links?: { label: string; url: string }[];
+    institutional_links?: { label: string; url: string }[];
+    copyright_text?: string;
+    location_text?: string;
   };
 }
 export interface SeoMeta {
@@ -42,6 +55,7 @@ export interface ServiceItem {
   full_description?: string;
   icon_name: string;
   image_url?: string;
+  button_text?: string;
   features?: string[];
   order: number;
   is_active: boolean;
@@ -72,6 +86,7 @@ export interface PageData {
   hero_subtitle: string;
   hero_cta_primary: string;
   hero_cta_secondary: string;
+  hero_badge?: string;
   microcopy?: string;
   sections?: Record<string, any>;
   seo?: SeoMeta;

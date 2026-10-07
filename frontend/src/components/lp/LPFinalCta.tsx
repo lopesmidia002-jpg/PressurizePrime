@@ -36,7 +36,7 @@ export const LPFinalCta: React.FC<LPFinalCtaProps> = ({ lp }) => {
         </h2>
 
         <p className="mt-5 text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-[1.65] text-pretty">
-          {lp.ctaText} Atendimento de segunda a sexta, das 8h às 19h. Conserto em até 24h.
+          {lp.ctaText}
         </p>
 
         {!isBusinessHours && (
@@ -71,26 +71,32 @@ export const LPFinalCta: React.FC<LPFinalCtaProps> = ({ lp }) => {
             onClick={() => openLeadModal(lp.slug)}
             className="text-xs text-slate-300 hover:text-white underline underline-offset-4 cursor-pointer transition-colors"
           >
-            Prefere que entremos em contato? Solicite orçamento online pelo formulário
+            {(cmsPage?.sections as any)?.ctaFormLink || 'Prefere que entremos em contato? Solicite orçamento online pelo formulário'}
           </button>
         </div>
 
         {/* Marcas Atendidas no Final da LP */}
-        {lp.brands && lp.brands.length > 0 && (
+        {(cmsPage?.sections as any)?.brandsText ? (
           <div className="mt-12 pt-8 border-t border-slate-800/80 text-xs text-slate-400">
-            <span className="font-semibold text-slate-300">Marcas Atendidas:</span>{' '}
-            {lp.brands.join(' • ')} e outras líderes de mercado.
+            {(cmsPage?.sections as any).brandsText}
           </div>
+        ) : (
+          lp.brands && lp.brands.length > 0 && (
+            <div className="mt-12 pt-8 border-t border-slate-800/80 text-xs text-slate-400">
+              <span className="font-semibold text-slate-300">Marcas Atendidas:</span>{' '}
+              {lp.brands.join(' • ')} e outras líderes de mercado.
+            </div>
+          )
         )}
 
         <div className="mt-8 flex items-center justify-center gap-6 text-xs text-slate-400">
           <span className="flex items-center gap-1.5">
             <ShieldCheck className="w-4 h-4 text-secondary" />
-            Orçamento antes do início
+            {(cmsPage?.sections as any)?.ctaGuarantee1 || 'Orçamento antes do início'}
           </span>
           <span className="flex items-center gap-1.5">
             <ShieldCheck className="w-4 h-4 text-primary" />
-            Garantia de 3 meses em peças
+            {(cmsPage?.sections as any)?.ctaGuarantee2 || 'Garantia de 3 meses em peças'}
           </span>
         </div>
       </div>

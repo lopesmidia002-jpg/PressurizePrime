@@ -83,7 +83,12 @@ export const FaqPage: React.FC = () => {
             </div>
           ))}
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center">
+            {pages['duvidas']?.hero_badge && (
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide mb-6">
+                <span>{pages['duvidas'].hero_badge}</span>
+              </div>
+            )}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 drop-shadow-lg text-white">
               {pages['duvidas']?.hero_title || (
                 <>Perguntas <span className="text-primary">frequentes</span></>
@@ -111,6 +116,15 @@ export const FaqPage: React.FC = () => {
 
         {/* FAQ Accordion */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-28">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
+              {(pages['duvidas']?.sections?.duvidas as any)?.title || 'Dúvidas Frequentes'}
+            </h2>
+            <p className="text-lg text-slate-600">
+              {(pages['duvidas']?.sections?.duvidas as any)?.subtitle || 'As perguntas que mais recebemos.'}
+            </p>
+          </div>
+          
           {filteredFaqs.length === 0 ? (
             <div className="text-center py-12 text-slate-500">
               Nenhuma pergunta encontrada para "{searchTerm}". Tente usar outros termos.

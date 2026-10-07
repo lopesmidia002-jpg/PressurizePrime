@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { DynamicSectionEditor } from '../../components/admin/DynamicSectionEditor';
 import { ImageUploadButton } from '../../components/admin/ImageUploadButton';
+import { HomeServiceCardsEditor } from '../../components/admin/HomeServiceCardsEditor';
 
 export const PagesManagerPage: React.FC = () => {
   const { pages, updatePageData } = useSiteData();
@@ -155,6 +156,20 @@ export const PagesManagerPage: React.FC = () => {
           </div>
 
           <form onSubmit={handleSave} className="space-y-6">
+            {/* Selo Superior Hero */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                Selo Superior da Seção Hero (Badge)
+              </label>
+              <textarea
+                rows={2}
+                value={formData.hero_badge || ''}
+                onChange={e => handleChange('hero_badge', e.target.value)}
+                placeholder="Ex: Especialistas em Aquecedores e Pressurizadores"
+                className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none"
+              />
+            </div>
+
             {/* Título Principal (H1) */}
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
@@ -228,7 +243,12 @@ export const PagesManagerPage: React.FC = () => {
                 className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20"
               />
             </div>
-
+            <div className="flex justify-end mt-4">
+              <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                <Save className="w-4 h-4" />
+                Salvar Textos Principais
+              </button>
+            </div>
             {/* Alerta de Segurança (Apenas Aquecedor a Gás) */}
             {selectedKey === 'aquecedor-a-gas' && (
               <div>
@@ -249,57 +269,106 @@ export const PagesManagerPage: React.FC = () => {
               </div>
             )}
 
-            {/* EDIÇÃO DE SEÇÕES DE LANDING PAGE */}
+             {/* EDIÇÃO DE SEÇÕES DE LANDING PAGE */}
             {['pressurizador', 'aquecedor-a-gas', 'aquecedor-solar', 'aquecedor-eletrico'].includes(selectedKey) && (
-              <div className="pt-6 border-t border-slate-200 mt-6 space-y-8">
+              <div className="pt-6 border-t border-slate-200 mt-6 space-y-4">
+
                 <DynamicSectionEditor
                   sectionKey="symptoms"
                   label="Dores e Sintomas (Algum desses está acontecendo?)"
                   sectionData={formData.sections?.symptoms}
                   onChange={(data) => handleChange('sections', { ...formData.sections, symptoms: data } as any)}
                 />
+                <div className="flex justify-center sm:justify-end pb-4 border-b border-slate-100">
+                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                    <Save className="w-4 h-4" /> Salvar Sintomas
+                  </button>
+                </div>
+
                 <DynamicSectionEditor
                   sectionKey="whatWeDo"
                   label="Serviços (O que fazemos por você)"
                   sectionData={formData.sections?.whatWeDo}
                   onChange={(data) => handleChange('sections', { ...formData.sections, whatWeDo: data } as any)}
                 />
+                <div className="flex justify-center sm:justify-end pb-4 border-b border-slate-100">
+                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                    <Save className="w-4 h-4" /> Salvar Serviços
+                  </button>
+                </div>
+
                 <DynamicSectionEditor
                   sectionKey="whyUs"
                   label="Diferenciais"
                   sectionData={formData.sections?.whyUs}
                   onChange={(data) => handleChange('sections', { ...formData.sections, whyUs: data } as any)}
                 />
+                <div className="flex justify-center sm:justify-end pb-4 border-b border-slate-100">
+                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                    <Save className="w-4 h-4" /> Salvar Diferenciais
+                  </button>
+                </div>
+
                 <DynamicSectionEditor
                   sectionKey="processo"
                   label="Como Funciona (Passo a Passo)"
                   sectionData={formData.sections?.processo}
                   onChange={(data) => handleChange('sections', { ...formData.sections, processo: data } as any)}
                 />
+                <div className="flex justify-center sm:justify-end pb-4 border-b border-slate-100">
+                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                    <Save className="w-4 h-4" /> Salvar Como Funciona
+                  </button>
+                </div>
+
                 <DynamicSectionEditor
                   sectionKey="leadSection"
                   label="Formulário de Agendamento (Lead Section)"
                   sectionData={formData.sections?.leadSection}
                   onChange={(data) => handleChange('sections', { ...formData.sections, leadSection: data } as any)}
                 />
+                <div className="flex justify-center sm:justify-end pb-4 border-b border-slate-100">
+                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                    <Save className="w-4 h-4" /> Salvar Formulário Lead
+                  </button>
+                </div>
+
                 <DynamicSectionEditor
                   sectionKey="objections"
                   label="Objeções Respondidas"
                   sectionData={formData.sections?.objections}
                   onChange={(data) => handleChange('sections', { ...formData.sections, objections: data } as any)}
                 />
+                <div className="flex justify-center sm:justify-end pb-4 border-b border-slate-100">
+                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                    <Save className="w-4 h-4" /> Salvar Objeções
+                  </button>
+                </div>
+
                 <DynamicSectionEditor
                   sectionKey="faqs"
                   label="Perguntas Frequentes da LP"
                   sectionData={formData.sections?.faqs}
                   onChange={(data) => handleChange('sections', { ...formData.sections, faqs: data } as any)}
                 />
+                <div className="flex justify-center sm:justify-end pb-4 border-b border-slate-100">
+                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                    <Save className="w-4 h-4" /> Salvar Perguntas Frequentes
+                  </button>
+                </div>
+
                 <DynamicSectionEditor
                   sectionKey="finalCta"
                   label="Chamada para Ação (Rodapé)"
                   sectionData={formData.sections?.finalCta}
                   onChange={(data) => handleChange('sections', { ...formData.sections, finalCta: data } as any)}
                 />
+                <div className="flex justify-center sm:justify-end pb-4">
+                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                    <Save className="w-4 h-4" /> Salvar CTA Final
+                  </button>
+                </div>
+
               </div>
             )}
 
@@ -357,6 +426,35 @@ export const PagesManagerPage: React.FC = () => {
             {/* Edição de Seções Adicionais (Home) */}
             {selectedKey === 'home' && (
               <div className="pt-6 border-t border-slate-200 mt-6 space-y-8">
+                {/* SERVICES SECTION */}
+                <div className="space-y-6 pt-6 border-t border-slate-200">
+                  <div>
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider block">
+                      Seção: Grade de Serviços
+                    </span>
+                    <h3 className="text-md font-bold text-slate-800 mt-1">
+                      Textos da Chamada de Serviços (Home)
+                    </h3>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Título da Seção</label>
+                    <input type="text" value={(formData.sections?.services as any)?.title || ''} onChange={e => { const newSections = { ...formData.sections }; if (!newSections.services) newSections.services = {} as any; (newSections.services as any).title = e.target.value; handleChange('sections', newSections as any); }} className="w-full px-3.5 py-2.5 text-sm font-semibold bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Nossos Serviços Especializados" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Subtítulo / Descrição Curta</label>
+                    <textarea rows={2} value={(formData.sections?.services as any)?.subtitle || ''} onChange={e => { const newSections = { ...formData.sections }; if (!newSections.services) newSections.services = {} as any; (newSections.services as any).subtitle = e.target.value; handleChange('sections', newSections as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none" placeholder="Diagnóstico de precisão, peças originais e garantia por escrito em São Paulo..." />
+                  </div>
+                  
+                  <HomeServiceCardsEditor />
+                
+                  <div className="flex justify-center sm:justify-end pt-4 mt-6">
+                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                      <Save className="w-4 h-4" />
+                      Salvar Serviços
+                    </button>
+                  </div>
+</div>
+
                 {/* ABOUT SECTION */}
                 <div className="space-y-6">
                   <div>
@@ -379,9 +477,149 @@ export const PagesManagerPage: React.FC = () => {
                     <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Citação / Frase de Destaque</label>
                     <textarea rows={2} value={(formData.sections?.about as any)?.quote || ''} onChange={e => { const newSections = { ...formData.sections }; if (!newSections.about) newSections.about = {} as any; (newSections.about as any).quote = e.target.value; handleChange('sections', newSections as any); }} className="w-full px-3.5 py-2.5 text-sm font-medium italic bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none" />
                   </div>
-                </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Itens de Destaque (Checkmarks)</label>
+                    <div className="space-y-3">
+                      {((formData.sections?.about as any)?.items || [
+                        { title: 'Técnicos identificados e qualificados' },
+                        { title: 'Empresa com endereço e CNPJ ativo' },
+                        { title: 'Instalações em conformidade com as normas ABNT' },
+                        { title: 'Pós-atendimento com suporte prioritário' }
+                      ]).map((item: any, idx: number) => (
+                        <div key={idx} className="flex gap-3">
+                          <textarea rows={2} value={item.title} onChange={e => {
+                            const newSections = { ...formData.sections };
+                            if (!newSections.about) newSections.about = {} as any;
+                            const newItems = [...((newSections.about as any).items || [])];
+                            newItems[idx] = { ...newItems[idx], title: e.target.value };
+                            (newSections.about as any).items = newItems;
+                            handleChange('sections', newSections as any);
+                          }} placeholder="Texto do item" className="flex-1 px-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl resize-none" />
+                          <button type="button" onClick={() => {
+                            const newSections = { ...formData.sections };
+                            if (!newSections.about) newSections.about = {} as any;
+                            const newItems = [...((newSections.about as any).items || [])].filter((_, i) => i !== idx);
+                            (newSections.about as any).items = newItems;
+                            handleChange('sections', newSections as any);
+                          }} className="px-3 py-2 text-red-600 bg-red-50 rounded-xl hover:bg-red-100 font-medium text-sm">
+                            Remover
+                          </button>
+                        </div>
+                      ))}
+                      <button type="button" onClick={() => {
+                        const newSections = { ...formData.sections };
+                        if (!newSections.about) newSections.about = {} as any;
+                        const currentItems = (newSections.about as any).items || [];
+                        (newSections.about as any).items = [...currentItems, { title: '' }];
+                        handleChange('sections', newSections as any);
+                      }} className="text-sm font-bold text-primary hover:text-primary-dark">
+                        + Adicionar Item
+                      </button>
+                    </div>
+                  </div>
+                  <div className="pt-6 border-t border-slate-100">
+                    <h4 className="text-sm font-bold text-slate-800 mb-3">Card Técnico Escuro (Padrão Operacional)</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Título Superior do Card</label>
+                        <input type="text" value={(formData.sections?.about as any)?.card?.title || 'Padrão Operacional'} onChange={e => {
+                          const newSections = { ...formData.sections };
+                          if (!newSections.about) newSections.about = {} as any;
+                          if (!(newSections.about as any).card) (newSections.about as any).card = {};
+                          (newSections.about as any).card.title = e.target.value;
+                          handleChange('sections', newSections as any);
+                        }} className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl" />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Selo/Badge Superior (Deixe vazio p/ ocultar)</label>
+                        <input type="text" value={(formData.sections?.about as any)?.card?.badge || 'Garantia Ativa'} onChange={e => {
+                          const newSections = { ...formData.sections };
+                          if (!newSections.about) newSections.about = {} as any;
+                          if (!(newSections.about as any).card) (newSections.about as any).card = {};
+                          (newSections.about as any).card.badge = e.target.value;
+                          handleChange('sections', newSections as any);
+                        }} className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl" />
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider">Itens do Card (Máximo 3 recomendados)</label>
+                      {((formData.sections?.about as any)?.card?.items || [
+                        { title: 'Ofício de Campo Especializado', desc: 'Conhecimento profundo das principais marcas: Rowa, Komeco, Grundfos, Rheem e Rinnai.' },
+                        { title: 'Resolução no Primeiro Atendimento', desc: 'Diagnóstico exato e troca de componentes no mesmo local sempre que possível.' },
+                        { title: 'Compromisso de Pós-Venda', desc: 'Não sumimos após o pagamento. Qualquer retorno é tratado com máxima prioridade.' }
+                      ]).map((item: any, idx: number) => (
+                        <div key={idx} className="bg-slate-50 p-4 rounded-xl border border-slate-200 relative">
+                          <button type="button" onClick={() => {
+                            const newSections = { ...formData.sections };
+                            const newCardItems = [...((newSections.about as any).card.items)].filter((_, i) => i !== idx);
+                            (newSections.about as any).card.items = newCardItems;
+                            handleChange('sections', newSections as any);
+                          }} className="absolute top-2 right-2 text-red-500 hover:text-red-700">
+                            Remover
+                          </button>
+                          <div className="space-y-3 pr-8">
+                            <div>
+                              <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1">Título do Item</label>
+                              <textarea rows={2} value={item.title} onChange={e => {
+                                const newSections = { ...formData.sections };
+                                if (!newSections.about) newSections.about = {} as any;
+                                if (!(newSections.about as any).card) (newSections.about as any).card = { items: [] };
+                                const newItems = [...((newSections.about as any).card.items)];
+                                newItems[idx] = { ...newItems[idx], title: e.target.value };
+                                (newSections.about as any).card.items = newItems;
+                                handleChange('sections', newSections as any);
+                              }} className="w-full px-3 py-2 text-sm border border-slate-300 rounded-xl resize-none" />
+                            </div>
+                            <div>
+                              <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1">Descrição</label>
+                              <textarea rows={2} value={item.desc} onChange={e => {
+                                const newSections = { ...formData.sections };
+                                if (!newSections.about) newSections.about = {} as any;
+                                if (!(newSections.about as any).card) (newSections.about as any).card = { items: [] };
+                                const newItems = [...((newSections.about as any).card.items)];
+                                newItems[idx] = { ...newItems[idx], desc: e.target.value };
+                                (newSections.about as any).card.items = newItems;
+                                handleChange('sections', newSections as any);
+                              }} className="w-full px-3 py-2 text-sm border border-slate-300 rounded-xl resize-none" />
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                      <button type="button" onClick={() => {
+                        const newSections = { ...formData.sections };
+                        if (!newSections.about) newSections.about = {} as any;
+                        if (!(newSections.about as any).card) (newSections.about as any).card = { items: [] };
+                        const currentItems = (newSections.about as any).card.items || [];
+                        (newSections.about as any).card.items = [...currentItems, { title: '', desc: '' }];
+                        handleChange('sections', newSections as any);
+                      }} className="text-sm font-bold text-primary hover:text-primary-dark">
+                        + Adicionar Item no Card
+                      </button>
+                    </div>
 
-                {/* WHY US SECTION */}
+                    <div className="mt-4">
+                      <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Texto do Rodapé do Card</label>
+                      <input type="text" value={(formData.sections?.about as any)?.card?.footer_text || 'Grande São Paulo e Capital • Atendimento Rápido'} onChange={e => {
+                        const newSections = { ...formData.sections };
+                        if (!newSections.about) newSections.about = {} as any;
+                        if (!(newSections.about as any).card) (newSections.about as any).card = {};
+                        (newSections.about as any).card.footer_text = e.target.value;
+                        handleChange('sections', newSections as any);
+                      }} className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl" />
+                    </div>
+                  </div>
+                
+                  <div className="flex justify-center sm:justify-end pt-4 mt-6">
+                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                      <Save className="w-4 h-4" />
+                      Salvar Quem Somos
+                    </button>
+                  </div>
+</div>
+
+                                <div className="pt-6 border-t border-slate-200">
+{/* WHY US SECTION */}
                 <DynamicSectionEditor
                   sectionKey="whyUs"
                   label="Diferenciais (Por que escolher a Pressurize Prime?)"
@@ -389,7 +627,16 @@ export const PagesManagerPage: React.FC = () => {
                   onChange={(data) => handleChange('sections', { ...formData.sections, whyUs: data } as any)}
                 />
 
-                {/* HOW IT WORKS SECTION */}
+                
+                  <div className="flex justify-center sm:justify-end pt-4 mt-6">
+                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                      <Save className="w-4 h-4" />
+                      Salvar Diferenciais
+                    </button>
+                  </div>
+                </div>
+                <div className="pt-6 border-t border-slate-200">
+{/* HOW IT WORKS SECTION */}
                 <DynamicSectionEditor
                   sectionKey="howItWorks"
                   label="Processo (Como Funciona)"
@@ -397,15 +644,15 @@ export const PagesManagerPage: React.FC = () => {
                   onChange={(data) => handleChange('sections', { ...formData.sections, howItWorks: data } as any)}
                 />
 
-                {/* COMMITMENTS SECTION */}
-                <DynamicSectionEditor
-                  sectionKey="commitments"
-                  label="Nossos Compromissos e Garantias"
-                  sectionData={formData.sections?.commitments}
-                  onChange={(data) => handleChange('sections', { ...formData.sections, commitments: data } as any)}
-                />
-
-                {/* COVERAGE SECTION */}
+                
+                  <div className="flex justify-center sm:justify-end pt-4 mt-6">
+                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                      <Save className="w-4 h-4" />
+                      Salvar Processo
+                    </button>
+                  </div>
+                </div>
+{/* COVERAGE SECTION */}
                 <div className="space-y-6 pt-6 border-t border-slate-200">
                   <div>
                     <span className="text-xs font-bold text-primary uppercase tracking-wider block">
@@ -425,15 +672,78 @@ export const PagesManagerPage: React.FC = () => {
                     <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Texto do Badge / Nota de Atendimento Prioritário</label>
                     <input type="text" value={(formData.sections?.coverage as any)?.badge || ''} onChange={e => { const s = { ...formData.sections }; if (!s.coverage) s.coverage = {} as any; (s.coverage as any).badge = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Atendimento prioritário em condomínios e residências de médio e alto padrão" />
                   </div>
-                </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Bairros e Municípios (Locais de Atendimento)</label>
+                    <div className="space-y-3">
+                      {((formData.sections?.coverage as any)?.locations || []).map((loc: string, idx: number) => (
+                        <div key={idx} className="flex gap-3">
+                          <input type="text" value={loc} onChange={e => {
+                            const newSections = { ...formData.sections };
+                            if (!newSections.coverage) newSections.coverage = {} as any;
+                            const newLocations = [...((newSections.coverage as any).locations || [])];
+                            newLocations[idx] = e.target.value;
+                            (newSections.coverage as any).locations = newLocations;
+                            handleChange('sections', newSections as any);
+                          }} placeholder="Ex: São Paulo" className="flex-1 px-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl" />
+                          <button type="button" onClick={() => {
+                            const newSections = { ...formData.sections };
+                            if (!newSections.coverage) newSections.coverage = {} as any;
+                            const newLocations = [...((newSections.coverage as any).locations || [])].filter((_, i) => i !== idx);
+                            (newSections.coverage as any).locations = newLocations;
+                            handleChange('sections', newSections as any);
+                          }} className="px-3 py-2 text-red-600 bg-red-50 rounded-xl hover:bg-red-100 font-medium text-sm">
+                            Remover
+                          </button>
+                        </div>
+                      ))}
+                      <button type="button" onClick={() => {
+                        const newSections = { ...formData.sections };
+                        if (!newSections.coverage) newSections.coverage = {} as any;
+                        const currentLocations = (newSections.coverage as any).locations || [
+                          'São Paulo', 'Barueri (Alphaville)', 'Santana de Parnaíba',
+                          'Cotia (Granja Viana)', 'Santo André', 'São Bernardo do Campo', 'São Caetano do Sul'
+                        ];
+                        (newSections.coverage as any).locations = [...currentLocations, ''];
+                        handleChange('sections', newSections as any);
+                      }} className="text-sm font-bold text-primary hover:text-primary-dark">
+                        {((formData.sections?.coverage as any)?.locations?.length > 0) ? '+ Adicionar Local' : '+ Inicializar Lista de Locais'}
+                      </button>
+                    </div>
+                  </div>
+                
+                  <div className="flex justify-center sm:justify-end pt-4 mt-6">
+                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                      <Save className="w-4 h-4" />
+                      Salvar Regiões
+                    </button>
+                  </div>
+</div>
 
-                {/* FAQ SECTION */}
-                <div className="space-y-6 pt-6 border-t border-slate-200">
+                                <div className="pt-6 border-t border-slate-200">
+{/* COMMITMENTS SECTION */}
+                <DynamicSectionEditor
+                  sectionKey="commitments"
+                  label="Nossos Compromissos e Garantias"
+                  sectionData={formData.sections?.commitments}
+                  onChange={(data) => handleChange('sections', { ...formData.sections, commitments: data } as any)}
+                />
+
+                
+                  <div className="flex justify-center sm:justify-end pt-4 mt-6">
+                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                      <Save className="w-4 h-4" />
+                      Salvar Compromissos
+                    </button>
+                  </div>
+                </div>
+                <div className="pt-6 border-t border-slate-200">
+{/* FAQ SECTION */}
+                <div className="space-y-6 ">
                   <div>
                     <span className="text-xs font-bold text-primary uppercase tracking-wider block">
                       Seção: Dúvidas Frequentes
                     </span>
-                    <h3 className="text-md font-bold text-slate-800 mt-1">Título e subtítulo do FAQ (as perguntas são gerenciadas na área de Serviços)</h3>
+                    <h3 className="text-md font-bold text-slate-800 mt-1">Gerencie as perguntas que aparecem na Home</h3>
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Título do FAQ</label>
@@ -443,9 +753,28 @@ export const PagesManagerPage: React.FC = () => {
                     <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Subtítulo do FAQ</label>
                     <textarea rows={2} value={(formData.sections?.faq as any)?.subtitle || ''} onChange={e => { const s = { ...formData.sections }; if (!s.faq) s.faq = {} as any; (s.faq as any).subtitle = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Respostas diretas e transparentes sobre nosso atendimento em São Paulo." />
                   </div>
+                  <DynamicSectionEditor
+                    sectionKey="faqItems"
+                    label="Lista de Perguntas (Se deixado vazio, usará a lista global)"
+                    sectionData={(formData.sections?.faq as any)?.items || []}
+                    onChange={(data) => {
+                      const s = { ...formData.sections };
+                      if (!s.faq) s.faq = {} as any;
+                      (s.faq as any).items = data;
+                      handleChange('sections', s as any);
+                    }}
+                  />
                 </div>
 
-                {/* HOME LEAD SECTION */}
+                
+                  <div className="flex justify-center sm:justify-end pt-4 mt-6">
+                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                      <Save className="w-4 h-4" />
+                      Salvar Dúvidas
+                    </button>
+                  </div>
+                </div>
+{/* HOME LEAD SECTION */}
                 <div className="space-y-6 pt-6 border-t border-slate-200">
                   <div>
                     <span className="text-xs font-bold text-primary uppercase tracking-wider block">
@@ -458,10 +787,37 @@ export const PagesManagerPage: React.FC = () => {
                     <textarea rows={2} value={(formData.sections?.homeLead as any)?.title || ''} onChange={e => { const s = { ...formData.sections }; if (!s.homeLead) s.homeLead = {} as any; (s.homeLead as any).title = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm font-semibold bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none" placeholder="Problema no pressurizador ou aquecedor? Fale com quem entende." />
                   </div>
                   <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Selo Superior do Formulário</label>
+                    <input type="text" value={(formData.sections?.homeLead as any)?.badgeText || ''} onChange={e => { const s = { ...formData.sections }; if (!s.homeLead) s.homeLead = {} as any; (s.homeLead as any).badgeText = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Diagnóstico sem compromisso" />
+                  </div>
+                  <div>
                     <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Subtítulo / Argumento (Lado Esquerdo e Formulário)</label>
                     <textarea rows={3} value={(formData.sections?.homeLead as any)?.subtitle || ''} onChange={e => { const s = { ...formData.sections }; if (!s.homeLead) s.homeLead = {} as any; (s.homeLead as any).subtitle = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Evite técnicos amadores ou soluções provisórias..." />
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  
+                  <div className="pt-4 border-t border-slate-100">
+                    <h4 className="text-sm font-bold text-slate-800 mb-4">Campos do Formulário</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Rótulo: Nome Completo</label>
+                        <input type="text" value={(formData.sections?.homeLead as any)?.nameLabel || ''} onChange={e => { const s = { ...formData.sections }; if (!s.homeLead) s.homeLead = {} as any; (s.homeLead as any).nameLabel = e.target.value; handleChange('sections', s as any); }} className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl" placeholder="Seu Nome Completo *" />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Rótulo: WhatsApp / Celular</label>
+                        <input type="text" value={(formData.sections?.homeLead as any)?.whatsappLabel || ''} onChange={e => { const s = { ...formData.sections }; if (!s.homeLead) s.homeLead = {} as any; (s.homeLead as any).whatsappLabel = e.target.value; handleChange('sections', s as any); }} className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl" placeholder="WhatsApp / Celular *" />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Rótulo: Serviço</label>
+                        <input type="text" value={(formData.sections?.homeLead as any)?.serviceLabel || ''} onChange={e => { const s = { ...formData.sections }; if (!s.homeLead) s.homeLead = {} as any; (s.homeLead as any).serviceLabel = e.target.value; handleChange('sections', s as any); }} className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl" placeholder="Tipo de Equipamento / Serviço" />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Opção Padrão (Placeholder Serviço)</label>
+                        <input type="text" value={(formData.sections?.homeLead as any)?.servicePlaceholder || ''} onChange={e => { const s = { ...formData.sections }; if (!s.homeLead) s.homeLead = {} as any; (s.homeLead as any).servicePlaceholder = e.target.value; handleChange('sections', s as any); }} className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl" placeholder="Selecione o equipamento (ou geral)" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {[
                       { label: 'Destaque 1', defTitle: 'Vistoria sem custo na aprovação', defDesc: 'O valor da visita é 100% abatido quando você aprova o conserto ou a instalação conosco.' },
                       { label: 'Destaque 2', defTitle: 'Agilidade em até 24 horas', defDesc: 'Sabemos que banho frio ou falta de água não podem esperar. Agendamos seu atendimento com urgência.' },
@@ -472,7 +828,7 @@ export const PagesManagerPage: React.FC = () => {
                       return (
                         <div key={idx} className="p-4 bg-slate-50 rounded-xl border border-slate-200">
                           <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">{c.label} — Título</label>
-                          <input type="text" value={item.title} onChange={e => { const s = { ...formData.sections }; if (!s.homeLead) s.homeLead = {} as any; if (!(s.homeLead as any).items) (s.homeLead as any).items = []; (s.homeLead as any).items[idx] = { ...item, title: e.target.value }; handleChange('sections', s as any); }} className="w-full px-3 py-2 text-sm mb-3 border border-slate-300 rounded-lg" />
+                          <textarea rows={2} value={item.title} onChange={e => { const s = { ...formData.sections }; if (!s.homeLead) s.homeLead = {} as any; if (!(s.homeLead as any).items) (s.homeLead as any).items = []; (s.homeLead as any).items[idx] = { ...item, title: e.target.value }; handleChange('sections', s as any); }} className="w-full px-3 py-2 text-sm mb-3 border border-slate-300 rounded-lg resize-none" />
                           <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">{c.label} — Descrição</label>
                           <textarea rows={3} value={item.desc} onChange={e => { const s = { ...formData.sections }; if (!s.homeLead) s.homeLead = {} as any; if (!(s.homeLead as any).items) (s.homeLead as any).items = []; (s.homeLead as any).items[idx] = { ...item, desc: e.target.value }; handleChange('sections', s as any); }} className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg resize-none" />
                         </div>
@@ -497,7 +853,14 @@ export const PagesManagerPage: React.FC = () => {
                       <textarea rows={3} value={(formData.sections?.homeLead as any)?.outOfHoursText || ''} onChange={e => { const s = { ...formData.sections }; if (!s.homeLead) s.homeLead = {} as any; (s.homeLead as any).outOfHoursText = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Nosso atendimento presencial e telefônico opera..." />
                     </div>
                   </div>
-                </div>
+                
+                  <div className="flex justify-center sm:justify-end pt-4 mt-6">
+                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                      <Save className="w-4 h-4" />
+                      Salvar Formulário
+                    </button>
+                  </div>
+</div>
 
                 {/* FINAL CTA SECTION */}
                 <div className="space-y-6 pt-6 border-t border-slate-200">
@@ -518,6 +881,28 @@ export const PagesManagerPage: React.FC = () => {
                   <div>
                     <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Rótulo do Botão Principal (WhatsApp)</label>
                     <input type="text" value={(formData.sections?.finalCta as any)?.cta || ''} onChange={e => { const s = { ...formData.sections }; if (!s.finalCta) s.finalCta = {} as any; (s.finalCta as any).cta = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Chamar no WhatsApp" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Rótulo do Botão Secundário (Telefone)</label>
+                    <input type="text" value={(formData.sections?.finalCta as any)?.btnPhone || ''} onChange={e => { const s = { ...formData.sections }; if (!s.finalCta) s.finalCta = {} as any; (s.finalCta as any).btnPhone = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Ligar agora" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Aviso Fora do Horário Comercial</label>
+                    <input type="text" value={(formData.sections?.finalCta as any)?.outOfHoursText || ''} onChange={e => { const s = { ...formData.sections }; if (!s.finalCta) s.finalCta = {} as any; (s.finalCta as any).outOfHoursText = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Fora do horário comercial no momento..." />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Texto do Link Alternativo (Formulário)</label>
+                    <input type="text" value={(formData.sections?.finalCta as any)?.linkText || ''} onChange={e => { const s = { ...formData.sections }; if (!s.finalCta) s.finalCta = {} as any; (s.finalCta as any).linkText = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Prefere que entremos em contato? Solicite orçamento..." />
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Selo Inferior Esquerdo</label>
+                      <input type="text" value={(formData.sections?.finalCta as any)?.badge1 || ''} onChange={e => { const s = { ...formData.sections }; if (!s.finalCta) s.finalCta = {} as any; (s.finalCta as any).badge1 = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Diagnóstico sem compromisso" />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Selo Inferior Direito</label>
+                      <input type="text" value={(formData.sections?.finalCta as any)?.badge2 || ''} onChange={e => { const s = { ...formData.sections }; if (!s.finalCta) s.finalCta = {} as any; (s.finalCta as any).badge2 = e.target.value; handleChange('sections', s as any); }} className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Garantia de 3 meses em peças" />
+                    </div>
                   </div>
                 </div>
                 {/* IMAGEM DE FUNDO — CHAMADA FINAL CTA */}
@@ -542,32 +927,78 @@ export const PagesManagerPage: React.FC = () => {
                     </div>
                     <ImageUploadButton buttonText="Upload" onUpload={(url) => { const s = { ...formData.sections }; if (!s.finalCta) s.finalCta = {} as any; (s.finalCta as any).bgImage = url; handleChange('sections', s as any); }} />
                   </div>
-                </div>
+                
+                  <div className="flex justify-center sm:justify-end pt-4 mt-6">
+                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                      <Save className="w-4 h-4" />
+                      Salvar Rodapé
+                    </button>
+                  </div>
+</div>
               </div>
             )}
 
             {selectedKey === 'sobre' && (
               <div className="pt-6 border-t border-slate-200 mt-6 space-y-8">
-                <DynamicSectionEditor
-                  sectionKey="historia"
-                  label="História e Diferenciais (Quem Somos)"
-                  sectionData={formData.sections?.historia}
-                  onChange={(data) => handleChange('sections', { ...formData.sections, historia: data } as any)}
-                />
+                <div className="pt-6 border-t border-slate-200">
+                  <DynamicSectionEditor
+                    sectionKey="historia"
+                    label="História e Diferenciais (Quem Somos)"
+                    sectionData={formData.sections?.historia}
+                    onChange={(data) => handleChange('sections', { ...formData.sections, historia: data } as any)}
+                  />
+                  <div className="flex justify-center sm:justify-end pt-4 mt-6">
+                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                      <Save className="w-4 h-4" />
+                      Salvar História
+                    </button>
+                  </div>
+                </div>
                 
-                <DynamicSectionEditor
-                  sectionKey="proposito"
-                  label="Missão, Visão e Valores"
-                  sectionData={formData.sections?.proposito}
-                  onChange={(data) => handleChange('sections', { ...formData.sections, proposito: data } as any)}
-                />
+                <div className="pt-6 border-t border-slate-200">
+                  <DynamicSectionEditor
+                    sectionKey="proposito"
+                    label="Missão, Visão e Valores"
+                    sectionData={formData.sections?.proposito}
+                    onChange={(data) => handleChange('sections', { ...formData.sections, proposito: data } as any)}
+                  />
+                  <div className="flex justify-center sm:justify-end pt-4 mt-6">
+                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                      <Save className="w-4 h-4" />
+                      Salvar Propósito
+                    </button>
+                  </div>
+                </div>
 
-                <DynamicSectionEditor
-                  sectionKey="numeros"
-                  label="Estatísticas e Números"
-                  sectionData={formData.sections?.numeros}
-                  onChange={(data) => handleChange('sections', { ...formData.sections, numeros: data } as any)}
-                />
+                <div className="pt-6 border-t border-slate-200">
+                  <DynamicSectionEditor
+                    sectionKey="numeros"
+                    label="Estatísticas e Números"
+                    sectionData={formData.sections?.numeros}
+                    onChange={(data) => handleChange('sections', { ...formData.sections, numeros: data } as any)}
+                  />
+                  <div className="flex justify-center sm:justify-end pt-4 mt-6">
+                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                      <Save className="w-4 h-4" />
+                      Salvar Números
+                    </button>
+                  </div>
+                </div>
+
+                <div className="pt-6 border-t border-slate-200">
+                  <DynamicSectionEditor
+                    sectionKey="finalCta"
+                    label="Chamada para Ação Final (Rodapé da Página)"
+                    sectionData={formData.sections?.finalCta}
+                    onChange={(data) => handleChange('sections', { ...formData.sections, finalCta: data } as any)}
+                  />
+                  <div className="flex justify-center sm:justify-end pt-4 mt-6">
+                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                      <Save className="w-4 h-4" />
+                      Salvar Chamada Final
+                    </button>
+                  </div>
+                </div>
 
                 {/* IMAGENS DA PÁGINA SOBRE */}
                 <div className="space-y-6 pt-6 border-t border-slate-200">
@@ -593,6 +1024,12 @@ export const PagesManagerPage: React.FC = () => {
                       </div>
                     );
                   })}
+                  <div className="flex justify-center sm:justify-end pt-4 mt-6">
+                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                      <Save className="w-4 h-4" />
+                      Salvar Imagens
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
@@ -624,6 +1061,14 @@ export const PagesManagerPage: React.FC = () => {
                   onChange={(data) => handleChange('sections', { ...formData.sections, finalCta: data } as any)}
                 />
 
+
+                <div className="flex justify-center sm:justify-end pt-4 mt-6">
+                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                    <Save className="w-4 h-4" />
+                    Salvar Diferenciais
+                  </button>
+                </div>
+
                 {/* IMAGENS DA PÁGINA DIFERENCIAIS */}
                 <div className="space-y-6 pt-6 border-t border-slate-200">
                   <div>
@@ -648,6 +1093,12 @@ export const PagesManagerPage: React.FC = () => {
                       </div>
                     );
                   })}
+                  <div className="flex justify-center sm:justify-end pt-4 mt-4">
+                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                      <Save className="w-4 h-4" />
+                      Salvar Imagens
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
@@ -679,6 +1130,14 @@ export const PagesManagerPage: React.FC = () => {
                   onChange={(data) => handleChange('sections', { ...formData.sections, finalCta: data } as any)}
                 />
 
+
+                <div className="flex justify-center sm:justify-end pt-4 mt-6">
+                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                    <Save className="w-4 h-4" />
+                    Salvar Como Funciona
+                  </button>
+                </div>
+
                 {/* IMAGENS DA PÁGINA COMO FUNCIONA */}
                 <div className="space-y-6 pt-6 border-t border-slate-200">
                   <div>
@@ -703,6 +1162,12 @@ export const PagesManagerPage: React.FC = () => {
                       </div>
                     );
                   })}
+                  <div className="flex justify-center sm:justify-end pt-4 mt-4">
+                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                      <Save className="w-4 h-4" />
+                      Salvar Imagens
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
@@ -721,6 +1186,14 @@ export const PagesManagerPage: React.FC = () => {
                   sectionData={formData.sections?.finalCta}
                   onChange={(data) => handleChange('sections', { ...formData.sections, finalCta: data } as any)}
                 />
+
+
+                <div className="flex justify-center sm:justify-end pt-4 mt-6">
+                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                    <Save className="w-4 h-4" />
+                    Salvar Dúvidas
+                  </button>
+                </div>
 
                 {/* IMAGENS DA PÁGINA DÚVIDAS */}
                 <div className="space-y-6 pt-6 border-t border-slate-200">
@@ -746,25 +1219,136 @@ export const PagesManagerPage: React.FC = () => {
                       </div>
                     );
                   })}
+                  <div className="flex justify-center sm:justify-end pt-4 mt-4">
+                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                      <Save className="w-4 h-4" />
+                      Salvar Imagens
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
 
-            <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-center sm:justify-end gap-3">
-              {savedSuccess && (
-                <div className="flex items-center gap-1.5 text-emerald-600 text-sm font-bold animate-in fade-in">
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span>Salvo com sucesso!</span>
+            {['pressurizador', 'aquecedor-a-gas', 'aquecedor-solar', 'aquecedor-eletrico'].includes(selectedKey) && (
+              <div className="pt-6 border-t border-slate-200 mt-6 space-y-8">
+                
+                <DynamicSectionEditor
+                  sectionKey="heroOverlay"
+                  label="Textos Sobrepostos na Imagem Principal"
+                  sectionData={formData.sections?.heroOverlay || { title: '', subtitle: '', badge: '' }}
+                  onChange={(data) => handleChange('sections', { ...formData.sections, heroOverlay: data } as any)}
+                />
+
+                <DynamicSectionEditor
+                  sectionKey="trustBadges"
+                  label="Faixa de Confiança (4 Cards Abaixo do Hero)"
+                  sectionData={formData.sections?.trustBadges || { title: '', items: [{ title: '', desc: '' }] }}
+                  onChange={(data) => handleChange('sections', { ...formData.sections, trustBadges: data } as any)}
+                />
+
+                <div className="flex justify-center sm:justify-end pt-4">
+                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                    <Save className="w-4 h-4" />
+                    Salvar Textos do Hero
+                  </button>
                 </div>
-              )}
-              <button
-                type="submit"
-                className={`${savedSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-primary hover:bg-primary-dark'} text-white font-extrabold px-6 py-3 rounded-xl shadow-md transition-all flex justify-center items-center gap-2 text-sm cursor-pointer w-full sm:w-auto`}
-              >
-                <Save className="w-4 h-4 shrink-0" />
-                <span>{savedSuccess ? 'Salvo!' : 'Salvar Conteúdo da Página'}</span>
-              </button>
-            </div>
+
+                <div className="space-y-6 pt-6 border-t border-slate-200">
+                  <div>
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider flex items-center gap-1.5">📝 Formulário de Orçamento (Lead) e Textos Auxiliares</span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-slate-700">Selo Superior do Formulário (Badge)</label>
+                      <input type="text" className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm"
+                        value={formData.sections?.leadSectionBadge || ''}
+                        onChange={e => handleChange('sections', { ...formData.sections, leadSectionBadge: e.target.value } as any)}
+                        placeholder="Ex: Diagnóstico Rápido e Seguro" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-slate-700">Link do Formulário</label>
+                      <input type="text" className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm"
+                        value={formData.sections?.ctaFormLink || ''}
+                        onChange={e => handleChange('sections', { ...formData.sections, ctaFormLink: e.target.value } as any)}
+                        placeholder="Ex: Prefere que entremos em contato? ..." />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-slate-700">Marcas Atendidas</label>
+                      <input type="text" className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm"
+                        value={formData.sections?.brandsText || ''}
+                        onChange={e => handleChange('sections', { ...formData.sections, brandsText: e.target.value } as any)}
+                        placeholder="Ex: Marcas Atendidas: Rowa, Komeco..." />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-slate-700">Selo de Garantia 1 (Esquerda)</label>
+                      <input type="text" className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm"
+                        value={formData.sections?.ctaGuarantee1 || ''}
+                        onChange={e => handleChange('sections', { ...formData.sections, ctaGuarantee1: e.target.value } as any)}
+                        placeholder="Ex: Orçamento antes do início" />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-slate-700">Selo de Garantia 2 (Direita)</label>
+                      <input type="text" className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm"
+                        value={formData.sections?.ctaGuarantee2 || ''}
+                        onChange={e => handleChange('sections', { ...formData.sections, ctaGuarantee2: e.target.value } as any)}
+                        placeholder="Ex: Garantia de 3 meses em peças" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex justify-center sm:justify-end pt-4">
+                  <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                    <Save className="w-4 h-4" />
+                    Salvar Formulário e Selos
+                  </button>
+                </div>
+
+                <div className="space-y-6 pt-6 border-t border-slate-200">
+                  <div>
+                    <span className="text-xs font-bold text-primary uppercase tracking-wider flex items-center gap-1.5">🖼️ Imagens da Página de Captura</span>
+                    <h3 className="text-md font-bold text-slate-800 mt-1">Imagens em Destaque</h3>
+                    <p className="text-[11px] text-slate-400 mt-0.5">A Imagem de Fundo aparece atrás dos textos principais. A Imagem Destaque (se houver) aparece ao lado.</p>
+                  </div>
+                  
+                  {/* bg_image */}
+                  <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-[10px] font-bold text-slate-700 uppercase">Foto de Fundo (Background)</label>
+                      {formData.sections?.bg_image && <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">✓ Configurada</span>}
+                    </div>
+                    {formData.sections?.bg_image && <img src={formData.sections.bg_image} alt="Background" className="w-full h-20 object-cover rounded-lg border border-slate-200" />}
+                    <div className="flex gap-2 items-end">
+                      <input type="text" value={formData.sections?.bg_image || ''} onChange={e => handleChange('sections', { ...formData.sections, bg_image: e.target.value } as any)} className="flex-1 px-3 py-2 text-xs border border-slate-300 rounded-lg" />
+                      <ImageUploadButton buttonText="Upload" onUpload={(url) => handleChange('sections', { ...formData.sections, bg_image: url } as any)} />
+                    </div>
+                  </div>
+
+                  {/* image_url */}
+                  <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-[10px] font-bold text-slate-700 uppercase">Foto do Equipamento (Destaque)</label>
+                      {formData.sections?.image_url && <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">✓ Configurada</span>}
+                    </div>
+                    {formData.sections?.image_url && <img src={formData.sections.image_url} alt="Equipamento" className="w-full h-20 object-cover rounded-lg border border-slate-200" />}
+                    <div className="flex gap-2 items-end">
+                      <input type="text" value={formData.sections?.image_url || ''} onChange={e => handleChange('sections', { ...formData.sections, image_url: e.target.value } as any)} className="flex-1 px-3 py-2 text-xs border border-slate-300 rounded-lg" />
+                      <ImageUploadButton buttonText="Upload" onUpload={(url) => handleChange('sections', { ...formData.sections, image_url: url } as any)} />
+                    </div>
+                  </div>
+
+                  <div className="flex justify-center sm:justify-end pt-4 mt-6">
+                    <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+                      <Save className="w-4 h-4" />
+                      {savedSuccess ? 'Salvo!' : 'Salvar Imagens'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </form>
         </div>
       </div>

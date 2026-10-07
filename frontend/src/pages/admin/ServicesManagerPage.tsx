@@ -37,6 +37,7 @@ export const ServicesManagerPage: React.FC = () => {
     short_description: '',
     icon_name: 'Gauge',
     image_url: '',
+    button_text: '',
     order: services.length + 1,
     is_active: true,
     features: []
@@ -65,6 +66,7 @@ export const ServicesManagerPage: React.FC = () => {
       short_description: '',
       icon_name: 'Gauge',
       image_url: '/images/pressurizador.jpg',
+      button_text: '',
       order: services.length + 1,
       is_active: true,
       features: ['Conserto em até 24 horas', 'Vistoria gratuita na aprovação', 'Garantia de 3 meses']
@@ -128,6 +130,7 @@ export const ServicesManagerPage: React.FC = () => {
         short_description: formData.short_description || '',
         icon_name: formData.icon_name || 'Gauge',
         image_url: formData.image_url || '/images/pressurizador.jpg',
+        button_text: formData.button_text || '',
         order: Number(formData.order) || services.length + 1,
         is_active: formData.is_active ?? true,
         features: formData.features || []
@@ -267,6 +270,19 @@ export const ServicesManagerPage: React.FC = () => {
                   />
                   <ImageUploadButton onUpload={(url) => setFormData({ ...formData, image_url: url })} />
                 </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Texto do Botão (Ex: Ver pressurizador)
+                </label>
+                <input
+                  type="text"
+                  value={formData.button_text || ''}
+                  onChange={e => setFormData({ ...formData, button_text: e.target.value })}
+                  placeholder="Ver pressurizador"
+                  className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20"
+                />
               </div>
             </div>
 

@@ -23,7 +23,7 @@ export const LPLeadSection: React.FC<LPLeadSectionProps> = ({ lp }) => {
           <div className="lg:col-span-6 space-y-6">
             <div className="inline-flex items-center gap-2 bg-blue-100 text-primary border border-blue-200 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
               <Clock className="w-3.5 h-3.5 text-primary" />
-              <span>Diagnóstico Rápido e Seguro</span>
+              <span>{(lp as any).leadSectionBadge || 'Diagnóstico Rápido e Seguro'}</span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">

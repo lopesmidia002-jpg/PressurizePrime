@@ -9,11 +9,12 @@ export const AboutPage: React.FC = () => {
 
   const pageImages = (pages['sobre']?.sections?.images as any) || {};
   const bgImages = [
-    pageImages.hero1 || 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80',
-    pageImages.hero2 || 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80',
-    pageImages.hero3 || 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1920&q=80'
-  ];
-  const ctaImage = pageImages.cta || 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80';
+    pageImages.hero1 !== undefined ? pageImages.hero1 : 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1920&q=80',
+    pageImages.hero2 !== undefined ? pageImages.hero2 : 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80',
+    pageImages.hero3 !== undefined ? pageImages.hero3 : ''
+  ].filter(img => img && img.trim() !== '');
+  
+  const ctaImage = pageImages.cta !== undefined && pageImages.cta !== '' ? pageImages.cta : 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80';
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -47,7 +48,12 @@ export const AboutPage: React.FC = () => {
             </div>
           ))}
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center">
+            {pages['sobre']?.hero_badge && (
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide mb-6">
+                <span>{pages['sobre'].hero_badge}</span>
+              </div>
+            )}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 drop-shadow-lg text-white">
               {pages['sobre']?.hero_title || (
                 <>Sobre a <span className="text-primary">Pressurize Prime</span></>
@@ -190,17 +196,17 @@ export const AboutPage: React.FC = () => {
 
           <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-6 drop-shadow-lg">
-              Pronto para ter o banho perfeito?
+              {(pages['sobre']?.sections?.finalCta as any)?.title || 'Pronto para ter o banho perfeito?'}
             </h2>
             <p className="text-lg md:text-xl text-white/90 mb-10 font-medium max-w-2xl mx-auto drop-shadow-md">
-              Nossa equipe técnica altamente capacitada está aguardando o seu chamado para resolver seu problema hídrico de forma definitiva.
+              {(pages['sobre']?.sections?.finalCta as any)?.subtitle || 'Nossa equipe técnica altamente capacitada está aguardando o seu chamado para resolver seu problema hídrico de forma definitiva.'}
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <a href={`https://wa.me/${settings.whatsapp_raw}`} className="bg-secondary hover:bg-secondary-dark text-slate-950 font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2">
-                Falar com um Especialista
+                {(pages['sobre']?.sections?.finalCta as any)?.button1 || 'Falar com um Especialista'}
               </a>
               <a href={`tel:${settings.phone_raw}`} className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2">
-                Ligar Agora
+                {(pages['sobre']?.sections?.finalCta as any)?.button2 || 'Ligar Agora'}
               </a>
             </div>
           </div>

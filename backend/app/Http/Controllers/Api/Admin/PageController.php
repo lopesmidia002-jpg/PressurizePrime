@@ -58,6 +58,7 @@ class PageController extends Controller
             'title' => 'sometimes|required|string|max:255',
             'hero_title' => 'sometimes|required|string|max:255',
             'hero_subtitle' => 'sometimes|required|string',
+            'hero_badge' => 'nullable|string|max:255',
             'hero_cta_primary' => 'sometimes|required|string|max:100',
             'hero_cta_secondary' => 'sometimes|required|string|max:100',
             'microcopy' => 'nullable|string',

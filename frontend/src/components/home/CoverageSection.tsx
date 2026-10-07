@@ -36,7 +36,7 @@ export const CoverageSection: React.FC = () => {
                   Bairros e Municípios com Atendimento Prioritário:
                 </h4>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {(settings.address_coverage || []).map((bairro, idx) => (
+                  {(coverageData?.locations || settings.address_coverage || []).map((bairro: string, idx: number) => (
                     <div
                       key={idx}
                       className="flex items-center gap-2.5 bg-white px-3.5 py-2.5 rounded-xl border border-slate-200 shadow-2xs text-xs font-bold text-slate-800 hover:border-primary transition-colors"

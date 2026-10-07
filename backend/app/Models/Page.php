@@ -13,6 +13,7 @@ class Page extends Model
         'title',
         'hero_title',
         'hero_subtitle',
+        'hero_badge',
         'hero_cta_primary',
         'hero_cta_secondary',
         'microcopy',

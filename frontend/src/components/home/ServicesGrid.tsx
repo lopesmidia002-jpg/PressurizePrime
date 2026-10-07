@@ -4,7 +4,10 @@ import { useSiteData } from '../../context/SiteDataContext';
 import { Gauge, Flame, Sun, Zap, ArrowRight, ShieldCheck, CheckCircle } from 'lucide-react';
 
 export const ServicesGrid: React.FC = () => {
-  const { services } = useSiteData();
+  const { services, pages } = useSiteData();
+  const servicesSection = pages['home']?.sections?.services as any;
+  const sectionTitle = servicesSection?.title || 'Nossos Serviços Especializados';
+  const sectionSubtitle = servicesSection?.subtitle || 'Diagnóstico de precisão, peças originais e garantia por escrito em São Paulo. Escolha seu equipamento abaixo:';
 
   const getServiceVisuals = (slug: string) => {
     switch (slug) {
@@ -51,10 +54,10 @@ export const ServicesGrid: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-slate-900 tracking-[-0.03em] leading-tight text-balance">
-            Nossos Serviços Especializados
+            {sectionTitle}
           </h2>
           <p className="mt-4 text-base sm:text-lg text-slate-600 font-normal max-w-2xl mx-auto leading-relaxed text-pretty">
-            Diagnóstico de precisão, peças originais e garantia por escrito em São Paulo. Escolha seu equipamento abaixo:
+            {sectionSubtitle}
           </p>
         </div>
 
@@ -110,7 +113,7 @@ export const ServicesGrid: React.FC = () => {
                   to={`/${service.slug}`}
                   className="mt-4 inline-flex items-center justify-between w-full py-3 px-4 rounded-xl bg-slate-50 hover:bg-primary text-slate-800 hover:text-white font-semibold text-xs tracking-wide transition-all border border-slate-200/80 group-hover:border-primary"
                 >
-                  <span>{visual.btnText}</span>
+                  <span>{(service as any).button_text || visual.btnText}</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>

@@ -9,6 +9,14 @@ export const FaqSection: React.FC = () => {
 
   const title = faqData?.title || 'Perguntas Frequentes';
   const subtitle = faqData?.subtitle || 'Respostas diretas e transparentes sobre nosso atendimento em São Paulo.';
+  
+  const displayFaqs = faqData?.items?.length > 0 
+    ? faqData.items.map((item: any, index: number) => ({
+        id: `local-faq-${index}`,
+        question: item.title,
+        answer: item.desc
+      }))
+    : faqs;
 
   const toggleFaq = (id: string) => {
     setOpenId(prev => (prev === id ? null : id));
@@ -27,7 +35,7 @@ export const FaqSection: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-          {faqs.map(faq => {
+          {displayFaqs.map((faq: any) => {
             const isOpen = openId === faq.id;
 
             return (

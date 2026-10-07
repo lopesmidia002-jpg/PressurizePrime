@@ -106,6 +106,11 @@ export const HomeLeadSection: React.FC = () => {
               securityText={homeLead?.securityText}
               outOfHoursTitle={homeLead?.outOfHoursTitle}
               outOfHoursText={homeLead?.outOfHoursText}
+              badgeText={homeLead?.badgeText}
+              nameLabel={homeLead?.nameLabel}
+              whatsappLabel={homeLead?.whatsappLabel}
+              serviceLabel={homeLead?.serviceLabel}
+              servicePlaceholder={homeLead?.servicePlaceholder}
             />
           </div>
         </div>

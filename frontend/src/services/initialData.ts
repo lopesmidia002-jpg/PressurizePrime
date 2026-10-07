@@ -72,6 +72,68 @@ export const defaultServices: ServiceItem[] = [
 ];
 
 export const defaultPages: Record<string, PageData> = {
+  sobre: {
+    id: 'sobre',
+    slug: 'sobre',
+    title: 'Sobre a Pressurize Prime',
+    hero_title: 'Especialistas em água quente e pressurização em São Paulo.',
+    hero_subtitle: 'Conserto, venda e instalação de pressurizadores e aquecedores a gás, solar e elétricos.',
+    hero_badge: 'Especialistas em Aquecedores e Pressurizadores',
+    hero_cta_primary: 'Agendar Visita Técnica',
+    hero_cta_secondary: 'Falar com Especialista',
+    microcopy: 'Mais de 10 anos de experiência resolvendo de primeira.',
+    sections: {
+      historia: {
+        badge: 'Nossa História',
+        title: 'Técnicos de verdade, com nome e responsabilidade pelo serviço.',
+        content1: 'A Pressurize Prime nasceu de mais de uma década de experiência prática com pressurizadores e aquecedores. Uma equipe que aprendeu o ofício em campo, instalação por instalação, e conhece por dentro os equipamentos que você tem em casa.',
+        content2: 'Aqui, quem atende você é gente de verdade, do primeiro contato ao pós-serviço. E se algo não ficar certo, a gente volta.',
+        items: [
+          { title: 'Resolvemos de primeira', desc: 'Diagnóstico técnico antes de trocar qualquer peça. Você paga pelo que precisa, não por tentativa e erro.' },
+          { title: 'Se voltar, a gente volta', desc: 'Nosso pós-atendimento existe para resolver qualquer retorno. Técnico com nome, empresa com endereço, serviço com garantia.' },
+          { title: 'Rápido de verdade', desc: 'Atendimento imediato, conserto em até 24h e instalação de equipamentos novos sem semanas de espera.' },
+          { title: 'Gente, não robô', desc: 'Do WhatsApp à visita, você fala com pessoas que entendem do assunto.' }
+        ]
+      },
+      proposito: {
+        title: 'Nosso Propósito',
+        subtitle: 'O que nos move e orienta cada atendimento que realizamos.',
+        items: [
+          { title: 'Missão', desc: 'Garantir segurança hídrica e conforto térmico excepcional, oferecendo soluções técnicas precisas e atendimento ágil e resolutivo para cada cliente.' },
+          { title: 'Visão', desc: 'Ser reconhecida como a maior e mais confiável autoridade em pressurização e aquecimento da Grande São Paulo até 2028.' },
+          { title: 'Valores', desc: 'Transparência absoluta, excelência técnica, pontualidade britânica, respeito ao cliente e utilização de peças 100% originais.' }
+        ]
+      },
+      numeros: {
+        title: 'Nosso Impacto em Números',
+        items: [
+          { title: '10+', desc: 'Anos de Experiência' },
+          { title: '5.000+', desc: 'Clientes Atendidos' },
+          { title: '100%', desc: 'Comprometimento' },
+          { title: '24h', desc: 'Agilidade na Resposta' }
+        ]
+      },
+      finalCta: {
+        title: 'Pronto para ter o banho perfeito?',
+        subtitle: 'Nossa equipe técnica altamente capacitada está aguardando o seu chamado para resolver seu problema hídrico de forma definitiva.',
+        button1: 'Falar com um Especialista',
+        button2: 'Ligar Agora',
+        cta: 'Chamar no WhatsApp'
+      },
+      images: {
+        hero1: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1920&q=80',
+        hero2: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80',
+        hero3: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80',
+        cta: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80',
+        historia: 'https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=800&q=80'
+      }
+    },
+    seo: {
+      page_slug: 'sobre',
+      meta_title: 'Sobre Nós | Pressurize Prime',
+      meta_description: 'Conheça a história e os valores da Pressurize Prime, especialistas em aquecedores e pressurizadores em São Paulo.'
+    }
+  },
   home: {
     id: 'home',
     slug: 'home',
@@ -85,7 +147,23 @@ export const defaultPages: Record<string, PageData> = {
       about: {
         title: 'Quem Somos',
         content: 'A Pressurize Prime é especialista em soluções de aquecimento e pressurização. Há mais de 10 anos entregando conforto e segurança para residências e condomínios em São Paulo.',
-        quote: '"Acreditamos que o conforto da sua família não pode esperar."'
+        quote: '"Acreditamos que o conforto da sua família não pode esperar."',
+        items: [
+          { title: 'Técnicos identificados e qualificados' },
+          { title: 'Empresa com endereço e CNPJ ativo' },
+          { title: 'Instalações em conformidade com as normas ABNT' },
+          { title: 'Pós-atendimento com suporte prioritário' }
+        ],
+        card: {
+          title: 'Padrão Operacional',
+          badge: 'Garantia Ativa',
+          footer_text: 'Grande São Paulo e Capital • Atendimento Rápido',
+          items: [
+            { title: 'Ofício de Campo Especializado', desc: 'Conhecimento profundo das principais marcas: Rowa, Komeco, Grundfos, Rheem e Rinnai.' },
+            { title: 'Resolução no Primeiro Atendimento', desc: 'Diagnóstico exato e troca de componentes no mesmo local sempre que possível.' },
+            { title: 'Compromisso de Pós-Venda', desc: 'Não sumimos após o pagamento. Qualquer retorno é tratado com máxima prioridade.' }
+          ]
+        }
       },
       whyUs: {
         title: 'Por que escolher a Pressurize Prime?',
@@ -120,11 +198,23 @@ export const defaultPages: Record<string, PageData> = {
       coverage: {
         title: 'Regiões Atendidas',
         subtitle: 'Chegamos rápido onde você precisa.',
-        badge: 'Cobertura em toda São Paulo e Grande SP'
+        badge: 'Cobertura em toda São Paulo e Grande SP',
+        locations: [
+          'São Paulo', 'Barueri (Alphaville)', 'Santana de Parnaíba',
+          'Cotia (Granja Viana)', 'Santo André', 'São Bernardo do Campo', 'São Caetano do Sul'
+        ]
       },
       faq: {
         title: 'Dúvidas Frequentes',
-        subtitle: 'Respostas rápidas para as perguntas mais comuns.'
+        subtitle: 'Respostas rápidas para as perguntas mais comuns.',
+        items: [
+          { title: 'Qual é o horário de atendimento?', desc: 'De segunda a sexta, das 8h às 19h. Conserto e instalação são feitos de imediato ou em até 24 horas úteis.' },
+          { title: 'Vocês vendem o equipamento ou só instalam?', desc: 'Os dois. Vendemos, instalamos e fazemos a manutenção, ou instalamos o equipamento que você já comprou.' },
+          { title: 'Com quais marcas vocês trabalham?', desc: 'Atendemos equipamentos Rowa, Komeco, Fluxonn, Syllent, Grundfos, Rinnai, Rheem, Cumulus e Heliotek, entre outras.' },
+          { title: 'A visita é cobrada?', desc: 'Cobramos uma taxa de vistoria e locomoção. Se você aprovar o serviço com o técnico, esse valor não é cobrado (sai de graça).' },
+          { title: 'Os serviços têm garantia?', desc: 'Sim! Peças têm garantia de 3 meses e a mão de obra possui garantia de 30 dias com retorno assegurado.' },
+          { title: 'Quais as formas de pagamento?', desc: 'Pix, débito ou cartão de crédito em até 10x sem juros.' }
+        ]
       },
       homeLead: {
         title: 'Problema no pressurizador ou aquecedor? Fale com quem entende.',
@@ -159,7 +249,21 @@ export const defaultPages: Record<string, PageData> = {
     },
     sections: {
       image_url: '/images/pressurizador.jpg',
-      bg_image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80'
+      bg_image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80',
+      heroOverlay: {
+        title: 'Instalação e Reparo Oficial',
+        subtitle: 'Peças com garantia de 3 meses',
+        badge: 'Até 24h'
+      },
+      trustBadges: {
+        title: 'Faixa de Confiança',
+        items: [
+          { title: 'Especialistas em pressurizador', desc: 'Mais de 10 anos de vivência' },
+          { title: 'Instalação e conserto em 24h', desc: 'Atendimento prioritário em SP' },
+          { title: 'Até 10x sem juros no cartão', desc: 'Ou desconto especial via Pix' },
+          { title: 'Garantia de 3 meses em peças', desc: 'Com 30 dias na mão de obra' }
+        ]
+      }
     }
   },
   'aquecedor-a-gas': {
@@ -178,7 +282,21 @@ export const defaultPages: Record<string, PageData> = {
     },
     sections: {
       image_url: '/images/aquecedor-a-gas.jpg',
-      bg_image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80'
+      bg_image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80',
+      heroOverlay: {
+        title: 'Instalação e Reparo Oficial',
+        subtitle: 'Peças com garantia de 3 meses',
+        badge: 'Até 24h'
+      },
+      trustBadges: {
+        title: 'Faixa de Confiança',
+        items: [
+          { title: 'Técnicos com mais de 10 anos', desc: 'Experiência em aquecimento a gás' },
+          { title: 'Conserto e instalação em até 24h', desc: 'Água quente restabelecida rápido' },
+          { title: 'Gás Natural (GN) e GLP', desc: 'Casas e apartamentos' },
+          { title: 'Até 10x sem juros no cartão', desc: 'Facilidade no pagamento' }
+        ]
+      }
     }
   },
   'aquecedor-solar': {
@@ -197,7 +315,21 @@ export const defaultPages: Record<string, PageData> = {
     },
     sections: {
       image_url: '/images/aquecedor-solar.jpg',
-      bg_image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80'
+      bg_image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80',
+      heroOverlay: {
+        title: 'Instalação e Reparo Oficial',
+        subtitle: 'Peças com garantia de 3 meses',
+        badge: 'Até 24h'
+      },
+      trustBadges: {
+        title: 'Faixa de Confiança',
+        items: [
+          { title: 'Técnicos com mais de 10 anos', desc: 'Experiência em energia solar térmica' },
+          { title: 'Placas, boiler e apoio elétrico/gás', desc: 'Visão integral do sistema' },
+          { title: 'Conserto e instalação em até 24h', desc: 'Atendimento rápido em SP' },
+          { title: 'Até 10x sem juros no cartão', desc: 'Pagamento facilitado' }
+        ]
+      }
     }
   },
   'aquecedor-eletrico': {
@@ -216,57 +348,21 @@ export const defaultPages: Record<string, PageData> = {
     },
     sections: {
       image_url: '/images/aquecedor-eletrico.jpg',
-      bg_image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80'
-    }
-  },
-  sobre: {
-    id: 'sobre',
-    slug: 'sobre',
-    title: 'Página Sobre',
-    hero_title: 'Técnicos de verdade, com nome e responsabilidade pelo serviço.',
-    hero_subtitle: 'A Pressurize Prime nasceu de mais de uma década de experiência prática com pressurizadores e aquecedores. Uma equipe que aprendeu o ofício em campo, instalação por instalação, e conhece por dentro os equipamentos que você tem em casa.',
-    hero_cta_primary: 'Falar com um consultor',
-    hero_cta_secondary: 'Ligar agora',
-    sections: {
-      historia: {
-        title: 'Nossa História',
-        content: 'Nascemos da necessidade de um serviço técnico de alta qualidade na cidade de São Paulo. Ao longo dos anos, aperfeiçoamos nossas técnicas para entregar o melhor para sua casa.',
-        quote: '"Comprometimento e excelência em cada visita técnica."',
-        items: [
-          { title: 'Resolvemos de primeira', desc: 'Diagnóstico técnico antes de trocar qualquer peça. Você paga pelo que precisa, não por tentativa e erro.' },
-          { title: 'Se voltar, a gente volta', desc: 'Nosso pós-atendimento existe para resolver qualquer retorno. Técnico com nome, empresa com endereço, serviço com garantia.' },
-          { title: 'Rápido de verdade', desc: 'Atendimento imediato, conserto em até 24h e instalação de equipamentos novos sem semanas de espera.' },
-          { title: 'Gente, não robô', desc: 'Do WhatsApp à visita, você fala com pessoas que entendem do assunto.' }
-        ]
+      bg_image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80',
+      heroOverlay: {
+        title: 'Instalação e Reparo Oficial',
+        subtitle: 'Peças com garantia de 3 meses',
+        badge: 'Até 24h'
       },
-      proposito: {
-        title: 'Nosso Propósito',
-        subtitle: 'O que nos move e orienta cada atendimento que realizamos.',
+      trustBadges: {
+        title: 'Faixa de Confiança',
         items: [
-          { title: 'Missão', desc: 'Garantir segurança hídrica e conforto térmico excepcional, oferecendo soluções técnicas precisas e atendimento ágil e resolutivo para cada cliente.' },
-          { title: 'Visão', desc: 'Ser reconhecida como a maior e mais confiável autoridade em pressurização e aquecimento da Grande São Paulo até 2028.' },
-          { title: 'Valores', desc: 'Transparência absoluta, excelência técnica, pontualidade britânica, respeito ao cliente e utilização de peças 100% originais.' }
+          { title: 'Técnicos com mais de 10 anos', desc: 'Especialistas em boilers elétricos' },
+          { title: 'Conserto e instalação em até 24h', desc: 'Atendimento ágil em SP' },
+          { title: 'Boiler e aquecedor de passagem', desc: 'Diagnóstico e reparo elétrico' },
+          { title: 'Até 10x sem juros no cartão', desc: 'Pagamento facilitado' }
         ]
-      },
-      numeros: {
-        items: [
-          { title: '10+', desc: 'Anos de Experiência' },
-          { title: '5.000+', desc: 'Clientes Atendidos' },
-          { title: '100%', desc: 'Comprometimento' },
-          { title: '24h', desc: 'Agilidade na Resposta' }
-        ]
-      },
-      images: {
-        hero1: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1920&q=80',
-        hero2: 'https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=1920&q=80',
-        hero3: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1920&q=80',
-        cta: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80'
       }
-    },
-    seo: {
-      page_slug: 'sobre',
-      meta_title: 'Sobre Nós | Pressurize Prime',
-      meta_description: 'Especialistas em pressurização de água e aquecimento a gás e elétrico em São Paulo. Conheça nossa história e compromisso.'
     }
   },
   'diferenciais': {
@@ -348,7 +444,16 @@ export const defaultPages: Record<string, PageData> = {
       regioes: {
         title: 'Regiões Atendidas',
         subtitle: 'Onde estamos',
-        badge: 'Atendemos toda SP e região metropolitana'
+        badge: 'Atendemos toda SP e região metropolitana',
+        items: [
+          { title: 'São Paulo' },
+          { title: 'Barueri (Alphaville)' },
+          { title: 'Santana de Parnaíba' },
+          { title: 'Cotia (Granja Viana)' },
+          { title: 'Santo André' },
+          { title: 'São Bernardo do Campo' },
+          { title: 'São Caetano do Sul' }
+        ]
       },
       compromissos: {
         title: 'Nossos Compromissos',

@@ -72,33 +72,35 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Coluna 2: Serviços Especializados */}
-          <div>
-            <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-4 border-l-2 border-secondary pl-3">
-              Serviços Especializados
-            </h3>
-            <ul className="space-y-2.5 text-xs">
-              {services.map(s => (
-                <li key={s.id}>
-                  <Link
-                    to={`/${s.slug}`}
-                    className="text-slate-400 hover:text-amber-400 transition-colors flex items-center gap-2"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-secondary/60"></span>
-                    <span>{s.title}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {settings.footer?.show_services !== false && (
+            <div>
+              <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-4 border-l-2 border-secondary pl-3">
+                {settings.footer?.services_title || 'Serviços Especializados'}
+              </h3>
+              <ul className="space-y-2.5 text-xs">
+                {(settings.footer?.footer_services_links || services.map(s => ({ label: s.title, url: `/${s.slug}` }))).map((link, idx) => (
+                  <li key={idx}>
+                    <Link
+                      to={link.url}
+                      className="text-slate-400 hover:text-amber-400 transition-colors flex items-center gap-2"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-secondary/60"></span>
+                      <span>{link.label}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Coluna 3: Regiões de Atendimento Prioritário em SP */}
           <div>
             <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-4 border-l-2 border-secondary pl-3 flex items-center gap-1.5">
               <MapPin className="w-4 h-4 text-amber-400" />
-              <span>Regiões Atendidas</span>
+              <span>{settings.footer?.coverage_title || 'Regiões Atendidas'}</span>
             </h3>
             <p className="text-xs text-slate-400 mb-3">
-              Atendimento com rota prioritária para condomínios e residências nas seguintes regiões:
+              {settings.footer?.coverage_desc || 'Atendimento com rota prioritária para condomínios e residências nas seguintes regiões:'}
             </p>
             <div className="flex flex-wrap gap-1.5">
               {(settings.address_coverage || []).map((bairro, idx) => (
@@ -115,7 +117,7 @@ export const Footer: React.FC = () => {
           {/* Coluna 4: Contato Direto & Chamada */}
           <div>
             <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-4 border-l-2 border-secondary pl-3">
-              Atendimento Imediato
+              {settings.footer?.contact_title || 'Atendimento Imediato'}
             </h3>
             <p className="text-xs text-slate-400 mb-4">
               {settings.footer?.contact_text || 'Atendimento 100% humano desde a primeira mensagem. Sem filas e sem robôs.'}
@@ -129,7 +131,7 @@ export const Footer: React.FC = () => {
                 className="flex items-center justify-center gap-2 w-full bg-secondary hover:bg-secondary-dark text-slate-950 font-bold py-2.5 px-4 rounded-lg transition-colors text-xs"
               >
                 <MessageSquare className="w-4 h-4" />
-                <span>WhatsApp: {settings.whatsapp_number}</span>
+                <span>{settings.footer?.btn_whatsapp_text || 'WhatsApp:'} {settings.whatsapp_number}</span>
               </a>
 
               <a
@@ -137,7 +139,7 @@ export const Footer: React.FC = () => {
                 className="flex items-center justify-center gap-2 w-full bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors text-xs"
               >
                 <Phone className="w-4 h-4 text-amber-400" />
-                <span>Ligar: {settings.phone_number}</span>
+                <span>{settings.footer?.btn_phone_text || 'Ligar:'} {settings.phone_number}</span>
               </a>
             </div>
           </div>
@@ -146,7 +148,7 @@ export const Footer: React.FC = () => {
         {/* Marcas Atendidas */}
         <div className="mt-12 pt-8 border-t border-slate-800/80">
           <p className="text-xs text-slate-400 mb-3 text-center sm:text-left">
-            <strong className="text-slate-300">Equipamentos e Marcas Atendidas:</strong> Atendemos os principais fabricantes do mercado:
+            <strong className="text-slate-300">{settings.footer?.brands_title || 'Equipamentos e Marcas Atendidas:'}</strong> {settings.footer?.brands_desc || 'Atendemos os principais fabricantes do mercado:'}
           </p>
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
             {brands.map((brand, i) => (
@@ -164,23 +166,27 @@ export const Footer: React.FC = () => {
       {/* Links Institucionais */}
       <div className="border-t border-slate-900 bg-slate-900/30 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-center gap-6 text-xs text-slate-400">
-          <Link to="/sobre" className="hover:text-primary transition-colors">Sobre</Link>
-          <Link to="/diferenciais" className="hover:text-primary transition-colors">Diferenciais</Link>
-          <Link to="/como-funciona" className="hover:text-primary transition-colors">Como funciona</Link>
-          <Link to="/duvidas" className="hover:text-primary transition-colors">Dúvidas</Link>
-          <Link to="/contato" className="hover:text-primary transition-colors">Contato</Link>
-          <Link to="/privacidade" className="hover:text-primary transition-colors">Privacidade</Link>
-          <Link to="/termos" className="hover:text-primary transition-colors">Termos de Uso</Link>
+          {(settings.footer?.institutional_links || [
+            { label: 'Sobre', url: '/sobre' },
+            { label: 'Diferenciais', url: '/diferenciais' },
+            { label: 'Como funciona', url: '/como-funciona' },
+            { label: 'Dúvidas', url: '/duvidas' },
+            { label: 'Contato', url: '/contato' },
+            { label: 'Privacidade', url: '/privacidade' },
+            { label: 'Termos de Uso', url: '/termos' }
+          ]).map((link, i) => (
+            <Link key={i} to={link.url} className="hover:text-primary transition-colors">{link.label}</Link>
+          ))}
         </div>
       </div>
       {/* Copyright e Acesso Administrativo */}
       <div className="border-t border-slate-900 bg-slate-950 py-5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
           <p>
-            &copy; {currentYear} {settings.site_name}. Todos os direitos reservados.
+            &copy; {currentYear} {settings.site_name}. {settings.footer?.copyright_text || 'Todos os direitos reservados.'}
           </p>
           <div className="flex items-center gap-4">
-            <span className="text-slate-400">São Paulo — SP</span>
+            <span className="text-slate-400">{settings.footer?.location_text || 'São Paulo — SP'}</span>
             <Link
               to="/admin/login"
               className="inline-flex items-center gap-1 text-slate-400 hover:text-slate-300 transition-colors"

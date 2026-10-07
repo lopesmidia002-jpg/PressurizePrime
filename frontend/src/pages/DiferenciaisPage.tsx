@@ -115,7 +115,12 @@ export const DiferenciaisPage: React.FC = () => {
             </div>
           ))}
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center">
+            {pages['diferenciais']?.hero_badge && (
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide mb-6">
+                <span>{pages['diferenciais'].hero_badge}</span>
+              </div>
+            )}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 drop-shadow-lg text-white">
               {pages['diferenciais']?.hero_title || (
                 <>Por que escolher a <span className="text-primary">nossa solução?</span></>

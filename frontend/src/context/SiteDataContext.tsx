@@ -30,7 +30,7 @@ interface SiteDataContextType {
 const SiteDataContext = createContext<SiteDataContextType | undefined>(undefined);
 
 // Versão dos dados — ao incrementar, o localStorage é limpo e os defaults são usados
-const DATA_VERSION = '2.2';
+const DATA_VERSION = '2.3';
 
 export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Configurações Globais (com persistência local e fallback)
@@ -108,10 +108,10 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         // Merge raso inicial
         const rawMerge = { ...injectedDefaultPages[key], ...parsed[key] };
         // Para campos de nível raiz (como hero_title, hero_subtitle, microcopy), se estiverem vazios, usa o default
-        const topLevelKeys = ['hero_title', 'hero_subtitle', 'hero_cta_primary', 'hero_cta_secondary', 'microcopy', 'title'];
+        const topLevelKeys = ['hero_title', 'hero_subtitle', 'hero_badge', 'hero_cta_primary', 'hero_cta_secondary', 'microcopy', 'title'];
         topLevelKeys.forEach(field => {
-          if (rawMerge[field] === '' || rawMerge[field] === undefined || rawMerge[field] === null) {
-            rawMerge[field] = (injectedDefaultPages[key] as any)[field];
+          if (rawMerge[field] === undefined || rawMerge[field] === null || rawMerge[field] === '') {
+            rawMerge[field] = (injectedDefaultPages[key] as any)?.[field];
           }
         });
         merged[key] = rawMerge;
@@ -139,8 +139,8 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
               const mergedProps = { ...parProps };
               
               Object.keys(defProps).forEach(prop => {
-                // Se no saved está vazio (string vazia ou undefined), usamos o default
-                if (mergedProps[prop] === '' || mergedProps[prop] === undefined || mergedProps[prop] === null) {
+                // Se no saved está undefined ou null, usamos o default
+                if (mergedProps[prop] === undefined || mergedProps[prop] === null) {
                   mergedProps[prop] = defProps[prop];
                 }
                 
@@ -161,6 +161,10 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
                   }
                 }
               });
+              if (secKey === 'historia') {
+                delete mergedProps.list;
+                delete mergedProps.text;
+              }
               mergedSecs[secKey] = mergedProps;
             }
           });
@@ -274,9 +278,9 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
               };
               
               // Para campos de nível raiz, se estiverem vazios, usa o default
-              const topLevelKeysApi = ['hero_title', 'hero_subtitle', 'hero_cta_primary', 'hero_cta_secondary', 'microcopy', 'title'];
+              const topLevelKeysApi = ['hero_title', 'hero_subtitle', 'hero_badge', 'hero_cta_primary', 'hero_cta_secondary', 'microcopy', 'title'];
               topLevelKeysApi.forEach(field => {
-                if ((formattedPages[key] as any)[field] === '' || (formattedPages[key] as any)[field] === undefined || (formattedPages[key] as any)[field] === null) {
+                if ((formattedPages[key] as any)[field] === undefined || (formattedPages[key] as any)[field] === null || (formattedPages[key] as any)[field] === '') {
                   (formattedPages[key] as any)[field] = (injectedDefaultPages[key] as any)?.[field];
                 }
               });
@@ -303,7 +307,7 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
                     const mergedProps = { ...parProps };
                     
                     Object.keys(defProps).forEach(prop => {
-                      if (mergedProps[prop] === '' || mergedProps[prop] === undefined || mergedProps[prop] === null) {
+                      if (mergedProps[prop] === undefined || mergedProps[prop] === null) {
                         mergedProps[prop] = defProps[prop];
                       }
                       
@@ -314,10 +318,20 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
                         }
                         const parArray = Array.isArray(backendArr) ? backendArr : [];
                         const mergedArray = defProps[prop].map((defItem: any, idx: number) => {
+                          // Se o item for primitivo (string, number, boolean), não tenta fazer deep merge de objeto
+                          if (typeof defItem !== 'object' || defItem === null) {
+                            let parVal = parArray[idx];
+                            // Se foi corrompido anteriormente (transformado num objeto char->char), tenta reconstruir a string
+                            if (typeof parVal === 'object' && parVal !== null && parVal['0'] !== undefined && typeof defItem === 'string') {
+                              parVal = Object.values(parVal).join('');
+                            }
+                            return parVal !== undefined && parVal !== null ? parVal : defItem;
+                          }
+                          
                           const parItem = parArray[idx] || {};
                           const mergedItem = { ...parItem };
                           Object.keys(defItem).forEach(itemProp => {
-                            if (mergedItem[itemProp] === '' || mergedItem[itemProp] === undefined) {
+                            if (mergedItem[itemProp] === undefined || mergedItem[itemProp] === null) {
                               mergedItem[itemProp] = defItem[itemProp];
                             }
                           });
@@ -334,10 +348,22 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
                         mergedProps[prop] = mergedArray;
                       }
                     });
+                    if (secKey === 'historia') {
+                      delete mergedProps.list;
+                      delete mergedProps.text;
+                    }
                     mergedSecs[secKey] = mergedProps;
                   }
                 });
                 formattedPages[key].sections = mergedSecs;
+              }
+            });
+            
+            // Add any default pages that the API didn't return
+            const injectedDefaultPages = getInjectedDefaultPages();
+            Object.keys(injectedDefaultPages).forEach(defKey => {
+              if (!formattedPages[defKey]) {
+                formattedPages[defKey] = injectedDefaultPages[defKey];
               }
             });
             

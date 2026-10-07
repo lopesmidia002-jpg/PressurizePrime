@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import re
+
+content = """import React, { useState } from 'react';
 import { useSiteData } from '../../context/SiteDataContext';
 import { Save, CheckCircle2, LayoutTemplate, MapPin, Building2, Phone, Link as LinkIcon, Info } from 'lucide-react';
 import { ImageUploadButton } from '../../components/admin/ImageUploadButton';
 
 export const FooterManagerPage: React.FC = () => {
-  const { settings, updateSettings, services } = useSiteData();
+  const { settings, updateSettings } = useSiteData();
 
   const [formData, setFormData] = useState(() => {
     return {
@@ -37,7 +39,6 @@ export const FooterManagerPage: React.FC = () => {
         { label: 'Privacidade', url: '/privacidade' },
         { label: 'Termos de Uso', url: '/termos' },
       ],
-      footer_services_links: settings.footer?.footer_services_links || services.map(s => ({ label: s.title, url: `/${s.slug}` })),
       copyright_text: settings.footer?.copyright_text || 'Todos os direitos reservados.',
       location_text: settings.footer?.location_text || 'São Paulo — SP',
     };
@@ -75,7 +76,6 @@ export const FooterManagerPage: React.FC = () => {
         btn_whatsapp_text: formData.btn_whatsapp_text,
         btn_phone_text: formData.btn_phone_text,
         institutional_links: formData.institutional_links,
-        footer_services_links: formData.footer_services_links,
         copyright_text: formData.copyright_text,
         location_text: formData.location_text,
       }
@@ -86,8 +86,8 @@ export const FooterManagerPage: React.FC = () => {
   };
 
   const SaveButton = ({ label = 'Salvar' }) => (
-    <div className="flex justify-center sm:justify-end pt-4 mt-6">
-      <button type="submit" className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
+    <div className="flex justify-end pt-4 mt-6">
+      <button type="submit" className="flex items-center gap-2 px-5 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-sm">
         <Save className="w-4 h-4" />
         {label}
       </button>
@@ -266,48 +266,6 @@ export const FooterManagerPage: React.FC = () => {
           <SaveButton label="Salvar Serviços e Contato" />
         </div>
 
-        {/* Links de Serviços (Coluna do Rodapé) */}
-        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-xs">
-          <div className="flex items-center gap-2.5 pb-4 border-b border-slate-100 mb-6">
-            <div className="p-2 rounded-xl bg-orange-50 text-orange-600">
-              <LinkIcon className="w-5 h-5" />
-            </div>
-            <div>
-              <h2 className="text-base font-bold text-slate-900">Links de Serviços Especializados</h2>
-              <p className="text-xs text-slate-500">Personalize quais serviços aparecem listados na coluna de Serviços do rodapé.</p>
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            {formData.footer_services_links.map((link: any, idx: number) => (
-              <div key={idx} className="flex gap-3">
-                <input type="text" value={link.label} onChange={e => {
-                  const newLinks = [...formData.footer_services_links];
-                  newLinks[idx].label = e.target.value;
-                  handleChange('footer_services_links', newLinks);
-                }} placeholder="Nome do Serviço" className="w-1/3 px-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl" />
-                <input type="text" value={link.url} onChange={e => {
-                  const newLinks = [...formData.footer_services_links];
-                  newLinks[idx].url = e.target.value;
-                  handleChange('footer_services_links', newLinks);
-                }} placeholder="URL (Ex: /pressurizador)" className="flex-1 px-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl" />
-                <button type="button" onClick={() => {
-                  const newLinks = formData.footer_services_links.filter((_, i) => i !== idx);
-                  handleChange('footer_services_links', newLinks);
-                }} className="px-3 py-2 text-red-600 bg-red-50 rounded-xl hover:bg-red-100 font-medium text-sm">
-                  Remover
-                </button>
-              </div>
-            ))}
-            <button type="button" onClick={() => {
-              handleChange('footer_services_links', [...formData.footer_services_links, { label: '', url: '' }]);
-            }} className="text-sm font-bold text-primary hover:text-primary-dark">
-              + Adicionar Serviço
-            </button>
-          </div>
-          <SaveButton label="Salvar Links de Serviços" />
-        </div>
-
         {/* Regiões Atendidas */}
         <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-xs">
           <div className="flex items-center gap-2.5 pb-4 border-b border-slate-100 mb-6">
@@ -416,3 +374,6 @@ export const FooterManagerPage: React.FC = () => {
     </div>
   );
 };
+"""
+with open('src/pages/admin/FooterManagerPage.tsx', 'w', encoding='utf-8') as f:
+    f.write(content)

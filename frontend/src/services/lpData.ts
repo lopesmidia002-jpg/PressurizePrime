@@ -59,6 +59,7 @@ export interface LPPageDetail {
   leadSectionTitle?: string;
   leadSectionSubtitle?: string;
   leadSectionIntro?: string;
+  leadSectionBadge?: string;
   leadSection?: { title: string; desc?: string }[];
   ctaTitle: string;
   ctaText: string;

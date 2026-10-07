@@ -540,3 +540,17 @@ Para harmonizar com a proporÃ§Ã£o vertical do card interativo da Home, foi imple
 - Todas as páginas com layouts baseados em "balões" e "cards" (Diferenciais, Como Funciona, Porque Escolher-nos, Nossos Compromissos e página Sobre) tiveram suas limitações de tamanho fixo removidas.
 - A ferramenta `DynamicSectionEditor` foi integrada às rotas no painel administrativo para permitir a adição e exclusão ilimitada de itens (título e descrição).
 - No frontend, a renderização desses itens ocorre através de iterações flexíveis que utilizam `items.map()`, alocando ícones predefinidos usando fallbacks modulares de matriz (`defaultIcons[idx % defaultIcons.length]`).
+
+- **Passo 33:** Adicionada edição completa de todos os elementos (textos, títulos, links e visibilidade de serviços) do rodapé pelo painel administrativo.
+
+- **Passo Extra:** Adicionada edição completa do Card Técnico 'Padrão Operacional' (Home - Quem Somos) no painel administrativo, permitindo edição de títulos, selo, itens com descrições e rodapé.
+
+- **Passo Extra:** Adicionado painel de edição para a lista de 'Bairros e Municípios' (Regiões Atendidas) na página Home, permitindo adicionar/remover/editar as tags de localização.
+
+- **Passo Extra:** Independência de FAQs na Home. A seção de Dúvidas Frequentes da Home agora pode ser totalmente editada (perguntas e respostas) direto na aba Páginas > Home, sem depender das FAQs globais.
+
+- **Passo Extra:** Componente LeadForm agora tem todos os seus rótulos e textos (badge superior, labels dos campos, placeholder do select) 100% gerenciáveis a partir do painel na aba Home (Seção: Formulário de Contato).
+
+- **Passo Extra:** Transformação da Seção CTA Final (Rodapé da Home). Todos os selos de garantia, textos alternativos (fora de horário), botão de ligação secundário e link de formulário agora podem ser editados na aba Home.
+
+- **Passo Extra:** Transformação da Seção Nossos Serviços na Home. O título e subtítulo da seção foram expostos para edição na aba Home do CMS. O texto do botão ('Ver pressurizador', etc.) também foi liberado para edição individual na aba de Gestão de Serviços.

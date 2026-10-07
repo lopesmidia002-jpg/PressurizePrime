@@ -102,7 +102,12 @@ export const HowItWorksPage: React.FC = () => {
             </div>
           ))}
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center">
+            {pages['como-funciona']?.hero_badge && (
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide mb-6">
+                <span>{pages['como-funciona'].hero_badge}</span>
+              </div>
+            )}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 drop-shadow-lg text-white">
               {pages['como-funciona']?.hero_title || (
                 <>Como <span className="text-primary">funciona?</span></>
@@ -164,15 +169,18 @@ export const HowItWorksPage: React.FC = () => {
               </div>
             )}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-              {(settings.address_coverage || []).map((bairro, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-center justify-center gap-2 bg-white px-4 py-3 rounded-xl border border-slate-200 shadow-sm font-semibold text-slate-700 hover:border-primary transition-colors text-sm"
-                >
-                  <MapPin className="w-4 h-4 text-secondary shrink-0" />
-                  <span className="leading-tight text-center">{bairro}</span>
-                </div>
-              ))}
+              {((pages['como-funciona']?.sections?.regioes as any)?.items || settings.address_coverage || []).map((cityItem: any, idx: number) => {
+                const cityName = typeof cityItem === 'string' ? cityItem : cityItem.title;
+                return (
+                  <div
+                    key={idx}
+                    className="flex items-center justify-center gap-2 bg-white px-4 py-3 rounded-xl border border-slate-200 shadow-sm font-semibold text-slate-700 hover:border-primary transition-colors text-sm"
+                  >
+                    <MapPin className="w-4 h-4 text-secondary shrink-0" />
+                    <span className="leading-tight text-center">{cityName}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
