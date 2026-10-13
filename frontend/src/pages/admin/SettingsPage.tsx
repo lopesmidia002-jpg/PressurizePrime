@@ -23,24 +23,7 @@ export const SettingsPage: React.FC = () => {
 
   useEffect(() => {
     if (settings) {
-      setFormData(prev => ({
-        ...prev,
-        site_name: settings.site_name || prev.site_name,
-        contact_email: settings.contact_email || prev.contact_email,
-        contact_phone: settings.contact_phone || prev.contact_phone,
-        contact_whatsapp: settings.contact_whatsapp || prev.contact_whatsapp,
-        business_hours: settings.business_hours || prev.business_hours,
-        address_street: settings.address_street || prev.address_street,
-        address_number: settings.address_number || prev.address_number,
-        address_neighborhood: settings.address_neighborhood || prev.address_neighborhood,
-        address_city: settings.address_city || prev.address_city,
-        address_state: settings.address_state || prev.address_state,
-        address_zip: settings.address_zip || prev.address_zip,
-        address_coverage: (settings.address_coverage || []).join(', ') || prev.address_coverage,
-        primary_color: settings.primary_color || prev.primary_color,
-        secondary_color: settings.secondary_color || prev.secondary_color,
-        logo_url: settings.logo_url || prev.logo_url,
-      }));
+      setFormData({ ...settings });
     }
   }, [settings]);
 

@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Permite passar Authorization Header para a API
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Se a requisição for para /api ou /storage, não interceptar no React
+    RewriteCond %{REQUEST_URI} ^/api [NC,OR]
+    RewriteCond %{REQUEST_URI} ^/storage [NC]
+    RewriteRule ^ - [L]
+
+    # Se o arquivo ou pasta física existir (css, js, imagens, etc), entrega direto
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    # Redireciona todas as rotas do frontend SPA para index.html
+    RewriteRule ^ index.html [L]
+</IfModule>

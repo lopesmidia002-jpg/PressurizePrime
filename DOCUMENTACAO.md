@@ -554,3 +554,173 @@ Para harmonizar com a proporção vertical do card interativo da Home, foi imple
 - **Passo Extra:** Transforma��o da Se��o CTA Final (Rodap� da Home). Todos os selos de garantia, textos alternativos (fora de hor�rio), bot�o de liga��o secund�rio e link de formul�rio agora podem ser editados na aba Home.
 
 - **Passo Extra:** Transforma��o da Se��o Nossos Servi�os na Home. O t�tulo e subt�tulo da se��o foram expostos para edi��o na aba Home do CMS. O texto do bot�o ('Ver pressurizador', etc.) tamb�m foi liberado para edi��o individual na aba de Gest�o de Servi�os.
+
+---
+
+## 14. Guia Completo de Publicacao e Deploy na Hospedagem Compartilhada HostGator (cPanel)
+
+Este guia orienta passo a passo a publicacao do sistema **Pressurize Prime** (Frontend React SPA + Backend Laravel 11 REST API + Banco de Dados MySQL) em planos de hospedagem compartilhada cPanel (HostGator).
+
+### 14.1. Visao Geral da Arquitetura Segura no cPanel
+
+Em hospedagens compartilhadas, a pasta `public_html/` e aberta diretamente para a web. Por diretrizes de seguranca, o codigo-fonte do Laravel (pastas `app`, `config`, `.env`, `vendor`, `storage`) **nunca** deve ficar exposto diretamente no `public_html`.
+
+**Estrutura Recomendada no Servidor:**
+```text
+/home/seu_usuario_cpanel/
+├── pressurize_backend/            <-- Codigo do Laravel (PRIVADO / PROTEGIDO)
+│   ├── app/
+│   ├── bootstrap/
+│   ├── config/
+│   ├── database/
+│   ├── routes/
+│   ├── storage/
+│   ├── vendor/
+│   ├── .env                       <-- Credenciais do banco e chaves de producao
+│   └── artisan
+│
+└── public_html/                   <-- Arquivos publicos acessados pelo navegador
+    ├── assets/                    <-- Build estatico do React (CSS, JS, imagens)
+    ├── images/
+    ├── favicon.svg
+    ├── index.html                 <-- Ponto de entrada do Frontend SPA
+    ├── .htaccess                  <-- Regras Apache para React Router e SPA
+    ├── storage/                   <-- Atalho simbolico para pressurize_backend/storage/app/public
+    └── api/                       <-- Ponto de entrada publico do Backend Laravel
+        ├── index.php              <-- Aponta para ../pressurize_backend/bootstrap/app.php
+        └── .htaccess              <-- Rewrite do Laravel e preservacao do header Authorization
+```
+
+---
+
+### 14.2. Passo a Passo de Execucao no cPanel HostGator
+
+#### Passo 1: Configurar a Versao do PHP (PHP 8.2 ou 8.3)
+1. Acesse o **cPanel** da HostGator.
+2. Procure por **Gerenciador MultiPHP** (ou **Selecionar Versao do PHP**).
+3. Selecione o seu dominio e altere a versao para **PHP 8.2** ou **PHP 8.3** (necessario para o Laravel 11).
+4. No menu de extensoes PHP, certifique-se de que estao ativas:
+   - `pdo_mysql`, `mbstring`, `openssl`, `tokenizer`, `xml`, `ctype`, `json`, `bcmath`, `fileinfo`, `curl`, `zip`.
+
+#### Passo 2: Criar o Banco de Dados MySQL no cPanel
+1. No cPanel, abra **Bancos de Dados MySQL**.
+2. **Criar Novo Banco de Dados**: Ex.: `usuario_pressurize`.
+3. **Criar Novo Usuario MySQL**: Ex.: `usuario_prime` e gere uma senha forte. Anote o banco, usuario e senha.
+4. **Adicionar Usuario ao Banco de Dados**: Selecione o usuario e o banco criados, clique em Adicionar e marque a caixa **TODOS OS PRIVILEGIOS** -> Fazer Alteracoes.
+
+#### Passo 3: Preparar e Enviar o Backend (Laravel)
+1. Na sua maquina local, compacte a pasta `backend/`:
+   - Inclua todo o codigo do backend (`app`, `bootstrap`, `config`, `database`, `routes`, `storage`, `composer.json`, `composer.lock`, etc.).
+   - Se o seu plano da HostGator tem **Terminal cPanel (SSH)** habilitado, voce nao precisa subir a pasta `vendor`; basta rodar `composer install --no-dev --optimize-autoloader` direto pelo Terminal. Se nao tiver SSH, compacte a pasta `vendor` junto.
+2. No cPanel > **Gerenciador de Arquivos**, navegue ate a raiz do seu usuario (`/home/seu_usuario/`) e crie a pasta `pressurize_backend/`.
+3. Faca o upload do arquivo ZIP para dentro de `pressurize_backend/` e clique em **Extrair**.
+4. Crie/edite o arquivo `.env` dentro de `pressurize_backend/`:
+   ```env
+   APP_NAME="Pressurize Prime"
+   APP_ENV=production
+   APP_KEY=base64:3uJb7aY7vP1vGZf1aXy2mK7bY8cT4sA5eW6qR0pL2n4=
+   APP_DEBUG=false
+   APP_URL=https://seudominio.com.br
+
+   DB_CONNECTION=mysql
+   DB_HOST=localhost
+   DB_PORT=3306
+   DB_DATABASE=seu_usuario_pressurize
+   DB_USERNAME=seu_usuario_prime
+   DB_PASSWORD=sua_senha_forte
+
+   SANCTUM_STATEFUL_DOMAINS=seudominio.com.br,www.seudominio.com.br
+   SESSION_DRIVER=database
+   CACHE_STORE=database
+   ```
+5. **Executar Migracoes e Seeders**:
+   - **Opcao A (Pelo Terminal cPanel)**:
+     ```bash
+     cd ~/pressurize_backend
+     php artisan migrate --force --seed
+     php artisan storage:link
+     ```
+   - **Opcao B (Pelo phpMyAdmin)**: Caso nao tenha acesso ao terminal, exporte o banco local gerado no Docker via phpMyAdmin/dump SQL e importe-o diretamente no phpMyAdmin da HostGator.
+6. Permissoes de escrita:
+   - Certifique-se de que as pastas `storage/` e `bootstrap/cache/` tenham permissao `755` ou `775`.
+
+#### Passo 4: Preparar e Enviar o Frontend (React SPA)
+1. Na sua maquina, execute o comando de build de producao:
+   ```bash
+   npm run build
+   # ou via Docker: docker compose exec frontend npm run build
+   ```
+2. O build gerara a pasta `frontend/dist/` contendo:
+   - `assets/` (arquivos minificados e otimizados)
+   - `images/`, `favicon.svg`, `logo.jpeg`, `logo-vertical.png`, `robots.txt`, `sitemap.xml`
+   - `index.html`
+   - `.htaccess` (ja pre-configurado pelo projeto para o React Router na HostGator)
+3. Compacte os arquivos de dentro de `frontend/dist/` em um ZIP.
+4. No cPanel > **Gerenciador de Arquivos**, acesse a pasta `public_html/`.
+5. Faca o upload do ZIP e extraia tudo diretamente na raiz do `public_html/`.
+
+#### Passo 5: Configurar o Ponto de Entrada da API (`public_html/api/`)
+1. Dentro de `public_html/`, crie uma subpasta chamada `api/`.
+2. Copie para dentro de `public_html/api/`:
+   - O arquivo `backend/public/.htaccess` (com regras de mod_rewrite e preservacao do cabecalho `Authorization`).
+   - O arquivo `backend/public/index.php`.
+3. Edite o arquivo `public_html/api/index.php` para ajustar os caminhos relativos ao Laravel:
+   ```php
+   <?php
+
+   use Illuminate\Http\Request;
+
+   define('LARAVEL_START', microtime(true));
+
+   // Manutencao
+   if (file_exists($maintenance = __DIR__.'/../../pressurize_backend/storage/framework/maintenance.php')) {
+       require $maintenance;
+   }
+
+   // Autoload do Composer
+   require __DIR__.'/../../pressurize_backend/vendor/autoload.php';
+
+   // Inicializacao do Laravel
+   (require_once __DIR__.'/../../pressurize_backend/bootstrap/app.php')
+       ->handleRequest(Request::capture());
+   ```
+4. **Link do Storage (Uploads de Imagens)**:
+   - Para que as imagens enviadas pelo CMS fiquem visiveis, crie um atalho simbolico apontando para `/home/seu_usuario/pressurize_backend/storage/app/public`.
+   - Se o terminal cPanel estiver ativo:
+     ```bash
+     ln -s /home/seu_usuario/pressurize_backend/storage/app/public /home/seu_usuario/public_html/storage
+     ```
+   - Caso nao tenha terminal, basta criar um arquivo temporario `public_html/symlink.php`:
+     ```php
+     <?php
+     symlink('/home/seu_usuario/pressurize_backend/storage/app/public', __DIR__.'/storage');
+     echo 'Link criado com sucesso!';
+     ```
+     Acesse `https://seudominio.com.br/symlink.php` uma vez no navegador e depois apague o arquivo.
+
+#### Passo 6: Ativar o Certificado SSL (HTTPS Gratis)
+1. No cPanel, abra **Status do SSL/TLS** ou **Let's Encrypt SSL**.
+2. Clique em **Executar AutoSSL** para gerar o certificado HTTPS gratuito para seu dominio e subdominios.
+3. Acesse `https://seudominio.com.br` e verifique a navegacao no site e login no painel `/admin`.
+
+### 14.3. Especificacao para Subdominio: pressurizeprime.leccorside.com.br
+
+Quando hospedado no subdominio `pressurizeprime.leccorside.com.br`, a estrutura e variaveis sao adaptadas da seguinte forma:
+
+1. **Subdominio no cPanel**:
+   - Subdominio: `pressurizeprime`
+   - Dominio: `leccorside.com.br`
+   - Raiz do documento (Document Root): `/home/seu_usuario/pressurizeprime.leccorside.com.br` (ou `/home/seu_usuario/public_html/pressurizeprime`)
+
+2. **Variaveis de Producao no .env do Backend**:
+   - `APP_URL=https://pressurizeprime.leccorside.com.br`
+   - `SANCTUM_STATEFUL_DOMAINS=pressurizeprime.leccorside.com.br`
+
+3. **CORS**:
+   - Origens permitidas no `backend/config/cors.php`: `https://pressurizeprime.leccorside.com.br` e `http://pressurizeprime.leccorside.com.br`.
+
+4. **Diretorios**:
+   - Pasta do Laravel (Privada): `/home/seu_usuario/pressurize_backend/`
+   - Pasta do Subdominio (Publica): `/home/seu_usuario/pressurizeprime.leccorside.com.br/` (onde vai o build `dist/`)
+   - Subpasta API: `/home/seu_usuario/pressurizeprime.leccorside.com.br/api/` (com `index.php` e `.htaccess`)
+   - Link de Storage: `/home/seu_usuario/pressurizeprime.leccorside.com.br/storage` -> `/home/seu_usuario/pressurize_backend/storage/app/public`

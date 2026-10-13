@@ -383,3 +383,26 @@ Cada etapa possui critÃƒÂ©rios de aceitaÃƒÂ§ÃƒÂ£o claros e checkboxes que sÃƒÂ£o
     - [x] Adição da funcionalidade de exibir/ocultar a lista de serviços especializados.
     - [x] Adição da edição dinâmica dos Links Institucionais (Adicionar, Editar, Remover e alterar URL/Label).
     - [x] Integração dessas configurações diretamente no Footer.tsx no frontend, substituindo textos e links fixados no código.
+
+---
+
+- [x] **Passo 34: Preparacao e Suporte para Publicacao em Hospedagem Compartilhada (HostGator / cPanel) e Resolucao de Portas**
+  - **Prioridade**: Alta
+  - **Status**: Concluido
+  - **Entregaveis**:
+    - [x] Resolucao de colisao de portas do Docker: migracao da porta host padrao para `5174:5173` com suporte a variavel de ambiente `FRONTEND_PORT` e permissao no CORS/Sanctum do Laravel.
+    - [x] Correcao de tipagens no `SettingsPage.tsx` eliminando erros do TypeScript e garantindo `npm run build` limpo com codigo de saida 0.
+    - [x] Criacao do arquivo de roteamento `.htaccess` para Apache em `frontend/public/.htaccess` para suporte automatico ao React Router SPA (evitando erro 404 em rotas e refresh) no momento do build.
+    - [x] Criacao do `.htaccess` oficial do Laravel em `backend/public/.htaccess` com preservacao mandatoria do header `HTTP:Authorization` para suporte a autenticacao Bearer/Sanctum no Apache da HostGator.
+    - [x] Documentacao tecnica detalhada passo a passo de publicacao no cPanel em `DOCUMENTACAO.md` (arquitetura protegida fora do `public_html`, banco MySQL, upload de build, link simbolico de storage e SSL).
+
+- [x] **Passo 35: Adequacao de Deploy para Subdominio Oficial pressurizeprime.leccorside.com.br**
+  - **Prioridade**: Alta
+  - **Status**: Concluido
+  - **Entregaveis**:
+    - [x] Inclusao de `https://pressurizeprime.leccorside.com.br` e `http://pressurizeprime.leccorside.com.br` nas origens liberadas do CORS (`backend/config/cors.php`).
+    - [x] Adaptacao do guia de deploy no cPanel da HostGator com mapeamento de diretorio Document Root especifico para o subdominio.
+    - [x] Atualizacao de `DOCUMENTACAO.md`, `PASSOS.md` e `CONTEXTO.md`.
+    - [x] Execucao e validacao bem-sucedida de todas as 12 migracoes e 5 seeders oficiais (`UserSeeder`, `SettingSeeder`, `ServiceSeeder`, `SeoMetaSeeder`, `PageSeeder`) no banco MySQL de producao na HostGator (`johna523_pressurize`).
+    - [x] Correcao da resolucao de rotas no Apache (HostGator cPanel): adicionado suporte no `routes/web.php` com `Route::middleware('api')->group(base_path('routes/api.php'))`, garantindo que rotas consumidas com ou sem o prefixo `/api` pelo Apache sejam resolvidas imediatamente sem erro 404.
+    - [x] Desativacao de validacao CSRF para a API RESTful no `bootstrap/app.php` (`$middleware->validateCsrfTokens(except: ['*'])`), eliminando o erro HTTP 419 (CSRF token mismatch) no login do painel administrativo.

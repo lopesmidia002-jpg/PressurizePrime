@@ -102,3 +102,17 @@ O projeto é estruturado em duas camadas principais:
 - Adicionadas rotas /diferenciais, /como-funciona e /duvidas.
 - Atualizada a rota /sobre com seções de História, Missão/Visão, Números e CTAs.
 - Atualizado Header e Footer.
+
+### Atualizacao (Preparacao para Deploy em Hospedagem Compartilhada HostGator / cPanel)
+- Sistema totalmente preparado para deploy em ambiente cPanel / Apache na HostGator.
+- Arquivos `.htaccess` configurados tanto para o Frontend React SPA (redirecionamento de rotas para `index.html` e bypass de `/api` e `/storage`) quanto para a API Laravel no backend (com preservacao do cabecalho `Authorization` Bearer).
+- Erros de tipagem em `SettingsPage.tsx` saneados e build de producao validado (`npm run build`) com sucesso gerando a pasta `frontend/dist/`.
+- Documentado guia de publicacao em `DOCUMENTACAO.md` e checklist em `PASSOS.md`.
+
+### Atualizacao (Subdominio de Producao: pressurizeprime.leccorside.com.br)
+- Sistema ajustado para o subdominio `pressurizeprime.leccorside.com.br`.
+- CORS e Sanctum atualizados para permitir requisicoes e autenticacao vindas do novo subdominio.
+- Passo a passo detalhado gerado com mapeamento da pasta Document Root da HostGator.
+- **Status do Banco de Producao**: Conexao validada com sucesso via MySQL HostGator. Todas as tabelas criadas e alimentadas com dados oficiais de producao e usuario administrador.
+- **Correcao de Roteamento Apache**: Ajustado `backend/routes/web.php` para resolver rotas da API mesmo quando o Apache em subpasta retira o prefixo `/api` da URI interna.
+- **Ajuste de CSRF**: Excecao de validacao de tokens CSRF configurada no `bootstrap/app.php` para todas as rotas da API, permitindo autenticacao Bearer sem sessao de cookies web.

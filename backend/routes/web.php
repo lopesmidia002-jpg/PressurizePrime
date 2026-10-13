@@ -10,3 +10,7 @@ Route::get('/', function () {
         'timestamp' => now()->toISOString()
     ]);
 });
+
+// Suporte universal para servidores Apache em subpasta (HostGator/cPanel)
+Route::middleware('api')->group(base_path('routes/api.php'));
+
