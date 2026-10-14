@@ -2,7 +2,8 @@ import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useSiteData } from '../../context/SiteDataContext';
 import type { LPPageDetail } from '../../services/lpData';
-import { ShieldCheck, MessageSquare, Phone, AlertTriangle, Sparkles, Droplets, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Phone, AlertTriangle, Sparkles, Droplets, CheckCircle2 } from 'lucide-react';
+import { WhatsAppIcon } from '../common/WhatsAppIcon';
 
 interface LPHeroProps {
   lp: LPPageDetail;
@@ -71,7 +72,7 @@ export const LPHero: React.FC<LPHeroProps> = ({ lp }) => {
                 rel="noopener noreferrer"
                 className="flex-1 bg-secondary hover:bg-secondary-dark text-slate-950 font-extrabold px-6 py-4 rounded-xl shadow-lg transition-all text-center flex items-center justify-center gap-2 text-base group hover:scale-[1.02] active:scale-[0.98]"
               >
-                <MessageSquare className="w-5 h-5 transition-transform group-hover:scale-110" />
+                <WhatsAppIcon className="w-5 h-5 transition-transform group-hover:scale-110" />
                 <span>{ctaPrimary}</span>
               </a>
 

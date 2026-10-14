@@ -1352,6 +1352,10 @@ Quando hospedado no subdominio `pressurizeprime.leccorside.com.br`, a estrutura 
 ### 12.5. Automacao de Deploy FTP
 - **Script `upload_ftp.py`**: Localizado em `frontend/upload_ftp.py`, realiza sincronizacao binaria automatica do diretorio compilado `frontend/dist/` para a raiz publica do subdominio no cPanel (`pressurizeprime.leccorside.com.br`), preservando as rotas da API Laravel e o link simbolico de storage.
 
+### 12.5.1. Ícone do WhatsApp nos Botões de Contato
+- Componente `frontend/src/components/common/WhatsAppIcon.tsx`: SVG oficial do WhatsApp (preenchido, `currentColor`) com `className` para tamanho e cor, exportando também `WHATSAPP_ICON_PATH`.
+- Uso obrigatório em todo botão/link para `wa.me` (site, LPs, botão flutuante e admin). O `scripts/postbuild.py` replica o mesmo SVG no HTML pré-renderizado do Header/Hero.
+- `MessageSquare` (lucide) fica só em ícones decorativos de "conversa" (primeiro passo do "Como Funciona", card da página de Contato).
 ### 12.6. Otimização Extrema de Performance Mobile (PageSpeed Mobile 99/100)
 - **Pré-renderização Estática de Primeiro Frame (Static Pre-rendering Injection)**:
   - Criação do script de pipeline pós-build `frontend/scripts/postbuild.py`.

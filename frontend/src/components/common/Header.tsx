@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSiteData } from '../../context/SiteDataContext';
-import { Phone, MessageSquare, Menu, X, ChevronDown, Shield, Gauge, Flame, Sun, Zap } from 'lucide-react';
+import { Phone, Menu, X, ChevronDown, Shield, Gauge, Flame, Sun, Zap } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 export const Header: React.FC = () => {
   const { settings, services, openLeadModal } = useSiteData();
@@ -139,7 +140,7 @@ export const Header: React.FC = () => {
               aria-label="Chamar equipe técnica no WhatsApp"
               className="inline-flex items-center gap-2 bg-secondary text-slate-950 font-bold px-5 py-2.5 rounded-lg shadow-sm hover:bg-secondary-dark transition-all text-sm group whitespace-nowrap"
             >
-              <MessageSquare className="w-4 h-4 transition-transform group-hover:scale-110" aria-hidden="true" />
+              <WhatsAppIcon className="w-4 h-4 transition-transform group-hover:scale-110" />
               <span>Chamar no WhatsApp</span>
             </a>
           </div>
@@ -153,7 +154,7 @@ export const Header: React.FC = () => {
               className="inline-flex items-center gap-1.5 bg-secondary hover:bg-secondary-dark text-slate-950 font-bold px-3 py-2 rounded-lg text-sm transition-all whitespace-nowrap"
               aria-label="Chamar no WhatsApp"
             >
-              <MessageSquare className="w-4 h-4 shrink-0" aria-hidden="true" />
+              <WhatsAppIcon className="w-4 h-4 shrink-0" />
               <span>WhatsApp</span>
             </a>
 
@@ -246,7 +247,7 @@ export const Header: React.FC = () => {
               rel="noopener noreferrer"
               className="mt-2 flex items-center justify-center gap-2 bg-secondary text-slate-950 font-bold py-3 px-4 rounded-xl shadow text-center"
             >
-              <MessageSquare className="w-5 h-5" />
+              <WhatsAppIcon className="w-5 h-5" />
               Chamar no WhatsApp
             </a>
 

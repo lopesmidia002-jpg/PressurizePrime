@@ -4,7 +4,6 @@ import type { Lead } from '../../types';
 import {
   Users,
   Search,
-  MessageSquare,
   Phone,
   Clock,
   CheckCircle2,
@@ -12,6 +11,7 @@ import {
   MapPin,
   ExternalLink
 } from 'lucide-react';
+import { WhatsAppIcon } from '../../components/common/WhatsAppIcon';
 
 export const LeadsPage: React.FC = () => {
   const { leads, updateLeadStatus } = useSiteData();
@@ -215,7 +215,7 @@ export const LeadsPage: React.FC = () => {
                               className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg font-bold text-xs shadow-xs transition-colors"
                               title="Abrir WhatsApp com mensagem pronta"
                             >
-                              <MessageSquare className="w-3.5 h-3.5" />
+                              <WhatsAppIcon className="w-3.5 h-3.5" />
                               <span>WhatsApp</span>
                             </a>
                           </div>
@@ -285,7 +285,7 @@ export const LeadsPage: React.FC = () => {
                         rel="noopener noreferrer"
                         className="inline-flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg font-bold text-xs shadow-xs transition-colors flex-1"
                       >
-                        <MessageSquare className="w-3.5 h-3.5" />
+                        <WhatsAppIcon className="w-3.5 h-3.5" />
                         <span>Chamar</span>
                       </a>
                     </div>

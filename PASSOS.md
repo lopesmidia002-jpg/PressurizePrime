@@ -883,3 +883,13 @@ Cada etapa possui critÃ©rios de aceitaÃ§Ã£o claros e checkboxes que sÃ£o
     - [x] Validação: `/api/public/bootstrap` 200, login admin + `/api/admin/leads` autenticado 200, logout 200, todas as rotas SPA 200.
     - [ ] Trocar a senha padrão do admin em produção.
     - [ ] Substituir o texto de teste `ddfgdfgdfgdfg` em Sobre → "Nossa História" (veio do banco local).
+
+- [x] **Ícone Oficial do WhatsApp em Todos os Botões de Contato**
+  - **Prioridade**: Média
+  - **Status**: Concluído (local + produção)
+  - **Entregáveis**:
+    - [x] Novo componente `frontend/src/components/common/WhatsAppIcon.tsx` (glifo oficial preenchido, `fill="currentColor"`, porque o lucide-react não tem ícones de marca).
+    - [x] `MessageSquare` substituído por `WhatsAppIcon` nos 20 botões/links `wa.me`: Header (desktop, mobile e menu), LPHeader, HeroSection, AboutSection ("Conversar com a Equipe"), HowItWorksSection, FinalCtaSection, Footer, LeadForm, botão flutuante (`WhatsAppButton`), LPHero, LPSteps ("Solicitar Orçamento"), LPFinalCta, FaqPage, HowItWorksPage e os botões de WhatsApp do admin (Dashboard e Leads).
+    - [x] HTML pré-renderizado do `scripts/postbuild.py` (Header/Hero do primeiro frame) atualizado com o mesmo SVG.
+    - [x] Ícones **decorativos** mantidos de propósito: passo "Conte o problema" (HowItWorksSection/HowItWorksPage/LPSteps), card "WhatsApp" da ContactPage e rótulo da SettingsPage.
+    - [x] Validação: `tsc` sem erros novos, `npm run build` ok e produção publicada (ícone presente no HTML e no bundle, API 200).

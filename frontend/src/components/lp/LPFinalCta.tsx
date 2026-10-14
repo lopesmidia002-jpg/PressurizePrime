@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSiteData } from '../../context/SiteDataContext';
 import type { LPPageDetail } from '../../services/lpData';
-import { MessageSquare, Phone, Clock, ShieldCheck } from 'lucide-react';
+import { Phone, Clock, ShieldCheck } from 'lucide-react';
+import { WhatsAppIcon } from '../common/WhatsAppIcon';
 
 interface LPFinalCtaProps {
   lp: LPPageDetail;
@@ -52,7 +53,7 @@ export const LPFinalCta: React.FC<LPFinalCtaProps> = ({ lp }) => {
             rel="noopener noreferrer"
             className="flex-1 bg-secondary hover:bg-secondary-dark text-slate-950 font-extrabold px-8 py-4 rounded-xl shadow-xl transition-all text-center flex items-center justify-center gap-2.5 text-base group"
           >
-            <MessageSquare className="w-5 h-5 transition-transform group-hover:scale-110" />
+            <WhatsAppIcon className="w-5 h-5 transition-transform group-hover:scale-110" />
             <span>Chamar no WhatsApp</span>
           </a>
 

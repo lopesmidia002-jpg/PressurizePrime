@@ -6,7 +6,6 @@ import {
   CheckCircle2,
   Clock,
   AlertCircle,
-  MessageSquare,
   ShieldCheck,
   RotateCcw,
   Sparkles,
@@ -14,6 +13,7 @@ import {
   Phone,
   Wrench
 } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 interface LeadFormProps {
   defaultService?: string;
@@ -232,7 +232,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
             rel="noopener noreferrer"
             className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-5 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 text-sm group"
           >
-            <MessageSquare className="w-4 h-4 transition-transform group-hover:scale-110" />
+            <WhatsAppIcon className="w-4 h-4 transition-transform group-hover:scale-110" />
             <span>Agilizar no WhatsApp Agora</span>
           </a>
 

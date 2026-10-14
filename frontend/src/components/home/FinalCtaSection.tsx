@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSiteData } from '../../context/SiteDataContext';
-import { MessageSquare, Phone, ShieldCheck } from 'lucide-react';
+import { Phone, ShieldCheck } from 'lucide-react';
+import { WhatsAppIcon } from '../common/WhatsAppIcon';
 
 export const FinalCtaSection: React.FC = () => {
   const { settings, pages, isBusinessHours, openLeadModal } = useSiteData();
@@ -51,7 +52,7 @@ export const FinalCtaSection: React.FC = () => {
             rel="noopener noreferrer"
             className="flex-1 bg-secondary hover:bg-secondary-dark text-slate-950 font-extrabold px-8 py-4 rounded-xl shadow-xl transition-all text-center flex items-center justify-center gap-2.5 text-base group"
           >
-            <MessageSquare className="w-5 h-5 transition-transform group-hover:scale-110" />
+            <WhatsAppIcon className="w-5 h-5 transition-transform group-hover:scale-110" />
             <span>{cta}</span>
           </a>
 

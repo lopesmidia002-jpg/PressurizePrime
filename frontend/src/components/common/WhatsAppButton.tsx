@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSiteData } from '../../context/SiteDataContext';
-import { MessageSquare } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 interface WhatsAppButtonProps {
   customMessage?: string;
@@ -24,7 +24,7 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({ customMessage })
         className="relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none"
       >
         <span className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-400 border-2 border-white rounded-full"></span>
-        <MessageSquare className="w-7 h-7 sm:w-8 sm:h-8" />
+        <WhatsAppIcon className="w-7 h-7 sm:w-8 sm:h-8" />
       </a>
     </div>
   );

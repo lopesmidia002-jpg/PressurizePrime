@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSiteData } from '../../context/SiteDataContext';
-import { CheckCircle2, Award, Wrench, Shield, MessageSquare } from 'lucide-react';
+import { CheckCircle2, Award, Wrench, Shield } from 'lucide-react';
+import { WhatsAppIcon } from '../common/WhatsAppIcon';
 
 export const AboutSection: React.FC = () => {
   const { settings, pages } = useSiteData();
@@ -65,7 +66,7 @@ export const AboutSection: React.FC = () => {
                 rel="noopener noreferrer"
                 className="inline-flex justify-center items-center gap-2 bg-secondary hover:bg-secondary-dark text-slate-950 font-bold px-6 py-3.5 rounded-xl shadow transition-all text-sm w-full sm:w-auto"
               >
-                <MessageSquare className="w-4 h-4 shrink-0" />
+                <WhatsAppIcon className="w-4 h-4 shrink-0" />
                 <span>Conversar com a Equipe</span>
               </a>
             </div>

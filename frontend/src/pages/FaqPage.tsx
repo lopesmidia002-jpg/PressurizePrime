@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { TopBar, Header, Footer } from '../components/common';
-import { Search, ChevronDown, MessageSquare } from 'lucide-react';
+import { Search, ChevronDown } from 'lucide-react';
 import { useSiteData } from '../context/SiteDataContext';
+import { WhatsAppIcon } from '../components/common/WhatsAppIcon';
 
 export const FaqPage: React.FC = () => {
   const { settings, pages } = useSiteData();
@@ -184,7 +185,7 @@ export const FaqPage: React.FC = () => {
             </p>
             <div className="flex justify-center">
               <a href={`https://wa.me/${settings.whatsapp_raw}`} className="bg-secondary hover:bg-secondary-dark text-slate-950 font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2">
-                <MessageSquare className="w-5 h-5" />
+                <WhatsAppIcon className="w-5 h-5" />
                 {pages['duvidas']?.sections?.finalCta?.cta || 'Perguntar no WhatsApp'}
               </a>
             </div>

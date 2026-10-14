@@ -180,3 +180,9 @@ O projeto é estruturado em duas camadas principais:
   - Recompressão profunda de imagens WebP via Pillow e correção de `sizes`/`srcSet` no `ServicesGrid.tsx` para aparelhos móveis de alta densidade de pixels.
   - Pontuação auditada no Google PageSpeed Insights Mobile: **Desempenho 99/100**, **Acessibilidade 97/100**, **Práticas Recomendadas 100/100**, **SEO 100/100**, **Navegação Agêntica 4/4**. Core Web Vitals todos no Verde (FCP 1,5s, LCP 1,7s, TBT 30ms, CLS 0, Speed Index 2,5s).
 
+
+### Ícone do WhatsApp nos botões (14/10/2026)
+- Todos os botões/links que abrem `wa.me` usam agora `WhatsAppIcon` (`components/common/WhatsAppIcon.tsx`), inclusive no HTML pré-renderizado do `postbuild.py`. Ao criar um novo botão de WhatsApp, usar esse componente, não `MessageSquare`.
+- **Regra nova de workflow**: toda mudança local é publicada automaticamente em produção (Hostinger) usando `ACESSOS-PROD.md`, seguindo o `SUBIR-PROD.md`.
+- **Observação de performance (já existia, não é regressão)**: o bundle principal `index-*.js` importa estaticamente o `chunk-admin` (comprovado no build anterior à mudança). Algum módulo compartilhado entre público e admin cai no chunk do admin por causa do `manualChunks`. Vale investigar para tirar o código do admin das páginas públicas.
+- **Observação de tipagem (já existia)**: `tsc` acusa `TS7016` (sem declaração de tipos) para `lucide-react` em todos os arquivos. O build do Vite não é afetado.

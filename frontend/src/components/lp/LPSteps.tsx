@@ -2,6 +2,7 @@ import React from 'react';
 import { useSiteData } from '../../context/SiteDataContext';
 import type { LPPageDetail } from '../../services/lpData';
 import { MessageSquare, ClipboardList, CheckCircle2, ArrowRight } from 'lucide-react';
+import { WhatsAppIcon } from '../common/WhatsAppIcon';
 
 interface LPStepsProps {
   lp: LPPageDetail;
@@ -70,7 +71,7 @@ export const LPSteps: React.FC<LPStepsProps> = ({ lp }) => {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-secondary hover:bg-secondary-dark text-slate-950 font-extrabold px-8 py-4 rounded-xl shadow transition-all text-sm group"
           >
-            <MessageSquare className="w-5 h-5" />
+            <WhatsAppIcon className="w-5 h-5" />
             <span>Solicitar Orçamento para {lp.name}</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </a>

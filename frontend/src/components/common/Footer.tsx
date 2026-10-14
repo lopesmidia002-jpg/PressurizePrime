@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSiteData } from '../../context/SiteDataContext';
-import { Phone, MessageSquare, MapPin, Clock, ShieldCheck, CreditCard, Lock } from 'lucide-react';
+import { Phone, MapPin, Clock, ShieldCheck, CreditCard, Lock } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 export const Footer: React.FC = () => {
   const { settings, services } = useSiteData();
@@ -135,7 +136,7 @@ export const Footer: React.FC = () => {
                 aria-label={`Conversar no WhatsApp com a equipe da ${settings.site_name}`}
                 className="flex items-center justify-center gap-2 w-full bg-secondary hover:bg-secondary-dark text-slate-950 font-bold py-2.5 px-4 rounded-lg transition-colors text-xs"
               >
-                <MessageSquare className="w-4 h-4" aria-hidden="true" />
+                <WhatsAppIcon className="w-4 h-4" />
                 <span>{settings.footer?.btn_whatsapp_text || 'WhatsApp:'} {settings.whatsapp_number}</span>
               </a>
 

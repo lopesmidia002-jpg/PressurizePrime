@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSiteData } from '../../context/SiteDataContext';
-import { Phone, MessageSquare, ShieldCheck } from 'lucide-react';
+import { Phone, ShieldCheck } from 'lucide-react';
+import { WhatsAppIcon } from '../common/WhatsAppIcon';
 
 export const HeroSection: React.FC = () => {
   const { settings, services, pages } = useSiteData();
@@ -102,7 +103,7 @@ export const HeroSection: React.FC = () => {
               className="relative overflow-hidden bg-secondary hover:bg-secondary-dark text-slate-950 font-bold px-7 py-4 rounded-xl shadow-xl transition-all flex items-center justify-center gap-2 text-sm group hover:scale-[1.03] active:scale-[0.97] w-full sm:w-auto"
             >
               <div className="absolute inset-0 -translate-x-full group-hover:animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" aria-hidden="true" />
-              <MessageSquare className="w-4.5 h-4.5 shrink-0" aria-hidden="true" />
+              <WhatsAppIcon className="w-4.5 h-4.5 shrink-0" />
               <span>{pages['home']?.hero_cta_primary || 'Chamar no WhatsApp'}</span>
             </a>
 

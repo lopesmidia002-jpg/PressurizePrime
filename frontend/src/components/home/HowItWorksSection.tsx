@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSiteData } from '../../context/SiteDataContext';
 import { MessageSquare, ClipboardCheck, CheckCircle2, ArrowRight } from 'lucide-react';
+import { WhatsAppIcon } from '../common/WhatsAppIcon';
 
 export const HowItWorksSection: React.FC = () => {
   const { settings, pages } = useSiteData();
@@ -82,7 +83,7 @@ export const HowItWorksSection: React.FC = () => {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-secondary hover:bg-secondary-dark text-slate-950 font-bold px-8 py-4 rounded-xl shadow-md transition-all text-sm group"
           >
-            <MessageSquare className="w-5 h-5 transition-transform group-hover:scale-110" />
+            <WhatsAppIcon className="w-5 h-5 transition-transform group-hover:scale-110" />
             <span>{cta}</span>
           </a>
         </div>

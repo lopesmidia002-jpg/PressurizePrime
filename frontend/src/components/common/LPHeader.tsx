@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSiteData } from '../../context/SiteDataContext';
-import { Phone, MessageSquare, ShieldCheck } from 'lucide-react';
+import { Phone, ShieldCheck } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 interface LPHeaderProps {
   serviceName?: string;
@@ -49,7 +50,7 @@ export const LPHeader: React.FC<LPHeaderProps> = ({ serviceName }) => {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-secondary text-slate-950 font-bold px-4 py-2.5 rounded-lg shadow hover:bg-secondary-dark transition-all text-sm group"
             >
-              <MessageSquare className="w-4 h-4 transition-transform group-hover:scale-110" />
+              <WhatsAppIcon className="w-4 h-4 transition-transform group-hover:scale-110" />
               <span className="hidden xs:inline">Chamar no WhatsApp</span>
               <span className="xs:hidden">WhatsApp</span>
             </a>
