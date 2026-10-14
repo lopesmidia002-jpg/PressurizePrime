@@ -205,3 +205,14 @@ O projeto é estruturado em duas camadas principais:
 - Favicon oficial: a gota da marca (`frontend/public/favicon-pressu.png` é a fonte). Arquivos servidos: `favicon.ico` (16/32/48, também atende ao pedido automático de `/favicon.ico`), `favicon-48x48.png` (tamanho mínimo que o Google usa nos resultados de busca), `favicon-192x192.png` e `apple-touch-icon.png` (180, fundo branco porque o iOS não aceita transparência).
 - Para trocar no futuro: substituir `favicon-pressu.png` e regenerar os tamanhos. **Nunca deixar arquivos-fonte só em `frontend/dist`**, que é apagado a cada `npm run build`.
 - O `.htaccess` faz cache de imagens por 1 ano. Ao trocar o favicon, prefira nomes novos de arquivo para os navegadores buscarem a versão nova.
+### Desempenho mobile (14/10/2026)
+- **Diagnóstico do PageSpeed 69 (LCP 7,3 s, elemento = parágrafo do Hero, 2,5 s de atraso de renderização)**: a Google Font chegava tarde com `display=swap` e redesenhava o texto maior, gerando um LCP novo. A simulação do Lighthouse então somava toda a cadeia de JS antes dele: `index` → `chunk-admin` (942 KB, o painel inteiro) → bootstrap.
+- **Erro de ambiente recorrente**: o `node_modules` do Windows fica com pacotes incompletos (sem `.mjs`/`esm`/`.d.ts`), como já tinha acontecido com o `react-router`. Isso faz o bundler cair na versão CommonJS (sem tree-shaking). **Se aparecer `TS7016` ou bundle inchado: `rm -rf node_modules && npm ci`.**
+- **Decisões**:
+  - Sem `manualChunks`: a divisão automática pelos `lazy()` isola o admin. Não recriar um "chunk-admin" forçado.
+  - `font-display: optional` + preload: na primeira visita em rede lenta pode aparecer a fonte do sistema; nas seguintes, a Plus Jakarta vem do cache. Troca consciente: estabilidade do LCP em vez de garantir a fonte.
+  - CSS inline (~15 KB gzip no HTML): como o HTML é servido uma vez por sessão (SPA), compensa eliminar o bloqueio.
+  - GTM/GA4 adiados (interação ou 3,5 s após `load`): visitas que saem em menos de ~3,5 s sem interagir podem não ser contadas.
+- **Limitações**:
+  - O pré-render do `postbuild.py` é o Hero da Home e aparece em todas as rotas por um instante antes do React. Nas LPs e páginas internas, o LCP acontece no render do React. Um próximo passo seria um pré-render por rota.
+  - O texto do Hero no pré-render deve continuar **igual** ao do CMS (`hero_title`/`hero_subtitle`). Se o cliente mudar no painel para um texto maior, o LCP volta a ser registrado após o bootstrap. Ao mudar, atualizar o `postbuild.py`.

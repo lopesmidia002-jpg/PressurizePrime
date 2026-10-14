@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TopBar, Header, Footer } from '../components/common';
 import { Shield, Clock, Wrench, ThumbsUp, Medal, Zap, HeartHandshake, CheckCircle2, Star } from 'lucide-react';
 import { useSiteData } from '../context/SiteDataContext';
+import { responsiveImgProps } from '../services/images';
 
 export const DiferenciaisPage: React.FC = () => {
   const { settings, pages } = useSiteData();
@@ -14,6 +15,13 @@ export const DiferenciaisPage: React.FC = () => {
     pageImages.hero3 || 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1920&q=80'
   ];
   const ctaImage = pageImages.cta || 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1920&q=80';
+
+  // Fotos 2 e 3 do carrossel só são baixadas depois do carregamento inicial (antes da 1ª troca)
+  const [restImagesReady, setRestImagesReady] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setRestImagesReady(true), 2500);
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -106,7 +114,9 @@ export const DiferenciaisPage: React.FC = () => {
               className={`absolute inset-0 overflow-hidden pointer-events-none transition-opacity duration-1000 ${activeImageIndex === idx ? 'opacity-100' : 'opacity-0 z-0'}`}
             >
               <img
-                src={img}
+                {...(idx === 0 || restImagesReady ? responsiveImgProps(img) : {})}
+                fetchPriority={idx === 0 ? 'high' : 'low'}
+                decoding="async"
                 alt=""
                 aria-hidden="true"
                 className={`w-full h-full object-cover ${activeImageIndex === idx ? 'animate-hero-bg-pan' : ''}`}
@@ -214,7 +224,9 @@ export const DiferenciaisPage: React.FC = () => {
           {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <img 
-              src={ctaImage}
+              {...responsiveImgProps(ctaImage)}
+              loading="lazy"
+              decoding="async"
               alt="Instalação Segura"
               className="w-full h-full object-cover object-center"
             />

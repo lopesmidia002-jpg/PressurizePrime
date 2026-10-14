@@ -1,8 +1,25 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { SiteSettings, PageData, ServiceItem, FaqItem, Lead, LeadFormData } from '../types';
 import { defaultSettings, defaultPages, defaultServices, defaultFaqs } from '../services/initialData';
-import { api, adminApi } from '../services/api';
 import { landingPagesData } from '../services/lpData';
+
+// axios (≈13 KB gz) fica fora do bundle crítico: só é baixado ao enviar lead ou salvar no painel
+const loadApi = () => import('../services/api');
+
+declare global {
+  interface Window {
+    __ppBootstrap?: Promise<any>;
+  }
+}
+
+// O index.html já dispara o GET /api/public/bootstrap antes do JS do React (window.__ppBootstrap),
+// em paralelo com o download do bundle. Aqui só reaproveitamos essa promessa (ou buscamos, se não existir).
+const fetchBootstrap = (): Promise<any> => {
+  const early = window.__ppBootstrap;
+  window.__ppBootstrap = undefined;
+  return early || fetch('/api/public/bootstrap', { headers: { Accept: 'application/json' } })
+    .then(r => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))));
+};
 
 interface SiteDataContextType {
   settings: SiteSettings;
@@ -221,10 +238,10 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Fetch initial data from Laravel Backend
   useEffect(() => {
-    api.get('/public/bootstrap')
-      .then(response => {
-        if (response.data?.success) {
-          const { settings: apiSettings, services: apiServices, seo: apiSeo, pages: apiPages } = response.data.data;
+    fetchBootstrap()
+      .then(body => {
+        if (body?.success) {
+          const { settings: apiSettings, services: apiServices, seo: apiSeo, pages: apiPages } = body.data;
           
           if (apiSettings) {
             let addressCoverage = [];
@@ -451,7 +468,7 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         };
       });
 
-      adminApi.put('/settings', { settings: settingsPayload })
+      loadApi().then(({ adminApi }) => adminApi.put('/settings', { settings: settingsPayload }))
         .catch(err => {
           alert("Erro ao salvar config: " + (err.response?.data?.message || err.message));
           console.error(err);
@@ -502,13 +519,13 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           })) as any;
         }
 
-        adminApi.put(`/pages/${slug}`, apiPayload)
+        loadApi().then(({ adminApi }) => adminApi.put(`/pages/${slug}`, apiPayload))
           .catch(err => {
             alert("Erro ao salvar página: " + (err.response?.data?.message || err.message));
             console.error(err);
           });
         if (pageData.seo) {
-          adminApi.put(`/seo/${slug}`, mergedSeo).catch(() => {});
+          loadApi().then(({ adminApi }) => adminApi.put(`/seo/${slug}`, mergedSeo)).catch(() => {});
         }
       }
 
@@ -522,19 +539,19 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const updateService = (id: string, updated: Partial<ServiceItem>) => {
     setServices(prev => prev.map(s => (s.id === id ? { ...s, ...updated } : s)));
     const token = localStorage.getItem('pressurize_token');
-    if (token) adminApi.put(`/services/${id}`, updated).catch(() => {});
+    if (token) loadApi().then(({ adminApi }) => adminApi.put(`/services/${id}`, updated)).catch(() => {});
   };
 
   const addService = (newService: ServiceItem) => {
     setServices(prev => [...prev, newService]);
     const token = localStorage.getItem('pressurize_token');
-    if (token) adminApi.post('/services', newService).catch(() => {});
+    if (token) loadApi().then(({ adminApi }) => adminApi.post('/services', newService)).catch(() => {});
   };
 
   const deleteService = (id: string) => {
     setServices(prev => prev.filter(s => s.id !== id));
     const token = localStorage.getItem('pressurize_token');
-    if (token) adminApi.delete(`/services/${id}`).catch(() => {});
+    if (token) loadApi().then(({ adminApi }) => adminApi.delete(`/services/${id}`)).catch(() => {});
   };
 
   const addFaq = (faq: FaqItem) => setFaqs(prev => [...prev, faq]);
@@ -552,6 +569,7 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
     // Tentativa assíncrona de enviar para backend Laravel quando ativo
     try {
+      const { api } = await loadApi();
       await api.post('/public/leads', leadData);
     } catch {
       // Falha silenciosa de offline/mock
@@ -563,7 +581,7 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const updateLeadStatus = (id: string | number, status: Lead['status']) => {
     setLeads(prev => prev.map(l => (l.id === id ? { ...l, status } : l)));
     const token = localStorage.getItem('pressurize_token');
-    if (token) adminApi.patch(`/leads/${id}/status`, { status }).catch(() => {});
+    if (token) loadApi().then(({ adminApi }) => adminApi.patch(`/leads/${id}/status`, { status })).catch(() => {});
   };
 
   const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);

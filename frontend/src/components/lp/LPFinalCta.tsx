@@ -3,6 +3,8 @@ import { useSiteData } from '../../context/SiteDataContext';
 import type { LPPageDetail } from '../../services/lpData';
 import { Phone, Clock, ShieldCheck } from 'lucide-react';
 import { WhatsAppIcon } from '../common/WhatsAppIcon';
+import { useNearViewport } from '../../hooks/useNearViewport';
+import { backgroundUrlFor } from '../../services/images';
 
 interface LPFinalCtaProps {
   lp: LPPageDetail;
@@ -10,17 +12,19 @@ interface LPFinalCtaProps {
 
 export const LPFinalCta: React.FC<LPFinalCtaProps> = ({ lp }) => {
   const { settings, pages, isBusinessHours, openLeadModal } = useSiteData();
+  const [sectionRef, isNear] = useNearViewport<HTMLElement>();
   const cmsPage = pages[lp.slug];
   const bgImage = (cmsPage?.sections?.bg_image as any) || 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80';
 
   return (
-    <section 
-      className="py-16 md:py-24 lg:py-28 text-white relative overflow-hidden"
+    <section
+      ref={sectionRef}
+      className="py-16 md:py-24 lg:py-28 text-white relative overflow-hidden bg-slate-900 md:bg-fixed"
       style={{
-        backgroundImage: `linear-gradient(to bottom right, rgba(15, 23, 42, 0.55), rgba(23, 37, 84, 0.75)), url("${bgImage}")`,
+        // A foto só é baixada quando a seção se aproxima da tela, já no tamanho da tela do visitante
+        backgroundImage: `linear-gradient(to bottom right, rgba(15, 23, 42, 0.55), rgba(23, 37, 84, 0.75))${isNear ? `, url("${backgroundUrlFor(bgImage)}")` : ''}`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
+        backgroundPosition: 'center'
       }}
     >
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/30 rounded-full blur-3xl pointer-events-none mix-blend-screen"></div>

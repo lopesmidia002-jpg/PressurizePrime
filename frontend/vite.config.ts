@@ -21,9 +21,6 @@ export default defineConfig({
     minify: 'terser',
     modulePreload: {
       polyfill: false,
-      resolveDependencies(filename, deps) {
-        return deps.filter(dep => !dep.includes('chunk-admin') && !dep.includes('AdminRoutes'));
-      },
     },
     terserOptions: {
       compress: {
@@ -32,28 +29,9 @@ export default defineConfig({
         pure_funcs: ['console.log', 'console.warn'],
       },
     },
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          // Vendor: React core
-          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
-            return 'vendor-react';
-          }
-          // Vendor: React Router
-          if (id.includes('node_modules/react-router')) {
-            return 'vendor-router';
-          }
-          // Vendor: lucide icons (grande)
-          if (id.includes('node_modules/lucide-react')) {
-            return 'vendor-lucide';
-          }
-          // Admin chunk: carregado somente quando necessário
-          if (id.includes('/pages/admin/') || id.includes('/components/admin/')) {
-            return 'chunk-admin';
-          }
-        },
-      },
-    },
+    // Sem manualChunks: forçar um "chunk-admin" fazia o bundler puxar para dentro dele as dependências
+    // compartilhadas (lucide, react-router, axios, SiteDataContext) e o site público baixava o painel
+    // inteiro (~940 KB). A divisão automática pelos lazy imports do App/AdminRoutes isola o admin sozinha.
   },
   server: {
     host: '0.0.0.0',

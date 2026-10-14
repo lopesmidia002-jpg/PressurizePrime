@@ -921,3 +921,22 @@ Cada etapa possui critÃ©rios de aceitaÃ§Ã£o claros e checkboxes que sÃ£o
     - [x] Imagem-fonte `favicon-pressu.png` (319×370, 55 KB) movida de `frontend/dist` (apagada a cada build) para `frontend/public`.
     - [x] Ícones gerados com Pillow (recorte das bordas transparentes + quadrado centralizado): `favicon.ico` (16/32/48), `favicon-48x48.png`, `favicon-192x192.png` (6,9 KB) e `apple-touch-icon.png` 180×180 com fundo branco (4,5 KB).
     - [x] `index.html`: `favicon.svg` e `logo.webp` trocados pelos novos `<link rel="icon">` e `apple-touch-icon`. `favicon.svg` antigo removido do projeto e do servidor.
+- [x] **Otimização de Desempenho Mobile (PageSpeed 69 → correção das causas do LCP de 7,3 s)**
+  - **Prioridade**: Máxima
+  - **Status**: Concluído (local + produção)
+  - **Entregáveis**:
+    - [x] `node_modules` local reinstalado (`npm ci`): `lucide-react` estava sem `dist/esm` e sem `.d.ts`, o que embutia **todos** os ícones (versão CommonJS). Também resolveu os erros `TS7016`.
+    - [x] `vite.config.ts`: removidos `manualChunks` e o filtro de `modulePreload`. Forçar o `chunk-admin` puxava react-router, axios, lucide e o `SiteDataContext` para dentro dele, e o site público baixava o painel inteiro (942 KB).
+    - [x] JS crítico do site público: **262 KB → 110 KB** gzip.
+    - [x] `axios` fora do bundle crítico: `SiteDataContext` carrega `services/api` sob demanda (envio de lead e ações do admin).
+    - [x] Bootstrap da API disparado no `index.html` (`window.__ppBootstrap`), em paralelo com o JS, em vez de esperar o bundle.
+    - [x] Fonte Plus Jakarta Sans auto-hospedada (`public/fonts`, 27 KB, latin com acentos) com `preload` e `font-display: optional`. Antes: Google Fonts tardio com `swap`, que redesenhava o Hero e gerava um novo LCP.
+    - [x] CSS embutido no HTML pelo `postbuild.py`: sem requisição bloqueante de renderização.
+    - [x] GTM/GA4 adiados para a primeira interação ou 3,5 s após o `load`.
+    - [x] Imagens do Unsplash responsivas (`services/images.ts`): CTA final da Home e das LPs com fundo só quando a seção se aproxima (`hooks/useNearViewport.ts`). Nas páginas internas, carrossel com a 1ª foto prioritária e as demais após 2,5 s, e CTA com `loading="lazy"`.
+    - [x] SEO: `canonical`, OpenGraph, Schema.org, `sitemap.xml`, `robots.txt`, `ai-catalog.json` e `llms*.txt` trocados do domínio antigo (`leccorside.com.br`) para `pressurizeprime.com.br`. Telefone fictício do Schema corrigido. `robots.txt` libera `/api/public/bootstrap` para o Googlebot renderizar o conteúdo do CMS.
+    - [x] Pré-render do `postbuild.py`: links de WhatsApp/telefone com número fictício corrigidos.
+    - [x] Lighthouse mobile local (produção): peso 914 → 355 KB, Speed Index 3,4 → 1,5 s, TBT 165 → ~30 ms, LCP = primeiro paint, 0 recursos bloqueantes. API pública do PSI sem cota no dia; **validar no pagespeed.web.dev**.
+  - **Pendências do usuário**:
+    - [ ] Apagar o campo GA4 no painel: o contêiner do GTM já dispara o `G-SNMRGZ8D4Y` (`gtag/js?...&gtm=`), então o GA4 carrega duas vezes e conta cada visita em dobro.
+    - [ ] Corrigir `phone_raw` no painel (está `1134567890`, fictício): os botões "Ligar agora" discam esse número.

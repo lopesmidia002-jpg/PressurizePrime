@@ -1364,6 +1364,14 @@ Quando hospedado no subdominio `pressurizeprime.leccorside.com.br`, a estrutura 
 ### 12.5.3. Favicon e Ícones do Site
 - Fonte: `frontend/public/favicon-pressu.png`. Derivados em `frontend/public`: `favicon.ico` (16/32/48), `favicon-48x48.png`, `favicon-192x192.png` e `apple-touch-icon.png` (180×180, fundo branco).
 - Declarados no `<head>` do `frontend/index.html` (`rel="icon"` com `sizes` e `rel="apple-touch-icon"`).
+### 12.5.4. Otimizações de Desempenho Mobile (Outubro/2026)
+- **Divisão de código**: sem `manualChunks`. As rotas públicas e o admin (`routes/AdminRoutes.tsx`) são separados pelos `lazy()`. JS crítico ≈ 110 KB gzip (React, React Router, Header/Hero, ícones usados).
+- **axios sob demanda**: `SiteDataContext` usa `loadApi = () => import('../services/api')` para lead e admin. O bootstrap usa `fetch`.
+- **Bootstrap antecipado**: script no `<head>` do `index.html` cria `window.__ppBootstrap` (`fetch('/api/public/bootstrap')`), consumido uma única vez pelo `SiteDataContext`.
+- **Fonte**: `public/fonts/plus-jakarta-sans-latin.woff2` (variável 500–800), `@font-face` em `src/index.css` com `font-display: optional` e `<link rel="preload" as="font">`.
+- **CSS crítico**: `scripts/postbuild.py` substitui o `<link rel="stylesheet">` por `<style>` com o CSS do build.
+- **Imagens**: `services/images.ts` (`unsplashAt`, `responsiveImgProps`, `backgroundUrlFor`) e `hooks/useNearViewport.ts` (fundo CSS só perto da tela).
+- **Rastreamento adiado**: `TrackingScripts` injeta GTM/GA4 na primeira interação (`pointerdown`, `keydown`, `touchstart`, `scroll`) ou 3,5 s após `load`.
 ### 12.6. Otimização Extrema de Performance Mobile (PageSpeed Mobile 99/100)
 - **Pré-renderização Estática de Primeiro Frame (Static Pre-rendering Injection)**:
   - Criação do script de pipeline pós-build `frontend/scripts/postbuild.py`.

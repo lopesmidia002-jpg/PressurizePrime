@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TopBar, Header, Footer } from '../components/common';
 import { ShieldCheck, Droplets, Wrench, Flame, Target, Eye, Heart } from 'lucide-react';
 import { useSiteData } from '../context/SiteDataContext';
+import { responsiveImgProps } from '../services/images';
 
 export const AboutPage: React.FC = () => {
   const { settings, pages } = useSiteData();
@@ -15,6 +16,13 @@ export const AboutPage: React.FC = () => {
   ].filter(img => img && img.trim() !== '');
   
   const ctaImage = pageImages.cta !== undefined && pageImages.cta !== '' ? pageImages.cta : 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1920&q=80';
+
+  // Fotos 2 e 3 do carrossel só são baixadas depois do carregamento inicial (antes da 1ª troca)
+  const [restImagesReady, setRestImagesReady] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setRestImagesReady(true), 2500);
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -39,7 +47,9 @@ export const AboutPage: React.FC = () => {
               className={`absolute inset-0 overflow-hidden pointer-events-none transition-opacity duration-1000 ${activeImageIndex === idx ? 'opacity-100' : 'opacity-0 z-0'}`}
             >
               <img
-                src={img}
+                {...(idx === 0 || restImagesReady ? responsiveImgProps(img) : {})}
+                fetchPriority={idx === 0 ? 'high' : 'low'}
+                decoding="async"
                 alt=""
                 aria-hidden="true"
                 className={`w-full h-full object-cover ${activeImageIndex === idx ? 'animate-hero-bg-pan' : ''}`}
@@ -187,7 +197,12 @@ export const AboutPage: React.FC = () => {
           {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <img 
-              src={ctaImage}
+              {...responsiveImgProps(ctaImage)}
+              loading="lazy"
+              decoding="async"
+              alt=""
+              aria-hidden="true"
+              className="w-full h-full object-cover object-center"
             />
             {/* Overlay Azul Premium */}
             <div className="absolute inset-0 bg-primary/90 mix-blend-multiply"></div>

@@ -2,15 +2,15 @@
   "specVersion": "1.0",
   "host": {
     "displayName": "Pressurize Prime",
-    "identifier": "https://pressurizeprime.leccorside.com.br/",
-    "documentationUrl": "https://pressurizeprime.leccorside.com.br/llms.txt"
+    "identifier": "https://pressurizeprime.com.br/",
+    "documentationUrl": "https://pressurizeprime.com.br/llms.txt"
   },
   "entries": [
     {
       "identifier": "urn:air:pressurizeprime:services:lead-agent",
       "displayName": "Pressurize Prime Lead & Quote Agent",
       "type": "application/agent-card+json",
-      "url": "https://pressurizeprime.leccorside.com.br/api/lead",
+      "url": "https://pressurizeprime.com.br/api/public/leads",
       "description": "Agente e API REST para solicitação de orçamento e agendamento de visita técnica para pressurizadores e aquecedores de água em São Paulo.",
       "representativeQueries": [
         "conserto de pressurizador sp",
@@ -22,7 +22,7 @@
       "identifier": "urn:air:pressurizeprime:manifest:llms-skills",
       "displayName": "Pressurize Prime Skills Manifest",
       "type": "text/markdown; profile=\"urn:air:agent-skills\"",
-      "url": "https://pressurizeprime.leccorside.com.br/llms.txt",
+      "url": "https://pressurizeprime.com.br/llms.txt",
       "description": "Especificação completa de habilidades e dados operacionais da Pressurize Prime para agentes autônomos de IA.",
       "representativeQueries": [
         "instalação de pressurizadores e aquecedores",
