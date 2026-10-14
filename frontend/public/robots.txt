@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /api/
 
-Sitemap: https://pressurizeprime.com.br/sitemap.xml
+Sitemap: https://pressurizeprime.leccorside.com.br/sitemap.xml

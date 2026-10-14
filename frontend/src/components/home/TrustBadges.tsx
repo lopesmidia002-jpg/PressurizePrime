@@ -44,8 +44,8 @@ export const TrustBadges: React.FC = () => {
               </div>
               {/* min-w-0 permite que o texto quebre linha em vez de truncar */}
               <div className="min-w-0">
-                <h4 className="font-bold text-slate-900 text-sm leading-snug">{b.title}</h4>
-                <p className="text-xs text-slate-500 font-normal leading-normal mt-0.5">{b.subtitle}</p>
+                <p className="font-bold text-slate-900 text-sm leading-snug">{b.title}</p>
+                <p className="text-xs text-slate-700 font-normal leading-normal mt-0.5">{b.subtitle}</p>
               </div>
             </div>
           ))}

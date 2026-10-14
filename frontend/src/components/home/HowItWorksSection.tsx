@@ -47,10 +47,10 @@ export const HowItWorksSection: React.FC = () => {
             >
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <span className="text-4xl font-extrabold text-slate-300 tracking-tighter">
+                  <span className="text-4xl font-extrabold text-slate-400 tracking-tighter" aria-hidden="true">
                     {String(index + 1).padStart(2, '0')}
                   </span>
-                  <div className="w-12 h-12 rounded-xl bg-white shadow-2xs border border-slate-200/80 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-xl bg-white shadow-2xs border border-slate-200/80 flex items-center justify-center" aria-hidden="true">
                     {iconData.icon}
                   </div>
                 </div>
@@ -58,7 +58,7 @@ export const HowItWorksSection: React.FC = () => {
                 <h3 className="text-xl font-bold text-slate-900 mb-2.5 tracking-tight text-balance">
                   {st.title}
                 </h3>
-                <p className="text-sm text-slate-600 leading-[1.65] text-pretty font-normal">
+                <p className="text-sm text-slate-700 leading-[1.65] text-pretty font-normal">
                   {st.desc}
                 </p>
               </div>

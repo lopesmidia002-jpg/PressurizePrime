@@ -74,13 +74,13 @@ export const FinalCtaSection: React.FC = () => {
           </button>
         </div>
 
-        <div className="mt-10 flex items-center justify-center gap-6 text-xs text-slate-400">
+        <div className="mt-10 flex items-center justify-center gap-6 text-xs text-slate-200 font-medium">
           <span className="flex items-center gap-1.5">
-            <ShieldCheck className="w-4 h-4 text-secondary" />
+            <ShieldCheck className="w-4 h-4 text-secondary" aria-hidden="true" />
             {badge1}
           </span>
           <span className="flex items-center gap-1.5">
-            <ShieldCheck className="w-4 h-4 text-primary" />
+            <ShieldCheck className="w-4 h-4 text-primary" aria-hidden="true" />
             {badge2}
           </span>
         </div>

@@ -48,6 +48,7 @@ export const LeadModal: React.FC = () => {
           onClick={closeLeadModal}
           className="absolute -top-3 -right-3 z-10 w-9 h-9 bg-white text-slate-700 hover:text-slate-900 rounded-full shadow-lg border border-slate-200 flex items-center justify-center hover:bg-slate-100 transition-colors"
           title="Fechar"
+          aria-label="Fechar modal de orçamento técnico"
         >
           <X className="w-5 h-5" />
         </button>

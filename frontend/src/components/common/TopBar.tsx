@@ -22,12 +22,13 @@ export const TopBar: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          <span className="hidden lg:inline text-slate-400">Atendimento prioritário em SP e Grande SP</span>
+          <span className="hidden lg:inline text-slate-200">Atendimento prioritário em SP e Grande SP</span>
           <a
             href={`tel:${settings.phone_raw}`}
+            aria-label={`Ligar para ${settings.phone_number}`}
             className="inline-flex items-center gap-1.5 text-amber-400 hover:text-amber-300 font-semibold transition-colors"
           >
-            <Phone className="w-3.5 h-3.5" />
+            <Phone className="w-3.5 h-3.5" aria-hidden="true" />
             <span>Ligue: {settings.phone_number}</span>
           </a>
         </div>

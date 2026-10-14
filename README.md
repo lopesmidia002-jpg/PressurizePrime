@@ -40,11 +40,11 @@ docker compose up -d --build
 
 Após iniciar os contêineres, os seguintes links estarão disponíveis no seu navegador:
 
-- 🌍 **Página Inicial (Landing Page):** [http://localhost:5174](http://localhost:5174)
-- ⚙️ **Painel Administrativo (Login):** [http://localhost:5174/admin/login](http://localhost:5174/admin/login)
+- 🌍 **Página Inicial (Landing Page):** [http://localhost:5180](http://localhost:5180)
+- ⚙️ **Painel Administrativo (Login):** [http://localhost:5180/admin/login](http://localhost:5180/admin/login)
   - *Email:* `admin@pressurizeprime.com.br`
   - *Senha:* `password`
-- 🗄️ **API Backend (Laravel):** [http://localhost:8000/api/public/bootstrap](http://localhost:8000/api/public/bootstrap)
+- 🗄️ **API Backend (Laravel):** [http://localhost:8010/api/public/bootstrap](http://localhost:8010/api/public/bootstrap)
 
 *Nota: Para ver as mudanças no código em tempo real, basta editar os arquivos na sua máquina; o Docker com Hot Reload atualiza o navegador automaticamente!*
 

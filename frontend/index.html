@@ -2,14 +2,46 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/jpeg" href="/logo.jpeg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/webp" href="/logo.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pressurize Prime | Pressurizador de Água e Aquecedores em São Paulo</title>
     <meta name="description" content="Conserto, venda e instalação de pressurizadores e aquecedores a gás, solar e elétrico em São Paulo. Atendimento rápido em até 24h, peças originais e 10x sem juros." />
     <meta name="keywords" content="pressurizador de água, conserto pressurizador sp, aquecedor a gás, aquecedor solar, boiler elétrico sp, assistência técnica pressurizador sp" />
     <meta name="author" content="Pressurize Prime" />
     <meta name="theme-color" content="#004b93" />
-    <link rel="canonical" href="https://pressurizeprime.com.br/" />
+    <link rel="canonical" href="https://pressurizeprime.leccorside.com.br/" />
+
+    <!-- AI Agentic Browsing Readiness (Lighthouse 13.5+ / Agentic Web) -->
+    <link rel="alternate" type="application/json" href="/.well-known/ai-catalog.json" title="AI Agentic Catalog" />
+    <link rel="alternate" type="application/json" href="/ai-catalog.json" title="AI Catalog Fallback" />
+    <link rel="alternate" type="text/markdown" href="/llms.txt" title="LLMs Summary" />
+    <link rel="alternate" type="text/markdown" href="/llms-full.txt" title="LLMs Full Documentation" />
+    <meta name="ai-content-declaration" content="ai-catalog=/.well-known/ai-catalog.json, llms-txt=/llms.txt" />
+
+    <!-- Preload Critical LCP Hero Image (Desktop & Mobile Responsivo) -->
+    <link rel="preload" as="image" href="/images/pressurizador-sm.webp" type="image/webp" fetchpriority="high" media="(max-width: 640px)" />
+    <link rel="preload" as="image" href="/images/pressurizador.webp" type="image/webp" fetchpriority="high" media="(min-width: 641px)" />
+
+    <!-- Google Fonts Plus Jakarta Sans (Non-blocking Deferred Load) -->
+    <script>
+      (function() {
+        function loadFonts() {
+          var link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap';
+          document.head.appendChild(link);
+        }
+        if (window.requestIdleCallback) {
+          requestIdleCallback(loadFonts, { timeout: 2000 });
+        } else {
+          window.addEventListener('load', loadFonts);
+        }
+      })();
+    </script>
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap">
+    </noscript>
 
     <!-- OpenGraph Tags (WhatsApp, Facebook, LinkedIn) -->
     <meta property="og:type" content="website" />
@@ -17,19 +49,19 @@
     <meta property="og:site_name" content="Pressurize Prime" />
     <meta property="og:title" content="Pressurize Prime | Especialistas em Pressurização e Aquecedores em SP" />
     <meta property="og:description" content="Chuveiro fraco ou água fria? Atendimento de segunda a sexta, das 8h às 19h. Conserto em até 24h com garantia formal de 3 meses." />
-    <meta property="og:url" content="https://pressurizeprime.com.br/" />
-    <meta property="og:image" content="https://pressurizeprime.com.br/logo.jpeg" />
+    <meta property="og:url" content="https://pressurizeprime.leccorside.com.br/" />
+    <meta property="og:image" content="https://pressurizeprime.leccorside.com.br/logo.webp" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Pressurize Prime | Pressurizadores e Aquecedores em SP" />
     <meta name="twitter:description" content="Conserto em até 24h em São Paulo e Grande SP. Vistoria sem custo na aprovação e pagamento em até 10x sem juros." />
-    <meta name="twitter:image" content="https://pressurizeprime.com.br/logo.jpeg" />
+    <meta name="twitter:image" content="https://pressurizeprime.leccorside.com.br/logo.webp" />
 
-    <!-- Google Fonts Plus Jakarta Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-amber-400 selection:text-slate-900">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
 
     <!-- Schema.org JSON-LD Structured Data for LocalBusiness (HVAC & Plumber) -->
     <script type="application/ld+json">
@@ -37,9 +69,9 @@
       "@context": "https://schema.org",
       "@type": "HomeAndConstructionBusiness",
       "name": "Pressurize Prime",
-      "image": "https://pressurizeprime.com.br/logo.jpeg",
-      "@id": "https://pressurizeprime.com.br/",
-      "url": "https://pressurizeprime.com.br/",
+      "image": "https://pressurizeprime.leccorside.com.br/logo.webp",
+      "@id": "https://pressurizeprime.leccorside.com.br/",
+      "url": "https://pressurizeprime.leccorside.com.br/",
       "telephone": "+55-11-3456-7890",
       "priceRange": "$$",
       "address": {
@@ -119,9 +151,5 @@
       }
     }
     </script>
-  </head>
-  <body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-amber-400 selection:text-slate-900">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

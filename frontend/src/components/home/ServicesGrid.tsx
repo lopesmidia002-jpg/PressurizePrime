@@ -50,7 +50,7 @@ export const ServicesGrid: React.FC = () => {
   };
 
   return (
-    <section className="py-16 md:py-24 lg:py-28 bg-slate-50 border-b border-slate-200">
+    <section className="py-16 md:py-24 lg:py-28 bg-slate-50 border-b border-slate-200" aria-label="Nossos Serviços Especializados">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-slate-900 tracking-[-0.03em] leading-tight text-balance">
@@ -61,13 +61,14 @@ export const ServicesGrid: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" role="list">
           {services.map(service => {
             const visual = getServiceVisuals(service.slug);
 
             return (
               <div
                 key={service.id}
+                role="listitem"
                 className="bg-white rounded-2xl border border-slate-200/90 p-7 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 relative overflow-hidden"
               >
                 <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl ${visual.gradient} rounded-bl-full pointer-events-none`}></div>
@@ -75,12 +76,24 @@ export const ServicesGrid: React.FC = () => {
                 <div>
                   {/* Foto Realística do Produto com Badge de Ícone Sobreposta */}
                   <div className="relative mb-5 overflow-hidden rounded-xl border border-slate-200/80 bg-slate-100 group-hover:border-primary/40 transition-colors">
-                    <img
-                      src={service.image_url || '/logo.jpeg'}
-                      alt={service.title}
-                      className="w-full h-44 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className={`absolute top-3 left-3 w-10 h-10 rounded-lg flex items-center justify-center border shadow-xs backdrop-blur-md ${visual.accentBg}`}>
+                    {(() => {
+                      const baseImg = service.image_url ? service.image_url.replace(/\.jpg$/, '.webp') : '/logo.webp';
+                      const smImg = baseImg.includes('.webp') ? baseImg.replace('.webp', '-sm.webp') : baseImg;
+                      return (
+                        <img
+                          src={smImg}
+                          srcSet={`${smImg} 380w, ${baseImg} 720w`}
+                          sizes="(max-width: 640px) 380px, (max-width: 1024px) 50vw, 25vw"
+                          alt={service.title}
+                          width="380"
+                          height="176"
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full h-44 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
+                        />
+                      );
+                    })()}
+                    <div className={`absolute top-3 left-3 w-10 h-10 rounded-lg flex items-center justify-center border shadow-xs backdrop-blur-md ${visual.accentBg}`} aria-hidden="true">
                       {visual.icon}
                     </div>
                   </div>
@@ -111,10 +124,11 @@ export const ServicesGrid: React.FC = () => {
                 {/* Botão de Acesso à LP */}
                 <Link
                   to={`/${service.slug}`}
+                  aria-label={`Saiba mais sobre ${service.title}`}
                   className="mt-4 inline-flex items-center justify-between w-full py-3 px-4 rounded-xl bg-slate-50 hover:bg-primary text-slate-800 hover:text-white font-semibold text-xs tracking-wide transition-all border border-slate-200/80 group-hover:border-primary"
                 >
                   <span>{(service as any).button_text || visual.btnText}</span>
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                 </Link>
               </div>
             );

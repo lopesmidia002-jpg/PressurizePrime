@@ -1,0 +1,36 @@
+# Pressurize Prime - Documentação Completa para Modelos e Agentes de Linguagem (LLMs)
+
+> Documentação técnica consolidada da Pressurize Prime, referência em pressurização de redes hidráulicas e aquecimento de água em São Paulo e Região Metropolitana.
+
+## Contato e Atendimento
+- Website: https://pressurizeprime.leccorside.com.br
+- Horário de Atendimento: Segunda a Sexta, das 08h00 às 19h00.
+- Prazo de Atendimento Emergencial: Em até 24 horas.
+- Garantia Padrão: 3 meses em todas as peças e serviços executados.
+- Pagamento: Em até 10x sem juros no cartão de crédito ou à vista com desconto via Pix.
+
+## Catálogo de Serviços e Soluções
+
+### 1. Conserto, Manutenção e Instalação de Pressurizadores de Água
+- Problemas solucionados: Chuveiro sem pressão, torneiras com fluxo fraco, bomba ligando e desligando continuamente (ciclando), ruídos excessivos, vazamento no selo mecânico, falha de acionamento do fluxostato ou pressostato.
+- Principais Marcas Atendidas: Rowa (Tango SPH, Max SPH), Lorenzetti (PL-20, PL-400), Schneider (VPR, TAP), Komeco, Grundfos, Syllent, Jacuzzi.
+- URL Dedicada: https://pressurizeprime.leccorside.com.br/pressurizador
+
+### 2. Conserto e Manutenção de Aquecedores a Gás
+- Normas Regulamentadoras: Adequação integral à ABNT NBR 13103 (revisão de chaminé, dutos de exaustão, ventilador, sensores de chama e monóxido de carbono).
+- Problemas solucionados: Água oscilando entre quente e fria, aquecedor que desliga sozinho, códigos de erro (11, 12, 16, 90), cheiro de gás, barulho na ignição, piloto não acende.
+- Principais Marcas Atendidas: Rinnai, Rheem, Lorenzetti, Komeco, Bosch, Harman, Junkers, Bosch, Vulcano.
+- URL Dedicada: https://pressurizeprime.leccorside.com.br/aquecedor-a-gas
+
+### 3. Assistência e Manutenção de Aquecedores Solares e Boilers
+- Problemas solucionados: Perda de eficiência térmica no inverno, congelamento ou trinca de tubos a vácuo, vazamento no reservatório térmico (boiler), falha na circulação forçada e controlador diferencial de temperatura (CDT).
+- Tipos de Sistema: Circulação natural (termossifão) e forçada, coletores planos e tubos a vácuo, boilers de baixa e alta pressão.
+- URL Dedicada: https://pressurizeprime.leccorside.com.br/aquecedor-solar
+
+### 4. Conserto de Aquecedores Elétricos e Boilers
+- Problemas solucionados: Água não esquenta, disjuntor desarmando, vazamento de água na flange da resistência, termostato descalibrado, superaquecimento.
+- Serviços executados: Troca de resistência elétrica blindada em cobre/inox, substituição de anodo de sacrifício de magnésio, regulagem de termostato, pressurização da linha de retorno.
+- URL Dedicada: https://pressurizeprime.leccorside.com.br/aquecedor-eletrico
+
+## Cobertura Geográfica
+Atendemos todos os bairros da Zona Sul, Oeste, Norte, Leste e Centro de São Paulo (Brooklin, Vila Olímpia, Itaim Bibi, Moema, Jardins, Pinheiros, Morumbi, Campo Belo, Alto de Pinheiros, Perdizes, Pacaembu, Tatuapé, Mooca, Santana), além de Alphaville, Barueri, Santana de Parnaíba, Cotia, Granja Viana e Grande ABC.

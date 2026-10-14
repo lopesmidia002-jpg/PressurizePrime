@@ -29,16 +29,18 @@ export const Header: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 gap-4 lg:gap-8">
           {/* Logo Oficial */}
-          <Link to="/" className="flex items-center gap-2 shrink-0 group">
+          <Link to="/" aria-label="Página Inicial - Pressurize Prime" className="flex items-center gap-2 shrink-0 group">
             <img
-              src={settings.logo_url || '/logo.jpeg'}
+              src={settings.logo_url ? settings.logo_url.replace(/\.jpeg$/, '.webp').replace(/\.jpg$/, '.webp') : '/logo.webp'}
               alt={settings.site_name}
+              width="210"
+              height="56"
               className="h-10 md:h-14 w-auto object-contain transition-transform group-hover:scale-[1.02]"
             />
           </Link>
 
           {/* Navegação Desktop */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 ml-8">
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 ml-8" aria-label="Navegação principal">
             <Link
               to="/"
               className={`text-sm font-semibold transition-colors whitespace-nowrap ${
@@ -58,14 +60,17 @@ export const Header: React.FC = () => {
                 type="button"
                 className="flex items-center gap-1 text-sm font-semibold text-slate-700 hover:text-primary transition-colors py-2 whitespace-nowrap"
                 onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
+                aria-expanded={servicesDropdownOpen}
+                aria-haspopup="true"
+                aria-label="Menu de serviços"
               >
                 <span>Serviços</span>
-                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${servicesDropdownOpen ? 'rotate-180 text-primary' : ''}`} />
+                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${servicesDropdownOpen ? 'rotate-180 text-primary' : ''}`} aria-hidden="true" />
               </button>
 
               {servicesDropdownOpen && (
                 <div className="absolute top-full left-0 w-72 bg-white rounded-xl shadow-xl border border-slate-100 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                  <div className="px-4 py-2 border-b border-slate-100 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                  <div className="px-4 py-2 border-b border-slate-100 text-xs font-bold text-slate-600 uppercase tracking-wider">
                     Soluções Técnicas
                   </div>
                   {services.map(service => (
@@ -110,15 +115,17 @@ export const Header: React.FC = () => {
             <div className="flex items-center gap-3">
               <a
                 href={`tel:${settings.phone_raw}`}
+                aria-label={`Ligar para ${settings.phone_number}`}
                 className="inline-flex items-center gap-1.5 text-sm font-bold text-slate-700 hover:text-primary transition-colors whitespace-nowrap"
               >
-                <Phone className="w-4 h-4 text-primary" />
+                <Phone className="w-4 h-4 text-primary" aria-hidden="true" />
                 <span>{settings.phone_number}</span>
               </a>
               
               <button
                 type="button"
                 onClick={() => openLeadModal()}
+                aria-label="Abrir formulário de orçamento"
                 className="inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:text-white bg-blue-50 hover:bg-primary border border-blue-200 hover:border-primary px-4 py-2 rounded-lg transition-all cursor-pointer whitespace-nowrap"
               >
                 Pedir Orçamento
@@ -129,9 +136,10 @@ export const Header: React.FC = () => {
               href={`https://wa.me/${settings.whatsapp_raw}?text=Olá!%20Vim%20pelo%20site%20da%20Pressurize%20Prime%20e%20gostaria%20de%20um%20diagnóstico%20técnico.`}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Chamar equipe técnica no WhatsApp"
               className="inline-flex items-center gap-2 bg-secondary text-slate-950 font-bold px-5 py-2.5 rounded-lg shadow-sm hover:bg-secondary-dark transition-all text-sm group whitespace-nowrap"
             >
-              <MessageSquare className="w-4 h-4 transition-transform group-hover:scale-110" />
+              <MessageSquare className="w-4 h-4 transition-transform group-hover:scale-110" aria-hidden="true" />
               <span>Chamar no WhatsApp</span>
             </a>
           </div>
@@ -143,19 +151,21 @@ export const Header: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 bg-secondary hover:bg-secondary-dark text-slate-950 font-bold px-3 py-2 rounded-lg text-sm transition-all whitespace-nowrap"
-              aria-label="WhatsApp"
+              aria-label="Chamar no WhatsApp"
             >
-              <MessageSquare className="w-4 h-4 shrink-0" />
+              <MessageSquare className="w-4 h-4 shrink-0" aria-hidden="true" />
               <span>WhatsApp</span>
             </a>
 
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-slate-700 hover:text-slate-900 rounded-lg hover:bg-slate-100 focus:outline-none"
-              aria-label="Abrir Menu"
+              className="p-2 text-slate-700 hover:text-slate-900 rounded-lg hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-primary/30"
+              aria-label={mobileMenuOpen ? 'Fechar menu' : 'Abrir menu de navegação'}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
             </button>
           </div>
         </div>
@@ -163,7 +173,7 @@ export const Header: React.FC = () => {
 
       {/* Menu Aberto Mobile */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-3 animate-in slide-in-from-top-3">
+        <div id="mobile-menu" className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-3 animate-in slide-in-from-top-3" role="navigation" aria-label="Menu de navegação mobile">
           <Link
             to="/"
             onClick={() => setMobileMenuOpen(false)}
@@ -172,7 +182,7 @@ export const Header: React.FC = () => {
             Início
           </Link>
 
-          <div className="px-3 pt-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+          <div className="px-3 pt-2 text-xs font-bold text-slate-600 uppercase tracking-wider">
             Nossos Serviços
           </div>
           <div className="grid grid-cols-1 gap-1 pl-2">

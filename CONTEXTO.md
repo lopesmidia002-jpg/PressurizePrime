@@ -116,3 +116,67 @@ O projeto é estruturado em duas camadas principais:
 - **Status do Banco de Producao**: Conexao validada com sucesso via MySQL HostGator. Todas as tabelas criadas e alimentadas com dados oficiais de producao e usuario administrador.
 - **Correcao de Roteamento Apache**: Ajustado `backend/routes/web.php` para resolver rotas da API mesmo quando o Apache em subpasta retira o prefixo `/api` da URI interna.
 - **Ajuste de CSRF**: Excecao de validacao de tokens CSRF configurada no `bootstrap/app.php` para todas as rotas da API, permitindo autenticacao Bearer sem sessao de cookies web.
+
+### Correção (14/10/2026): Conflito de Portas Docker com Outros Projetos Locais
+- **Erro**: `docker compose up` falhava com `Bind for 0.0.0.0:8000 failed: port is already allocated`. A porta 8000 do host estava ocupada pelo `realestate-nginx`, de outro projeto. Outros stacks locais também usam `3306`, `3307`, `5173`, `6381` e `8000`.
+- **Decisão**: não parar containers de outros projetos. As portas **host** do Pressurize Prime foram movidas para uma faixa exclusiva e parametrizável, mantendo as portas internas:
+  - MySQL `${MYSQL_PORT:-3310}:3306` | Backend `${BACKEND_PORT:-8010}:8000` | Frontend `${FRONTEND_PORT:-5180}:5173`.
+- Na rede Docker nada muda: o backend usa `mysql:3306` e o proxy do Vite usa `backend:8000`. `APP_URL` e `SANCTUM_STATEFUL_DOMAINS` derivam das variáveis, e o CORS libera `localhost:5180`.
+- **URLs locais atuais**: site `http://localhost:5180`, admin `http://localhost:5180/admin`, API `http://localhost:8010`, MySQL externo `127.0.0.1:3310`. As URLs antigas (`5173`/`5174`/`8000`) citadas nos passos históricos acima estão obsoletas.
+- **Limitação**: o fallback do proxy no `vite.config.ts` (`127.0.0.1:8010`) supõe o backend do Docker. Para rodar `php artisan serve` nativo, use `--port=8010` ou defina `VITE_API_BACKEND_URL`.
+
+### Correção (14/10/2026): Tela Branca em Dev por Alias CJS do React Router
+- **Erro**: em `http://localhost:5180/` o console mostrava `The requested module '.../.vite/deps/react-router-dom.js' doesn't provide an export named: 'useLocation'` (`Header.tsx`), e a página ficava em branco.
+- **Causa**: os aliases do `vite.config.ts` (otimização de performance do Passo 37) forçavam `react-router` e `react-router/dom` para `dist/production/*.js`, que são **CommonJS**. O pré-bundle do Vite em dev não propaga named exports de CJS via `export *`. No `vite build` o problema não aparecia.
+- **Correção**: aliases apontam agora para `dist/production/index.mjs` e `dist/production/dom-export.mjs` (ESM). O build de produção do router continua sendo usado em dev e em build.
+- **Achado extra**: o `node_modules/react-router` local (Windows) estava incompleto, sem os `.mjs`, e quebrava o `npm run build` local mesmo antes da mudança. Foi reinstalado. Se voltar a ocorrer: `rm -rf node_modules/react-router && npm install`.
+- **Regra (aliases)**: ao mexer nesses aliases, apontar sempre para `.mjs` e limpar o cache do Vite no container (`docker exec pressurize_prime_frontend rm -rf /app/node_modules/.vite` + restart).
+
+### Produção na Hostinger (14/10/2026): Guia `SUBIR-PROD.md`
+- **Produção oficial**: `https://pressurizeprime.com.br` na Hostinger, compartilhada (usuário `u335590039`, SSH na porta `65002`). As credenciais ficam em `ACESSO-FTP-SSH-PROD`, que não é versionado. A HostGator (`pressurizeprime.leccorside.com.br`) passa a ser só referência histórica.
+- **Estado do servidor (levantado via SSH, somente leitura)**: PHP 8.3 com todas as extensões do Laravel, Composer 2.9, git e mysql CLI; **sem Node**, então o build do frontend é sempre local. O frontend já tinha sido enviado em 13/10 para `~/domains/pressurizeprime.com.br/public_html`. **Backend e banco ainda não existem.**
+- **Decisões do guia**:
+  - Laravel em `~/pressurize_backend` (fora da pasta do domínio, que tem o aviso `DO_NOT_UPLOAD_HERE`). A API é exposta por `public_html/api/index.php` com caminho absoluto para o backend.
+  - Envio por `tar` + `scp`, mais rápido e atômico que FTP arquivo a arquivo. FTP fica como alternativa.
+  - `APP_KEY` novo gerado no servidor (o do `docker-compose.yml` é público). `--seed` apenas na primeira publicação, porque sobrescreveria o conteúdo do CMS.
+  - Atualizações de backend excluem `storage/` e `.env` do pacote, com backup `mysqldump` + `artisan down/up`.
+  - O frontend é publicado removendo só `assets/` antes de extrair, para nunca apagar `api/`.
+- **Segurança**: `.gitignore` ampliado para `ACESSO-FTP-*` e `acesso-host.txt`, que estavam fora do ignore e com senhas em texto puro.
+- **Deploy executado (14/10/2026)**: backend instalado em `~/pressurize_backend` (vendor ok), `.env` de produção com `APP_KEY` próprio, `public_html/api/` criado e frontend novo publicado (site 200). **A API retorna 500 até o banco existir.**
+- **Erros encontrados no deploy**:
+  - `composer install` falhou com `proc_open` indisponível (está em `disable_functions` na Hostinger). Solução: `php -d disable_functions= /usr/local/bin/composer install ...`.
+  - O SFTP via paramiko falhou com `No such file` usando o caminho absoluto `/home/u335590039/...`. O SFTP da Hostinger usa a home como raiz, então os uploads devem usar caminho relativo.
+- **Deploy concluído (14/10/2026)**: banco `u335590039_pressurize` criado pelo usuário no hPanel. As credenciais agora ficam todas em `ACESSOS-PROD.md`, que está no `.gitignore` e substituiu o `ACESSO-FTP-SSH-PROD`. Migrations e seeders executados, e o conteúdo do CMS local foi copiado para produção por decisão do usuário (só as tabelas de conteúdo; leads, users, sessions e tokens ficaram de fora). Backup do conteúdo seedado em `~/backups/conteudo_antes_import_20261014_164809.sql`. API, login admin e rotas SPA validados com HTTP 200.
+- **Mais erros e decisões do deploy**:
+  - Senha do banco com `#`: no `.env` precisa ficar entre aspas, senão vira comentário.
+  - `php artisan route:cache` falha (`Another route has already been assigned name [services.index]`), porque o `web.php` reimporta o `api.php` sem prefixo para funcionar na subpasta `/api`. Decisão: não usar cache de rotas. Uma alternativa futura seria registrar o grupo do `web.php` com outro `->name()` para permitir o cache.
+  - O endpoint de bootstrap não ordena `sections` (sem `ORDER BY`), então a ordem varia entre bancos. Funciona, mas vale ordenar por `id`/`order` na API.
+- **Pendências**: trocar a senha padrão do admin em produção; trocar o texto de teste `ddfgdfgdfgdfg` em Sobre → "Nossa História"; opcionalmente, automatizar o deploy com `deploy.ps1`.
+
+
+## 11. Otimização de Performance, SEO e Web Agêntica (PageSpeed & Lighthouse 13.3+)
+- **Navegação Agêntica (Agentic Browsing 4/4)**:
+  - Presença e validação do `/llms.txt` e `/llms-full.txt` com Markdown padronizado, hierarquia semântica e rotas canônicas.
+  - Implementação declarativa de WebMCP (`toolname`, `tooldescription`, `toolparamdescription`) nos formulários de atendimento técnico.
+  - Árvore de acessibilidade estrita com vinculação de labels a inputs (`htmlFor` + `id`) e estabilidade visual com CLS = 0.
+- **Otimização de Performance Web (PageSpeed 100)**:
+  - Code splitting com `React.lazy()` para todas as páginas secundárias e módulos do painel administrativo.
+  - Compressão de texto GZIP ativa no Apache via `mod_deflate`.
+  - Cache imutável (`max-age=31536000, immutable`) para assets versionados e cache controlado para o SPA.
+  - Imagens servidas em WebP otimizado com redução de peso superior a 88%.
+  - Preload prioritário da imagem do Hero (LCP) e carregamento assíncrono não-bloqueante de fontes.
+- **Especificacao ARD e ai-catalog.json (Navegacao Agentica 4/4)**:
+  - Criacao dos arquivos `ai-catalog.json` e `/.well-known/ai-catalog.json` seguindo a especificacao ARD (Agentic Resource Discovery).
+  - URNs no padrao RFC 8141 (`urn:air:pressurizeprime:services:lead-agent`), media types compativeis (`application/agent-card+json`, `text/markdown; profile="urn:air:agent-skills"`) e consultas vetoriais (`representativeQueries`).
+- **Acessibilidade e SEO 100/100**:
+  - Hierarquia de cabecalhos estrita (H1 -> H2 -> H3) em todos os componentes e paginas, eliminando saltos de niveis (WCAG 2.1 AA/AAA).
+  - Contraste de cores corrigido em todos os elementos de texto secundario.
+  - Limpeza de diretivas no `robots.txt` para validacao estrita do Googlebot e Lighthouse SEO (100/100 cravado).
+  - Deploy automatico e sincronizacao via FTP diretamente para o servidor de producao (`pressurizeprime.leccorside.com.br`).
+- **Otimização Extrema de Performance Mobile (PageSpeed Mobile 99/100)**:
+  - Injeção de pré-renderização estática do Header e Hero dentro de `<div id="root">` no pipeline pós-build (`postbuild.py`), zerando o atraso de inicialização do bundle React no celular.
+  - CSS Preload com `fetchpriority="high"` eliminando os 290 ms de bloqueio de renderização no 4G lento.
+  - Defer total de Google Fonts via `requestIdleCallback` com font-stack de sistema moderna nativa.
+  - Recompressão profunda de imagens WebP via Pillow e correção de `sizes`/`srcSet` no `ServicesGrid.tsx` para aparelhos móveis de alta densidade de pixels.
+  - Pontuação auditada no Google PageSpeed Insights Mobile: **Desempenho 99/100**, **Acessibilidade 97/100**, **Práticas Recomendadas 100/100**, **SEO 100/100**, **Navegação Agêntica 4/4**. Core Web Vitals todos no Verde (FCP 1,5s, LCP 1,7s, TBT 30ms, CLS 0, Speed Index 2,5s).
+

@@ -138,11 +138,11 @@ export const defaultPages: Record<string, PageData> = {
     id: 'home',
     slug: 'home',
     title: 'Página Inicial',
-    hero_title: 'Banho forte e água quente, sem esperar dias por um técnico.',
-    hero_subtitle: 'Venda, instalação e manutenção de pressurizadores e aquecedores a gás, solar e elétricos em São Paulo. Atendimento imediato, técnicos experientes e conserto em até 24 horas.',
+    hero_title: 'Água na temperatura certa e na pressão que você merece.',
+    hero_subtitle: 'Conserto, venda e instalação de pressurizadores e aquecedores a gás, solar e elétrico em São Paulo. Atendimento rápido, peças originais e garantia formal em todos os serviços.',
     hero_cta_primary: 'Chamar no WhatsApp',
     hero_cta_secondary: 'Ligar agora',
-    microcopy: 'Atendimento humano desde a primeira mensagem. Sem robô, sem fila.',
+    microcopy: 'Atendimento técnico de segunda a sexta, das 8h às 19h. Conserto em até 24 horas.',
     sections: {
       about: {
         title: 'Quem Somos',

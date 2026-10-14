@@ -36,48 +36,48 @@ export const HomeLeadSection: React.FC = () => {
             {/* Destaques Técnicos */}
             <div className="space-y-4 pt-2">
               <div className="flex items-start gap-3.5">
-                <div className="p-2.5 rounded-xl bg-blue-50 text-primary border border-blue-100 shrink-0">
+                <div className="p-2.5 rounded-xl bg-blue-50 text-primary border border-blue-100 shrink-0" aria-hidden="true">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900">{items[0]?.title || defaultItems[0].title}</h4>
-                  <p className="text-xs text-slate-600 mt-0.5">
+                  <h3 className="text-sm font-bold text-slate-900">{items[0]?.title || defaultItems[0].title}</h3>
+                  <p className="text-xs text-slate-700 mt-0.5">
                     {items[0]?.desc || defaultItems[0].desc}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3.5">
-                <div className="p-2.5 rounded-xl bg-amber-50 text-amber-600 border border-amber-100 shrink-0">
+                <div className="p-2.5 rounded-xl bg-amber-50 text-amber-600 border border-amber-100 shrink-0" aria-hidden="true">
                   <Zap className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900">{items[1]?.title || defaultItems[1].title}</h4>
-                  <p className="text-xs text-slate-600 mt-0.5">
+                  <h3 className="text-sm font-bold text-slate-900">{items[1]?.title || defaultItems[1].title}</h3>
+                  <p className="text-xs text-slate-700 mt-0.5">
                     {items[1]?.desc || defaultItems[1].desc}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3.5">
-                <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 shrink-0">
+                <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 shrink-0" aria-hidden="true">
                   <CreditCard className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900">{items[2]?.title || defaultItems[2].title}</h4>
-                  <p className="text-xs text-slate-600 mt-0.5">
+                  <h3 className="text-sm font-bold text-slate-900">{items[2]?.title || defaultItems[2].title}</h3>
+                  <p className="text-xs text-slate-700 mt-0.5">
                     {items[2]?.desc || defaultItems[2].desc}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3.5">
-                <div className="p-2.5 rounded-xl bg-purple-50 text-purple-600 border border-purple-100 shrink-0">
+                <div className="p-2.5 rounded-xl bg-purple-50 text-purple-600 border border-purple-100 shrink-0" aria-hidden="true">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900">{items[3]?.title || defaultItems[3].title}</h4>
-                  <p className="text-xs text-slate-600 mt-0.5">
+                  <h3 className="text-sm font-bold text-slate-900">{items[3]?.title || defaultItems[3].title}</h3>
+                  <p className="text-xs text-slate-700 mt-0.5">
                     {items[3]?.desc || defaultItems[3].desc}
                   </p>
                 </div>

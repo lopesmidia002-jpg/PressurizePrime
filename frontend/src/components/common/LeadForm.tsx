@@ -281,18 +281,29 @@ export const LeadForm: React.FC<LeadFormProps> = ({
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4 text-left" noValidate>
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-4 text-left"
+        noValidate
+        {...{
+          toolname: "solicitarAtendimentoTecnico",
+          tooldescription: "Solicita agendamento de visita técnica ou orçamento para pressurizadores e aquecedores a gás, solar e elétrico em São Paulo."
+        }}
+      >
         {/* Campo: Nome Completo */}
         <div>
-          <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+          <label htmlFor="lead-form-name" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
             <User className="w-3.5 h-3.5 text-slate-400" />
             <span>{nameLabel}</span>
           </label>
           <input
+            id="lead-form-name"
+            name="clientName"
             type="text"
             value={formData.name}
             onChange={e => handleChange('name', e.target.value)}
             placeholder="Ex: Carlos Eduardo Silva"
+            {...{ toolparamdescription: "Nome completo do cliente para contato técnico" }}
             className={`w-full px-3.5 py-2.5 text-sm bg-slate-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all ${
               errors.name ? 'border-red-400 bg-red-50/30' : 'border-slate-300 focus:border-primary'
             }`}
@@ -307,16 +318,19 @@ export const LeadForm: React.FC<LeadFormProps> = ({
 
         {/* Campo: WhatsApp */}
         <div>
-          <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+          <label htmlFor="lead-form-whatsapp" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
             <Phone className="w-3.5 h-3.5 text-slate-400" />
             <span>{whatsappLabel}</span>
           </label>
           <input
+            id="lead-form-whatsapp"
+            name="whatsapp"
             type="tel"
             value={formData.whatsapp}
             onChange={e => handleChange('whatsapp', e.target.value)}
             placeholder="(11) 98765-4321"
             maxLength={15}
+            {...{ toolparamdescription: "Telefone WhatsApp com DDD para retorno ágil" }}
             className={`w-full px-3.5 py-2.5 text-sm bg-slate-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all ${
               errors.whatsapp ? 'border-red-400 bg-red-50/30' : 'border-slate-300 focus:border-primary'
             }`}
@@ -331,13 +345,16 @@ export const LeadForm: React.FC<LeadFormProps> = ({
 
         {/* Campo: Categoria de Serviço */}
         <div>
-          <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+          <label htmlFor="lead-form-service" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
             <Wrench className="w-3.5 h-3.5 text-slate-400" />
             <span>{serviceLabel}</span>
           </label>
           <select
+            id="lead-form-service"
+            name="serviceCategory"
             value={formData.service_category || ''}
             onChange={e => handleChange('service_category', e.target.value)}
+            {...{ toolparamdescription: "Tipo de equipamento: pressurizador, aquecedor a gás, solar ou elétrico" }}
             className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-slate-800 transition-all"
           >
             <option value="">{servicePlaceholder}</option>
@@ -348,8 +365,6 @@ export const LeadForm: React.FC<LeadFormProps> = ({
             ))}
           </select>
         </div>
-
-
 
         {/* Mensagem Amigável de Horário de Expediente */}
         {!isBusinessHours && (
@@ -365,6 +380,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
         <button
           type="submit"
           disabled={isSubmitting}
+          aria-label="Solicitar Orçamento Gratuito"
           className="w-full bg-secondary hover:bg-secondary-dark text-slate-950 font-extrabold py-3.5 px-6 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 text-sm disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed group"
         >
           {isSubmitting ? (
@@ -380,7 +396,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
           )}
         </button>
 
-        <p className="text-[11px] text-center text-slate-400">
+        <p className="text-[11px] text-center text-slate-600 font-medium">
           🔒 {securityText}
         </p>
       </form>

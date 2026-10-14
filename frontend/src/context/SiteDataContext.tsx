@@ -30,7 +30,7 @@ interface SiteDataContextType {
 const SiteDataContext = createContext<SiteDataContextType | undefined>(undefined);
 
 // Versão dos dados — ao incrementar, o localStorage é limpo e os defaults são usados
-const DATA_VERSION = '2.3';
+const DATA_VERSION = '2.4';
 
 export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Configurações Globais (com persistência local e fallback)

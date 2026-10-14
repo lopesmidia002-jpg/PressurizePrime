@@ -37,6 +37,13 @@ backend/yarn-error.log
 backend/.fleet
 backend/.idea
 backend/.vscode
+ACESSO-FTP.md
+ACESSO-FTP-*
+SUBIR-PROD.md
+ACESSOS-PROD.md
+acesso-host.txt
+*upload_ftp.py
+*convert_images.py
 
 # Environment variables
 .env

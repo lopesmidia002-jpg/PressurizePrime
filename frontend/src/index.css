@@ -19,7 +19,7 @@
   body {
     background-color: var(--color-bg-light);
     color: var(--color-text-main);
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -245,10 +245,12 @@
   }
 }
 
-.animate-hero-bg-pan {
-  animation: hero-bg-pan 20s ease-in-out infinite;
-  will-change: transform;
-  transform-origin: center center;
+@media (min-width: 768px) {
+  .animate-hero-bg-pan {
+    animation: hero-bg-pan 20s ease-in-out infinite;
+    will-change: transform;
+    transform-origin: center center;
+  }
 }
 
 @keyframes aurora-mesh-drift {

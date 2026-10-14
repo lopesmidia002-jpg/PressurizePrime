@@ -29,31 +29,31 @@ export const TermsOfUsePage: React.FC = () => {
               Ao acessar e utilizar os serviços do site da <strong>Pressurize Prime</strong>, você concorda com os Termos e Condições de Uso descritos abaixo.
             </p>
 
-            <h3 className="text-lg font-bold text-slate-800">1. Agendamentos e Orçamentos</h3>
+            <h2 className="text-lg font-bold text-slate-800">1. Agendamentos e Orçamentos</h2>
             <p>
               O preenchimento do formulário no site caracteriza uma solicitação de contato, e não a contratação imediata do serviço. 
               Um técnico da Pressurize Prime entrará em contato para confirmar a disponibilidade, validar o problema e agendar a visita técnica.
             </p>
 
-            <h3 className="text-lg font-bold text-slate-800">2. Taxa de Visita Técnica</h3>
+            <h2 className="text-lg font-bold text-slate-800">2. Taxa de Visita Técnica</h2>
             <p>
               Dependendo da região de atendimento em São Paulo ou Grande SP, pode haver cobrança de taxa de visita e deslocamento. 
               Este valor é sempre informado previamente durante o atendimento via WhatsApp ou telefone, antes do técnico ir até o local.
             </p>
 
-            <h3 className="text-lg font-bold text-slate-800">3. Garantia de Serviços</h3>
+            <h2 className="text-lg font-bold text-slate-800">3. Garantia de Serviços</h2>
             <p>
               Oferecemos garantia legal em todos os serviços prestados, sendo 90 dias para peças de reposição e 30 dias para mão de obra, 
               contados a partir da emissão da ordem de serviço. A garantia cobre apenas o problema específico que foi consertado pela nossa equipe.
             </p>
 
-            <h3 className="text-lg font-bold text-slate-800">4. Propriedade Intelectual</h3>
+            <h2 className="text-lg font-bold text-slate-800">4. Propriedade Intelectual</h2>
             <p>
               Todo o conteúdo deste site, incluindo textos, gráficos, logotipos, imagens e código fonte, é de propriedade exclusiva da Pressurize Prime 
               e está protegido por leis de direitos autorais.
             </p>
 
-            <h3 className="text-lg font-bold text-slate-800">5. Modificações</h3>
+            <h2 className="text-lg font-bold text-slate-800">5. Modificações</h2>
             <p>
               A Pressurize Prime reserva-se o direito de alterar estes Termos de Uso a qualquer momento, sem aviso prévio. Recomendamos visitar esta página periodicamente.
             </p>

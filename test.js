@@ -3,7 +3,7 @@ import axios from 'axios';
 async function testPut() {
     try {
         const adminApi = axios.create({
-            baseURL: 'http://localhost:8000/api/admin',
+            baseURL: 'http://localhost:8010/api/admin',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',

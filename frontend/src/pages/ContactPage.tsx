@@ -27,43 +27,43 @@ export const ContactPage: React.FC = () => {
           {/* Informações de Contato */}
           <div className="lg:col-span-1 space-y-6">
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-              <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
+              <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4" aria-hidden="true">
                 <MessageSquare className="w-6 h-6 text-primary" />
               </div>
-              <h3 className="font-bold text-slate-900 text-lg mb-1">WhatsApp</h3>
+              <h2 className="font-bold text-slate-900 text-lg mb-1">WhatsApp</h2>
               <p className="text-slate-600 text-sm mb-4">Atendimento rápido para urgências.</p>
-              <a href={`https://wa.me/${settings.whatsapp_raw}`} className="text-primary font-bold hover:underline">
+              <a href={`https://wa.me/${settings.whatsapp_raw}`} aria-label="Falar com WhatsApp" className="text-primary font-bold hover:underline">
                 {settings.whatsapp_number}
               </a>
             </div>
 
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-              <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mb-4">
+              <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mb-4" aria-hidden="true">
                 <Phone className="w-6 h-6 text-slate-700" />
               </div>
-              <h3 className="font-bold text-slate-900 text-lg mb-1">Telefone Fixo</h3>
+              <h2 className="font-bold text-slate-900 text-lg mb-1">Telefone Fixo</h2>
               <p className="text-slate-600 text-sm mb-4">Fale diretamente com nossa central.</p>
-              <a href={`tel:${settings.phone_raw}`} className="text-slate-900 font-bold hover:text-primary transition-colors">
+              <a href={`tel:${settings.phone_raw}`} aria-label={`Ligar para ${settings.phone_number}`} className="text-slate-900 font-bold hover:text-primary transition-colors">
                 {settings.phone_number}
               </a>
             </div>
 
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-              <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mb-4">
+              <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mb-4" aria-hidden="true">
                 <Mail className="w-6 h-6 text-slate-700" />
               </div>
-              <h3 className="font-bold text-slate-900 text-lg mb-1">E-mail</h3>
+              <h2 className="font-bold text-slate-900 text-lg mb-1">E-mail</h2>
               <p className="text-slate-600 text-sm mb-4">Dúvidas corporativas e parcerias.</p>
-              <a href="mailto:contato@pressurizeprime.com.br" className="text-slate-900 font-bold hover:text-primary transition-colors">
+              <a href="mailto:contato@pressurizeprime.com.br" aria-label="Enviar e-mail para a equipe" className="text-slate-900 font-bold hover:text-primary transition-colors">
                 contato@pressurizeprime.com.br
               </a>
             </div>
             
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-              <div className="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center mb-4">
+              <div className="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center mb-4" aria-hidden="true">
                 <Clock className="w-6 h-6 text-amber-500" />
               </div>
-              <h3 className="font-bold text-slate-900 text-lg mb-1">Horário de Funcionamento</h3>
+              <h2 className="font-bold text-slate-900 text-lg mb-1">Horário de Funcionamento</h2>
               <p className="text-slate-600 text-sm">
                 {settings.business_hours}
               </p>

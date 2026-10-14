@@ -1,5 +1,5 @@
 <?php
-$ch = curl_init('http://localhost:8000/api/admin/login');
+$ch = curl_init('http://localhost:8010/api/admin/login');
 $payload = json_encode([
     'email' => 'admin@pressurizeprime.com.br',
     'password' => 'Prime@2026!'

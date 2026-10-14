@@ -1,19 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { useSiteData } from '../context/SiteDataContext';
-import { TopBar, Header, Footer } from '../components/common';
-import {
-  HeroSection,
-  TrustBadges,
-  ServicesGrid,
-  AboutSection,
-  WhyUsSection,
-  HowItWorksSection,
-  CoverageSection,
-  CommitmentsSection,
-  FaqSection,
-  HomeLeadSection,
-  FinalCtaSection
-} from '../components/home';
+import { TopBar } from '../components/common/TopBar';
+import { Header } from '../components/common/Header';
+import { HeroSection } from '../components/home/HeroSection';
+import { TrustBadges } from '../components/home/TrustBadges';
+
+// Lazy loading das seções secundárias e de rodapé para máxima performance no Mobile
+const HomeBelowTheFold = lazy(() =>
+  import('../components/home/HomeBelowTheFold').then(m => ({ default: m.HomeBelowTheFold }))
+);
 
 export const HomePage: React.FC = () => {
   const { pages } = useSiteData();
@@ -37,18 +32,10 @@ export const HomePage: React.FC = () => {
       <main className="flex-1">
         <HeroSection />
         <TrustBadges />
-        <ServicesGrid />
-        <AboutSection />
-        <WhyUsSection />
-        <HowItWorksSection />
-        <CoverageSection />
-        <CommitmentsSection />
-        <FaqSection />
-        <HomeLeadSection />
-        <FinalCtaSection />
+        <Suspense fallback={<div className="min-h-[160px] bg-slate-50" aria-hidden="true" />}>
+          <HomeBelowTheFold />
+        </Suspense>
       </main>
-
-      <Footer />
     </div>
   );
 };

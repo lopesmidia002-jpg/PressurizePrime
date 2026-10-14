@@ -78,7 +78,7 @@ export const AboutSection: React.FC = () => {
 
               <div className="relative z-10 space-y-6">
                 <div className="flex items-center justify-between border-b border-slate-800 pb-5">
-                  <span className="text-xs uppercase tracking-wider text-slate-400 font-bold">{card.title}</span>
+                  <span className="text-xs uppercase tracking-wider text-slate-300 font-bold">{card.title}</span>
                   {card.badge && (
                     <span className="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-full border border-emerald-500/30">
                       {card.badge}
@@ -92,12 +92,12 @@ export const AboutSection: React.FC = () => {
                     const iconColors = ['text-secondary', 'text-amber-400', 'text-primary'];
                     return (
                       <div key={index} className="flex items-start gap-4">
-                        <div className={`w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center shrink-0 ${iconColors[index % iconColors.length]}`}>
+                        <div className={`w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center shrink-0 ${iconColors[index % iconColors.length]}`} aria-hidden="true">
                           <Icon className="w-5 h-5" />
                         </div>
                         <div>
-                          <h4 className="font-bold text-white text-sm">{item.title}</h4>
-                          <p className="text-xs text-slate-400 mt-0.5">
+                          <h3 className="font-bold text-white text-sm">{item.title}</h3>
+                          <p className="text-xs text-slate-300 mt-0.5">
                             {item.desc}
                           </p>
                         </div>
@@ -106,7 +106,7 @@ export const AboutSection: React.FC = () => {
                   })}
                 </div>
 
-                <div className="pt-4 border-t border-slate-800 text-xs text-slate-400">
+                <div className="pt-4 border-t border-slate-800 text-xs text-slate-300">
                   {card.footer_text}
                 </div>
               </div>

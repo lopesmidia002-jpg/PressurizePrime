@@ -30,12 +30,12 @@ export const PrivacyPolicyPage: React.FC = () => {
               Esta Política de Privacidade descreve como coletamos, usamos, armazenamos e protegemos seus dados pessoais.
             </p>
 
-            <h3 className="text-lg font-bold text-slate-800">1. Coleta de Dados</h3>
+            <h2 className="text-lg font-bold text-slate-800">1. Coleta de Dados</h2>
             <p>
               Coletamos informações pessoais que você nos fornece voluntariamente por meio do formulário de contato do nosso site (Nome, Telefone/WhatsApp, Bairro e Descrição do Problema). Esses dados são estritamente necessários para o agendamento de visitas técnicas e elaboração de orçamentos.
             </p>
 
-            <h3 className="text-lg font-bold text-slate-800">2. Uso das Informações</h3>
+            <h2 className="text-lg font-bold text-slate-800">2. Uso das Informações</h2>
             <p>
               As informações coletadas são utilizadas exclusivamente para:
             </p>
@@ -45,17 +45,17 @@ export const PrivacyPolicyPage: React.FC = () => {
               <li>Preparar peças de reposição com base na descrição do seu problema.</li>
             </ul>
 
-            <h3 className="text-lg font-bold text-slate-800">3. Compartilhamento de Dados</h3>
+            <h2 className="text-lg font-bold text-slate-800">3. Compartilhamento de Dados</h2>
             <p>
               Nós <strong>não vendemos, alugamos ou compartilhamos</strong> seus dados pessoais com terceiros em nenhuma hipótese. Os dados são acessados apenas pela equipe técnica e de atendimento da Pressurize Prime.
             </p>
 
-            <h3 className="text-lg font-bold text-slate-800">4. Segurança dos Dados</h3>
+            <h2 className="text-lg font-bold text-slate-800">4. Segurança dos Dados</h2>
             <p>
               Adotamos medidas de segurança técnicas e organizacionais para proteger suas informações contra acesso não autorizado, alteração, divulgação ou destruição.
             </p>
 
-            <h3 className="text-lg font-bold text-slate-800">5. Seus Direitos</h3>
+            <h2 className="text-lg font-bold text-slate-800">5. Seus Direitos</h2>
             <p>
               Você tem o direito de solicitar a exclusão, correção ou atualização dos seus dados cadastrais a qualquer momento. Para isso, basta entrar em contato conosco pelos canais oficiais de atendimento.
             </p>
