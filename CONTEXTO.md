@@ -186,3 +186,14 @@ O projeto é estruturado em duas camadas principais:
 - **Regra nova de workflow**: toda mudança local é publicada automaticamente em produção (Hostinger) usando `ACESSOS-PROD.md`, seguindo o `SUBIR-PROD.md`.
 - **Observação de performance (já existia, não é regressão)**: o bundle principal `index-*.js` importa estaticamente o `chunk-admin` (comprovado no build anterior à mudança). Algum módulo compartilhado entre público e admin cai no chunk do admin por causa do `manualChunks`. Vale investigar para tirar o código do admin das páginas públicas.
 - **Observação de tipagem (já existia)**: `tsc` acusa `TS7016` (sem declaração de tipos) para `lucide-react` em todos os arquivos. O build do Vite não é afetado.
+### GA4 e Google Tag Manager pelo painel (14/10/2026)
+- Configurável em Admin → Configurações → "Rastreamento e Análise". Chaves `ga4_measurement_id` e `gtm_container_id` na tabela `settings`. Produção usa `G-SNMRGZ8D4Y` e `GTM-TF79LFMK`. O ambiente local fica **sem IDs** de propósito, para não poluir as métricas com acessos de desenvolvimento.
+- **Decisões**:
+  - Guardamos só o **ID**, não o código colado: o site monta os snippets oficiais. Assim o painel nunca injeta HTML/JS arbitrário (risco de XSS), e o backend valida o formato (422).
+  - Injeção em runtime (o site é SPA estático e os IDs vêm da API). Espera `settingsReady` para não injetar um ID desatualizado do `localStorage`.
+  - O snippet `<noscript>` do `<body>` do GTM **não** é usado: criado via JS ele nunca roda, e sem JS o SPA não renderiza. Só teria efeito escrito no `index.html` estático.
+  - `/admin` não é rastreado.
+- **Limitações e cuidados**:
+  - Como os scripts entram depois do bootstrap da API, o carregamento acontece frações de segundo após o primeiro paint. Isso é bom para o PageSpeed, mas visitas que saem antes disso não são contadas.
+  - Navegação interna do SPA: o GA4 conta pela "medição otimizada → alterações no histórico do navegador" (ligada por padrão). No GTM, usar o acionador "Alteração no histórico".
+  - Se o contêiner do GTM também tiver uma tag do GA4 com o mesmo ID, as visitas serão contadas em dobro. Nesse caso, manter só o GTM no painel.

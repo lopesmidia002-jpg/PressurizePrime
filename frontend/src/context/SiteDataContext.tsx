@@ -6,6 +6,8 @@ import { landingPagesData } from '../services/lpData';
 
 interface SiteDataContextType {
   settings: SiteSettings;
+  // true quando a requisição de bootstrap terminou (sucesso ou falha); usado para não agir sobre o cache local
+  settingsReady: boolean;
   updateSettings: (newSettings: Partial<SiteSettings>) => void;
   pages: Record<string, PageData>;
   updatePageData: (slug: string, pageData: Partial<PageData>) => void;
@@ -215,6 +217,8 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     ];
   });
 
+  const [settingsReady, setSettingsReady] = useState(false);
+
   // Fetch initial data from Laravel Backend
   useEffect(() => {
     api.get('/public/bootstrap')
@@ -379,7 +383,8 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       })
       .catch(error => {
         console.error('Failed to fetch from backend, falling back to local storage/defaults', error);
-      });
+      })
+      .finally(() => setSettingsReady(true));
   }, []);
 
   // Atualizar variáveis CSS do tema dinamicamente no :root
@@ -441,7 +446,7 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         if (key === 'address_coverage') finalKey = 'coverage_cities';
         return {
           key: finalKey,
-          value: typeof value === 'object' ? JSON.stringify(value) : String(value),
+          value: value === undefined || value === null ? '' : typeof value === 'object' ? JSON.stringify(value) : String(value),
           group: 'general'
         };
       });
@@ -578,6 +583,7 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     <SiteDataContext.Provider
       value={{
         settings,
+        settingsReady,
         updateSettings,
         pages,
         updatePageData,

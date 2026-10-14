@@ -11,6 +11,8 @@ export const defaultSettings: SiteSettings = {
   phone_number: '(11) 99390-2319',
   phone_raw: '5511993902319',
   business_hours: 'Segunda a sexta, das 8h às 19h (Conserto e instalação em até 24h)',
+  ga4_measurement_id: '',
+  gtm_container_id: '',
   address_coverage: [
     'Brooklin',
     'Vila Olímpia',

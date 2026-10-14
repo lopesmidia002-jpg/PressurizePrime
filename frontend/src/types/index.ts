@@ -10,6 +10,8 @@ export interface SiteSettings {
   phone_raw: string;
   business_hours: string;
   address_coverage: string[];
+  ga4_measurement_id?: string;
+  gtm_container_id?: string;
   footer?: {
     footer_logo_url?: string;
     top_banner_title1?: string;

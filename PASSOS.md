@@ -893,3 +893,15 @@ Cada etapa possui critÃ©rios de aceitaÃ§Ã£o claros e checkboxes que sÃ£o
     - [x] HTML pré-renderizado do `scripts/postbuild.py` (Header/Hero do primeiro frame) atualizado com o mesmo SVG.
     - [x] Ícones **decorativos** mantidos de propósito: passo "Conte o problema" (HowItWorksSection/HowItWorksPage/LPSteps), card "WhatsApp" da ContactPage e rótulo da SettingsPage.
     - [x] Validação: `tsc` sem erros novos, `npm run build` ok e produção publicada (ícone presente no HTML e no bundle, API 200).
+- [x] **Google Analytics 4 e Google Tag Manager Configuráveis pelo Painel**
+  - **Prioridade**: Alta
+  - **Status**: Concluído (local + produção)
+  - **Entregáveis**:
+    - [x] Novo bloco "Rastreamento e Análise" em Admin → Configurações, com campos para o ID do GA4 (`G-...`) e do GTM (`GTM-...`). Aceita o ID puro ou o snippet completo colado do Google (extrai o ID automaticamente) e mostra erro se não encontrar um ID válido.
+    - [x] Chaves `ga4_measurement_id` e `gtm_container_id` na tabela `settings` (chave/valor existente; sem migration).
+    - [x] `services/tracking.ts` (extração/validação de IDs e injeção equivalente aos snippets oficiais) e `components/common/TrackingScripts.tsx` (montado no `App`).
+    - [x] Injeção só depois da resposta da API (`settingsReady` no `SiteDataContext`), para nunca usar um ID antigo do cache, e nunca nas rotas `/admin`.
+    - [x] Validação no backend (`SettingController`): IDs fora do formato oficial retornam 422, impedindo injeção de código pela API.
+    - [x] Correção: `updateSettings` não grava mais a string `"undefined"` para campos ausentes.
+    - [x] Testes: API local e de produção (422 para inválido, 200 para válido), Chrome headless confirmando scripts no site e ausência no `/admin` e sem IDs.
+    - [x] Produção configurada com `G-SNMRGZ8D4Y` e `GTM-TF79LFMK`.

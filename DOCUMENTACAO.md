@@ -1356,6 +1356,11 @@ Quando hospedado no subdominio `pressurizeprime.leccorside.com.br`, a estrutura 
 - Componente `frontend/src/components/common/WhatsAppIcon.tsx`: SVG oficial do WhatsApp (preenchido, `currentColor`) com `className` para tamanho e cor, exportando também `WHATSAPP_ICON_PATH`.
 - Uso obrigatório em todo botão/link para `wa.me` (site, LPs, botão flutuante e admin). O `scripts/postbuild.py` replica o mesmo SVG no HTML pré-renderizado do Header/Hero.
 - `MessageSquare` (lucide) fica só em ícones decorativos de "conversa" (primeiro passo do "Como Funciona", card da página de Contato).
+### 12.5.2. Rastreamento: Google Analytics 4 e Google Tag Manager
+- **Painel**: Admin → Configurações → bloco "Rastreamento e Análise". Campos `ga4_measurement_id` (formato `G-XXXXXXXXXX`) e `gtm_container_id` (formato `GTM-XXXXXXX`). Aceita o ID ou o snippet completo do Google, do qual o ID é extraído. Campo vazio desativa.
+- **API**: `PUT /api/admin/settings` valida os dois campos com `/^G-[A-Z0-9]{4,20}$/` e `/^GTM-[A-Z0-9]{4,20}$/` (vazio permitido). Fora do formato, retorna **422** com `errors.settings.N.value`. Os valores saem no `GET /api/public/bootstrap` em `data.settings`.
+- **Frontend**: `components/common/TrackingScripts.tsx` chama `injectGtm`/`injectGa4` (`services/tracking.ts`) uma única vez, depois do bootstrap (`settingsReady`) e fora de `/admin`. O GTM empurra `gtm.start` no `dataLayer` e carrega `gtm.js`. O GA4 define `window.gtag`, executa `gtag('js')`/`gtag('config', ID)` e carrega `gtag/js`. O `<noscript>` do GTM não é aplicável em SPA.
+
 ### 12.6. Otimização Extrema de Performance Mobile (PageSpeed Mobile 99/100)
 - **Pré-renderização Estática de Primeiro Frame (Static Pre-rendering Injection)**:
   - Criação do script de pipeline pós-build `frontend/scripts/postbuild.py`.

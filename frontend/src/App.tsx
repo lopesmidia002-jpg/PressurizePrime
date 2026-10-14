@@ -4,6 +4,7 @@ import { SiteDataProvider } from './context/SiteDataContext';
 import { AuthProvider } from './context/AuthContext';
 import { HomePage } from './pages/HomePage';
 import { WhatsAppButton } from './components/common/WhatsAppButton';
+import { TrackingScripts } from './components/common/TrackingScripts';
 
 // Lazy loading do LeadModal (aberto apenas sob demanda pelo usuário)
 const LeadModal = lazy(() => import('./components/common/LeadModal').then(m => ({ default: m.LeadModal })));
@@ -32,6 +33,7 @@ export default function App() {
     <BrowserRouter>
       <SiteDataProvider>
         <AuthProvider>
+          <TrackingScripts />
           <Suspense fallback={<PageLoader />}>
             <Routes>
               {/* Rotas Públicas do Site Institucional */}

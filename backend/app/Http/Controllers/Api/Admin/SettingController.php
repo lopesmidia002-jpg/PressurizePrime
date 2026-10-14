@@ -34,6 +34,23 @@ class SettingController extends Controller
             'settings.*.group' => 'nullable|string',
         ]);
 
+        // IDs de rastreamento viram URL de script no site: só aceita o formato oficial do Google (ou vazio)
+        $trackingFormats = [
+            'ga4_measurement_id' => '/^G-[A-Z0-9]{4,20}$/',
+            'gtm_container_id' => '/^GTM-[A-Z0-9]{4,20}$/',
+        ];
+        foreach ($payload['settings'] as $index => $item) {
+            $format = $trackingFormats[$item['key']] ?? null;
+            $value = trim((string) ($item['value'] ?? ''));
+            if ($format && $value !== '' && !preg_match($format, $value)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => "Formato inválido para {$item['key']}.",
+                    'errors' => ["settings.{$index}.value" => ["Formato inválido para {$item['key']}."]],
+                ], 422);
+            }
+        }
+
         foreach ($payload['settings'] as $item) {
             Setting::updateOrCreate(
                 ['key' => $item['key']],

@@ -10,9 +10,12 @@ import {
   CheckCircle2,
   RotateCcw,
   Sparkles,
-  MapPin
+  MapPin,
+  BarChart3,
+  AlertTriangle
 } from 'lucide-react';
 import { ImageUploadButton } from '../../components/admin/ImageUploadButton';
+import { extractGa4Id, extractGtmId } from '../../services/tracking';
 
 
 export const SettingsPage: React.FC = () => {
@@ -40,9 +43,28 @@ export const SettingsPage: React.FC = () => {
     }
   };
 
+  // Rastreamento: aceita o ID puro ou o snippet inteiro colado do Google; se achar o ID, guarda só ele
+  const handleTrackingChange = (field: 'ga4_measurement_id' | 'gtm_container_id', raw: string) => {
+    const id = field === 'ga4_measurement_id' ? extractGa4Id(raw) : extractGtmId(raw);
+    handleChange(field, id || raw);
+  };
+
+  const ga4Value = formData.ga4_measurement_id || '';
+  const gtmValue = formData.gtm_container_id || '';
+  const ga4Invalid = ga4Value.trim() !== '' && extractGa4Id(ga4Value) !== ga4Value.trim();
+  const gtmInvalid = gtmValue.trim() !== '' && extractGtmId(gtmValue) !== gtmValue.trim();
+
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
-    updateSettings(formData);
+    if (ga4Invalid || gtmInvalid) {
+      document.getElementById('bloco-rastreamento')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    updateSettings({
+      ...formData,
+      ga4_measurement_id: ga4Value.trim(),
+      gtm_container_id: gtmValue.trim()
+    });
     setSavedSuccess(true);
     setTimeout(() => setSavedSuccess(false), 3000);
   };
@@ -386,6 +408,88 @@ export const SettingsPage: React.FC = () => {
               rows={3}
               className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none"
             />
+          </div>
+        </div>
+
+        {/* Bloco 5: Rastreamento (Google Analytics 4 e Google Tag Manager) */}
+        <div id="bloco-rastreamento" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-6">
+          <div className="flex items-center gap-2.5 pb-4 border-b border-slate-100">
+            <div className="p-2 rounded-xl bg-orange-50 text-orange-600">
+              <BarChart3 className="w-5 h-5" />
+            </div>
+            <div>
+              <h2 className="text-base font-bold text-slate-900">
+                Rastreamento e Análise (Google Analytics e Tag Manager)
+              </h2>
+              <p className="text-xs text-slate-500">
+                Cole o ID ou o código completo fornecido pelo Google: o painel identifica o ID automaticamente. Deixe em branco para desativar.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label htmlFor="ga4_measurement_id" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                Google Analytics 4 (ID de Métricas)
+              </label>
+              <textarea
+                id="ga4_measurement_id"
+                value={ga4Value}
+                onChange={e => handleTrackingChange('ga4_measurement_id', e.target.value)}
+                placeholder="G-XXXXXXXXXX"
+                rows={1}
+                className={`w-full px-3.5 py-2.5 text-sm font-mono bg-slate-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none ${ga4Invalid ? 'border-red-400' : 'border-slate-300'}`}
+              />
+              {ga4Invalid ? (
+                <p className="mt-1.5 text-xs text-red-600 font-semibold flex items-center gap-1">
+                  <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
+                  ID não encontrado. Use o formato G-XXXXXXXXXX ou cole o código do gtag.js.
+                </p>
+              ) : (
+                <p className="mt-1.5 text-[11px] text-slate-500">
+                  Carrega o <code>gtag.js</code> em todas as páginas públicas do site.
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label htmlFor="gtm_container_id" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                Google Tag Manager (ID do Contêiner)
+              </label>
+              <textarea
+                id="gtm_container_id"
+                value={gtmValue}
+                onChange={e => handleTrackingChange('gtm_container_id', e.target.value)}
+                placeholder="GTM-XXXXXXX"
+                rows={1}
+                className={`w-full px-3.5 py-2.5 text-sm font-mono bg-slate-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none ${gtmInvalid ? 'border-red-400' : 'border-slate-300'}`}
+              />
+              {gtmInvalid ? (
+                <p className="mt-1.5 text-xs text-red-600 font-semibold flex items-center gap-1">
+                  <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
+                  ID não encontrado. Use o formato GTM-XXXXXXX ou cole o código do Tag Manager.
+                </p>
+              ) : (
+                <p className="mt-1.5 text-[11px] text-slate-500">
+                  Equivale aos códigos de <code>&lt;head&gt;</code> e <code>&lt;body&gt;</code> do Tag Manager.
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] sm:text-xs text-amber-900 leading-relaxed">
+            <strong>Dica:</strong> se o GA4 também estiver configurado como tag dentro do Tag Manager, preencha só o campo do Tag Manager, para não contar cada visita duas vezes. Os acessos ao painel <code>/admin</code> não são rastreados.
+          </div>
+
+          <div className="flex justify-center sm:justify-end pt-2 border-t border-slate-100">
+            <button
+              type="button"
+              onClick={handleSave}
+              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-lg shadow-md transition-all flex items-center justify-center gap-2 text-sm w-full sm:w-auto"
+            >
+              <Save className="w-4 h-4" />
+              <span>Salvar Rastreamento</span>
+            </button>
           </div>
         </div>
 
