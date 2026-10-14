@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { TopBar, Header, Footer } from '../components/common';
 import { Phone, Mail, Clock, Send, MessageSquare } from 'lucide-react';
 import { useSiteData } from '../context/SiteDataContext';
+import { telHref } from '../services/phone';
 
 export const ContactPage: React.FC = () => {
   const { settings, openLeadModal } = useSiteData();
@@ -43,7 +44,7 @@ export const ContactPage: React.FC = () => {
               </div>
               <h2 className="font-bold text-slate-900 text-lg mb-1">Telefone Fixo</h2>
               <p className="text-slate-600 text-sm mb-4">Fale diretamente com nossa central.</p>
-              <a href={`tel:${settings.phone_raw}`} aria-label={`Ligar para ${settings.phone_number}`} className="text-slate-900 font-bold hover:text-primary transition-colors">
+              <a href={telHref(settings.phone_raw)} aria-label={`Ligar para ${settings.phone_number}`} className="text-slate-900 font-bold hover:text-primary transition-colors">
                 {settings.phone_number}
               </a>
             </div>

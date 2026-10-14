@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { ImageUploadButton } from '../../components/admin/ImageUploadButton';
 import { extractGa4Id, extractGtmId } from '../../services/tracking';
+import { normalizePhoneDigits, telHref } from '../../services/phone';
 
 
 export const SettingsPage: React.FC = () => {
@@ -62,6 +63,7 @@ export const SettingsPage: React.FC = () => {
     }
     updateSettings({
       ...formData,
+      phone_raw: normalizePhoneDigits(formData.phone_raw),
       ga4_measurement_id: ga4Value.trim(),
       gtm_container_id: gtmValue.trim()
     });
@@ -366,6 +368,37 @@ export const SettingsPage: React.FC = () => {
                 placeholder="Segunda a Sexta, das 08h às 19h"
                 className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20"
               />
+            </div>
+
+            <div className="sm:col-span-2">
+              <label htmlFor="phone_raw" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <Phone className="w-3.5 h-3.5 text-blue-600" />
+                <span>Número do Botão "Ligar Agora" (link de chamada)</span>
+              </label>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <input
+                  id="phone_raw"
+                  type="tel"
+                  value={formData.phone_raw || ''}
+                  onChange={e => handleChange('phone_raw', e.target.value)}
+                  placeholder="(11) 99390-2319"
+                  className="flex-1 px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 font-mono"
+                />
+                <button
+                  type="button"
+                  onClick={() => handleChange('phone_raw', normalizePhoneDigits(formData.phone_number))}
+                  className="text-xs font-bold text-primary border border-primary/30 hover:bg-primary/5 px-3.5 py-2.5 rounded-xl transition-colors whitespace-nowrap"
+                >
+                  Usar o Telefone Fixo / Comercial
+                </button>
+              </div>
+              <p className="mt-1.5 text-[11px] text-slate-500">
+                Usado em todos os botões "Ligar agora" e links de telefone do site. Pode digitar com DDD em qualquer formato.
+                Link gerado: <code className="text-slate-800 font-bold">{telHref(formData.phone_raw)}</code>
+                {normalizePhoneDigits(formData.phone_raw).length > 0 && normalizePhoneDigits(formData.phone_raw).length < 12 && (
+                  <span className="text-red-600 font-semibold"> — número incompleto: informe o DDD.</span>
+                )}
+              </p>
             </div>
           </div>
           

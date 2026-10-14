@@ -4,6 +4,7 @@ import { Phone, ShieldCheck } from 'lucide-react';
 import { WhatsAppIcon } from '../common/WhatsAppIcon';
 import { useNearViewport } from '../../hooks/useNearViewport';
 import { backgroundUrlFor } from '../../services/images';
+import { telHref } from '../../services/phone';
 
 export const FinalCtaSection: React.FC = () => {
   const { settings, pages, isBusinessHours, openLeadModal } = useSiteData();
@@ -61,7 +62,7 @@ export const FinalCtaSection: React.FC = () => {
           </a>
 
           <a
-            href={`tel:${settings.phone_raw}`}
+            href={telHref(settings.phone_raw)}
             className="flex-1 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold px-8 py-4 rounded-xl shadow-sm transition-all text-center flex items-center justify-center gap-2 text-base backdrop-blur-xs"
           >
             <Phone className="w-5 h-5 text-amber-400" />

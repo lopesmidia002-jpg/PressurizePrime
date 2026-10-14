@@ -1372,6 +1372,9 @@ Quando hospedado no subdominio `pressurizeprime.leccorside.com.br`, a estrutura 
 - **CSS crítico**: `scripts/postbuild.py` substitui o `<link rel="stylesheet">` por `<style>` com o CSS do build.
 - **Imagens**: `services/images.ts` (`unsplashAt`, `responsiveImgProps`, `backgroundUrlFor`) e `hooks/useNearViewport.ts` (fundo CSS só perto da tela).
 - **Rastreamento adiado**: `TrackingScripts` injeta GTM/GA4 na primeira interação (`pointerdown`, `keydown`, `touchstart`, `scroll`) ou 3,5 s após `load`.
+### 12.5.5. Telefone de Ligação (`phone_raw`)
+- Editável em Admin → Configurações → "Canais de Contato e Horário de Expediente" → "Número do Botão Ligar Agora". É salvo só com dígitos (`normalizePhoneDigits`), com `55` adicionado quando vier apenas DDD + número.
+- Todo link de telefone usa `telHref(settings.phone_raw)`, que gera `tel:+<dígitos>`. Novos botões de ligação devem usar o mesmo helper.
 ### 12.6. Otimização Extrema de Performance Mobile (PageSpeed Mobile 99/100)
 - **Pré-renderização Estática de Primeiro Frame (Static Pre-rendering Injection)**:
   - Criação do script de pipeline pós-build `frontend/scripts/postbuild.py`.

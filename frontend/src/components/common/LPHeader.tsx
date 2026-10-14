@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSiteData } from '../../context/SiteDataContext';
 import { Phone, ShieldCheck } from 'lucide-react';
 import { WhatsAppIcon } from './WhatsAppIcon';
+import { telHref } from '../../services/phone';
 
 interface LPHeaderProps {
   serviceName?: string;
@@ -36,7 +37,7 @@ export const LPHeader: React.FC<LPHeaderProps> = ({ serviceName }) => {
           {/* Botões Focados em Conversão Imediata (Sem distrações de menus) */}
           <div className="flex items-center gap-3">
             <a
-              href={`tel:${settings.phone_raw}`}
+              href={telHref(settings.phone_raw)}
               className="hidden sm:inline-flex items-center gap-2 text-sm font-bold text-slate-700 hover:text-primary px-3 py-2 rounded-lg border border-slate-200 hover:border-primary transition-all"
             >
               <Phone className="w-4 h-4 text-primary" />

@@ -2,6 +2,7 @@ import React from 'react';
 import { useSiteData } from '../../context/SiteDataContext';
 import { LeadForm } from '../common/LeadForm';
 import { ShieldCheck, Zap, CreditCard, Phone, MapPin } from 'lucide-react';
+import { telHref } from '../../services/phone';
 
 export const HomeLeadSection: React.FC = () => {
   const { settings, pages } = useSiteData();
@@ -87,7 +88,7 @@ export const HomeLeadSection: React.FC = () => {
             {/* Atendimento Telefônico Direto */}
             <div className="pt-4 border-t border-slate-200/80 flex items-center gap-4">
               <a
-                href={`tel:${settings.phone_raw}`}
+                href={telHref(settings.phone_raw)}
                 className="inline-flex items-center gap-2 text-sm font-bold text-slate-800 hover:text-primary transition-colors"
               >
                 <Phone className="w-4 h-4 text-primary" />

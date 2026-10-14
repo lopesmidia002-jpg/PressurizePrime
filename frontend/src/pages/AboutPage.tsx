@@ -3,6 +3,7 @@ import { TopBar, Header, Footer } from '../components/common';
 import { ShieldCheck, Droplets, Wrench, Flame, Target, Eye, Heart } from 'lucide-react';
 import { useSiteData } from '../context/SiteDataContext';
 import { responsiveImgProps } from '../services/images';
+import { telHref } from '../services/phone';
 
 export const AboutPage: React.FC = () => {
   const { settings, pages } = useSiteData();
@@ -220,7 +221,7 @@ export const AboutPage: React.FC = () => {
               <a href={`https://wa.me/${settings.whatsapp_raw}`} className="bg-secondary hover:bg-secondary-dark text-slate-950 font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2">
                 {(pages['sobre']?.sections?.finalCta as any)?.button1 || 'Falar com um Especialista'}
               </a>
-              <a href={`tel:${settings.phone_raw}`} className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2">
+              <a href={telHref(settings.phone_raw)} className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2">
                 {(pages['sobre']?.sections?.finalCta as any)?.button2 || 'Ligar Agora'}
               </a>
             </div>

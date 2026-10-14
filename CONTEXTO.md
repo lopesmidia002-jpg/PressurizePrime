@@ -216,3 +216,6 @@ O projeto é estruturado em duas camadas principais:
 - **Limitações**:
   - O pré-render do `postbuild.py` é o Hero da Home e aparece em todas as rotas por um instante antes do React. Nas LPs e páginas internas, o LCP acontece no render do React. Um próximo passo seria um pré-render por rota.
   - O texto do Hero no pré-render deve continuar **igual** ao do CMS (`hero_title`/`hero_subtitle`). Se o cliente mudar no painel para um texto maior, o LCP volta a ser registrado após o bootstrap. Ao mudar, atualizar o `postbuild.py`.
+### Telefone dos botões "Ligar agora" (14/10/2026)
+- O `phone_raw` (link dos botões de ligação) não tinha campo no painel, por isso ficou com o valor fictício `1134567890` em produção. Agora é editável em Configurações → Canais de Contato, e todos os links usam `telHref()` (`services/phone.ts`), sempre no formato `tel:+55...`.
+- **Acesso admin em produção**: o usuário trocou o e-mail para `pressurizeprime.mkt@gmail.com` (14/10/2026). A senha não foi alterada e continua sendo a padrão do seeder, **ainda pendente de troca**.

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSiteData } from '../../context/SiteDataContext';
 import { Phone, MapPin, Clock, ShieldCheck, CreditCard, Lock } from 'lucide-react';
 import { WhatsAppIcon } from './WhatsAppIcon';
+import { telHref } from '../../services/phone';
 
 export const Footer: React.FC = () => {
   const { settings, services } = useSiteData();
@@ -141,7 +142,7 @@ export const Footer: React.FC = () => {
               </a>
 
               <a
-                href={`tel:${settings.phone_raw}`}
+                href={telHref(settings.phone_raw)}
                 aria-label={`Ligar para o telefone fixo da ${settings.site_name}`}
                 className="flex items-center justify-center gap-2 w-full bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors text-xs"
               >

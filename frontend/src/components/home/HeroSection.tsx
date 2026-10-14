@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSiteData } from '../../context/SiteDataContext';
 import { Phone, ShieldCheck } from 'lucide-react';
 import { WhatsAppIcon } from '../common/WhatsAppIcon';
+import { telHref } from '../../services/phone';
 
 export const HeroSection: React.FC = () => {
   const { settings, services, pages } = useSiteData();
@@ -108,8 +109,8 @@ export const HeroSection: React.FC = () => {
             </a>
 
             <a
-              href={`tel:${settings.phone_raw}`}
-              aria-label={`Ligar agora para a Pressurize Prime: ${settings.phone_raw}`}
+              href={telHref(settings.phone_raw)}
+              aria-label={`Ligar agora para a Pressurize Prime: ${settings.phone_number}`}
               className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white border border-white/30 font-semibold px-7 py-4 rounded-xl transition-all flex items-center justify-center gap-2 text-sm hover:scale-[1.03] active:scale-[0.97] w-full sm:w-auto"
             >
               <Phone className="w-4 h-4 shrink-0" aria-hidden="true" />

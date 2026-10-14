@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSiteData } from '../../context/SiteDataContext';
 import { Clock, Phone, AlertCircle } from 'lucide-react';
+import { telHref } from '../../services/phone';
 
 export const TopBar: React.FC = () => {
   const { settings, isBusinessHours } = useSiteData();
@@ -24,7 +25,7 @@ export const TopBar: React.FC = () => {
         <div className="flex items-center gap-4">
           <span className="hidden lg:inline text-slate-200">Atendimento prioritário em SP e Grande SP</span>
           <a
-            href={`tel:${settings.phone_raw}`}
+            href={telHref(settings.phone_raw)}
             aria-label={`Ligar para ${settings.phone_number}`}
             className="inline-flex items-center gap-1.5 text-amber-400 hover:text-amber-300 font-semibold transition-colors"
           >

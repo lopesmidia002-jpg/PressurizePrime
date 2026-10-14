@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useSiteData } from '../../context/SiteDataContext';
 import { Phone, Menu, X, ChevronDown, Shield, Gauge, Flame, Sun, Zap } from 'lucide-react';
 import { WhatsAppIcon } from './WhatsAppIcon';
+import { telHref } from '../../services/phone';
 
 export const Header: React.FC = () => {
   const { settings, services, openLeadModal } = useSiteData();
@@ -115,7 +116,7 @@ export const Header: React.FC = () => {
           <div className="hidden lg:flex items-center gap-6">
             <div className="flex items-center gap-3">
               <a
-                href={`tel:${settings.phone_raw}`}
+                href={telHref(settings.phone_raw)}
                 aria-label={`Ligar para ${settings.phone_number}`}
                 className="inline-flex items-center gap-1.5 text-sm font-bold text-slate-700 hover:text-primary transition-colors whitespace-nowrap"
               >
@@ -252,7 +253,7 @@ export const Header: React.FC = () => {
             </a>
 
             <a
-              href={`tel:${settings.phone_raw}`}
+              href={telHref(settings.phone_raw)}
               className="flex items-center justify-center gap-2 border border-slate-300 py-2.5 px-4 rounded-xl text-slate-800 font-semibold text-center text-sm"
             >
               <Phone className="w-4 h-4 text-primary" />

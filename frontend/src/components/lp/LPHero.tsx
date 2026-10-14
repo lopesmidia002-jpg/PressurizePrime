@@ -4,6 +4,7 @@ import { useSiteData } from '../../context/SiteDataContext';
 import type { LPPageDetail } from '../../services/lpData';
 import { ShieldCheck, Phone, AlertTriangle, Sparkles, Droplets, CheckCircle2 } from 'lucide-react';
 import { WhatsAppIcon } from '../common/WhatsAppIcon';
+import { telHref } from '../../services/phone';
 
 interface LPHeroProps {
   lp: LPPageDetail;
@@ -77,7 +78,7 @@ export const LPHero: React.FC<LPHeroProps> = ({ lp }) => {
               </a>
 
               <a
-                href={`tel:${settings.phone_raw}`}
+                href={telHref(settings.phone_raw)}
                 className="flex-1 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-bold px-6 py-4 rounded-xl shadow-xs transition-all text-center flex items-center justify-center gap-2 text-base hover:border-primary hover:text-primary"
               >
                 <Phone className="w-5 h-5 text-primary" />

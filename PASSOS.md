@@ -940,3 +940,11 @@ Cada etapa possui critÃ©rios de aceitaÃ§Ã£o claros e checkboxes que sÃ£o
   - **Pendências do usuário**:
     - [ ] Apagar o campo GA4 no painel: o contêiner do GTM já dispara o `G-SNMRGZ8D4Y` (`gtag/js?...&gtm=`), então o GA4 carrega duas vezes e conta cada visita em dobro.
     - [ ] Corrigir `phone_raw` no painel (está `1134567890`, fictício): os botões "Ligar agora" discam esse número.
+- [x] **Número do Botão "Ligar Agora" Editável pelo Painel**
+  - **Prioridade**: Alta
+  - **Status**: Concluído (local + produção)
+  - **Entregáveis**:
+    - [x] Novo campo no bloco "Canais de Contato e Horário de Expediente" (Admin → Configurações) para o `phone_raw`, usado por todos os botões "Ligar agora" e links de telefone. Aceita qualquer formato, tem botão "Usar o Telefone Fixo / Comercial", mostra a prévia do link gerado e avisa se faltar DDD.
+    - [x] `services/phone.ts` (`normalizePhoneDigits`, `telHref`): links no formato internacional `tel:+55...`. Antes era `tel:55...` sem `+`, que em vários celulares disca como número local. Aplicado nos 12 links (Header, TopBar, LPHeader, Hero, LPHero, HomeLeadSection, FinalCta, LPFinalCta, Footer, ContactPage, AboutPage).
+    - [x] `aria-label` do botão do Hero passa a ler o número formatado.
+    - [x] Produção: `phone_raw` corrigido de `1134567890` (fictício) para `5511993902319`. Home, /pressurizador e /sobre validados com todos os links em `tel:+5511993902319`.
