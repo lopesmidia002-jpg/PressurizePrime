@@ -914,3 +914,10 @@ Cada etapa possui critÃ©rios de aceitaÃ§Ã£o claros e checkboxes que sÃ£o
     - [x] Campos de e-mail e senha não vêm mais pré-preenchidos; placeholder do e-mail trocado para `seu@email.com.br`.
     - [x] Validação: e-mail e senha do admin não aparecem em nenhum arquivo do `dist/` nem do `public_html` de produção.
     - [ ] **Trocar a senha do admin em produção**: ela ficou pública na tela de login desde a publicação.
+- [x] **Novo Favicon (Gota Pressurize Prime)**
+  - **Prioridade**: Média
+  - **Status**: Concluído (local + produção)
+  - **Entregáveis**:
+    - [x] Imagem-fonte `favicon-pressu.png` (319×370, 55 KB) movida de `frontend/dist` (apagada a cada build) para `frontend/public`.
+    - [x] Ícones gerados com Pillow (recorte das bordas transparentes + quadrado centralizado): `favicon.ico` (16/32/48), `favicon-48x48.png`, `favicon-192x192.png` (6,9 KB) e `apple-touch-icon.png` 180×180 com fundo branco (4,5 KB).
+    - [x] `index.html`: `favicon.svg` e `logo.webp` trocados pelos novos `<link rel="icon">` e `apple-touch-icon`. `favicon.svg` antigo removido do projeto e do servidor.

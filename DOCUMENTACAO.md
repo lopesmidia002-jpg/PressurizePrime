@@ -1361,6 +1361,9 @@ Quando hospedado no subdominio `pressurizeprime.leccorside.com.br`, a estrutura 
 - **API**: `PUT /api/admin/settings` valida os dois campos com `/^G-[A-Z0-9]{4,20}$/` e `/^GTM-[A-Z0-9]{4,20}$/` (vazio permitido). Fora do formato, retorna **422** com `errors.settings.N.value`. Os valores saem no `GET /api/public/bootstrap` em `data.settings`.
 - **Frontend**: `components/common/TrackingScripts.tsx` chama `injectGtm`/`injectGa4` (`services/tracking.ts`) uma única vez, depois do bootstrap (`settingsReady`) e fora de `/admin`. O GTM empurra `gtm.start` no `dataLayer` e carrega `gtm.js`. O GA4 define `window.gtag`, executa `gtag('js')`/`gtag('config', ID)` e carrega `gtag/js`. O `<noscript>` do GTM não é aplicável em SPA.
 
+### 12.5.3. Favicon e Ícones do Site
+- Fonte: `frontend/public/favicon-pressu.png`. Derivados em `frontend/public`: `favicon.ico` (16/32/48), `favicon-48x48.png`, `favicon-192x192.png` e `apple-touch-icon.png` (180×180, fundo branco).
+- Declarados no `<head>` do `frontend/index.html` (`rel="icon"` com `sizes` e `rel="apple-touch-icon"`).
 ### 12.6. Otimização Extrema de Performance Mobile (PageSpeed Mobile 99/100)
 - **Pré-renderização Estática de Primeiro Frame (Static Pre-rendering Injection)**:
   - Criação do script de pipeline pós-build `frontend/scripts/postbuild.py`.

@@ -201,3 +201,7 @@ O projeto é estruturado em duas camadas principais:
 ### Credenciais removidas da tela de login (14/10/2026)
 - A tela `/admin/login` exibia e pré-preenchia o e-mail e a senha padrão do admin (`Prime@2026!`). Isso foi removido do `LoginPage.tsx` e publicado em produção. Nenhum arquivo do build contém mais essas credenciais.
 - **Risco remanescente**: a senha padrão continua válida em produção e esteve visível publicamente em `https://pressurizeprime.com.br/admin/login`. **Trocar com prioridade máxima.** A senha também aparece em `UserSeeder.php` e em documentações antigas do repositório.
+### Favicon (14/10/2026)
+- Favicon oficial: a gota da marca (`frontend/public/favicon-pressu.png` é a fonte). Arquivos servidos: `favicon.ico` (16/32/48, também atende ao pedido automático de `/favicon.ico`), `favicon-48x48.png` (tamanho mínimo que o Google usa nos resultados de busca), `favicon-192x192.png` e `apple-touch-icon.png` (180, fundo branco porque o iOS não aceita transparência).
+- Para trocar no futuro: substituir `favicon-pressu.png` e regenerar os tamanhos. **Nunca deixar arquivos-fonte só em `frontend/dist`**, que é apagado a cada `npm run build`.
+- O `.htaccess` faz cache de imagens por 1 ano. Ao trocar o favicon, prefira nomes novos de arquivo para os navegadores buscarem a versão nova.
