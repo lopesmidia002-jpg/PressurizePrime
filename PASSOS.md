@@ -948,3 +948,10 @@ Cada etapa possui critÃ©rios de aceitaÃ§Ã£o claros e checkboxes que sÃ£o
     - [x] `services/phone.ts` (`normalizePhoneDigits`, `telHref`): links no formato internacional `tel:+55...`. Antes era `tel:55...` sem `+`, que em vários celulares disca como número local. Aplicado nos 12 links (Header, TopBar, LPHeader, Hero, LPHero, HomeLeadSection, FinalCta, LPFinalCta, Footer, ContactPage, AboutPage).
     - [x] `aria-label` do botão do Hero passa a ler o número formatado.
     - [x] Produção: `phone_raw` corrigido de `1134567890` (fictício) para `5511993902319`. Home, /pressurizador e /sobre validados com todos os links em `tel:+5511993902319`.
+- [x] **Menu Lateral do Painel Fixo ao Rolar**
+  - **Prioridade**: Média
+  - **Status**: Concluído (local + produção)
+  - **Entregáveis**:
+    - [x] `AdminLayout.tsx`: sidebar desktop com `sticky top-16 self-start h-[calc(100vh-4rem)] overflow-y-auto`. Removido o `overflow-hidden` do container, que anulava o `sticky`, e o `overflow-y-auto` do `<main>` (a rolagem é a da janela).
+    - [x] `WhatsAppButton`: o botão flutuante do site não aparece mais nas rotas `/admin`, onde cobria os botões de salvar.
+    - [x] Validado com puppeteer-core (1366×768): sidebar em `top: 64px` antes e depois de rolar 1.500 px. No mobile (390 px), sidebar oculta e sem rolagem horizontal.

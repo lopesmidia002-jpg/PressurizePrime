@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { useSiteData } from '../../context/SiteDataContext';
 import { WhatsAppIcon } from './WhatsAppIcon';
 
@@ -8,6 +9,10 @@ interface WhatsAppButtonProps {
 
 export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({ customMessage }) => {
   const { settings } = useSiteData();
+  const { pathname } = useLocation();
+
+  // Botão do visitante: não aparece no painel administrativo (cobria os botões de salvar)
+  if (pathname.startsWith('/admin')) return null;
 
   const defaultMsg = 'Olá! Estou no site da Pressurize Prime e gostaria de falar com um técnico sobre meu equipamento.';
   const messageToSend = encodeURIComponent(customMessage || defaultMsg);

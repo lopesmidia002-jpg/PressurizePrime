@@ -219,3 +219,7 @@ O projeto é estruturado em duas camadas principais:
 ### Telefone dos botões "Ligar agora" (14/10/2026)
 - O `phone_raw` (link dos botões de ligação) não tinha campo no painel, por isso ficou com o valor fictício `1134567890` em produção. Agora é editável em Configurações → Canais de Contato, e todos os links usam `telHref()` (`services/phone.ts`), sempre no formato `tel:+55...`.
 - **Acesso admin em produção**: o usuário trocou o e-mail para `pressurizeprime.mkt@gmail.com` (14/10/2026). A senha não foi alterada e continua sendo a padrão do seeder, **ainda pendente de troca**.
+### Painel: menu lateral fixo (14/10/2026)
+- Sidebar do `AdminLayout` fixa (`position: sticky`) abaixo da topbar. **Não recolocar `overflow-hidden`/`overflow-y-auto` nos containers acima da `<aside>`**: qualquer ancestral com overflow diferente de `visible` desativa o `sticky`.
+- O botão flutuante de WhatsApp do visitante é ocultado em `/admin`.
+- Testes visuais do painel: script puppeteer-core com o Chrome local (login no painel do Docker, `localhost:5180`).

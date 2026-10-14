@@ -122,9 +122,10 @@ export const AdminLayout: React.FC = () => {
         </div>
       </header>
 
-      <div className="flex-1 flex overflow-hidden">
-        {/* Sidebar Lateral Desktop */}
-        <aside className="hidden lg:flex flex-col w-64 bg-slate-900 border-r border-slate-800 p-4 space-y-1 shrink-0">
+      {/* Sem overflow-hidden aqui: ele impediria o position: sticky da sidebar */}
+      <div className="flex-1 flex">
+        {/* Sidebar Lateral Desktop: fixa abaixo da topbar (h-16) enquanto o conteúdo rola */}
+        <aside className="hidden lg:flex flex-col w-64 bg-slate-900 border-r border-slate-800 p-4 space-y-1 shrink-0 sticky top-16 self-start h-[calc(100vh-4rem)] overflow-y-auto">
           <div className="px-3 py-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">
             Menu de Gestão
           </div>
@@ -222,7 +223,7 @@ export const AdminLayout: React.FC = () => {
         )}
 
         {/* Área de Conteúdo Principal */}
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+        <main className="flex-1 min-w-0 p-4 sm:p-6 lg:p-8">
           <div className="max-w-7xl mx-auto">
             <Outlet />
           </div>
