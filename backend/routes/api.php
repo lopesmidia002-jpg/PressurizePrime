@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Admin\PageController as AdminPageController;
 use App\Http\Controllers\Api\Admin\ServiceController;
 use App\Http\Controllers\Api\Admin\SeoController;
 use App\Http\Controllers\Api\Admin\LeadController as AdminLeadController;
+use App\Http\Controllers\Api\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,5 +58,13 @@ Route::prefix('admin')->group(function () {
         Route::get('/leads', [AdminLeadController::class, 'index']);
         Route::patch('/leads/{id}/status', [AdminLeadController::class, 'updateStatus']);
         Route::delete('/leads/{id}', [AdminLeadController::class, 'destroy']);
+
+        // Gestão de Usuários do Painel (somente papel "admin")
+        Route::middleware('admin')->group(function () {
+            Route::get('/users', [UserController::class, 'index']);
+            Route::post('/users', [UserController::class, 'store']);
+            Route::put('/users/{user}', [UserController::class, 'update']);
+            Route::delete('/users/{user}', [UserController::class, 'destroy']);
+        });
     });
 });

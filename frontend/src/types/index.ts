@@ -109,10 +109,15 @@ export interface Lead extends LeadFormData {
   created_at: string;
 }
 
+/** Níveis do painel: "admin" = acesso total; "user" = todo o painel, exceto a gestão de usuários. */
+export type UserRole = 'admin' | 'user';
+
 export interface User {
   id: string | number;
   name: string;
   email: string;
-  role: string;
+  role: UserRole;
+  created_at?: string;
+  updated_at?: string;
 }
 

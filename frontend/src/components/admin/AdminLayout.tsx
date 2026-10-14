@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useSiteData } from '../../context/SiteDataContext';
@@ -14,21 +14,28 @@ import {
   Menu,
   X,
   LayoutTemplate,
-  Shield
+  Shield,
+  UserCog
 } from 'lucide-react';
 
 export const AdminLayout: React.FC = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, isAdmin, refreshUser } = useAuth();
   const { settings } = useSiteData();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
+
+  // Confere na API o nível de acesso atual (pode ter sido alterado por outro admin)
+  useEffect(() => {
+    refreshUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleLogout = () => {
     logout();
     navigate('/admin/login');
   };
 
-  const navItems = [
+  const navItems: { to: string; label: string; icon: typeof LayoutDashboard; end?: boolean }[] = [
     { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
     { to: '/admin/settings', label: 'Identidade & Cores', icon: Palette },
     { to: '/admin/pages', label: 'Conteúdo das Páginas', icon: FileText },
@@ -36,6 +43,8 @@ export const AdminLayout: React.FC = () => {
     { to: '/admin/seo', label: 'SEO Individual', icon: Search },
     { to: '/admin/footer', label: 'Rodapé', icon: LayoutTemplate },
     { to: '/admin/leads', label: 'Gestão de Leads', icon: Users },
+    // Gestão de usuários: só aparece para o nível "admin"
+    ...(isAdmin ? [{ to: '/admin/users', label: 'Usuários', icon: UserCog }] : []),
   ];
 
   return (
@@ -104,8 +113,8 @@ export const AdminLayout: React.FC = () => {
                 <span className="block text-[10px] sm:text-xs font-bold text-white leading-tight">
                   {user?.name || 'Administrador'}
                 </span>
-                <span className="block text-[10px] text-emerald-400 font-semibold uppercase">
-                  Online
+                <span className={`block text-[10px] font-semibold uppercase ${isAdmin ? 'text-amber-400' : 'text-emerald-400'}`}>
+                  {isAdmin ? 'Administrador' : 'Usuário'}
                 </span>
               </div>
 

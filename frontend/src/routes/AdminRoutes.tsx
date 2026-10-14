@@ -11,6 +11,8 @@ const ServicesManagerPage = lazy(() => import('../pages/admin/ServicesManagerPag
 const SeoManagerPage = lazy(() => import('../pages/admin/SeoManagerPage').then(m => ({ default: m.SeoManagerPage })));
 const LeadsPage = lazy(() => import('../pages/admin/LeadsPage').then(m => ({ default: m.LeadsPage })));
 const FooterManagerPage = lazy(() => import('../pages/admin/FooterManagerPage').then(m => ({ default: m.FooterManagerPage })));
+const UsersPage = lazy(() => import('../pages/admin/UsersPage').then(m => ({ default: m.UsersPage })));
+const AdminOnlyRoute = lazy(() => import('../components/admin/AdminOnlyRoute').then(m => ({ default: m.AdminOnlyRoute })));
 
 export const AdminRoutes: React.FC = () => {
   return (
@@ -25,6 +27,10 @@ export const AdminRoutes: React.FC = () => {
           <Route path="seo" element={<SeoManagerPage />} />
           <Route path="footer" element={<FooterManagerPage />} />
           <Route path="leads" element={<LeadsPage />} />
+          {/* Somente nível "admin" */}
+          <Route element={<AdminOnlyRoute />}>
+            <Route path="users" element={<UsersPage />} />
+          </Route>
         </Route>
       </Route>
     </Routes>

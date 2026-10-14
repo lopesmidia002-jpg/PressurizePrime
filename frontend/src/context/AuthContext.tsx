@@ -5,8 +5,10 @@ interface AuthContextType {
   user: User | null;
   token: string | null;
   isAuthenticated: boolean;
+  isAdmin: boolean;
   login: (email: string, password: string) => Promise<{ success: boolean; message?: string }>;
   logout: () => void;
+  refreshUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -96,14 +98,40 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.removeItem('pressurize_user');
   };
 
+  // Recarrega os dados do usuário logado (nome, e-mail e nível) direto da API. O nível guardado no
+  // localStorage pode estar desatualizado se outro admin mudou o acesso. Sessão inválida = sair.
+  const refreshUser = async () => {
+    if (!token) return;
+    try {
+      const response = await fetch('/api/admin/me', {
+        headers: { Accept: 'application/json', Authorization: `Bearer ${token}` }
+      });
+      if (response.status === 401) {
+        setToken(null);
+        setUser(null);
+        return;
+      }
+      if (response.ok) {
+        const data = await response.json();
+        if (data?.user) {
+          setUser({ id: data.user.id, name: data.user.name, email: data.user.email, role: data.user.role });
+        }
+      }
+    } catch {
+      // offline: mantém os dados locais
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
         user,
         token,
         isAuthenticated: !!token && !!user,
+        isAdmin: user?.role === 'admin',
         login,
-        logout
+        logout,
+        refreshUser
       }}
     >
       {children}

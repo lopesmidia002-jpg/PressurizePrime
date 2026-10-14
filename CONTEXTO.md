@@ -223,3 +223,8 @@ O projeto é estruturado em duas camadas principais:
 - Sidebar do `AdminLayout` fixa (`position: sticky`) abaixo da topbar. **Não recolocar `overflow-hidden`/`overflow-y-auto` nos containers acima da `<aside>`**: qualquer ancestral com overflow diferente de `visible` desativa o `sticky`.
 - O botão flutuante de WhatsApp do visitante é ocultado em `/admin`.
 - Testes visuais do painel: script puppeteer-core com o Chrome local (login no painel do Docker, `localhost:5180`).
+### Usuários e níveis de acesso do painel (14/10/2026)
+- Dois níveis: `admin` (tudo) e `user` (tudo, menos Admin → Usuários). Em produção há 1 admin: `pressurizeprime.mkt@gmail.com`.
+- **Segurança em duas camadas**: a API bloqueia (middleware `admin` → 403) e o frontend esconde o menu e redireciona (`AdminOnlyRoute`). A camada de interface é só UX; a regra real está no backend.
+- **Decisões**: o padrão do `role` virou `user` (mais restritivo). Trocar a senha ou rebaixar um usuário revoga os tokens Sanctum dele (efeito imediato). O frontend chama `/api/admin/me` ao abrir o painel para não confiar no nível salvo no `localStorage`.
+- **Limitações**: não há "esqueci minha senha" nem troca de senha pelo próprio usuário comum (só um admin altera senhas); não há log de auditoria de quem alterou o quê.

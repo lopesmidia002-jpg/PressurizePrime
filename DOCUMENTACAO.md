@@ -1375,6 +1375,15 @@ Quando hospedado no subdominio `pressurizeprime.leccorside.com.br`, a estrutura 
 ### 12.5.5. Telefone de Ligação (`phone_raw`)
 - Editável em Admin → Configurações → "Canais de Contato e Horário de Expediente" → "Número do Botão Ligar Agora". É salvo só com dígitos (`normalizePhoneDigits`), com `55` adicionado quando vier apenas DDD + número.
 - Todo link de telefone usa `telHref(settings.phone_raw)`, que gera `tel:+<dígitos>`. Novos botões de ligação devem usar o mesmo helper.
+### 12.5.6. Usuários do Painel e Níveis de Acesso
+- **Níveis** (`users.role`): `admin` = acesso total; `user` = todo o painel, exceto a gestão de usuários. Padrão da coluna: `user`.
+- **API** (Bearer Sanctum + middleware `admin`; usuário comum recebe **403**):
+  - `GET /api/admin/users`: lista `id, name, email, role, created_at, updated_at`.
+  - `POST /api/admin/users`: `{ name, email, role: "admin"|"user", password (mín. 8) }` → 201.
+  - `PUT /api/admin/users/{id}`: `{ name, email, role, password? }`; senha vazia mantém a atual.
+  - `DELETE /api/admin/users/{id}`.
+  - Regras (422): não excluir a si mesmo, não remover o próprio admin, não excluir/rebaixar o último admin. Trocar a senha ou rebaixar revoga os tokens do usuário alterado.
+- **Frontend**: `pages/admin/UsersPage.tsx`, rota `/admin/users` dentro de `AdminOnlyRoute`, item de menu condicional no `AdminLayout` e `useAuth()` com `isAdmin`/`refreshUser`.
 ### 12.6. Otimização Extrema de Performance Mobile (PageSpeed Mobile 99/100)
 - **Pré-renderização Estática de Primeiro Frame (Static Pre-rendering Injection)**:
   - Criação do script de pipeline pós-build `frontend/scripts/postbuild.py`.

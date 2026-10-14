@@ -955,3 +955,14 @@ Cada etapa possui critÃ©rios de aceitaÃ§Ã£o claros e checkboxes que sÃ£o
     - [x] `AdminLayout.tsx`: sidebar desktop com `sticky top-16 self-start h-[calc(100vh-4rem)] overflow-y-auto`. Removido o `overflow-hidden` do container, que anulava o `sticky`, e o `overflow-y-auto` do `<main>` (a rolagem é a da janela).
     - [x] `WhatsAppButton`: o botão flutuante do site não aparece mais nas rotas `/admin`, onde cobria os botões de salvar.
     - [x] Validado com puppeteer-core (1366×768): sidebar em `top: 64px` antes e depois de rolar 1.500 px. No mobile (390 px), sidebar oculta e sem rolagem horizontal.
+- [x] **Gestão de Usuários do Painel com Dois Níveis de Acesso (Admin e Usuário)**
+  - **Prioridade**: Alta
+  - **Status**: Concluído (local + produção)
+  - **Entregáveis**:
+    - [x] Níveis: `admin` (acesso total, inclusive Usuários) e `user` (todo o painel, exceto Usuários).
+    - [x] Migration `2026_10_14_000001_set_user_role_default_to_user`: padrão da coluna `role` passa de `admin` para `user` (antes, usuário criado sem papel virava admin). Valores fora do padrão são normalizados para `admin`.
+    - [x] Middleware `EnsureUserIsAdmin` (alias `admin` em `bootstrap/app.php`): 403 para não-admin.
+    - [x] `UserController` + rotas `GET/POST /api/admin/users` e `PUT/DELETE /api/admin/users/{user}` (sanctum + admin). Validações em PT-BR (e-mail único, senha ≥ 8, papel válido).
+    - [x] Travas: ninguém exclui a própria conta nem remove o próprio admin; o painel nunca fica sem administrador; trocar a senha ou rebaixar um usuário encerra as sessões (tokens) dele.
+    - [x] Frontend: `UsersPage` (lista em tabela/cartões, cadastro, edição com senha opcional, exclusão com confirmação inline, selo "VOCÊ"), menu "Usuários" só para admin, `AdminOnlyRoute` (usuário comum é redirecionado ao Dashboard), `AuthContext` com `isAdmin` e `refreshUser` (nível conferido na API ao abrir o painel) e selo Administrador/Usuário na topbar.
+    - [x] Testes: 12 cenários de API local (inclusive 403 para usuário comum e 401 do token antigo após a troca de senha) e E2E com puppeteer nos dois níveis (cadastro, edição, exclusão, menu oculto, redirecionamento, mobile sem rolagem horizontal, 0 erros JS). Produção: migration aplicada (backup em `~/backups/users_antes_roles_*.json`), `/api/admin/users` 200 para admin e 401 sem token.
