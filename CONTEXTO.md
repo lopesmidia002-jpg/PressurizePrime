@@ -197,3 +197,7 @@ O projeto é estruturado em duas camadas principais:
   - Como os scripts entram depois do bootstrap da API, o carregamento acontece frações de segundo após o primeiro paint. Isso é bom para o PageSpeed, mas visitas que saem antes disso não são contadas.
   - Navegação interna do SPA: o GA4 conta pela "medição otimizada → alterações no histórico do navegador" (ligada por padrão). No GTM, usar o acionador "Alteração no histórico".
   - Se o contêiner do GTM também tiver uma tag do GA4 com o mesmo ID, as visitas serão contadas em dobro. Nesse caso, manter só o GTM no painel.
+
+### Credenciais removidas da tela de login (14/10/2026)
+- A tela `/admin/login` exibia e pré-preenchia o e-mail e a senha padrão do admin (`Prime@2026!`). Isso foi removido do `LoginPage.tsx` e publicado em produção. Nenhum arquivo do build contém mais essas credenciais.
+- **Risco remanescente**: a senha padrão continua válida em produção e esteve visível publicamente em `https://pressurizeprime.com.br/admin/login`. **Trocar com prioridade máxima.** A senha também aparece em `UserSeeder.php` e em documentações antigas do repositório.

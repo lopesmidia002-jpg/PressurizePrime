@@ -905,3 +905,12 @@ Cada etapa possui critÃ©rios de aceitaÃ§Ã£o claros e checkboxes que sÃ£o
     - [x] Correção: `updateSettings` não grava mais a string `"undefined"` para campos ausentes.
     - [x] Testes: API local e de produção (422 para inválido, 200 para válido), Chrome headless confirmando scripts no site e ausência no `/admin` e sem IDs.
     - [x] Produção configurada com `G-SNMRGZ8D4Y` e `GTM-TF79LFMK`.
+
+- [x] **Remoção das Credenciais Expostas na Tela de Login do Painel**
+  - **Prioridade**: Crítica (segurança)
+  - **Status**: Concluído (local + produção)
+  - **Entregáveis**:
+    - [x] `LoginPage.tsx`: removido o quadro "Acesso Padrão Configurado" que exibia e-mail e senha do admin.
+    - [x] Campos de e-mail e senha não vêm mais pré-preenchidos; placeholder do e-mail trocado para `seu@email.com.br`.
+    - [x] Validação: e-mail e senha do admin não aparecem em nenhum arquivo do `dist/` nem do `public_html` de produção.
+    - [ ] **Trocar a senha do admin em produção**: ela ficou pública na tela de login desde a publicação.

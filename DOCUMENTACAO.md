@@ -582,7 +582,7 @@ PressurizePrime/
 
 - **Autenticação e Sessão (`src/context/AuthContext.tsx`)**:
 
-  - Login integrado com fallback seguro e credenciais oficiais configuradas (`admin@pressurizeprime.com.br` / `Prime@2026!`).
+  - Login integrado com fallback seguro e credenciais iniciais do seeder (`admin@pressurizeprime.com.br` / `Prime@2026!`, apenas para o ambiente local; não são exibidas na tela de login).
 
   - Proteção de rotas com `ProtectedRoute.tsx` redirecionando acessos não autenticados.
 
@@ -756,7 +756,7 @@ docker compose down
 
 > - **Aplicação Visual (Site e LPs)**: Acessar no navegador via `http://localhost:5180` (ou `http://127.0.0.1:5180`).
 
-> - **Painel CMS Administrativo**: Acessar via `http://localhost:5180/admin` com as credenciais `admin@pressurizeprime.com.br` / `Prime@2026!`.
+> - **Painel CMS Administrativo**: Acessar via `http://localhost:5180/admin` com as credenciais do seeder `admin@pressurizeprime.com.br` / `Prime@2026!` (**somente ambiente local**; em produção a senha deve ser trocada, e a tela de login não exibe nem pré-preenche credenciais).
 
 > - **API RESTful (Backend)**: Opera na porta `http://localhost:8010`.
 

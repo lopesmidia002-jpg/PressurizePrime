@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useSiteData } from '../../context/SiteDataContext';
-import { Lock, Mail, ArrowRight, ShieldCheck, AlertCircle } from 'lucide-react';
+import { Lock, Mail, ArrowRight, AlertCircle } from 'lucide-react';
 
 export const LoginPage: React.FC = () => {
   const { login, isAuthenticated } = useAuth();
   const { settings } = useSiteData();
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('admin@pressurizeprime.com.br');
-  const [password, setPassword] = useState('Prime@2026!');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -80,7 +80,7 @@ export const LoginPage: React.FC = () => {
               value={email}
               onChange={e => setEmail(e.target.value)}
               className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900"
-              placeholder="admin@pressurizeprime.com.br"
+              placeholder="seu@email.com.br"
             />
           </div>
 
@@ -97,13 +97,6 @@ export const LoginPage: React.FC = () => {
               className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900"
               placeholder="••••••••"
             />
-          </div>
-
-          <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-3 text-[11px] text-slate-600 flex items-start gap-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-            <div>
-              <strong>Acesso Padrão Configurado:</strong> E-mail: <code className="text-slate-900 font-bold">admin@pressurizeprime.com.br</code> / Senha: <code className="text-slate-900 font-bold">Prime@2026!</code>
-            </div>
           </div>
 
           <button
